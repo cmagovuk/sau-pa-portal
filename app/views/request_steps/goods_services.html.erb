@@ -1,0 +1,12 @@
+<% title(t('.page_title')) %>
+<%= render partial: 'back_link' %>
+
+<%= form_for @request, url: request_step_path(params[:id]), :as => :request do |f| %>
+  <%= f.govuk_error_summary %>
+      <%= f.govuk_collection_check_boxes :ben_good_svr, 
+        Request::GoodsServices::OPTIONS, ->(option) {option}, ->(option) {option},
+        legend: { size:"l", tag:"h1" },
+         small:true %>
+
+  <%= f.govuk_submit %>
+<% end %>

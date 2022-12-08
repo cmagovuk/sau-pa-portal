@@ -1,0 +1,19 @@
+<%= govuk_table do |table|
+    table.head do |head|
+        head.row do |row|
+        row.cell(header: true, text: 'Date')
+        row.cell(header: true, text: 'User name')
+        row.cell(header: true, text: 'Action')
+        end
+    end
+
+    table.body do |body|
+        @request.audit_logs.each do |d|                
+            body.row do |row|
+                  row.cell(text: d.created_at.strftime("%d/%m/%y %H:%M"))
+                  row.cell(text: d.user_name)
+                  row.cell(text: d.message)
+            end
+        end
+    end
+end %>

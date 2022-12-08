@@ -1,0 +1,25 @@
+<% title(t('.page_title')) %>
+<%= render partial: 'back_link' %>
+
+<%= form_for @request, url: request_step_path(params[:id]), :as => :request do |f| %>
+  <%= f.govuk_error_summary %>
+  <%= f.govuk_text_area :description, width: 'two-thirds', max_chars: 5000, 
+    caption: {text:t("helpers.caption.request.characteristics", type: scheme_subsidy_name(@request))},
+    label: { text: t("helpers.label.request.description.#{@request.scheme_subsidy}"), size:'l'},
+    hint: -> do %>
+      <%=  t("helpers.hint.request.description.#{@request.scheme_subsidy}_html") %>
+    <% end %>
+
+    <p class="govuk-body"><%= t(".nc_text", type: scheme_subsidy_name(@request).downcase) %></p>
+    <%= f.govuk_radio_buttons_fieldset(:is_nc, small:true, 
+                                       legend: { size:"s", class:"govuk-fieldset__legend govuk-fieldset__legend--s govuk-!-font-weight-regular" }) do %>
+      <%= f.govuk_radio_button :is_nc, 'yes', label: { text: 'Yes' }, link_errors: true %>
+      <%= f.govuk_radio_button :is_nc, 'no', label: { text: 'No' } do %>
+        <%= f.govuk_text_area :nc_description, width: 'two-thirds', max_words: Request::MAX_WORDCOUNT,
+          label: { text: t("helpers.label.request.nc_description", type: scheme_subsidy_name(@request).downcase ) },
+          hint: { text: t("helpers.hint.request.nc_description", type: scheme_subsidy_name(@request).downcase ) } %>
+    <% end %>
+  <% end %>
+
+  <%= f.govuk_submit %>
+<% end %>

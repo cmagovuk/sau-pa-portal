@@ -1,0 +1,135 @@
+en:
+  errors:
+    attributes:
+      call_in_type:
+        blank: Select what the call in direction relates to
+      par_on_td:
+        blank: Select yes if it has been entered on the BEIS Transparency database
+      par_td_ref_no:
+        blank: Enter the BEIS Transparency database reference number
+        too_long: BEIS Transparency database reference number must be %{count} characters or fewer
+        format:
+          scheme: Enter a subsidy control number that is SC then 5 numbers, like SC01234
+          subsidy: Enter a subsidy award number that is no more that 10 numbers, like 12345
+      referral_type:
+        blank: Select the referral type
+      pa_name:
+        blank: Enter the name
+        too_long: Name must be %{count} characters or fewer
+        taken: Name has already been added
+      email:
+        blank: Enter the users email address
+        too_long: Email address must be %{count} characters or fewer
+        invalid: Enter an email address in the correct format, like name@example.com
+        taken: Email address has already been added
+      user_name:
+        blank: Enter the users name
+        too_long: Name must be %{count} characters or fewer
+      phone:
+        too_long: Telephone must be %{count} characters or fewer
+      scheme_subsidy:
+        blank: Select whether you are requesting advice in relation to a subsidy or subsidy scheme
+      scheme_name:
+        blank: Enter scheme name
+        too_long: Scheme name must be %{count} characters or fewer
+      budget:
+        not_an_integer: Budget must be a whole number
+        not_a_number: Amount must be a number
+        less_than: Amount must be less than %{count}
+        greater_than: Amount must be more than %{count}
+      max_amt:
+        not_an_integer: Maximum amount must be a whole number
+        not_a_number: Maximum amount must be a number
+        less_than: Maximum amount be less than %{count}
+        greater_than: Maximum amount be more than %{count}
+      direction_date:
+        blank: Enter date direction was given
+      other_purpose:
+        blank: Enter description of other purpose
+        too_long: Other purpose must be %{count} characters or fewer
+      info_location:
+        too_long: Location of further information must be %{count} words or fewer
+      other_form: 
+        too_long: Other form must be %{count} characters or fewer
+      beneficiary:
+        too_long: Beneficiary name must be %{count} characters or fewer
+      ben_id_type:
+        blank: Enter Beneficiary ID type
+      ben_id:
+        too_long: Beneficiary ID must be %{count} characters or fewer
+        format:
+          comp: Enter a Company Registration number that is 8 numbers or 2 letters followed by 6 numbers, like 12345678 or AB123456
+          charity: Enter a Charity Number that is 8 numbers, like 12345678
+          vat: Enter a VAT Number that is 9 numbers, like 123456789
+          utr: Enter a UTR Number that is 10 numbers, like 0123456789
+      other_loc:
+        too_long: Additional location information must be %{count} words or fewer
+      description:
+        too_long: Description must be %{count} characters or fewer
+      nc_description:
+        too_long: Non-confidential description must be %{count} words or fewer
+      legal:
+        too_long: Legal basis must be %{count} words or fewer
+      policy:
+          too_long: Policy objective must be %{count} words or fewer
+      par_reason:
+          too_long: Reasons must be %{count} words or fewer
+      assess_pa:
+        too_long: Principle A field must be %{count} words or fewer
+      assess_pb:
+        too_long: Principle B field must be %{count} words or fewer
+      assess_pc:
+        too_long: Principle C field must be %{count} words or fewer
+      assess_pd:
+        too_long: Principle D field must be %{count} words or fewer
+      assess_pe:
+        too_long: Principle E field must be %{count} words or fewer
+      assess_pf:
+        too_long: Principle F field must be %{count} words or fewer
+      assess_pg:
+        too_long: Principle G field must be %{count} words or fewer
+      assess_ee_pa:
+        too_long: Principle A field must be %{count} words or fewer
+      assess_ee_pb:
+        too_long: Principle B field must be %{count} words or fewer
+      assess_ee_pc:
+        too_long: Principle C field must be %{count} words or fewer
+      assess_ee_pd:
+        too_long: Principle D field must be %{count} words or fewer
+      assess_ee_pe:
+        too_long: Principle E field must be %{count} words or fewer
+      assess_ee_pf:
+        too_long: Principle F field must be %{count} words or fewer
+      assess_ee_pg:
+        too_long: Principle G field must be %{count} words or fewer
+      assess_ee_ph:
+        too_long: Principle H field must be %{count} words or fewer
+      assess_ee_pi:
+        too_long: Principle I field must be %{count} words or fewer
+      character_desc:
+        too_long: Description must be %{count} words or fewer
+      confirm_answers:
+        not_confirmed: You must confirm your answers before submitting your request
+    upload:
+      file_size_error_message: "%{filename} must be smaller than %{size_limit}"
+      only_one_file_error_message: "You are limited to 1 document"
+      too_many_files_error_message: "You are limited to %{file_uploads} documents"
+      file_type_error_message: "The selected file must be a DOC, DOCX, XLS, XLSX, PPT, PPTX, PDF, ZIP"
+      empty_file_error_message: The selected file is empty
+      no_file_error_message: Select a file to upload
+      missing:
+        call_in: The direction from the Secretary of State must be uploaded
+        decision_letter: The decision letter must be uploaded
+    scheme_info:
+      blank_budget_and_tax: Enter a budget value or select tax range
+    dates:
+      end_before_start: End date must be the same as or after start date
+      full_year: Date year must be full year, for example 2022
+
+  activemodel:
+    errors:
+      models:
+        set_decision_form:
+          attributes: 
+            decision:
+              blank: Select the decision

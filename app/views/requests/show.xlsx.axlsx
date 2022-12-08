@@ -1,0 +1,68 @@
+wb = xlsx_package.workbook
+
+wb.styles do |style|
+  heading = style.add_style(b: true)
+
+  wb.add_worksheet(name: "Upload Template") do |sheet|
+    if @request.scheme_subsidy == "scheme"
+      # Create header row
+      sheet.add_row ["Reference name", "Subsidy scheme name", "Beneficiary name", "Status", "Last update"], style: heading
+
+      r = @request
+      sheet.add_row [r.reference_number, r.scheme_name, r.beneficiary, r.status, r.updated_at.strftime("%d/%m/%y")]
+    else
+      sheet.add_row ["Subsidy Control (SC) Number", "Subsidy Scheme Title", "Subsidy Objective", 'Subsidy Objective "Other" - Text', "Subsidy Instrument", 'Subsidy Instrument "Other" - Text', "Subsidy Element Full Amount Range", "Subsidy Element Full Amount", "National ID Type", "National ID", "Beneficiary Name", "Size of the Organisation", "Granting Authority Name", "Legal Granting Date", "Goods/Services Filter", "Spending Region", "Spending Sector"], style: heading
+      export_data = []
+      # Subsidy Control (SC) Number
+      export_data << ""
+      # Subsidy Scheme Title
+      export_data << ""
+      # Subsidy Objective
+      export_data << map_purpose(@request.purposes)
+
+      # Subsidy Objective "Other" - Text
+      export_data << (@request.purposes[1] == "other" ? @request.other_purpose : "")
+
+      # Subsidy Instrument
+      export_data << map_subsidy_form(@request.subsidy_form)
+
+      # Subsidy Instrument "Other" - Text
+      export_data << (@request.subsidy_form == "other" ? @request.other_form : "")
+
+      # Subsidy Element Full Amount Range
+      export_data << (@request.subsidy_form == "tax" ? map_tax_amount(@request.tax_amt) : "")
+
+      # Subsidy Element Full Amount
+      export_data << (@request.subsidy_form != "tax" ? @request.budget : "")
+
+      # National ID Type
+      export_data << map_ben_id_type(@request.ben_id_type)
+
+      # National ID
+      export_data << @request.ben_id
+
+      # Beneficiary Name
+      export_data << (@request.beneficiary.first == "=" ? " #{@request.beneficiary}" : @request.beneficiary)
+
+      # Size of the Organisation
+      export_data << map_ben_size(@request.ben_size)
+
+      # Granting Authority Name
+      export_data << @request.public_authority.pa_name
+
+      # Legal Granting Date
+      export_data << @request.confirm_date
+
+      # Goods/Services Filter
+      export_data << map_goods_services(@request.ben_good_svr)
+
+      # Spending Region
+      export_data << map_locations(@request.location)
+
+      # Spending Sector
+      export_data << map_sectors(@request.sectors)
+
+      sheet.add_row export_data
+    end
+  end
+end

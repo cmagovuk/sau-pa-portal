@@ -1,0 +1,14 @@
+
+<% title(t('.page_title')) %>
+<%= render partial: 'back_link' %>
+
+<%= form_for @request, url: request_step_path(params[:id]), :as => :request do |f| %>
+  <%= f.govuk_error_summary %>
+  <h1 class="govuk-heading-l"><%= t('.heading') %></h1>
+  <%= f.govuk_collection_radio_buttons :ee_assess_required, 
+      Request::EeRequired::OPTIONS, ->(option) {option}, nil,
+      legend: {size: "m", tag: 'h1'}, bold_labels: false, small:true,
+      hint: { text: t("helpers.hint.request.ee_assess_required", type: scheme_subsidy_name(@request).downcase ) } %>
+
+  <%= f.govuk_submit %>
+<% end %>

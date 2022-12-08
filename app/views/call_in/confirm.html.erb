@@ -1,0 +1,32 @@
+<% title(t('.page_title')) %>
+<% 
+breadcrumbs = {
+  "Request progress" => sau_request_path(@call_in),
+  t('.page_title') => nil
+    }
+%>
+<%= govuk_breadcrumbs(breadcrumbs: breadcrumbs) %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l"><%= t('.heading') %></h1>
+      <%= govuk_summary_list do |summary_list|
+          summary_list.row do |row|
+            row.key { 'Call in document' }
+            row.value(text: @call_in.call_in.filename)
+            row.action(href: call_in_path, visually_hidden_text: 'document')
+          end
+
+          summary_list.row do |row|
+            row.key { 'Date of direction' }
+            row.value { formatted_date(@call_in.direction_date) }
+            row.action(href: call_in_path, visually_hidden_text: 'date of direction')
+          end
+        end %>
+
+    <%= form_for @call_in, url: submit_call_in_path, method: :post do |f| %>
+      <%= f.govuk_submit t('.confirm_button') %>
+    <% end %>
+
+  </div>
+</div>

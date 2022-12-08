@@ -1,0 +1,27 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+<h1 class="govuk-heading-l">Public Authority</h1>
+<h2 class="govuk-heading-m"><%= @authority.pa_name %></h2>
+
+<%= govuk_table do |table|
+  table.caption(size: 'm', text: 'Users')
+
+  table.head do |head|
+    head.row do |row|
+      row.cell(header: true, text: 'Name')
+      row.cell(header: true, text: 'Email')
+    end
+  end
+
+  table.body do |body|
+    @authority.users.each do |user| 
+      body.row do |row|
+        row.cell(text: user.user_name)
+        row.cell(text: user.email)
+      end
+    end
+  end
+end
+%>
+</div>
+</div>

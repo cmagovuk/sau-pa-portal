@@ -1,0 +1,43 @@
+<%= govuk_table do |table|
+    table.head do |head|
+        head.row do |row|
+        row.cell(header: true, text: 'Request Date')
+        row.cell(header: true, text: 'Request Document')
+        row.cell(header: true, text: 'Response Date')
+        row.cell(header: true, text: 'Response Document')
+        row.cell(header: true, text: 'Action')
+        end
+    end
+
+    table.body do |body|
+        @request.information_requests.each do |d|                
+            body.row do |row|
+                if d.request_doc.attached?
+                  row.cell(text: d.request_doc.created_at.strftime("%d/%m/%y %H:%M"))
+                  row.cell do |cell| %>
+                    <%= link_to rails_blob_path(d.request_doc, "attachment"), class: 'govuk-link' do %>
+                      <span class="govuk-visually-hidden">Download file </span><%= d.request_doc.filename %>
+                    <% end %>
+                  <% end
+                else
+                  row.cell
+                  row.cell
+                end
+                if d.response_doc.attached? && d.status == "response-confirmed"
+                  row.cell(text: d.response_doc.created_at.strftime("%d/%m/%y %H:%M"))
+                  row.cell do |cell| %>
+                      <%= link_to rails_blob_path(d.response_doc, "attachment"), class: 'govuk-link' do %>
+                        <span class="govuk-visually-hidden">Download file </span><%= d.response_doc.filename %>
+                      <% end %>
+                    <% end
+                else
+                  row.cell
+                  row.cell
+                end
+                row.cell do |cell| %>
+                    <%= further_info_link(d, @presenter.info_actions) %>
+            <% end
+            end
+        end
+    end
+end %>

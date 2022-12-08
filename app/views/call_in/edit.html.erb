@@ -1,0 +1,46 @@
+<% title(t('.page_title')) %>
+<% 
+breadcrumbs = {
+  "Request progress" => sau_request_path(@call_in),
+  t('.page_title') => nil
+    }
+%>
+<%= govuk_breadcrumbs(breadcrumbs: breadcrumbs) %>
+
+<h1 class="govuk-heading-l"><%= t('.heading') %></h1>
+
+  <%= form_for @call_in, url: call_in_path, :as => :call_in do |f| %>    
+    <%= f.govuk_error_summary %>
+    <%= f.govuk_date_field :direction_date, maxlength_enabled: true, 
+        legend: { size:'s', class: "govuk-fieldset__legend govuk-fieldset__legend--s govuk-!-font-weight-regular" } %>
+    <%= f.govuk_file_field :documents,
+          label: {text: t('.summary') },
+          accept: ".doc, .docx, .xls, .xlsx, .ppt, .pptx, .pdf, .zip",
+          multiple: false,
+          enctype: "multipart/form-data",
+          class: "upload-input" %>
+    <% if @call_in.call_in.id.present? %>
+      <table class="govuk-table">
+        <thead class="govuk-table__head">
+          <tr govuk-table__row>
+            <th class="govuk-table__header"><%= t("documents_table.headers.file_name") %></th>
+            <th class="govuk-table__header app-hide-col"><%= t("documents_table.headers.file_size") %></th>
+            <th class="govuk-table__header"><%= t("documents_table.headers.action") %></th>
+          </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell"><%=@call_in.call_in.filename %></td>
+            <td class="govuk-table__cell app-hide-col"><%= number_to_human_size(@call_in.call_in.byte_size) %></td>
+            <td class="govuk-table__cell">
+              <%= link_to "#{remove_call_in_path(@call_in)}?doc_id="+ @call_in.call_in.id, method: :patch, class: 'govuk-link' do %>
+                Remove<span class="govuk-visually-hidden"> file <%= @call_in.call_in.filename %></span>
+              <% end %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    <% end %>
+    <%= f.govuk_submit t("buttons.upload_files"), secondary: true, classes: "upload-files-button", name: "upload" %>
+    <%= f.govuk_submit classes: "upload-continue-button", name: "continue" %>
+<% end %>

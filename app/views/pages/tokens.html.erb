@@ -1,0 +1,33 @@
+<div class="govuk-width-container">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+            <h2 class = "govuk-heading-m">Name: <%= @auth_user.name %></h2>
+            <h2 class = "govuk-heading-m">Email: <%= @auth_user.email %></h2>
+            <h2 class = "govuk-heading-m">ID: <%= @auth_user.id %></h2>
+            <h2 class = "govuk-heading-m">Authorised: <%= @auth_user.is_authorised? %></h2>
+
+<h2 class = "govuk-heading-m">Roles</h2>
+<table>
+    <tr><td>SAU-PA-SU</td><td><%= @auth_user.has_role?("SAU-PA-SU") %></td></tr>
+    <tr><td>SAU-PA-U</td><td><%= @auth_user.has_role?("SAU-PA-U") %></td></tr>
+    <tr><td>SAU-Casework</td><td><%= @auth_user.has_role?("SAU-Casework") %></td></tr>
+    <tr><td>SAU-Pipeline</td><td><%= @auth_user.has_role?("SAU-Pipeline") %></td></tr>
+    <tr><td>SAU-Admin</td><td><%= @auth_user.has_role?("SAU-Admin") %></td></tr>
+</table>
+
+<h2 class = "govuk-heading-m">Headers</h2>
+<table>
+  <% request.headers.each do |key, value| 
+        if key.downcase.starts_with?('http') %>
+    <tr>
+        <td><%= key %></td>
+        <td><%= value %></td>
+    </tr>
+    <% end %>
+  <% end %>
+</table>
+
+<h2>Decoded HTTP_X_MS_TOKEN_AAD_ID_TOKEN</h2>
+<p class="app-pre-wrap"><%= @decoded_token_print %></p>
+</div></div>
+</div>

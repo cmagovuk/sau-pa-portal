@@ -1,0 +1,54 @@
+
+<% if @request.status == "Completed" %>
+<%= govuk_table do |table|
+  table.caption(size: 'm', text: 'SAU final report')
+
+  table.head do |head|
+    head.row do |row|
+      row.cell(header: true, text: 'File name')
+      row.cell(header: true, text: 'Uploaded')
+      row.cell(header: true, text: 'File size')
+    end
+  end
+
+  table.body do |body|
+      @request.final_report.each do |d|                
+          body.row do |row|
+              row.cell do |cell| %>
+                  <%= link_to rails_blob_path(d, "attachment"), class: 'govuk-link' do %>
+                    <span class="govuk-visually-hidden">Download file </span><%= d.filename %>
+                  <% end %>
+              <% end
+              row.cell(text: d.created_at.strftime("%d/%m/%y %H:%M"))
+              row.cell(text: number_to_human_size(d.byte_size))
+          end
+      end
+  end
+end %>
+<% end %>
+
+<% if @request.decision_letter.attached? %>
+  <%= govuk_table do |table|
+    table.caption(size: 'm', text: 'Decision letter')
+
+    table.head do |head|
+      head.row do |row|
+        row.cell(header: true, text: 'File name')
+        row.cell(header: true, text: 'Uploaded')
+        row.cell(header: true, text: 'File size')
+      end
+    end
+
+    table.body do |body|               
+      body.row do |row|
+          row.cell do |cell| %>
+              <%= link_to rails_blob_path(@request.decision_letter, "attachment"), class: 'govuk-link' do %>
+                <span class="govuk-visually-hidden">Download file </span><%= @request.decision_letter.filename %>
+              <% end 
+            end
+          row.cell(text: @request.decision_letter.created_at.strftime("%d/%m/%y %H:%M"))
+          row.cell(text: number_to_human_size(@request.decision_letter.byte_size))
+      end
+    end
+  end 
+ end %>

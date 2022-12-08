@@ -1,0 +1,30 @@
+<% title(t('.page-title')) %>
+<% 
+breadcrumbs = {
+  t('dashboard') => dashboard_path,
+  "Request progress" => request_path(@information_request.request),
+  t('information-requests') => nil
+    }
+%>
+<%= govuk_breadcrumbs(breadcrumbs: breadcrumbs) %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <h1 class="govuk-heading-l"><%= t('.page-title') %></h1>
+
+    <p class="govuk-body"><%= t('.summary') %></p>
+    <%= govuk_summary_list do |summary_list|
+          summary_list.row do |row|
+            row.key { 'Response document' }
+            row.value(text: @information_request.response_doc.filename)
+            row.action(href: information_response_path, visually_hidden_text: 'response document')
+          end
+      end %>
+
+    <%= form_for @information_request, url: submit_information_response_path, method: :post do |f| %>
+      <%= f.govuk_error_summary %>
+      <%= f.govuk_submit t('.confirm_button'), classes: "sau-submission-button" %>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,69 @@
+<% @presenter = RequestPresenter.new(@request) %>
+<% title(t('.page_title')) %>
+<% 
+breadcrumbs = {
+      "Dashboard" => dashboard_path,
+      "Request progress" => nil
+    }
+%>
+<%= govuk_breadcrumbs(breadcrumbs: breadcrumbs) %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l">Submission progress</h1>
+      <h2 class="govuk-heading-m">Submission</h2>
+
+    <%= govuk_summary_list(actions: false) do |summary_list|
+        summary_list.row do |row|
+            row.key { 'Reference' }
+            row.value { @request.reference_number }
+        end
+        if @request.previous_refno
+          summary_list.row do |row|
+            row.key { "Previously submitted" }
+            row.value { "#{@request.previous_refno} (#{@request.previous_status})" }
+          end
+        end
+        summary_list.row do |row|
+          row.key { "Status" }
+          row.value { @request.status }
+        end
+        summary_list.row do |row|
+          row.key { "Referral type" }
+          row.value { t(@request.referral_type&.to_sym, scope: [:helpers, :label, :request, :referral_type_options]) }
+        end
+    end %>
+
+    <div class="govuk-button-group">
+      <% @presenter.actions(request_path(@request)).each do |a| %>
+        <%= govuk_button_link_to a[:title], a[:link], class: a[:secondary] ? "govuk-button--secondary" : "" %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    <%= govuk_tabs(title: "Contents") do |c|
+        if @request.status == "Completed"
+        c.tab(label: "SAU documents") do %>
+            <%= render partial: "layouts/submission_report" %>
+        <% end 
+        end
+        if !@request.information_requests.load.empty? 
+        c.tab(label: "Further information requests") do %>
+            <%= render partial: "further_information_requests" %>
+        <% end
+        end
+        unless @request.status == "Submitted" || @request.status == "Completed"
+        c.tab(label: "SAU documents") do %>
+            <%= render partial: "layouts/submission_report" %>
+        <% end 
+        end
+        c.tab(label: "Submission documents") do %>
+            <%= render partial: "layouts/submission_documents" %>   
+        <% end
+    end %>
+  </div>
+</div>

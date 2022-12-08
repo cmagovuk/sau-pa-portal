@@ -1,0 +1,19 @@
+<% title(t('.page_title')) %>
+<% 
+breadcrumbs = {
+  "Dashboard" => dashboard_path,
+  "Request progress" => request_path(@call_in),
+  t('.page_title') => nil
+    }
+%>
+<%= govuk_breadcrumbs(breadcrumbs: breadcrumbs) %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l"><%= t('.heading') %></h1>
+
+    <%= form_for @call_in, url: call_in_direction_path, :as => :call_in do |f| %>    
+      <%= f.govuk_submit t('.confirm_button') %>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,31 @@
+<% title(t('.page_title')) %>
+<%= render partial: 'back_link' %>
+
+<%= form_for @request, url: request_step_path(params[:id]), :as => :request do |f| %>
+  <%= f.govuk_error_summary %>
+  <%= f.govuk_fieldset legend: {text: t('.fieldset_legend'), size: 'l', tag: 'h1'},
+                       caption: {text: t('.fieldset_caption')} do %>
+      <%= f.govuk_text_field :pa_name, width: 'two-thirds', disabled:true,
+      label:{ text: t("helpers.label.request.pa_name.subsidy") } %>
+ 
+      <%= f.govuk_collection_select :subsidy_form, @request.select_form_options, :id, :name, class: "sau-form-select" %>
+      <div class="sau-other-form">
+        <%= f.govuk_text_field :other_form, width: 'two-thirds' %>
+      </div>
+      <div class="sau-budget">
+        <%= f.govuk_text_field :budget, width: 'one-quarter', prefix_text: '£', 
+             value: format_numeric(@request, :budget),
+          label:{ text: t("helpers.label.request.budget.subsidy") } %>
+      </div>
+      <div class="sau-tax-amount">
+        <%= f.govuk_collection_select :tax_amt, @request.select_tax_options, :id, :name %>
+      </div>
+      <%= f.govuk_date_field :confirm_date, maxlength_enabled: true, 
+           legend: { text: t("helpers.legend.request.confirm_date.subsidy"), size:'s', tag: 'p',
+                     class: "govuk-fieldset__legend govuk-fieldset__legend--s govuk-!-font-weight-regular" },
+           hint: { text: t("helpers.hint.request.confirm_date.subsidy") } %>
+
+  <% end %>
+
+  <%= f.govuk_submit %>
+<% end %>

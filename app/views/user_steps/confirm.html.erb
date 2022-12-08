@@ -1,0 +1,34 @@
+<% title(t('.page_title')) %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+<h1 class="govuk-heading-l"><%= t(".heading") %></h1>
+<%= form_for @user, url: user_step_path(params[:id]), method: :patch, :as => :user do |f| %>
+
+    <%= govuk_summary_list do |summary_list|
+        summary_list.row do |row|
+            row.key { 'Public Authority' }
+            row.value { @authorities.find{|a| a[1] == @user.public_authority_id}[0]}
+            row.action(text: "Change", href: user_step_path('input'), visually_hidden_text: 'name')
+        end
+
+        summary_list.row do |row|
+            row.key { 'Name' }
+            row.value { @user.user_name }
+        end
+
+        summary_list.row do |row|
+            row.key { 'Telephone' }
+            row.value { @user.phone }
+        end
+
+        summary_list.row do |row|
+            row.key(text: 'Email address')
+            row.value(text: @user.email )
+        end
+    end %>
+
+    <%= f.govuk_submit t(".submit_btn") %>
+<% end %>
+</div>
+</div>

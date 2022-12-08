@@ -1,0 +1,26 @@
+<% title(t('.page_title')) %>
+<%= render partial: 'back_link' %>
+
+<%= form_for @request, url: request_step_path(params[:id]), :as => :request do |f| %>
+  <%= f.govuk_error_summary %>
+  <%= f.govuk_fieldset legend: {text: t('.fieldset_legend', type:scheme_subsidy_name(@request)), size: 'l', tag: 'h1'},
+  caption: {text: t("helpers.caption.request.characteristics", type: scheme_subsidy_name(@request))} do %>
+
+      <%= f.govuk_date_field :confirm_date, maxlength_enabled: true, 
+           legend: { text: t("helpers.legend.request.confirm_date.scheme"), size:'s', tag: 'p',
+                     class: "govuk-fieldset__legend govuk-fieldset__legend--s govuk-!-font-weight-regular" },
+           hint: { text: t("helpers.hint.request.confirm_date.scheme") } %>
+
+      <%= f.govuk_date_field :start_date, maxlength_enabled: true, 
+           legend: -> do %> 
+           <legend class="govuk-fieldset__legend govuk-fieldset__legend--s govuk-!-font-weight-regular">
+           <p class="govuk-fieldset__heading">Duration of the <%= scheme_subsidy_name(@request).downcase %><br>Start date</p></legend>
+      <% end %>
+
+      <%= f.govuk_date_field :end_date, maxlength_enabled: true, 
+           legend: { size:'s', tag: 'p', class: "govuk-fieldset__legend govuk-fieldset__legend--s govuk-!-font-weight-regular" } %>
+
+  <% end %>
+
+  <%= f.govuk_submit %>
+<% end %>

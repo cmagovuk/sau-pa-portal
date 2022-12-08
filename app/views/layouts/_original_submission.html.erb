@@ -1,0 +1,465 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <h1 class="govuk-heading-l"><%= t('.heading', type: scheme_subsidy_name(@request)) -%></h1>
+
+    <%= govuk_summary_list(actions: false) do |summary_list|
+        summary_list.row do |row|
+            row.key { 'Referral type' }
+            row.value { t(@request.referral_type&.to_sym, scope: [:helpers, :label, :request, :referral_type_options]) }
+        end
+    end %>
+
+    <% if @request.referral_type == "call" %>
+        <h2 class="govuk-heading-m">Called in by Secretary of State</h2>
+        <%= govuk_summary_list(actions: false) do |summary_list|
+            summary_list.row do |row|
+                row.key { 'Call in direction document' }
+                row.value do %>
+                  <% if @request.call_in.attached? %>
+                    <%= @request.call_in.filename %>
+                  <% end
+                end 
+            end
+
+            summary_list.row do |row|
+                row.key { 'Date of direction' }
+                row.value { formatted_date(@request.direction_date) }
+            end
+
+            summary_list.row do |row|
+                row.key { 'Direction relates to' }
+                row.value { t(@request.call_in_type&.to_sym, scope: [:helpers, :label, :request, :call_in_type_options]) }
+            end
+         end %>
+    <% end %>
+
+    <% if @request.referral_type == "par" %>
+        <h2 class="govuk-heading-m">Post-award referral</h2>
+        <%= govuk_summary_list do |summary_list|
+            summary_list.row do |row|
+                row.key { 'Referral document' }
+                row.value do %>
+                  <% if @request.call_in.attached? %>
+                    <%= @request.call_in.filename %>
+                  <% end
+                end 
+            end
+
+            summary_list.row do |row|
+                row.key { 'Date of direction' }
+                row.value { formatted_date(@request.direction_date) }
+            end
+
+            summary_list.row do |row|
+                row.key { 'Entered on BEIS database' }
+                row.value { @request.par_on_td.present? ? t(@request.par_on_td&.to_sym, scope: [:helpers, :label, :request, :par_on_td_options]) : nil }
+            end
+
+            if @request.par_on_td == "y"
+              summary_list.row do |row|
+                  row.key { 'BEIS database reference number' }
+                  row.value { @request.par_td_ref_no }
+              end
+            end
+         end %>
+    <% end %>
+
+    <% if @request.scheme_subsidy == "scheme" %>
+        <h2 class="govuk-heading-m">Subsidy scheme characteristics</h2>
+        <%= govuk_summary_list(actions: false) do |summary_list|
+            summary_list.row do |row|
+                row.key { 'Subsidy scheme name' }
+                row.value { @request.scheme_name }
+            end
+
+            summary_list.row do |row|
+                row.key { 'Public Authority name' }
+                row.value { @request.public_authority.pa_name}
+            end
+
+            summary_list.row do |row|
+                row.key { 'Amount budgeted for scheme' }
+                row.value { @request.budget.present? ? "£#{format_numeric(@request, :budget)}" : nil }
+            end
+
+            summary_list.row do |row|
+                row.key { 'For tax awards' }
+                row.value { @request.tax_amt.present? ? t(@request.tax_amt&.to_sym, scope: [:tax_amount]) : nil }
+            end
+
+            summary_list.row do |row|
+                row.key { 'Maximum amount that can be given' }
+                row.value { "£#{format_numeric(@request, :max_amt)}" unless @request.max_amt.blank? }
+            end
+
+            summary_list.row do |row|
+                row.key { 'Sectors' }
+                row.value do
+                    values = translate_terms(@request.sectors, "helpers.label.request.sectors_options")
+                    if values.count > 0 
+                       values.each do |v| %>
+                        <%= v %><br>
+                  <%   end
+                   end
+                end
+            end
+
+            summary_list.row do |row|
+                row.key { 'Description' }
+                row.value(classes:"app-pre-wrap", text: @request.description)
+            end
+
+            summary_list.row do |row|
+                row.key { 'Description is non-confidential' }
+                row.value(classes:"app-pre-wrap", text: @request.is_nc) #@request.is_nc.humanize)
+            end
+
+            if (@request.is_nc == "no")
+              summary_list.row do |row|
+                  row.key { 'Non-confidential description' }
+                  row.value(classes:"app-pre-wrap", text: @request.nc_description)
+               end
+            end
+
+            summary_list.row do |row|
+                row.key { 'Legal basis' }
+                row.value(classes:"app-pre-wrap", text: @request.legal)
+            end
+            summary_list.row do |row|
+                row.key { 'Policy objective' }
+                row.value(classes:"app-pre-wrap", text: @request.policy)
+            end
+
+            summary_list.row do |row|
+                row.key { 'Purposes' }
+                row.value do
+                    values = translate_terms(@request.purposes, "helpers.label.request.purposes_options")
+                    if values.count > 0 
+                       values.each do |v| %>
+                        <%= v %><br>
+                  <%   end
+                   end
+                end
+            end
+            if @request.purposes.present? && @request.purposes.include?("other")
+              summary_list.row do |row|
+                  row.key { 'Description of other purpose' }
+                  row.value { @request.other_purpose }
+              end
+            end
+
+            summary_list.row do |row|
+                row.key { 'Decision confirmation date' }
+                row.value { @request.confirm_date.present? ? formatted_date(@request.confirm_date) : nil }
+            end
+
+            summary_list.row do |row|
+                row.key { 'Start date' }
+                row.value { @request.start_date.present? ? formatted_date(@request.start_date) : nil }
+            end
+
+            summary_list.row do |row|
+                row.key { 'End date' }
+                row.value { @request.end_date.present? ? formatted_date(@request.end_date) : nil }
+            end
+
+            # summary_list.row do |row|
+            #     row.key { 'Location of further information' }
+            #     row.value { @request.info_location }
+            # end
+         end %>
+    <% end %>
+
+    <% if @request.scheme_subsidy == "subsidy" %>
+        <h2 class="govuk-heading-m">Subsidy characteristics</h2>
+        <%= govuk_summary_list(actions: false) do |summary_list|
+            summary_list.row do |row|
+                row.key { 'Public Authority name' }
+                row.value { @request.public_authority.pa_name}
+            end
+
+            summary_list.row do |row|
+                row.key { 'Subsidy form' }
+                row.value { @request.subsidy_form.present? ? t(@request.subsidy_form&.to_sym, scope: [:subsidy_form_options]) : nil }
+            end
+
+            if @request.subsidy_form == "other"
+              summary_list.row do |row|
+                row.key { 'Other form' }
+                row.value { @request.other_form }
+              end
+            end
+
+            if @request.subsidy_form != "tax"
+              summary_list.row do |row|
+                row.key { 'Award amount' }
+                row.value { @request.budget.present? ? "£#{format_numeric(@request, :budget)}" : nil }
+              end
+            else
+              summary_list.row do |row|
+                row.key { 'Tax award range' }
+                row.value { @request.tax_amt.present? ? t(@request.tax_amt&.to_sym, scope: [:tax_amount]) : nil }
+              end
+            end
+
+            summary_list.row do |row|
+                row.key { 'Award confirmation date' }
+                row.value { @request.confirm_date.present? ? formatted_date(@request.confirm_date) : nil }
+            end
+
+            summary_list.row do |row|
+                row.key { 'Beneficiary ID type' }
+                row.value { @request.ben_id_type.present? ? t(@request.ben_id_type&.to_sym, scope: "helpers.label.request.ben_id_type_options") : "" } 
+            end
+
+            summary_list.row do |row|
+                row.key { 'Beneficiary ID' }
+                row.value { @request.ben_id }
+            end
+
+            summary_list.row do |row|
+                row.key { 'Beneficiary name' }
+                row.value { @request.beneficiary }
+            end
+
+            summary_list.row do |row|
+                row.key { 'Beneficiary size' }
+                row.value { @request.ben_size.present? ? t(@request.ben_size&.to_sym, scope: "helpers.label.request.ben_size_options") : "" } 
+            end
+
+            summary_list.row do |row|
+                row.key { 'Does subsidy apply to goods or services' }
+                row.value do
+                    values = translate_terms(@request.ben_good_svr, "helpers.label.request.ben_good_svr_options")
+                    if values.count > 0 
+                       values.each do |v| %>
+                        <%= v %><br>
+                  <%   end
+                  end
+                end
+            end
+
+            summary_list.row do |row|
+                row.key { 'Location of spend' }
+                row.value do
+                    values = translate_terms(@request.location, "helpers.label.request.location_options")
+                    if values.count > 0 
+                       values.each do |v| %>
+                        <%= v %><br>
+                  <%   end
+                   end
+                end
+            end
+
+            summary_list.row do |row|
+                row.key { 'Additional location information' }
+                row.value(classes:"app-pre-wrap", text: @request.other_loc)
+            end
+
+            summary_list.row do |row|
+                row.key { 'Sectors' }
+                row.value do
+                    values = translate_terms(@request.sectors, "helpers.label.request.sectors_options")
+                    if values.count > 0 
+                       values.each do |v| %>
+                        <%= v %><br>
+                  <%   end
+                   end
+                end
+            end
+
+            summary_list.row do |row|
+                row.key { 'Description' }
+                row.value(classes:"app-pre-wrap", text: @request.description)
+            end
+           
+            summary_list.row do |row|
+                row.key { 'Description is non-confidential' }
+                row.value(classes:"app-pre-wrap", text: @request.is_nc.present? ? @request.is_nc.humanize : nil )
+            end
+            
+            if (@request.is_nc == "no")
+              summary_list.row do |row|
+                  row.key { 'Non-confidential description' }
+                  row.value(classes:"app-pre-wrap", text: @request.nc_description)
+              end
+            end
+           
+            summary_list.row do |row|
+                row.key { 'Legal basis' }
+                row.value(classes:"app-pre-wrap", text: @request.legal)
+            end
+            summary_list.row do |row|
+                row.key { 'Policy objective' }
+                row.value(classes:"app-pre-wrap", text: @request.policy)
+            end
+
+            summary_list.row do |row|
+                row.key { 'Purposes' }
+                row.value do
+                    values = translate_terms(@request.purposes, "helpers.label.request.purposes_options")
+                    if values.count > 0 
+                       values.each do |v| %>
+                        <%= v %><br>
+                  <%   end
+                   end
+                end
+            end
+            if @request.purposes.present? && @request.purposes.include?("other")
+              summary_list.row do |row|
+                  row.key { 'Description of other purpose' }
+                  row.value { @request.other_purpose }
+              end
+            end
+
+            #summary_list.row do |row|
+            #    row.key { 'Start date' }
+            #    row.value { @request.start_date.present? ? formatted_date(@request.start_date) : nil }
+            #end
+
+            #summary_list.row do |row|
+            #    row.key { 'End date' }
+            #    row.value { @request.end_date.present? ? formatted_date(@request.end_date) : nil }
+            #end
+
+            # summary_list.row do |row|
+            #     row.key { 'Location of further information' }
+            #     row.value(classes:"app-pre-wrap", text: @request.info_location)
+            # end
+         end %>
+    <% end %>
+
+    <% unless @request.referral_type == "par" || (@request.referral_type == "call" && @request.call_in_type == "other" ) %>
+        <h2 class="govuk-heading-m">Why the <%= scheme_subsidy_name(@request).downcase %> meets the characteristics of a <%= referral_type_shortname(@request) %></h2>
+        <%= govuk_summary_list(actions: false) do |summary_list|
+            summary_list.row do |row|
+                row.key { 'Description' }
+                row.value(classes: "app-pre-wrap", text: @request.character_desc)
+            end
+
+            summary_list.row do |row|
+                row.key { 'Supporting documents' }
+                row.value do 
+                @request.character_desc_docs.each do |d| %>
+                    <%=d.filename %><br>
+                <% end 
+                end
+            end
+        end %>
+    <% end %>
+
+    <% if @request.referral_type == "par" %>
+    <h2 class="govuk-heading-m">Post-award referral assessment of compliance</h2>
+        <%= govuk_summary_list(actions: false) do |summary_list|
+            summary_list.row do |row|
+                row.key { 'Was assessment carried out' }
+                row.value { @request.par_assessed.present? ? t(@request.par_assessed&.to_sym, scope: [:helpers, :label, :request, :par_assessed_options]) : nil }
+            end
+
+            if @request.par_assessed == "n"
+              summary_list.row do |row|
+                  row.key { 'Why was assessment not carried out' }
+                  row.value(classes:"app-pre-wrap", text: @request.par_reason)
+              end
+            end
+        end %>
+    <% end %>
+
+    <% if @request.referral_type != "par" || @request.par_assessed == "y" %>
+
+    <h2 class="govuk-heading-m">Assessment of compliance</h2>
+    <%= govuk_summary_list(actions: false) do |summary_list|
+        summary_list.row do |row|
+            row.key { 'Energy and Environment assessment carried out' }
+            row.value { @request.ee_assess_required.present? ? t(@request.ee_assess_required&.to_sym, scope: [:helpers, :label, :request, :ee_assess_required_options]) : nil }
+        end
+
+        summary_list.row do |row|
+            row.key { 'Supporting evidence' }
+            row.value do 
+                if @request.assessment_docs.attached?
+                    @request.assessment_docs.each do |d| %>
+                        <%= d.filename %><br>
+                  <% end
+                 end
+            end
+        end
+    end %>
+
+    <h2 class="govuk-heading-m">Assessment of compliance with the subsidy control principles</h2>
+    <%= govuk_summary_list(actions: false) do |summary_list|
+        summary_list.row do |row|
+            row.key { 'Principle A' }
+            row.value(classes:"app-pre-wrap", text: @request.assess_pa)
+        end
+        summary_list.row do |row|
+            row.key { 'Principle B' }
+            row.value(classes:"app-pre-wrap", text: @request.assess_pb)
+        end
+        summary_list.row do |row|
+            row.key { 'Principle C' }
+            row.value(classes:"app-pre-wrap", text: @request.assess_pc)
+        end
+        summary_list.row do |row|
+            row.key { 'Principle D' }
+            row.value(classes:"app-pre-wrap", text: @request.assess_pd)
+        end
+        summary_list.row do |row|
+            row.key { 'Principle E' }
+            row.value(classes:"app-pre-wrap", text: @request.assess_pe)
+        end
+        summary_list.row do |row|
+            row.key { 'Principle F' }
+            row.value(classes:"app-pre-wrap", text: @request.assess_pf)
+        end
+        summary_list.row do |row|
+            row.key { 'Principle G' }
+            row.value(classes:"app-pre-wrap", text: @request.assess_pg)
+        end
+    end %>
+
+    <% if @request.ee_assess_required == "y" %>
+        <h2 class="govuk-heading-m">Assessment of compliance with the energy and environment principles</h2>
+        <%= govuk_summary_list(actions: false) do |summary_list|
+            summary_list.row do |row|
+                row.key { 'Principle A' }
+                row.value(classes:"app-pre-wrap", text: @request.assess_ee_pa)
+            end
+            summary_list.row do |row|
+                row.key { 'Principle B' }
+                row.value(classes:"app-pre-wrap", text: @request.assess_ee_pb)
+            end
+            summary_list.row do |row|
+                row.key { 'Principle C' }
+                row.value(classes:"app-pre-wrap", text: @request.assess_ee_pc)
+            end
+            summary_list.row do |row|
+                row.key { 'Principle D' }
+                row.value(classes:"app-pre-wrap", text: @request.assess_ee_pd)
+            end
+            summary_list.row do |row|
+                row.key { 'Principle E' }
+                row.value(classes:"app-pre-wrap", text: @request.assess_ee_pe)
+            end
+            summary_list.row do |row|
+                row.key { 'Principle F' }
+                row.value(classes:"app-pre-wrap", text: @request.assess_ee_pf)
+            end
+            summary_list.row do |row|
+                row.key { 'Principle G' }
+                row.value(classes:"app-pre-wrap", text: @request.assess_ee_pg)
+            end
+            summary_list.row do |row|
+                row.key { 'Principle H' }
+                row.value(classes:"app-pre-wrap", text: @request.assess_ee_ph)
+            end
+            summary_list.row do |row|
+                row.key { 'Principle I' }
+                row.value(classes:"app-pre-wrap", text: @request.assess_ee_pi)
+            end
+        end %>
+    <% end %>
+    <% end %>
+  </div>
+</div>
+<%= govuk_back_to_top_link("#top") %>

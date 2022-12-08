@@ -1,0 +1,30 @@
+<% title(t('.page_title')) %>
+<% 
+breadcrumbs = {
+  "Request progress" => sau_request_path(@request),
+  t('upload_report') => nil
+    }
+%>
+<%= govuk_breadcrumbs(breadcrumbs: breadcrumbs) %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l"><%= t('.heading') %></h1>
+      <%= govuk_summary_list do |summary_list|
+            summary_list.row do |row|
+              row.key { 'Report documents' }
+              row.value do 
+                    @request.final_report.each do |d| %>
+                        <%= d.filename %><br>
+                  <% end
+              end
+              row.action(href: "/sau_requests/#{@request.id}/report", visually_hidden_text: 'report documents')
+            end
+        end %>
+
+    <%= form_for @request, url: "/sau_requests/#{@request.id}/report_confirm_submit", method: :post do |f| %>
+      <%= f.govuk_submit t('.confirm_button') %>
+    <% end %>
+
+  </div>
+</div>

@@ -1,0 +1,22 @@
+<% title(t('.page_title')) %>
+<%= render partial: 'back_link' %>
+
+<%= form_for @request, url: request_step_path(params[:id]), :as => :request do |f| %>
+  <%= f.govuk_error_summary %>
+    <%= f.govuk_check_boxes_fieldset :purposes, 
+      legend: { text: t("helpers.legend.request.purposes", type: scheme_subsidy_name(@request).downcase), size: "l" },
+      caption: {text: t("helpers.caption.request.characteristics", type: scheme_subsidy_name(@request))},
+      small:true do %>
+      <% Request::Purposes::PURPOSE_OPTIONS.each_with_index do |opt, idx| %>
+        <% if opt != "other" %>
+          <%= f.govuk_check_box :purposes, opt, link_errors: idx == 0 %>
+        <% else %>
+          <%= f.govuk_check_box :purposes, opt do %>
+            <%= f.govuk_text_field :other_purpose %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+
+  <%= f.govuk_submit %>
+<% end %>

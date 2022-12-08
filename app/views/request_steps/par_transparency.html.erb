@@ -1,0 +1,19 @@
+<% title(t('.page_title')) %>
+<%= render partial: 'back_link' %>
+
+<%= form_for @request, url: request_step_path(params[:id]), :as => :request do |f| %>
+  <%= f.govuk_error_summary %>
+
+  <%= f.govuk_fieldset legend: {text: "", size: 'l', tag: 'h1'} do %>
+    <%= f.govuk_radio_buttons_fieldset(:par_on_td, 
+      legend: { text: t("helpers.legend.request.par_on_td", type: scheme_subsidy_name(@request).downcase), 
+      size: 'l', tag: 'h1' }, small: true) do %>
+      <%= f.govuk_radio_button :par_on_td, 'y', link_errors: true do %>
+        <%= f.govuk_text_field :par_td_ref_no, width: "one-third" %>
+        <% end %>
+        <%= f.govuk_radio_button :par_on_td, 'n' %>
+    <% end %>
+  <% end %>
+
+  <%= f.govuk_submit %>
+<% end %>

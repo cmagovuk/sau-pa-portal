@@ -1,0 +1,21 @@
+<% title(t('.page_title')) %>
+<% 
+breadcrumbs = {
+  t('dashboard') => dashboard_path,
+  "Request progress" => request_path(@information_request.request),
+  t('information-requests') => nil
+    }
+%>
+<%= govuk_breadcrumbs(breadcrumbs: breadcrumbs) %>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <%= govuk_panel(title_text: t(".panel-title")) do %>
+      <%= t('.panel-summary') %>
+    <% end %>
+
+    <div class="govuk-button-group">
+      <%= govuk_button_link_to 'Return to dashboard', requests_path, secondary: true %>
+    </div>
+  </div>
+</div>

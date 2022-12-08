@@ -1,0 +1,18 @@
+
+<% title(t('.page_title')) %>
+<%= render partial: 'back_link' %>
+
+<%= form_for @request, url: request_step_path(params[:id]), :as => :request do |f| %>
+  <%= f.govuk_error_summary %>
+    <%= f.govuk_radio_buttons_fieldset(:par_assessed, 
+    legend: { text: t("helpers.legend.request.par_assessed", type: scheme_subsidy_name(@request).downcase), size: 'l', tag: 'h1' },
+     small: true) do %>
+      <%= f.govuk_radio_button :par_assessed, 'y', link_errors: true %>
+      <%= f.govuk_radio_button :par_assessed, 'n' do %>
+        <%= f.govuk_text_area :par_reason, width: 'two-thirds', max_words: Request::MAX_WORDCOUNT, width: "one-third" %>
+      <% end %>
+    <% end %>
+
+  <%= f.govuk_submit %>
+<% end %>
+

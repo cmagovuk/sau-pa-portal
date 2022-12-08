@@ -1,0 +1,13 @@
+<% title(t('.page_title')) %>
+<%= render partial: 'back_link' %>
+
+<%= form_for @request, url: request_step_path(params[:id]), :as => :request do |f| %>
+  <%= f.govuk_error_summary %>
+      <%= f.govuk_collection_radio_buttons :sectors, 
+       Request::Sectors::SECTOR_OPTIONS, ->(option) {option}, nil,
+       legend: {text: t("helpers.legend.request.sectors", type: scheme_subsidy_name(@request).downcase), size:"l", tag:"h1"},
+       caption: { text: t("helpers.caption.request.characteristics", type: scheme_subsidy_name(@request)), size: 'm' },
+       small:true %>
+
+  <%= f.govuk_submit %>
+<% end %>

@@ -1,0 +1,16 @@
+<% title(t('.page_title')) %>
+<% 
+breadcrumbs = {
+  "Dashboard" => dashboard_path,
+  "Request progress" => request_path(@call_in),
+  t('.page_title') => nil
+    }
+%>
+<%= govuk_breadcrumbs(breadcrumbs: breadcrumbs) %>
+
+<h1 class="govuk-heading-l"><%= t('.heading') %></h1>
+
+<%= t(".info_text_html") %>
+<%= link_to confirm_call_in_direction_path, class: 'govuk-button govuk-!-margin-top-2 govuk-!-margin-bottom-8', role:"button",draggable: "false", "data-module" => "govuk-button" do %>
+  Continue
+<% end %>

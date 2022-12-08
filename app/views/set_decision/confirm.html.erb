@@ -1,0 +1,29 @@
+<% title(t('.page_title')) %>
+<% 
+breadcrumbs = {
+      "Request progress"     => sau_request_path(params[:id]),
+      "Original submission" => nil
+    }
+%>
+<%= govuk_breadcrumbs(breadcrumbs: breadcrumbs) %>
+
+<h1 class="govuk-heading-l"><%= t('.heading') -%></h1>
+
+<%= govuk_summary_list do |summary_list|
+  summary_list.row do |row|
+    row.key { 'Decision' }
+    row.value { t(@set_decision_form.decision&.to_sym, scope: [:helpers, :label, :set_decision, :decision_options]) }
+    row.action(href: set_decision_path, visually_hidden_text: 'decision')
+  end
+
+  summary_list.row do |row|
+    row.key { 'Decision letter' }
+    row.value(text: @set_decision_form.decision_letter.filename)
+    row.action(href: set_decision_path, visually_hidden_text: 'decision letter')
+  end
+
+end %>
+<%= form_for @set_decision_form, url: submit_set_decision_path, :as => :set_decision do |f| %>
+  <%= f.hidden_field :decision %>
+  <%= f.govuk_submit "Submit" %>
+<% end %>

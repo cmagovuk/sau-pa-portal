@@ -1,0 +1,13 @@
+<% title(t('.page_title')) %>
+<%= render partial: 'back_link' %>
+
+<%= form_for @request, url: request_step_path(params[:id]), :as => :request do |f| %>
+  <%= f.govuk_error_summary %>
+  <%= f.govuk_text_area :info_location, width: 'two-thirds', max_words: Request::MAX_WORDCOUNT,
+    caption: {text: t("helpers.caption.request.characteristics", type: scheme_subsidy_name(@request))},
+    hint: {text: t("helpers.hint.request.info_location.#{@request.scheme_subsidy}") },
+    label: {size: 'l'}
+  %>
+
+  <%= f.govuk_submit %>
+<% end %>

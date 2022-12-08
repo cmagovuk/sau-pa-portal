@@ -1,0 +1,29 @@
+<% title(t('.page_title')) %>
+<%= render partial: 'back_link' %>
+
+<%= form_for @request, url: request_step_path(params[:id]) + "/upload", :as => :request do |f| %>
+  <%= f.govuk_error_summary %>
+    <%= f.govuk_text_area :character_desc, 
+            label: {
+                text: t("helpers.label.request.character_desc", 
+                         fullname:referral_type_fullname(@request), type: scheme_subsidy_name(@request).downcase),
+                size: 'l'},            
+            rows: 8, max_words: Request::MAX_WORDCOUNT,
+            hint: -> do %>
+              <%=  t("helpers.hint.request.character_desc_html", 
+                                fullname:referral_type_fullname(@request),
+                                shortname:referral_type_shortname(@request),
+                                type: scheme_subsidy_name(@request).downcase) %>
+            <% end %>
+  <%= f.govuk_file_field :documents,
+          label: {text: t('helpers.label.request.character_desc_docs')},
+          hint: {text: t('helpers.hint.request.character_desc_docs')},
+          accept: ".doc, .docx, .xls, .xlsx, .ppt, .pptx, .pdf, .zip",
+          multiple: false,
+          enctype: "multipart/form-data",
+          class: "upload-input" %>
+  <%= f.govuk_submit t("buttons.upload_files"), secondary: true, classes: "upload-files-button" %>
+  <%= render partial: "document_list", object: @request.character_desc_docs %>
+
+  <%= f.govuk_submit classes: "upload-continue-button", name: "continue" %>
+<% end %>

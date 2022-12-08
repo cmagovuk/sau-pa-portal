@@ -1,0 +1,5 @@
+<%= form_for @authority, :as => :authority do |f| %>
+    <%= f.govuk_error_summary %>
+    <%= f.govuk_text_field :pa_name %>
+    <%= f.govuk_submit %>
+<% end %>

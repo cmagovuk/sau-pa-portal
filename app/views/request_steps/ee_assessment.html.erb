@@ -1,0 +1,39 @@
+<% title(t('.page_title')) %>
+<%= render partial: 'back_link' %>
+<h1 class="govuk-heading-l">
+  <%= t('.heading') -%>
+</h1>
+
+<div class="govuk-inset-text">
+  <%= t('.inset_text_html', type: scheme_subsidy_name(@request).downcase) -%>
+</div>
+
+<%= form_for @request, url: request_step_path(params[:id]) + "/upload", :as => :request do |f| %>
+  <%= f.govuk_error_summary %>
+  <%= f.govuk_file_field :documents,
+          label: {text: "Choose a file"},
+          accept: ".doc, .docx, .xls, .xlsx, .ppt, .pptx, .pdf, .zip",
+          multiple: false,
+          enctype: "multipart/form-data",
+          class: "upload-input" %>
+  <%= render partial: "document_list", object: @request.assessment_docs %>
+  <%= f.govuk_submit t("buttons.upload_files"), secondary: true, classes: "upload-files-button" %>
+
+  <%= f.govuk_text_area :assess_ee_pa do %>
+    <%= t('.additional_a_text_html') -%>
+  <% end %>
+  <%= f.govuk_text_area :assess_ee_pb %>
+  <%= f.govuk_text_area :assess_ee_pc do %>
+    <%= t('.additional_c_text_html') -%>
+  <% end %>
+  <%= f.govuk_text_area :assess_ee_pd %>
+  <%= f.govuk_text_area :assess_ee_pe %>
+  <%= f.govuk_text_area :assess_ee_pf %>
+  <%= f.govuk_text_area :assess_ee_pg %>
+  <%= f.govuk_text_area :assess_ee_ph do %>
+    <%= t('.additional_h_text_html') -%>
+  <% end %>
+  <%= f.govuk_text_area :assess_ee_pi %>
+
+  <%= f.govuk_submit classes: "upload-continue-button", name: "continue" %>
+<% end %>

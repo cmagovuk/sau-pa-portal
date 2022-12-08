@@ -1,0 +1,652 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# The following keys must be escaped otherwise they will not be retrieved by
+# the default I18n backend:
+#
+# true, false, on, off, yes, no
+#
+# Instead, surround them with single quotes.
+#
+# en:
+#   'true': 'foo'
+#
+# To learn more, please read the Rails Internationalization guide
+# available at https://guides.rubyonrails.org/i18n.html.
+
+en:
+  dashboard: Dashboard
+  upload_report: Upload final report
+
+  service: 
+    name: "Subsidy Control Public Authority Portal"
+
+  link:
+    back: Back    
+
+  documents_table:
+    headers:
+      file_name: File name
+      status: Status
+      file_size: File size
+      action: Action
+
+  cookie_banner:
+    confirmation_message:
+      true: You've accepted analytics cookies.
+      false: You've rejected analytics cookies.
+
+  pages:
+    home:
+      page_text_html: |
+        <h1 class="govuk-heading-l">Public Authority Portal</h1>
+        <p class="govuk-body">The purpose of the PAP is to allow you to request a report from the Subsidy Advice Unit (SAU) evaluating your assessment of a subsidy or subsidy scheme against the subsidy control requirements set out in the Subsidy Control Act 2022 (Act), including the subsidy control principles.</p>
+        <p class="govuk-body">In line with the requirements of the Act the SAU will notify you within <b>5 working days</b> of receiving your completed referral whether it will proceed to prepare  a report.</p>
+        <p class="govuk-body">In reaching that decision, the SAU will consider whether your request complies with the submission requirements of the Act and, for certain subsidies or subsidy schemes of interest, whether the SAU has decided to prioritise your referral in accordance with its prioritisation principles.</p>
+        <p class="govuk-body">We will set out in more detail the next steps in this response.</p>
+
+  accounts:
+    show:
+      page_title: User account
+      heading: User account
+      button: Edit account
+    edit:
+      page_title: Edit user account
+      heading: Edit account
+    confirm:
+      page_title: Confirm account changes
+      heading: Confirm account changes
+      button: Confirm
+
+  sau_requests:
+    show:
+      page_title: Request view
+    view:
+      page_title: Original submission
+
+  layouts:
+    original_submission:
+      heading: "%{type} submission"
+
+  report:
+    edit:
+      page_title: Upload final report
+      heading: Upload final report
+      summary: Upload final report. This will also set the request to 'Completed'
+    report_confirm:
+      page_title: Confirm final report
+      heading: Confirm final report
+      confirm_button: Confirm
+    
+  call_in:
+    edit:
+      page_title: Call in direction
+      heading: Upload call in direction
+      summary: Upload call in direction
+    confirm:
+      page_title: Confirm call in direction
+      heading: Confirm call in direction
+      confirm_button: Confirm
+
+  call_in_direction:
+    edit:
+      page_title: Call in direction
+      heading: Re-apply for report on call in
+      info_text_html: |
+        <p class="govuk-body">Use this feature if this request has been called in by the Secretary of State.</p>
+        <p class="govuk-body">By confirming this action a new draft request will be added to your dashboard.  The new request will:</p>
+        <ul class="govuk-list govuk-list--bullet">
+          <li>copy all answers from this request</li>
+          <li>copy all assessment and eligibility documents from this request</li>
+          <li>change the referral type to 'Called in'</li>
+        </ul>
+        <p class="govuk-body">Please review all your answers and documents in light of the call in direction before submitting your request in the normal manner.</p>
+    confirm:
+      page_title: Confirm call in direction
+      heading: Confirm re-apply for report on call in
+      confirm_button: Confirm
+
+  requests:
+    show:
+      page_title: Request view
+    view:
+      page_title: Original submission
+    index:
+      page_title: Request dashboard
+      heading: Dashboard
+    submitted:
+      page_title: Request submitted
+      panel_title: Submission complete
+      confirmation_text_html: |
+        <h2 class="govuk-heading-m">What happens next</h2>
+        <p class="govuk-body">
+          The SAU will notify you within 5 working days of receiving your request for a report (beginning from today) whether it will proceed to prepare a report. In reaching that decision, the SAU will consider whether your request complies with the submission requirements under the Subsidy Control Act 2022. If your request for a report is accepted, the notification you receive will provide you with further information about the next steps in the process.
+        </p>
+      confirmation_int_text_html: |
+        <h2 class="govuk-heading-m">What happens next</h2>
+        <p class="govuk-body">
+          The SAU will notify you within 5 working days of receiving your request for a report (beginning from today) whether it will proceed to prepare a report. In reaching that decision, the SAU will consider whether your request complies with the submission requirements under the Subsidy Control Act 2022 and whether the SAU has decided to prioritise your referral in accordance with its prioritisation principles. If your request for a report is accepted, the notification you receive will provide you with further information about the next steps in the process.
+        </p>
+      feedback_link: What did you think of this service?
+    new:
+      page_title: Scheme or subsidy
+
+  set_decision:
+    edit:
+      page_title: Set decision
+      summary: Upload the decision letter
+    confirm:
+      page_title: Confirm decision
+      heading: Confirm decision
+
+  request_steps:
+    referral_type:
+      page_title: Referral type
+      detail_summary: Why can I not change the referral type?
+      detail_text: This request for a report has been generated as a call in from the %{status} request %{refno}.  Changing the referral type is not permitted.
+    call_in_direction:
+      page_title: Call in direction
+    par_direction:
+      page_title: Post award referral direction
+    par_transparency:
+      page_title: BEIS transparency database
+    call_in_type:
+      page_title: Call in related to
+      detail_summary: Why can I not change what the call in relates to?
+      detail_text: This request for a report has been generated as a call in from the %{status} request %{refno}.  Changing the value is not permitted.
+    character_desc:
+      page_title: How the characteristics are met
+    scheme_info:
+      page_title: Scheme information
+      fieldset_legend: Subsidy scheme information
+      fieldset_caption: Subsidy scheme characteristics
+    subsidy_info:
+      page_title: Subsidy information
+      fieldset_legend: Subsidy information
+      fieldset_caption: Subsidy characteristics
+      date_detail_summary: What is confirmation date?
+      date_detail_text: Confirmation date is the date that a public authority confirms the decision to award a subsidy, giving the beneficiary either the financial assistance itself or an enforceable right to the financial assistance.
+    beneficiary:
+      page_title: Beneficiary information
+      fieldset_legend: Beneficiary information
+      fieldset_caption: Subsidy characteristics
+    goods_services:
+      page_title: Goods or services
+      detail_summary: What is meant by goods and services?
+      detail_text: This is what the organisation provides. For example, a greengroccer provides goods, while a dentist provides services.
+    locations:
+      page_title: Locations
+    sectors:
+      page_title: Sectors
+    descriptions:
+      page_title: Description
+      nc_text: The SAU will publish a short, non-confidential description of the proposed %{type} on our website in the early referral period.
+    legal:
+      page_title: Legal basis and policy
+      fieldset_legend: Legal basis and policy objective
+      detail_summary: What is legal basis?
+      detail_text: This is the legal justification of this %{type}.
+    purposes:
+      page_title: Purposes
+    ee_required:
+      page_title: Energy and Environment assessment carried out
+      heading: Energy and Environment Principles
+    dates:
+      page_title: Dates
+      fieldset_legend: "%{type} dates"
+      date_detail_summary: What is confirmation date?
+      date_detail_text: Confirmation date is the date that a public authority confirms the decision to make a subsidy scheme.
+    info_location:
+      page_title: Location of further information
+    par_assessment:
+      page_title: Has assessment been carried out
+    assessment:
+      page_title: Assessment
+      heading: Assessment of Compliance
+      inset_text_html: |
+        <p>Please upload the Assessment of Compliance conducted on the %{type}'s compliance with the Subsidy Control Requirements, together with any evidence relevant to that assessment.</p>
+        <p>The assessment, and supporting documents, should be provided in a suitable format and must be individually numbered and titled. There is no limit on how many documents you can upload, or a limit on file size.</p>
+        <p>Alongside the assessment, you should include an index of documents submitted which specifies the following:</p>
+        <ul class="govuk-list govuk-list--number">
+          <li>Document number</li>
+          <li>File name</li>
+          <li>Document title</li>
+          <li>Purpose of document</li>
+          <li>Date produced</li>
+          <li>Produced by (if applicable)</li>
+          <li>Brief description of its relevance to the assessment (for example as supporting evidence in respect of the evaluation of compliance with subsidy principle x)</li>
+        </ul>
+        <p>You will also need to provide a detailed description of whether any parts of the material submitted are considered as confidential, and the reasons for this. The descriptions need to be specific to allow us to understand what material, if used in our reports, would raise confidentiality concerns. Because we are required to publish our reports, we cannot accept blanket requests for confidentiality claiming that the entire contents of any or all documents are confidential.</p>
+        <p>For further information on the submission of documents in a request for a report, please see the <a href="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1116866/SAU_Guidance_Final_.pdf">SAU's Guidance on the operation of the subsidy control functions of the Subsidy Advice Unit</a></p>
+      ac_text_html: |
+        <h1 class="govuk-heading-l">Assessment of Compliance with the Subsidy Control Principles</h1>
+        <p class="govuk-body">To allow the SAU to understand the Assessment of Compliance with the Subsidy Control Principles and carry out its evaluation, you will need to provide:</p>
+        <ul class="govuk-list govuk-list--number">
+          <li>Details of where in the assessment each of the Subsidy Control Principles are assessed, and;</li>
+          <li>Details of which evidence documents are the ones relevant to the part of the assessment.</li>
+        </ul>
+        <p class="govuk-body">You may provide this information in a standalone document and upload this alongside the assessment and supporting documents.</p>
+        <p class="govuk-body">Alternatively, you can use the free text fields below to note against each of the Subsidy Control Principles where each Principle is addressed in the assessment and, the evidence documents relevant to each Principle.</p>
+    ee_assessment:
+      page_title: Energy and Environment assessment
+      heading: Assessment of Compliance with the Energy and Environment Principles
+      inset_text_html: |
+        <p>You have indicated that the %{type} is in relation to energy or the environment and that you have carried out an assessment against the Energy and Environment Principles.</p>
+        <p>To allow the SAU to understand the assessment against the relevant Energy and Environment Principles and carry out its evaluation, you will need to provide:</p>
+        <ul class="govuk-list govuk-list--number">
+          <li>Details of where in the assessment each of the Energy and Environment Principles are assessed, and; </li>
+          <li>Details of which evidence documents are the ones relevant to the part of the assessment</li>
+        </ul>
+        <p>You may provide this information in a standalone document and upload this alongside the assessment and supporting documents.</p>
+        <p>Alternatively, you can use the free text fields below to note against each of the Energy and Environment Principles where each Principle is addressed in the assessment and, the evidence documents relevant to each Principle.</p>
+      additional_a_text_html: |
+        <ul class="govuk-list govuk-list--bullet">
+          <li>delivering a secure, affordable and sustainable energy system and a well-functioning and competitive energy market, or</li>
+          <li>increasing the level of environmental protection compared to the level that would be achieved in the absence of the subsidy.</li>
+        </ul>
+      additional_c_text_html: |
+        <ul class="govuk-list govuk-list--bullet">
+          <li>shall not undermine the ability of the United Kingdom to meet its obligations under Article 304 of the Trade and Cooperation Agreement (TCA)</li>
+          <li>shall not unnecessarily affect the efficient use of electricity interconnectors provided for under Article 311 of the TCA (efficient use of electricity interconnectors), and</li>
+          <li>shall be determined by means of a transparent, non-discriminatory and effective competitive process.</li>
+        </ul>
+      additional_h_text_html: |
+        <ul class="govuk-list govuk-list--bullet">
+          <li>achieve an overall reduction in greenhouse gas emissions, and</li>
+          <li>reduce the emissions directly resulting from the industrial activities</li>
+        </ul>
+    review:
+      page_title: Review submission
+      heading: Review your submission
+
+  referral_type:
+    long:
+      soi: Subsidy of Interest
+      spi: Subsidy of Particular Interest
+      call: Called in by the Secretary of State
+      par: Post-award referral
+      sspi: Subsidy Scheme of Particular Interest
+      ssi: Subsidy Scheme of Interest
+    short:
+      soi: SoI
+      spi: SoPI
+      call: Called in
+      par: PAR
+      sspi: SSoPI
+      ssi: SSoI
+
+  tax_amount:
+    upto_60: £1 - £60,000
+    upto_500: £60,001 - £500,000
+    upto_1000: £500,001 - £1,000,000
+    upto_2000: £1,000,001 - £2,000,000
+    upto_5000: £2,000,001 - £5,000,000
+    upto_10000: £5,000,001 - £10,000,000
+    upto_30000: £10,000,001 - £30,000,000
+    over_30000: £30,000,001 or more
+#    upto_60: £1 - £60,000
+#    upto_1000: £500,001 - £1,000,000
+#    upto_2000: £1,000,001 - £2,000,000
+#    over_30000: £30,000,001 or more
+#    upto_100: £0 to £100,000
+#    upto_300: £100,001 to £300,000
+#    upto_500: £300,001 to £500,000
+#    upto_750: £500,001 to £750,000
+#    upto_1500: £750,001 to £1,500,000
+#    upto_3000: £1,500,001 to £3,000,000
+#    upto_5000: £3,000,001 to £5,000,000
+#    upto_7500: £5,000,001 to £7,500,000
+#    upto_10000: £7,500,001 to £10,000,000
+#    upto_20000: £10,000,001 to £20,000,000
+#    upto_30000: £20,000,001 to £30,000,000
+#    over_30000: £30,000,001 or more
+
+  subsidy_form_options:
+    dire: Direct Grant
+    equi: Equity
+    gaur: Guarantee
+    loan: Loan
+    above: Purchase of goods or services above market prices
+    below: Provision of goods or services below market prices
+    tax: Tax measures
+    other: Other
+
+  scheme_subsidy:
+    scheme: Subsidy scheme
+    subsidy: Subsidy
+
+  user_steps:
+    input:
+      page_title: User details
+      heading: User details
+    confirm:
+      page_title: Confirm user
+      heading: Confirm user
+      submit_btn: Confirm
+
+  users:
+    index:
+      page_title: Users
+      heading: Users
+      add_user_button: Add user
+
+  public_authorities:
+    index:
+      page_title: Public authorities
+      heading: Public authorities
+      add_pa_button: Add public authority
+    new:
+      page_title: Add public authority
+      heading: Add public authority
+
+  information_requests:
+    index:
+      page-title: Information Requests
+      name: Name
+      status: Status
+      action: Action
+      new-button: Create New Information Request
+    new:
+      page_title: Initiate RFI
+      summary: Upload an information request document to initiate a new information request.
+    confirm:
+      page_title: Confirm request document
+      summary: Confirm the document you have uploaded is correct.
+      confirm-button: Confirm
+    edit:
+      page_title: Initiate RFI
+      summary: Upload an information request document to initiate a new information request.
+    request_summary:
+      page-title: Information request sent
+      panel-title: Request sent
+      panel-summary: Your information request has been sent
+      summary: Some guidance words...
+      continue-button: Return to Dashboard
+
+  information_responses:
+    edit:
+      page_title: Information request
+      heading: Answer the queries raised by the SAU
+      response-summary: Upload a document in response to the queries raised by the SAU
+      upload-response-button: Upload response document
+    confirm:
+      page-title: Confirm response document
+      summary: Confirm the document you have uploaded is correct
+      confirm_button: Submit
+    response_change:
+      page-title: Change response document
+      summary: Use the form below to upload a revised response document
+      upload-button: Upload Document
+    summary:
+      page_title: Information request response sent
+      panel-title: Response Sent
+      panel-summary: Your response to the information request has been sent
+      continue-button: Return to Dashboard
+
+  audit_log:
+    status_change: Status changed to %{status}
+    info_request: RFI sent
+    info_response: Response to RFI sent
+    created_pa: Public Authority '%{pa}' created
+    updated_pa: Public Authority '%{pa}' updated
+    copied: Request originally copied from %{source}
+    copy_source: Request duplicated for %{reason}
+    called_in: Changed to Call in
+
+  helpers:
+    legend:
+      call_in:
+        direction_date: Please provide the date that the direction was given
+
+      call_in_direction:
+        direction_date: Please provide the date that the direction was given
+
+      request:
+        scheme_subsidy: Is a report requested in relation to a subsidy or subsidy scheme?
+        referral_type: Referral type
+        direction_date: Please provide the date that the direction was given
+        call_in_type: What is the call in direction in relation to?
+        sectors: Sector(s) to which the %{type} can be given
+        purposes: Purpose(s) of the %{type}
+        end_date: End date
+        confirm_date: 
+          scheme: Confirmation date
+          subsidy: Award confirmation date
+        ben_id_type: Beneficiary ID type
+        ben_size: The size of the beneficiary
+        ben_good_svr: Does the subsidy apply to goods or services, or both?
+        location: Location of the subsidy spend
+        is_nc: Can the description above be used as the non-confidential description published by the SAU?
+        ee_assess_required: Have you carried out an Assessment of Compliance with the Energy and Environment Principles?
+        par_on_td: Has the %{type} been entered on the BEIS Transparency database?
+        par_assessed: Has any assessment been carried out, before the %{type} was given, as to whether the %{type} would comply with the Subsidy Control Requirements?
+        confirm_answers: Confirm your answers
+
+      set_decision:
+        decision: Set the decision for this request
+
+    hint:
+      request:
+        nc_description: This description should include any links to published announcements of the %{type}
+        call_in: Please upload a copy of the direction given by the Secretary of State
+        character_desc_docs: Choose a file
+        character_desc: Please provide a brief explanation of why you consider that the %{type} would meet the definition of an %{shortname}. Please supplement this with further information and analysis by attaching any supporting documentation in line with the SAU Guidance, if required.
+        character_desc_html: | 
+          <p>Please provide a brief explanation of why you consider that the %{type} would meet the definition of a %{fullname} (%{shortname}) in the free text box below.</p>
+          <p>In line with the SAU's guidance, you can also provide further explanation in a standalone document, together with any additional information and analysis, if sufficient for your needs.</p>
+        budget: 
+          scheme: Please use numeric values only. For tax awards, please provide a range below
+        tax_low: For example, 30000001
+        tax_high: For example, 40000000
+        max_amt: To be left blank for those schemes where this is no maximum
+        ben_id: This must match the ID type. For example, if you selected 'VAT Number' for ID type, you must enter the recipient's VAT Number.
+        ben_good_svr: Select all that apply
+        sectors: Select all that apply
+        description:
+          scheme_html: |
+            Please provide a brief description of the subsidy scheme. This should include the following information:  
+            <ul class="govuk-list govuk-list--bullet govuk-hint">
+              <li>Scheme eligibility and categories of beneficiary eligible under the scheme.</li>
+              <li>Any relevant time limits or other conditions which may be attached to the scheme, standalone award or subsidy awards made under the scheme; and</li>
+              <li>Information on how the subsidy awards given under the scheme are calculated.</li>
+            </ul>
+          subsidy_html: |
+            Please provide a brief description of the subsidy award. This should include the following information: 
+            <ul class="govuk-list govuk-list--bullet govuk-hint">
+              <li>Award eligibility</li>
+              <li>Categories of beneficiary; and</li>
+              <li>Any relevant time limits or other conditions which may be attached to the award.</li>
+            </ul>
+        legal: 
+          scheme: Please provide a summary of the legal basis under which the subsidy scheme is made
+          subsidy: Please provide a summary of the legal basis under which the subsidy is given
+        policy: Please provide a summary of the policy objective of the %{type}
+        purposes: Select all that apply
+        ee_assess_required: If the %{type} relates to energy or the environment, the %{type} must be assessed against the Energy and Environment Principles
+        end_date: Can be left blank
+        confirm_date: 
+          scheme: For example, 31 03 2020
+          subsidy: For example, 31 03 2020
+        info_location: 
+          scheme: Provide location of any information which cannot already be provided on the database or to provide further description of the subsidy scheme
+          subsidy: The location of any information, including information which is publicly available, which cannot already be provided or to provide further description of the subsidy/standalone award.
+        other_loc: Please provide any additional location information of the subsidy spend
+      set_decision:
+        decision_options:
+          declined: Does not meet prioritisation principles
+          rejected: Does not meet statutory requirements
+
+    caption:
+      request:
+        call_in: Call in Direction
+        call_in_type: Call in Direction
+        characteristics: "%{type} characteristics"
+        ben_good_svr: Subsidy characteristics
+        location: Subsidy characteristics
+        par_on_td: BEIS transparency database
+        par_assessed: Assessment of compliance
+
+    label:
+      authority:
+        pa_name: Name of public authority
+      user:
+        public_authority_id: Public authority
+        user_name: Name
+        email: Email address
+        phone: Telephone (optional)
+      request:
+        scheme_subsidy_options:
+          scheme: Subsidy Scheme
+          subsidy: Subsidy
+        other_form: Other form
+        subsidy_form: The form of the subsidy award
+        referral_type_options:
+          soi: Subsidy of Interest (SoI)
+          spi: Subsidy of Particular Interest (SoPI)
+          call: Called in by the Secretary of State
+          par: Post-award referral
+          sspi: Subsidy Scheme of Particular Interest (SSoPI)
+          ssi: Subsidy Scheme of Interest (SSoI)
+        call_in_type_options:
+          soi: Subsidy of Interest (SoI)
+          ssi: Subsidy Scheme of Interest (SSoI)
+          other: Other
+        par_td_ref_no: BEIS transparency database reference number
+        ben_id_type_options:
+          comp: Company Registration Number
+          charity: Charity Number
+          vat: VAT Number
+          utr: UTR Number
+        ben_id: Beneficiary ID number
+        beneficiary: Name of award beneficiary
+        ben_size_options:
+          micro: Micro (fewer than 10 employees)
+          small: Small (between 10 and 49 employees)
+          medium: Medium (between 50 and 249 employees)
+          large: Large (250 or more employees)
+        ben_good_svr_options:
+          goods: Goods
+          services: Services
+        location_options:
+          noea: North East
+          nowe: North West
+          york: Yorkshire and the Humber
+          emid: East Midlands
+          wmid: West Midlands
+          east: East of England
+          lond: London
+          soea: South East
+          sowe: South West
+          scot: Scotland
+          wales: Wales
+          ni: Northern Ireland
+        other_loc: Additional location information
+        par_reason: Please provide the reasons why an assessment of compliance has not been provided
+        sectors_options:
+           accom: Accommodation and food service activities
+           actex: Activities of extraterritorial organisations and bodies
+           actho: Activities of households as employers; undifferentiated goods- and services-producing activities of households for own use
+           admin: Administrative and support service activities
+           agric: Agriculture, forestry and fishing
+           artse: Arts, entertainment and recreation
+           const: Construction
+           educa: Education
+           elect: Electricity, gas, steam and air conditioning supply
+           finan: Financial and insurance activities
+           human: Human health and social work activities
+           infor: Information and communication
+           manuf: Manufacturing
+           minin: Mining and quarrying
+           other: Other service activities
+           profe: Professional, scientific and technical activities
+           publi: Public administration  and defence; compulsory social security
+           reale: Real estate activities
+           trans: Transportation and storage
+           water: Water supply; sewerage, waste management and remediation activities
+           whole: Wholesale and retail trade; repair of motor vehicles and motorcycles
+        description:
+           scheme: Description of the subsidy scheme
+           subsidy: Description of the subsidy award
+        nc_description: Please provide an appropriate non-confidential description of the %{type} to be published by the SAU
+        call_in: Call in Direction by the Secretary of State
+        par_call_in: Post-award referral
+        par_on_td_options:
+          y: "Yes"
+          n: "No"
+        scheme_name: Subsidy scheme name
+        pa_name: 
+          scheme: Name of the Public Authority making the scheme
+          subsidy: Name of the Public Authority giving the subsidy
+        budget: 
+          scheme: Amount budgeted for the scheme
+          subsidy: The amount of the subsidy award
+        tax_amt: For tax awards, please provide a range below
+        tax_low: Low range value
+        tax_high: High range value
+        max_amt: Maximum amount that can be given under the scheme
+        character_desc: Description of why the %{type} meets the characteristics of a %{fullname}
+        character_desc_docs: Attach any supporting documentation in line with the SAU Guidance
+        legal: 
+          scheme: Legal basis under which a subsidy is given
+          subsidy: Legal basis under which the subsidy is given
+        policy: Policy objective of the %{type}
+        purposes_options:
+          cultu: Culture or Heritage
+          emply: Employment
+          energ: Energy efficiency
+          envir: Environmental protection
+          infra: Infrastructure
+          regio: Regional development
+          rescu: Rescue aid
+          resea: Research and development
+          servi: Services of Public Economic Interest
+          smesm: SME (Small/Medium-sized enterprise) support
+          train: Training
+          other: Other
+        other_purpose: Other purpose
+        ee_assess_required_options:
+          y: "Yes"
+          n: "No"
+        par_assessed_options:
+          y: "Yes"
+          n: "No"
+        info_location: Location of further information
+        assess_pa: A. Subsidies should pursue a specific policy objective in order to remedy an identified market failure or address an equity rationale (such as social difficulties or distributional concerns). 
+        assess_pb: B. Subsidies should be proportionate to their specific policy objective and limited to what is necessary to achieve it.
+        assess_pc: C. Subsidies should be designed to bring about a change of economic behaviour of the beneficiary. That change, in relation to a subsidy, should be conducive to achieving its specific policy objective, and something that would not happen without the subsidy.
+        assess_pd: D. Subsidies should not normally compensate for the costs the beneficiary would have funded in the absence of any subsidy.
+        assess_pe: E. Subsidies should be an appropriate policy instrument for achieving their specific policy objective and that objective cannot be achieved through other, less distortive, means.
+        assess_pf: F. Subsidies should be designed to achieve their specific policy objective while minimising any negative effects on competition or investment within the United Kingdom.
+        assess_pg: G. Subsidies' beneficial effects (in terms of achieving their specific policy objective) should outweigh any negative effects, including in particular negative effects on competition and investment within the United Kingdom, international trade or investment.
+        assess_ee_pa: A. Subsidies in relation to energy and environment shall be aimed at and incentivise the beneficiary in
+        assess_ee_pb: B. Subsidies in relation to energy and environment shall not relieve the beneficiary from liabilities arising from its responsibilities as a polluter under the law of England, and Wales, Scotland or Northern Ireland.
+        assess_ee_pc: C. Subsidies for electricity generation adequacy, renewable energy or cogeneration
+        assess_ee_pd: D. Subsidies for electricity generation adequacy may be limited to installations not exceeding specified CO2 emission limits. 
+        assess_ee_pe: E. Subsidies for renewable energy or cogeneration shall not affect beneficiaries' obligations or opportunities to participate in electricity markets.
+        assess_ee_pf: F. (1) Subsidies in the form of partial exemptions from energy-related taxes and levies in favour of energy-intensive users shall not exceed the total amount of the tax or levy concerned.
+        assess_ee_pg: G. Subsidies in the form of compensation for electricity-intensive users given in the event of an increase in electricity costs resulting from climate policy instruments shall be restricted to sectors at significant risk of carbon leakage due to the cost increase.
+        assess_ee_ph: H. Subsidies for the decarbonisation of emissions linked to industrial activities in the United Kingdom shall 
+        assess_ee_pi: I. Subsidies for improvements of the energy efficiency of industrial activities in the United Kingdom shall improve energy efficiency by reducing energy consumption, either directly or per unit of production. 
+        confirm_answers_options: 
+          "1": We confirm that the answers provided are, to the best of our knowledge, complete and accurate
+
+      set_decision:
+        decision_options:
+          accepted: Accepted
+          declined: Declined
+          rejected: Rejected

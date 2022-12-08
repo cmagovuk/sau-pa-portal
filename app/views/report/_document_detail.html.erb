@@ -1,0 +1,9 @@
+<tr class="govuk-table__row">
+  <td class="govuk-table__cell"><%= link_to document.filename, document.url, class: 'govuk-link' %></td>
+  <td class="govuk-table__cell app-hide-col"><%= number_to_human_size(document.byte_size) %></td>
+  <td class="govuk-table__cell">
+    <%= link_to sau_request_path(@request) +"/report_remove?doc_id="+ document.id, method: :patch, class: 'govuk-link' do %>
+      Remove<span class="govuk-visually-hidden"> file <%= document.filename %></span>
+    <% end %>
+  </td>
+</tr>

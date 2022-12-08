@@ -1,0 +1,14 @@
+<% if document_list.count > 0 %>
+<table class="govuk-table">
+  <thead class="govuk-table__head">
+    <tr govuk-table__row>
+      <th class="govuk-table__header"><%= t("documents_table.headers.file_name") %></th>
+      <th class="govuk-table__header app-hide-col"><%= t("documents_table.headers.file_size") %></th>
+      <th class="govuk-table__header"><%= t("documents_table.headers.action") %></th>
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+    <%= render partial: 'document_detail', collection: document_list, as: :document %>
+  </tbody>
+</table>
+<% end %>

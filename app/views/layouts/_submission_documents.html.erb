@@ -1,0 +1,105 @@
+<%= if (@request.referral_type == "call" || @request.referral_type == "par") && @request.call_in.attached?
+    govuk_table do |table|
+      table.caption(size: 'm', text: @request.referral_type == "call" ? "Call in document" : "Referral document")
+
+      table.head do |head|
+        head.row do |row|
+          row.cell(header: true, text: 'File name')
+          row.cell(header: true, text: 'Uploaded')
+          row.cell(header: true, text: 'File size')
+        end
+      end
+
+      table.body do |body|             
+        body.row do |row|
+          row.cell do |cell| %>
+              <%= link_to rails_blob_path(@request.call_in, "attachment"), class: 'govuk-link' do %>
+                <span class="govuk-visually-hidden">Download file </span><%= @request.call_in.filename %>
+              <% end %>
+          <% end
+          row.cell(text: @request.call_in.created_at.strftime("%d/%m/%y %H:%M"))
+          row.cell(text: number_to_human_size(@request.call_in.byte_size))
+        end
+    end
+  end
+end %>
+
+<%= govuk_table do |table|
+    table.caption(size: 'm', text: 'Assessment documents')
+
+    table.head do |head|
+        head.row do |row|
+          row.cell(header: true, text: 'File name')
+          row.cell(header: true, text: 'Uploaded')
+          row.cell(header: true, text: 'File size')
+        end
+    end
+
+    table.body do |body|
+        @request.assessment_docs.each do |d|                
+            body.row do |row|
+                row.cell do |cell| %>
+                    <%= link_to rails_blob_path(d, "attachment"), class: 'govuk-link' do %>
+                      <span class="govuk-visually-hidden">Download file </span><%= d.filename %>
+                    <% end %>
+                <% end
+                row.cell(text: d.created_at.strftime("%d/%m/%y %H:%M"))
+                row.cell(text: number_to_human_size(d.byte_size))
+            end
+        end
+    end
+end %>
+
+<% if @request.character_desc_docs.count.positive? %>
+<%= govuk_table do |table|
+    table.caption(size: 'm', text: 'Eligibility description documents')
+
+    table.head do |head|
+        head.row do |row|
+          row.cell(header: true, text: 'File name')
+          row.cell(header: true, text: 'Uploaded')
+          row.cell(header: true, text: 'File size')
+        end
+    end
+
+    table.body do |body|
+        @request.character_desc_docs.each do |d|                
+            body.row do |row|
+                row.cell do |cell| %>
+                    <%= link_to rails_blob_path(d, "attachment"), class: 'govuk-link' do %>
+                      <span class="govuk-visually-hidden">Download file </span><%= d.filename %>
+                    <% end %>
+                <% end
+                row.cell(text: d.created_at.strftime("%d/%m/%y %H:%M"))
+                row.cell(text: number_to_human_size(d.byte_size))
+            end
+        end 
+    end
+end %>
+<% end %>
+<%= if @request.submission_text.attached?
+    govuk_table do |table|
+      table.caption(size: 'm', text: 'Submission text')
+
+      table.head do |head|
+        head.row do |row|
+          row.cell(header: true, text: 'File name')
+          row.cell(header: true, text: 'Uploaded')
+          row.cell(header: true, text: 'File size')
+        end
+      end
+
+      table.body do |body|             
+        body.row do |row|
+          row.cell do |cell| %>
+              <%= link_to rails_blob_path(@request.submission_text, "attachment"), class: 'govuk-link' do %>
+                <span class="govuk-visually-hidden">Download file </span><%= @request.submission_text.filename %>
+              <% end %>
+          <% end
+          row.cell(text: @request.submission_text.created_at.strftime("%d/%m/%y %H:%M"))
+          row.cell(text: number_to_human_size(@request.submission_text.byte_size))
+        end
+    end
+  end
+end %>
+

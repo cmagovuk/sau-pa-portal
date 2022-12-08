@@ -1,0 +1,51 @@
+<% title( t('.page_title') ) %>
+<% 
+breadcrumbs = {
+      t('dashboard') => dashboard_path,
+      t('information-requests') => nil
+    }
+%>
+<%= govuk_breadcrumbs(breadcrumbs: breadcrumbs) %>
+
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+<%= govuk_table do |table|
+  table.caption(size: 'l', text: t('.page_title') )
+
+  table.head do |head|
+    head.row do |row|
+      row.cell(header: true, text: t('.name') )
+      row.cell(header: true, text: t('.status') )
+      row.cell(header: true, text: t('.action') )
+    end
+  end
+
+  table.body do |body|
+    @information_requests.each do |i| 
+      body.row do |row|
+        row.cell(text: i.updated_at.strftime("%d/%m/%y %H:%M"))
+        row.cell(text: t(i.status) )
+        row.cell do |cell| %>
+          
+    <dd class="govuk-summary-list__actions">
+      <ul class="govuk-summary-list__actions-list">
+        <li class="govuk-summary-list__actions-list-item">
+         <%= link_to t('.view'), "/information_requests/" + i.id.to_s + "/", class: 'govuk-link' %>
+        </li>
+      </ul>
+    </dd>
+
+    <%    end
+      end
+    end
+  end
+end
+%>
+
+<div class="govuk-button-group">
+  <%= govuk_button_link_to t('.new-button'), '/requests/' + @request.id + '/information_requests/new' %>
+</div>
+</div>
+</div>

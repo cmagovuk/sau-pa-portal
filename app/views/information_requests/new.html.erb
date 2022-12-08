@@ -1,0 +1,26 @@
+<% title(t('.page_title')) %>
+<% 
+breadcrumbs = {
+  "Request progress" => sau_request_path(@information_request.request),
+  t('information-requests') => nil
+    }
+%>
+<%= govuk_breadcrumbs(breadcrumbs: breadcrumbs) %>
+
+<h1 class="govuk-heading-l"><%= t('.page_title') %></h1>
+
+<p class="govuk-body"><%= t('.summary') %></p>
+
+<%= form_for @information_request, url: information_requests_path, :as => :information_request do |f| %>
+  <%= f.govuk_error_summary %>
+
+  <%= f.govuk_file_field :documents,
+          label: {text: "Choose a file"},
+          accept: ".doc, .docx, .xls, .xlsx, .ppt, .pptx, .pdf, 'zip",
+          multiple: false,
+          enctype: "multipart/form-data",
+          class: "upload-input" %>
+  
+  <%= f.govuk_submit t("buttons.upload_files"), secondary: true, classes: "upload-files-button", name: "upload" %>
+  <%= f.govuk_submit classes: "upload-continue-button" %>
+<% end %>

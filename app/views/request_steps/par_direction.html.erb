@@ -1,0 +1,41 @@
+<% title(t('.page_title')) %>
+<%= render partial: 'back_link' %>
+
+<%= form_for @request, url: request_step_path(params[:id]) + "/upload", :as => :request do |f| %>
+  <%= f.govuk_error_summary %>
+  <%= f.govuk_file_field :documents,
+          label: {text: t('helpers.label.request.par_call_in'), size:'l', tag:'h1'},
+          hint: {text: t('helpers.hint.request.call_in')},
+          accept: ".doc, .docx, .xls, .xlsx, .ppt, .pptx, .pdf, .zip",
+          multiple: false,
+          enctype: "multipart/form-data",
+          class: "upload-input" %>
+  <%= f.govuk_submit t("buttons.upload_files"), secondary: true, classes: "upload-files-button" %>
+  <% if @request.call_in.id.present? %>
+    <table class="govuk-table">
+      <thead class="govuk-table__head">
+        <tr govuk-table__row>
+          <th class="govuk-table__header"><%= t("documents_table.headers.file_name") %></th>
+          <th class="govuk-table__header app-hide-col"><%= t("documents_table.headers.file_size") %></th>
+          <th class="govuk-table__header"><%= t("documents_table.headers.action") %></th>
+        </tr>
+      </thead>
+      <tbody class="govuk-table__body">
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell"><%=@request.call_in.filename %></td>
+          <td class="govuk-table__cell app-hide-col"><%= number_to_human_size(@request.call_in.byte_size) %></td>
+          <td class="govuk-table__cell">
+            <%= link_to request_step_path(step) +"/remove?doc_id="+ @request.call_in.id, method: :patch, class: 'govuk-link' do %>
+              Remove<span class="govuk-visually-hidden"> file <%= @request.call_in.filename %></span>
+            <% end %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  <% end %>
+
+  <%= f.govuk_date_field :direction_date, maxlength_enabled: true, 
+    legend: { size:'s', tag: 'p', class: "govuk-fieldset__legend govuk-fieldset__legend--s govuk-!-font-weight-regular" } %>
+
+  <%= f.govuk_submit classes: "upload-continue-button", name: "continue" %>
+<% end %>

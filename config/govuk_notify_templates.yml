@@ -1,0 +1,27 @@
+test:
+  user_invitation: "6e37f89d-4602-439b-9076-0db76ba60564"
+  submit_request: "853ac636-f90a-4e49-b950-793776e89a03"
+  submit_par: "f8d28ff2-982c-4c30-994c-29a7cad484c5"
+  submit_int_request: "8b2e81e9-edda-48b1-ba5e-fce6a9afca8f"
+  submit_rfi_request: "a77d06b1-f9a8-4b0a-b984-648c7caeac9a"
+  rfi_response: "c9f5a870-5106-4820-95af-b502bb06459a"
+  call_in: "73efe664-38a2-4153-9b5e-eca2c1a5c418"
+  request_status_changed:
+    accepted: "66776f39-64f0-4362-8c9c-bd3c28021868"
+    declined: "9d5f9093-75bc-41b5-b304-d61c249abd84"
+    rejected: "82991a29-b01f-4f96-8565-2a8a85a22797"
+    completed: "adc477f6-e79a-438e-aa19-e476495a13ec"
+
+production:
+  user_invitation: "c521d745-67c1-4ce0-aefa-99480c310296"
+  submit_request: "4dda175f-108f-4c56-91fb-dc3c35104c9b"
+  submit_par: "b303e32c-6147-4bde-a74c-316e68a0da32"
+  submit_int_request: "c803f3c8-35c7-4362-800e-66378e5948b5"
+  submit_rfi_request: "7e308869-19e1-43a2-9f7b-2ff45fc4b6fd"
+  rfi_response: "e93d561d-8b5d-4bd3-bc60-b5e5f5e663df"
+  call_in: "4d1f5734-c2ce-4231-b957-ef9154d0c71e"
+  request_status_changed:
+    accepted: "166b7fc6-47c0-4488-898f-847657884f65"
+    declined: "65fbe9fe-9539-4ab2-87c7-2c488be10676"
+    rejected: "5a4ff0d7-7383-4674-952f-d050604c2db8"
+    completed: "45df252e-07fb-44b4-b492-cc30bf31a5c8"

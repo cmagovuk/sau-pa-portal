@@ -1,0 +1,6 @@
+<% required ||= false 
+   field ||= nil %>
+<% if value.present? %>
+<%= value -%>
+<% elsif required || (field.present? && @request.field_required?(field)) -%>
+<p class="govuk-error-message">Required information missing</p><% end %>

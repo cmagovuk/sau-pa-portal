@@ -1,0 +1,11 @@
+<% title(t('.page_title')) %>
+<% 
+breadcrumbs = {
+      "Dashboard"           => dashboard_path,
+      "Request progress"     => request_path(@request),
+      "Original submission" => nil
+    }
+%>
+
+<%= govuk_breadcrumbs(breadcrumbs: breadcrumbs) %>
+<%= render partial: "layouts/original_submission" %>

@@ -1,0 +1,18 @@
+<% title(t('.page_title')) %>
+<%= render partial: 'back_link' %>
+
+<%= form_for @request, url: request_step_path(params[:id]), :as => :request do |f| %>
+  <%= f.govuk_error_summary %>
+  <%= f.govuk_radio_buttons_fieldset(:referral_type, legend: { size: "l", tag: 'h1' }) do %>
+      <input value="" autocomplete="off" type="hidden" name="request[referral_type]" id="request_referral_type" />
+      <% @request.options_allowed.each_with_index do |opt, idx| %>
+        <%= f.govuk_radio_button :referral_type, opt, link_errors: idx == 0, disabled: @request.previous_refno.present? && @request.referral_type != opt %>
+      <% end %>
+  <% end %>
+
+  <%= f.govuk_submit %>
+<% end %>
+<% if @request.previous_refno.present? %>
+  <%= govuk_details(summary_text: t(".detail_summary"),
+    text: t(".detail_text", status: @request.previous_status.downcase, refno: @request.previous_refno)) %>
+<% end %>

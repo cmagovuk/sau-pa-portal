@@ -1,0 +1,42 @@
+<% title(t('.page_title')) %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+<%= govuk_table do |table|
+  table.caption(size: 'l', text: t(".heading"))
+
+  table.head do |head|
+    head.row do |row|
+      row.cell(header: true, text: 'Name')
+      row.cell(header: true, text: 'Action')
+    end
+  end
+
+  table.body do |body|
+    @authorities.each do |auth| 
+      body.row do |row|
+        row.cell(text: auth.pa_name)
+        row.cell do |cell| %>
+          
+    <dd class="govuk-summary-list__actions govuk-!-padding-top-0 govuk-!-padding-bottom-0">
+      <ul class="govuk-summary-list__actions-list">
+        <li class="govuk-summary-list__actions-list-item">
+         <%= link_to "Edit", edit_public_authority_path(auth), class: 'govuk-link' %>
+        </li>
+        <li class="govuk-summary-list__actions-list-item">
+         <%= link_to "View users", public_authority_path(auth), class: 'govuk-link' %>
+        </li>
+      </ul>
+    </dd>
+    <%    end
+      end
+    end
+  end
+end
+%>
+
+<div class="govuk-button-group">
+  <%= govuk_button_link_to t(".add_pa_button"), new_public_authority_path %>
+</div>
+</div>
+</div>

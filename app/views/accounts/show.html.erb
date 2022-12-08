@@ -1,0 +1,37 @@
+<% title(t('.page_title')) %>
+<% 
+breadcrumbs = {
+  t('dashboard') => dashboard_path,
+  t('.page_title') => nil
+    }
+%>
+<%= govuk_breadcrumbs(breadcrumbs: breadcrumbs) %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l"><%= t(".heading")%></h1>
+    <h2 class="govuk-heading-m"><%= @user.user_name %></h2>
+
+    <%= govuk_summary_list(actions: false)  do |summary_list|
+        summary_list.row do |row|
+            row.key { 'Public authority' }
+            row.value { @user.public_authority.pa_name }
+        end
+        summary_list.row do |row|
+            row.key { 'Email address' }
+            row.value { @user.email }
+        end
+        summary_list.row do |row|
+            row.key { 'Name' }
+            row.value { @user.user_name }
+        end
+        summary_list.row do |row|
+            row.key { 'Telephone' }
+            row.value { @user.phone }
+        end
+    end %>
+  </div>
+</div>
+<div class="govuk-button-group">
+  <%= govuk_button_link_to t('.button'), edit_account_path %>
+</div>

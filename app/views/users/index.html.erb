@@ -1,0 +1,38 @@
+<% title(t('.page_title')) %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+<%= govuk_table do |table|
+  table.caption(size: 'l', text: t(".heading"))
+
+  table.head do |head|
+    head.row do |row|
+      row.cell(header: true, text: 'Name')
+      row.cell(header: true, text: 'Email address')
+      row.cell(header: true, text: 'Public authority')
+      row.cell(header: true, text: 'Action')
+    end
+  end
+
+  table.body do |body|
+    @users.each do |user| 
+      body.row do |row|
+        row.cell(text: user.user_name)
+        row.cell(text: user.email)
+        row.cell(text: user.public_authority.pa_name)
+       row.cell do |cell| 
+        %>          
+        <%= govuk_link_to "Edit", edit_user_path(user), no_visited_state: true %>
+    <%
+        end
+      end
+    end
+  end
+end
+%>
+
+<div class="govuk-button-group">
+  <%= govuk_button_link_to t(".add_user_button"), new_user_path %>
+</div>
+</div>
+</div>
