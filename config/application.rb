@@ -29,6 +29,7 @@ module GovukSauPortal
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
     config.time_zone = "Europe/London"
+    config.action_dispatch.cookies_same_site_protection = :strict
     config.exceptions_app = routes
 
     config.middleware.use Rack::Deflater

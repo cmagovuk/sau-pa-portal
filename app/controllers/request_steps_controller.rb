@@ -73,10 +73,6 @@ class RequestStepsController < ApplicationController
     end
   end
 
-  def set_headers
-    response.set_header("X-Robots-Tag", "noindex, nofollow")
-  end
-
   helper_method :previous_step_path, :step, :step_path
 
 private

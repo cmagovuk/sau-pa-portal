@@ -98,3 +98,7 @@ The docker image doesn't contain a default command. Any command can be appended:
 rails about                              # List versions of all Rails frameworks and the environment
 ...
 ```
+
+## Licence
+
+[MIT License](LICENCE)

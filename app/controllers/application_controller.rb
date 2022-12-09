@@ -25,7 +25,8 @@ class ApplicationController < ActionController::Base
   helper_method :auth_user
 
   def set_headers
-    response.set_header("X-Robots-Tag", "index, nofollow")
+    response.set_header("X-Robots-Tag", "noindex, nofollow")
+    response.set_header("Cache-Control", "max-age=0, no-cache, no-store, must-revalidate, private")
   end
 
 private
