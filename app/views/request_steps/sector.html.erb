@@ -5,8 +5,9 @@
   <%= f.govuk_error_summary %>
       <%= f.govuk_collection_radio_buttons :sectors, 
        Request::Sectors::SECTOR_OPTIONS, ->(option) {option}, nil,
-       legend: {text: t("helpers.legend.request.sectors", type: scheme_subsidy_name(@request).downcase), size:"l", tag:"h1"},
+       legend: {text: t("helpers.legend.request.sectors.#{@request.scheme_subsidy}"), size:"l", tag:"h1"},
        caption: { text: t("helpers.caption.request.characteristics", type: scheme_subsidy_name(@request)), size: 'm' },
+       hint: {text: t("helpers.hint.request.sectors.#{@request.scheme_subsidy}")},
        small:true %>
 
   <%= f.govuk_submit %>

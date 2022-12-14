@@ -219,7 +219,7 @@
                        <p class="govuk-error-message">Required information missing</p>
                   <% end
                 end
-                row.action(href: request_step_path(:purposes), visually_hidden_text: 'sectors')
+                row.action(href: request_step_path(:purposes), visually_hidden_text: 'purposes')
             end
             if @request.purposes.present? && @request.purposes.include?("other")
               summary_list.row do |row|
@@ -395,7 +395,7 @@
                        <p class="govuk-error-message">Required information missing</p>
                   <% end
                 end
-                row.action(href: request_step_path(:locations), visually_hidden_text: 'spend location')
+                row.action(href: request_step_path(:location), visually_hidden_text: 'spend location')
             end
 
             summary_list.row do |row|
@@ -403,11 +403,11 @@
                 row.value(classes:"app-pre-wrap") do 
                    render partial:"summary_value", locals: {value: @request.other_loc, field: :other_loc}
                 end
-                row.action(href: request_step_path(:locations), visually_hidden_text: 'spend location')
+                row.action(href: request_step_path(:location), visually_hidden_text: 'spend location')
            end
 
             summary_list.row do |row|
-                row.key { 'Sectors' }
+                row.key { 'Sector' }
                 row.value do
                     values = translate_terms(@request.sectors, "helpers.label.request.sectors_options")
                     if values.count > 0 
@@ -418,7 +418,7 @@
                        <p class="govuk-error-message">Required information missing</p>
                   <% end
                 end
-                row.action(href: request_step_path(:sectors), visually_hidden_text: 'sectors')
+                row.action(href: request_step_path(:sector), visually_hidden_text: 'sector')
             end
 
             summary_list.row do |row|
@@ -465,7 +465,7 @@
             end
 
             summary_list.row do |row|
-                row.key { 'Purposes' }
+                row.key { 'Purpose' }
                 row.value do
                     values = translate_terms(@request.purposes, "helpers.label.request.purposes_options")
                     if values.count > 0 
@@ -476,7 +476,7 @@
                        <p class="govuk-error-message">Required information missing</p>
                   <% end
                 end
-                row.action(href: request_step_path(:purposes), visually_hidden_text: 'sectors')
+                row.action(href: request_step_path(:purpose), visually_hidden_text: 'purpose')
             end
             if @request.purposes.present? && @request.purposes.include?("other")
               summary_list.row do |row|
@@ -484,7 +484,7 @@
                   row.value do 
                      render partial:"summary_value", locals: {value: @request.other_purpose, field: :other_purpose}
                   end
-                  row.action(href: request_step_path(:purposes), visually_hidden_text: 'other purpose')
+                  row.action(href: request_step_path(:purpose), visually_hidden_text: 'other purpose')
               end
             end
 

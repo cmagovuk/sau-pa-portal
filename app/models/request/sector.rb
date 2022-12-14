@@ -1,4 +1,4 @@
-class Request::SubsidySectors < Request
+class Request::Sector < Request
   SECTOR_OPTIONS = %w[accom actex actho admin agric artse const educa elect finan human infor manuf minin other profe publi reale trans water whole].freeze
 
   def permitted

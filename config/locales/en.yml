@@ -193,6 +193,8 @@ en:
       page_title: Locations
     sectors:
       page_title: Sectors
+    sector:
+      page_title: Sector
     descriptions:
       page_title: Description
       nc_text: The SAU will publish a short, non-confidential description of the proposed %{type} on our website in the early referral period.
@@ -203,6 +205,8 @@ en:
       detail_text: This is the legal justification of this %{type}.
     purposes:
       page_title: Purposes
+    purpose:
+      page_title: Purpose
     ee_required:
       page_title: Energy and Environment assessment carried out
       heading: Energy and Environment Principles
@@ -421,8 +425,12 @@ en:
         referral_type: Referral type
         direction_date: Please provide the date that the direction was given
         call_in_type: What is the call in direction in relation to?
-        sectors: Sector(s) to which the %{type} can be given
-        purposes: Purpose(s) of the %{type}
+        sectors:
+          scheme: Sector(s) to which the subsidy scheme can be given
+          subsidy: Sector to which the subsidy can be given
+        purposes:
+          scheme: Purpose(s) of the subsidy scheme
+          subsidy: Purpose of the subsidy
         end_date: End date
         confirm_date: 
           scheme: Confirmation date
@@ -456,7 +464,9 @@ en:
         max_amt: To be left blank for those schemes where this is no maximum
         ben_id: This must match the ID type. For example, if you selected 'VAT Number' for ID type, you must enter the recipient's VAT Number.
         ben_good_svr: Select all that apply
-        sectors: Select all that apply
+        sectors:
+          scheme: Select all that apply
+          subsidy: Select one option
         description:
           scheme_html: |
             Please provide a brief description of the subsidy scheme. This should include the following information:  
@@ -476,7 +486,9 @@ en:
           scheme: Please provide a summary of the legal basis under which the subsidy scheme is made
           subsidy: Please provide a summary of the legal basis under which the subsidy is given
         policy: Please provide a summary of the policy objective of the %{type}
-        purposes: Select all that apply
+        purposes:
+          scheme: Select all that apply
+          subsidy: Select one option
         ee_assess_required: If the %{type} relates to energy or the environment, the %{type} must be assessed against the Energy and Environment Principles
         end_date: Can be left blank
         confirm_date: 
@@ -612,7 +624,7 @@ en:
           envir: Environmental protection
           infra: Infrastructure
           regio: Regional development
-          rescu: Rescue aid
+          rescu: Rescue subsidy
           resea: Research and development
           servi: Services of Public Economic Interest
           smesm: SME (Small/Medium-sized enterprise) support

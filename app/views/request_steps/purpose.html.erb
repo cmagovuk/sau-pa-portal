@@ -3,16 +3,16 @@
 
 <%= form_for @request, url: request_step_path(params[:id]), :as => :request do |f| %>
   <%= f.govuk_error_summary %>
-    <%= f.govuk_check_boxes_fieldset :purposes, 
+    <%= f.govuk_radio_buttons_fieldset :purposes, 
       legend: { text: t("helpers.legend.request.purposes.#{@request.scheme_subsidy}"), size: "l" },
       caption: {text: t("helpers.caption.request.characteristics", type: scheme_subsidy_name(@request))},
       hint: {text: t("helpers.hint.request.purposes.#{@request.scheme_subsidy}")},
       small:true do %>
       <% Request::Purposes::PURPOSE_OPTIONS.each_with_index do |opt, idx| %>
         <% if opt != "other" %>
-          <%= f.govuk_check_box :purposes, opt, link_errors: idx == 0 %>
+          <%= f.govuk_radio_button :purposes, opt, link_errors: idx == 0 %>
         <% else %>
-          <%= f.govuk_check_box :purposes, opt do %>
+          <%= f.govuk_radio_button :purposes, opt do %>
             <%= f.govuk_text_field :other_purpose %>
           <% end %>
         <% end %>

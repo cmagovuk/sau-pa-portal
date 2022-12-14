@@ -1,6 +1,28 @@
 require "rails_helper"
 
 RSpec.describe ExportHelper, type: :helper do
+  describe "#map_free_text" do
+    context "return bank" do
+      it { expect(helper.map_free_text(nil, 5)).to be_blank }
+      it { expect(helper.map_free_text("", 5)).to be_blank }
+    end
+
+    context "append ' ' if value starts with '='" do
+      it { expect(helper.map_free_text("=1+3", 5)).to eq " =1+3" }
+      it { expect(helper.map_free_text("==12", 5)).to eq " ==12" }
+      it { expect(helper.map_free_text("=", 1)).to eq " " }
+    end
+
+    context "truncate string to max size" do
+      it { expect(helper.map_free_text("=1+3", 4)).to eq " =1+" }
+      it { expect(helper.map_free_text("1234567890", 5)).to eq "12345" }
+      it { expect(helper.map_free_text("1234567890", 255)).to eq "1234567890" }
+      it { expect(helper.map_free_text("1234567890", 0)).to eq "" }
+      it { expect(helper.map_free_text("1234567890", -1)).to be_nil }
+      it { expect(helper.map_free_text("1234567890", -10)).to be_nil }
+    end
+  end
+
   describe "#map_purpose" do
     context "return blank" do
       it { expect(helper.map_purpose(nil)).to be_blank }
@@ -100,8 +122,9 @@ RSpec.describe ExportHelper, type: :helper do
       end
     end
 
-    context "it outputs first not blank value" do
-      it { expect(helper.map_goods_services([""] + Request::GoodsServices::OPTIONS)).to eq(helper.map_goods_services([Request::GoodsServices::OPTIONS[0]])) }
+    context "it outputs specific string 'Goods and Services' if both options in array" do
+      it { expect(helper.map_goods_services([""] + Request::GoodsServices::OPTIONS)).to eq("Goods and Services") }
+      it { expect(helper.map_goods_services(Request::GoodsServices::OPTIONS)).to eq("Goods and Services") }
     end
   end
 

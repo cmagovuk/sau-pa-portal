@@ -5,7 +5,7 @@ class Requests::StepWorkflow
   CALL_STEPS = %w[call_in_direction call_in_type].freeze
   PAR_STEPS = %w[par_direction par_transparency].freeze
   SCHEME_STEPS = %w[scheme_info sectors descriptions legal purposes dates].freeze
-  SUBSIDY_STEPS = %w[subsidy_info beneficiary goods_services locations sectors descriptions legal purposes].freeze
+  SUBSIDY_STEPS = %w[subsidy_info beneficiary goods_services location sector descriptions legal purpose].freeze
   CHARACTERISTICS_STEPS = %w[character_desc].freeze
   ASSESSMENT_STEPS = %w[ee_required assessment].freeze
   EE_ASSESSMENT_STEPS = %w[ee_assessment].freeze

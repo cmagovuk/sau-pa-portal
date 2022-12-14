@@ -257,7 +257,7 @@
             end
 
             summary_list.row do |row|
-                row.key { 'Sectors' }
+                row.key { 'Sector' }
                 row.value do
                     values = translate_terms(@request.sectors, "helpers.label.request.sectors_options")
                     if values.count > 0 
@@ -295,7 +295,7 @@
             end
 
             summary_list.row do |row|
-                row.key { 'Purposes' }
+                row.key { 'Purpose' }
                 row.value do
                     values = translate_terms(@request.purposes, "helpers.label.request.purposes_options")
                     if values.count > 0 

@@ -76,7 +76,7 @@ prawn_document do |pdf|
     pdf_output_field(pdf, 'Does subsidy apply to goods or services', translate_terms(@request.ben_good_svr, "helpers.label.request.ben_good_svr_options").join("\n"))
     pdf_output_field(pdf, 'Location of spend', translate_terms(@request.location, "helpers.label.request.location_options").join("\n"))
     pdf_output_field(pdf, 'Additional location information', @request.other_loc)
-    pdf_output_field(pdf, 'Sectors', translate_terms(@request.sectors, "helpers.label.request.sectors_options").join("\n"))
+    pdf_output_field(pdf, 'Sector', translate_terms(@request.sectors, "helpers.label.request.sectors_options").join("\n"))
     pdf_output_field(pdf, 'Description', @request.description)
     pdf_output_field(pdf, 'Description is non-confidential', @request.is_nc.present? ? @request.is_nc.humanize : nil )
     
@@ -87,7 +87,7 @@ prawn_document do |pdf|
     pdf_output_field(pdf, 'Legal basis', @request.legal)
     pdf_output_field(pdf, 'Policy objective', @request.policy)
 
-    pdf_output_field(pdf, 'Purposes', translate_terms(@request.purposes, "helpers.label.request.purposes_options").join("\n"))
+    pdf_output_field(pdf, 'Purpose', translate_terms(@request.purposes, "helpers.label.request.purposes_options").join("\n"))
 
     if @request.purposes.present? && @request.purposes.include?("other")
         pdf_output_field(pdf, 'Description of other purpose', @request.other_purpose)

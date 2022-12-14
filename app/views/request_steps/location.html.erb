@@ -1,0 +1,12 @@
+<% title(t('.page_title')) %>
+<%= render partial: 'back_link' %>
+
+<%= form_for @request, url: request_step_path(params[:id]), :as => :request do |f| %>
+  <%= f.govuk_error_summary %>
+      <%= f.govuk_collection_radio_buttons :location, 
+        Request::Locations::OPTIONS, ->(option) {option}, nil,
+        legend: { size:"l", tag:"h1" },
+         small:true %>
+      <%= f.govuk_text_area :other_loc, width: 'two-thirds', max_words: Request::MAX_WORDCOUNT %>
+  <%= f.govuk_submit %>
+<% end %>

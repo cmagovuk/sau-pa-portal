@@ -11,12 +11,16 @@ wb.styles do |style|
       r = @request
       sheet.add_row [r.reference_number, r.scheme_name, r.beneficiary, r.status, r.updated_at.strftime("%d/%m/%y")]
     else
-      sheet.add_row ["Subsidy Control (SC) Number", "Subsidy Scheme Title", "Subsidy Objective", 'Subsidy Objective "Other" - Text', "Subsidy Instrument", 'Subsidy Instrument "Other" - Text', "Subsidy Element Full Amount Range", "Subsidy Element Full Amount", "National ID Type", "National ID", "Beneficiary Name", "Size of the Organisation", "Granting Authority Name", "Legal Granting Date", "Goods/Services Filter", "Spending Region", "Spending Sector"], style: heading
+      sheet.add_row ["Subsidy Control (SC) Number", "Subsidy Scheme Title", "Standalone Award", "Subsidy Description", "Subsidy Objective", 'Subsidy Objective "Other" - Text', "Subsidy Instrument", 'Subsidy Instrument "Other" - Text', "Subsidy Element Full Amount Range", "Subsidy Element Full Amount", "National ID Type", "National ID", "Beneficiary Name", "Size of the Organisation", "Public Authority Name", "Legal Granting Date", "Goods/Services Filter", "Spending Region", "Spending Sector"], style: heading
       export_data = []
       # Subsidy Control (SC) Number
       export_data << ""
       # Subsidy Scheme Title
       export_data << ""
+      # Standalone Award
+      export_data << "Yes"
+      # Subsidy Description
+      export_data << map_free_text(@request.is_nc == "no" ? @request.nc_description : @request.description, 5000)
       # Subsidy Objective
       export_data << map_purpose(@request.purposes)
 
@@ -42,7 +46,7 @@ wb.styles do |style|
       export_data << @request.ben_id
 
       # Beneficiary Name
-      export_data << (@request.beneficiary.first == "=" ? " #{@request.beneficiary}" : @request.beneficiary)
+      export_data << map_free_text(@request.beneficiary, 255)
 
       # Size of the Organisation
       export_data << map_ben_size(@request.ben_size)

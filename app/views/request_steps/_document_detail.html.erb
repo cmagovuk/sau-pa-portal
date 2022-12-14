@@ -1,5 +1,5 @@
 <tr class="govuk-table__row">
-  <td class="govuk-table__cell"><%= link_to document.filename, document.url, class: 'govuk-link' %></td>
+  <td class="govuk-table__cell"><%= link_to document.filename, rails_blob_path(document, "attachment"), class: 'govuk-link' %></td>
   <td class="govuk-table__cell app-hide-col"><%= number_to_human_size(document.byte_size) %></td>
   <td class="govuk-table__cell">
     <%= link_to request_step_path(step) +"/remove?doc_id="+ document.id, method: :patch, class: 'govuk-link' do %>

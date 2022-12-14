@@ -1,4 +1,14 @@
 module ExportHelper
+  def map_free_text(value, max_length)
+    return "" if value.blank?
+
+    if value.first == "="
+      " #{value}"[0, max_length]
+    else
+      value[0, max_length]
+    end
+  end
+
   def map_purpose(purposes)
     return "" if purposes.blank? || purposes.count.zero?
 
@@ -12,7 +22,7 @@ module ExportHelper
     when "envir" then "Environmental protection"
     when "infra" then "Infrastructure"
     when "regio" then "Regional development"
-    when "rescu" then "Rescue aid"
+    when "rescu" then "Rescue subsidy"
     when "resea" then "Research and development"
     when "servi" then "Services of Public Economic Interest"
     when "smesm" then "SME (Small/Medium-sized enterprise) support"
@@ -73,7 +83,7 @@ module ExportHelper
     when "micro" then "Micro (fewer than 10 employees)"
     when "small" then "Small (between 10 and 49 employees)"
     when "medium" then "Medium (between 50 and 249 employees)"
-    when "large" then "Large (more than 250 employees)"
+    when "large" then "Large (250 or more employees)"
     else ""
     end
   end
@@ -83,6 +93,8 @@ module ExportHelper
 
     compact_terms = ben_good_svr.select(&:present?)
     return "" if compact_terms.count.zero?
+
+    return "Goods and Services" if compact_terms.count > 1
 
     case compact_terms[0]
     when "goods" then "Goods"
