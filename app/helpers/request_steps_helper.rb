@@ -23,6 +23,18 @@ module RequestStepsHelper
     ""
   end
 
+  def tax_amount_output(request)
+    if request.tax_amt == "over_30000"
+      if request.tax_low.blank? || request.tax_high.blank?
+        nil
+      else
+        "£#{number_with_delimiter(request.tax_low)} - £#{number_with_delimiter(request.tax_high)}"
+      end
+    else
+      t(request.tax_amt&.to_sym, scope: [:tax_amount])
+    end
+  end
+
   def translate_terms(terms, translation_scope)
     compact_terms = terms.select(&:present?)
     compact_terms.map { |t| I18n.t "#{translation_scope}.#{t}" }

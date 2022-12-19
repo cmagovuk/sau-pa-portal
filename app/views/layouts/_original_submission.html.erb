@@ -84,7 +84,7 @@
 
             summary_list.row do |row|
                 row.key { 'For tax awards' }
-                row.value { @request.tax_amt.present? ? t(@request.tax_amt&.to_sym, scope: [:tax_amount]) : nil }
+                row.value { @request.tax_amt.present? ? tax_amount_output(@request) : nil }
             end
 
             summary_list.row do |row|
@@ -198,7 +198,7 @@
             else
               summary_list.row do |row|
                 row.key { 'Tax award range' }
-                row.value { @request.tax_amt.present? ? t(@request.tax_amt&.to_sym, scope: [:tax_amount]) : nil }
+                row.value { @request.tax_amt.present? ? tax_amount_output(@request) : nil }
               end
             end
 

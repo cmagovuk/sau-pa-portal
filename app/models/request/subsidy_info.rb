@@ -2,8 +2,11 @@ class Request::SubsidyInfo < Request
   attr_accessor :confirm_date_day, :confirm_date_month, :confirm_date_year
 
   validates :budget, numericality: { greater_than: 0, less_than: 10_000_000_000_000 }, allow_blank: true
+  validates :tax_low, numericality: { greater_than: 0, less_than: 10_000_000_000_000 }, allow_blank: true
+  validates :tax_high, numericality: { greater_than: 0, less_than: 10_000_000_000_000 }, allow_blank: true
   validates :other_form, length: { maximum: 255 }
   validate :validate_confirm_date
+  validate :validate_tax_range
 
   delegate :pa_name, to: :public_authority
 
@@ -14,6 +17,16 @@ class Request::SubsidyInfo < Request
       SUBSIDY_FORM_OPTIONS.map do |id|
         OpenStruct.new(id: id, name: I18n.t(id&.to_sym, scope: [:subsidy_form_options]))
       end
+  end
+
+  def validate_tax_range
+    return unless tax_amt == "over_30000"
+    return if tax_low.blank? || tax_high.blank?
+
+    errors.add(:tax_low, "Select a range from the dropdown above when less than £30,000,001") unless tax_low > 30_000_000
+    errors.add(:tax_low, "Enter a valid low range value") unless tax_low % 10_000_000 == 1
+    errors.add(:tax_high, "Enter a valid high range value") unless (tax_high % 10_000_000).zero?
+    errors.add(:tax_high, "Low and high values to not match a valid range") if tax_low % 10_000_000 == 1 && tax_high != tax_low + 9_999_999
   end
 
   def validate_confirm_date
@@ -52,6 +65,6 @@ class Request::SubsidyInfo < Request
   end
 
   def permitted
-    %w[subsidy_form other_form budget tax_amt confirm_date].freeze
+    %w[subsidy_form other_form budget tax_amt confirm_date tax_low tax_high].freeze
   end
 end

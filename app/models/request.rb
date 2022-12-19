@@ -24,9 +24,9 @@ class Request < ApplicationRecord
   scope :pa_requests, ->(id) { where("public_authority_id = ?", id) }
   scope :filter_by_internal_state, ->(internal_state) { where internal_state: internal_state }
 
-  TAX_OPTIONS = %w[upto_60 upto_500 upto_1000 upto_2000 upto_5000 upto_10000 upto_30000 over_30000].freeze
+  # TAX_OPTIONS = %w[upto_60 upto_500 upto_1000 upto_2000 upto_5000 upto_10000 upto_30000 over_30000].freeze
 
-  # TAX_OPTIONS = %w[upto_100 upto_300 upto_500 upto_750 upto_1500 upto_3000 upto_5000 upto_7500 upto_10000 upto_20000 upto_30000 over_30000].freeze
+  TAX_OPTIONS = %w[upto_100 upto_300 upto_500 upto_750 upto_1500 upto_3000 upto_5000 upto_7500 upto_10000 upto_20000 upto_30000 over_30000].freeze
   STATUS = %w[Accepted Completed Declined Draft Rejected Submitted].freeze
   ACTIONS = ["Continue", "Info required", "View", "View report"].freeze
   MAX_WORDCOUNT = 500
@@ -94,6 +94,9 @@ class Request < ApplicationRecord
         fields += %w[other_form] if subsidy_form == "other"
         fields += %w[budget] if subsidy_form != "tax"
         fields += %w[tax_amt] if subsidy_form == "tax"
+        fields += %w[tax_low tax_high] if subsidy_form == "tax" && tax_amt == "over_30000"
+      elsif tax_amt == "over_30000"
+        fields += %w[tax_low tax_high]
       end
     end
 

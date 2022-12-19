@@ -125,7 +125,7 @@
                 row.value do %>
                   <% if @request.budget.present? %>
                     <%= "£#{format_numeric(@request, :budget)}" %>
-                  <% elsif @request.tax_amt.blank?  %> 
+                  <% elsif @request.tax_amt.blank? %> 
                        <p class="govuk-error-message">Budget or tax amount required</p>
                   <% end
                 end 
@@ -136,7 +136,11 @@
                 row.key { 'For tax awards' }
                 row.value do %>
                   <% if @request.tax_amt.present? %>
-                    <%= t(@request.tax_amt&.to_sym, scope: [:tax_amount]) %>
+                    <% if tax_amount_output(@request).present? %>
+                    <%= tax_amount_output(@request) %>
+                    <% else %>
+                       <p class="govuk-error-message">Required information missing</p>
+                    <% end %>
                   <% elsif @request.budget.blank?  %> 
                        <p class="govuk-error-message">Budget or tax amount required</p>
                   <% end
@@ -313,7 +317,7 @@
                 row.key { 'Tax award range' }
                 row.value do 
                     render partial:"summary_value", 
-                       locals: {value: @request.tax_amt.present? ? t(@request.tax_amt&.to_sym, scope: [:tax_amount]) : nil,
+                       locals: {value: @request.tax_amt.present? ? tax_amount_output(@request) : nil,
                        field: :tax_amt}
                 end
                 row.action(text: "Change", href: request_step_path(:subsidy_info), visually_hidden_text: 'tax amount')

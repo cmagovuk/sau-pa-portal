@@ -44,26 +44,28 @@ document.addEventListener('DOMContentLoaded', () => {
         const divOtherForm = document.getElementsByClassName("sau-other-form")[0];
         const divBudget = document.getElementsByClassName("sau-budget")[0];
         const divTaxAmount = document.getElementsByClassName("sau-tax-amount")[0];
-        const divTaxRange = document.getElementsByClassName("sau-tax-range")[0];
-        const inputTaxSelect = document.getElementsByClassName("sau-tax-select")[0];
         if (divOtherForm && divBudget && divTaxAmount) {
             setDivs(inputFormSelect.value);
             inputFormSelect.addEventListener('change', (e) => {
                 setDivs(e.target.value);
             });
 
-            if (inputTaxSelect) {
-                setTaxDivs(inputTaxSelect.value);
-                inputTaxSelect.addEventListener('change', (e) => {
-                    setTaxDivs(e.target.value);
-                });
-            }
-
             function setDivs(value) {
                 divOtherForm.style.display = value == "other" ? "block":"none"
                 divBudget.style.display = value == "tax" ? "none":"block"
                 divTaxAmount.style.display = value == "tax" ? "block":"none"
             }
+        }
+    }
+
+    const inputTaxSelect = document.getElementsByClassName("sau-tax-select")[0];
+    if (inputTaxSelect) {
+        const divTaxRange = document.getElementsByClassName("sau-tax-range")[0];
+        if (inputTaxSelect) {
+            setTaxDivs(inputTaxSelect.value);
+            inputTaxSelect.addEventListener('change', (e) => {
+                setTaxDivs(e.target.value);
+            });
 
             function setTaxDivs(value) {
                 divTaxRange.style.display = value == "over_30000" ? "block":"none"

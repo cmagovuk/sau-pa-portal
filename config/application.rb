@@ -30,6 +30,9 @@ module GovukSauPortal
     # the framework and any gems in your application.
     config.time_zone = "Europe/London"
     config.action_dispatch.cookies_same_site_protection = :strict
+    config.active_storage.content_types_allowed_inline -= ["application/pdf"]
+    config.active_storage.content_types_to_server_as_binary = ["application/pdf"]
+
     config.exceptions_app = routes
 
     config.middleware.use Rack::Deflater

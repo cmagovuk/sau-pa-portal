@@ -18,7 +18,27 @@
           label:{ text: t("helpers.label.request.budget.subsidy") } %>
       </div>
       <div class="sau-tax-amount">
-        <%= f.govuk_collection_select :tax_amt, @request.select_tax_options, :id, :name %>
+        <%= f.govuk_collection_select :tax_amt, @request.select_tax_options, :id, :name, class: "sau-tax-select" %>
+        <div class="sau-tax-range">
+          <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+              <p class="govuk-body">Enter the correct range</p>
+              <p class="govuk-hint">
+              The regulation specifies tax awards above £30,000,000 must be specified in ascending ranges of £10,000,000.  for example 30000001 to 40000000 or 40000001 to 50000000.
+              </p>
+            </div>
+          </div>
+          <div class="govuk-grid-row">
+            <div class="govuk-grid-column-one-third">
+              <%= f.govuk_text_field :tax_low, prefix_text: '£', 
+                  value: format_numeric(@request, :tax_low) %>
+            </div>
+            <div class="govuk-grid-column-one-third">
+              <%= f.govuk_text_field :tax_high, prefix_text: '£', 
+                  value: format_numeric(@request, :tax_high) %>
+            </div>
+          </div>
+        </div>
       </div>
       <%= f.govuk_date_field :confirm_date, maxlength_enabled: true, 
            legend: { text: t("helpers.legend.request.confirm_date.subsidy"), size:'s', tag: 'p',

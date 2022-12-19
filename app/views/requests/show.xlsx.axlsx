@@ -34,7 +34,7 @@ wb.styles do |style|
       export_data << (@request.subsidy_form == "other" ? @request.other_form : "")
 
       # Subsidy Element Full Amount Range
-      export_data << (@request.subsidy_form == "tax" ? map_tax_amount(@request.tax_amt) : "")
+      export_data << (@request.subsidy_form == "tax" ? map_tax_amount(@request) : "")
 
       # Subsidy Element Full Amount
       export_data << (@request.subsidy_form != "tax" ? @request.budget : "")

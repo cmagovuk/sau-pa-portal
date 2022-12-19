@@ -48,19 +48,31 @@ module ExportHelper
     end
   end
 
-  def map_tax_amount(tax_amt)
-    return "" if tax_amt.blank?
+  def map_tax_amount(request)
+    return "" if request.tax_amt.blank?
 
-    case tax_amt
-    when "upto_60" then "£1 - £60,000"
-    when "upto_500" then "£60,001 - £500,000"
-    when "upto_1000" then "£500,001 - £1,000,000"
-    when "upto_2000" then "£1,000,001 - £2,000,000"
-    when "upto_5000" then "£2,000,001 - £5,000,000"
-    when "upto_10000" then "£5,000,001 - £10,000,000"
-    when "upto_30000" then "£10,000,001 - £30,000,000"
-    when "over_30000" then "£30,000,001 or more"
+    case request.tax_amt
+    when "upto_100" then "0-100000"
+    when "upto_300" then "100001-300000"
+    when "upto_500" then "300001-500000"
+    when "upto_750" then "500001-750000"
+    when "upto_1500" then "750001-1500000"
+    when "upto_3000" then "1500001-300000"
+    when "upto_5000" then "3000001-5000000"
+    when "upto_7500" then "5000001-7500000"
+    when "upto_10000" then "7500001-10000000"
+    when "upto_20000" then "10000001-20000000"
+    when "upto_30000" then "20000001-30000000"
+    when "over_30000" then calc_tax_range(request)
     else ""
+    end
+  end
+
+  def calc_tax_range(request)
+    if request.tax_low.blank? || request.tax_high.blank?
+      ""
+    else
+      "#{request.tax_low}-#{request.tax_high}"
     end
   end
 

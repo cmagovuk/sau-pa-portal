@@ -61,15 +61,25 @@ RSpec.describe ExportHelper, type: :helper do
 
   describe "#map_tax_amount" do
     context "return blank" do
-      it { expect(helper.map_tax_amount(nil)).to be_blank }
-      it { expect(helper.map_tax_amount("")).to be_blank }
-      it { expect(helper.map_tax_amount("incorrect value")).to be_blank }
+      it do
+        request = Request.new(tax_amt: nil)
+        expect(helper.map_tax_amount(request)).to be_blank
+      end
+      it do
+        request = Request.new(tax_amt: "")
+        expect(helper.map_tax_amount(request)).to be_blank
+      end
+      it do
+        request = Request.new(tax_amt: "incorrect value")
+        expect(helper.map_tax_amount(request)).to be_blank
+      end
     end
 
     context "it outputs a text value for each possible tax amount value" do
       Request::TAX_OPTIONS.each do |opt|
         it "for tax amount '#{opt}'" do
-          expect(helper.map_tax_amount(opt)).to_not be_blank
+          request = Request.new(tax_amt: opt, tax_low: 30_000_001, tax_high: 40_000_000)
+          expect(helper.map_tax_amount(request)).to_not be_blank
         end
       end
     end
