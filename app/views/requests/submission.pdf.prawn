@@ -31,7 +31,7 @@ prawn_document do |pdf|
     pdf_output_field(pdf, 'Subsidy scheme name', @request.scheme_name)
     pdf_output_field(pdf, 'Public Authority name', @request.public_authority.pa_name)
     pdf_output_field(pdf, 'Amount budgeted for scheme', @request.budget.present? ? "£#{format_numeric(@request, :budget)}" : nil)
-    pdf_output_field(pdf, 'For tax awards', @request.tax_amt.present? ? t(tax_amount_output(@request) : nil)
+    pdf_output_field(pdf, 'For tax awards', @request.tax_amt.present? ? t(tax_amount_output(@request)) : nil)
     pdf_output_field(pdf, 'Maximum amount that can be given', @request.max_amt.present? ? "£#{format_numeric(@request, :max_amt)}" : nil)
     pdf_output_field(pdf, 'Sectors', translate_terms(@request.sectors, "helpers.label.request.sectors_options").join("\n"))
     pdf_output_field(pdf, 'Description', @request.description)
