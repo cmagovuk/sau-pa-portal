@@ -38,5 +38,5 @@
   <%= f.govuk_date_field :direction_date, maxlength_enabled: true, 
     legend: { size:'s', tag: 'p', class: "govuk-fieldset__legend govuk-fieldset__legend--s govuk-!-font-weight-regular" } %>
 
-  <%= f.govuk_submit classes: "upload-continue-button", name: "continue" %>
+  <%= f.govuk_submit t("buttons.submit"), classes: "upload-continue-button", name: "continue" %>
 <% end %>

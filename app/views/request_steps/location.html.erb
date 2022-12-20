@@ -8,5 +8,5 @@
         legend: { size:"l", tag:"h1" },
          small:true %>
       <%= f.govuk_text_area :other_loc, width: 'two-thirds', max_words: Request::MAX_WORDCOUNT %>
-  <%= f.govuk_submit %>
+  <%= f.govuk_submit t("buttons.submit") %>
 <% end %>

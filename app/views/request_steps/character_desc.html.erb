@@ -25,5 +25,5 @@
   <%= f.govuk_submit t("buttons.upload_files"), secondary: true, classes: "upload-files-button" %>
   <%= render partial: "document_list", object: @request.character_desc_docs %>
 
-  <%= f.govuk_submit classes: "upload-continue-button", name: "continue" %>
+  <%= f.govuk_submit t("buttons.submit"), classes: "upload-continue-button", name: "continue" %>
 <% end %>

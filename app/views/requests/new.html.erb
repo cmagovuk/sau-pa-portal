@@ -4,5 +4,5 @@
   <%= f.govuk_error_summary %>
   <%= f.govuk_collection_radio_buttons :scheme_subsidy, 
      RequestTypeForm::OPTIONS, ->(option) {option}, nil, legend: {size: "l", tag: 'h1'} %>
-  <%= f.govuk_submit %>
+  <%= f.govuk_submit t("buttons.submit") %>
 <% end %>

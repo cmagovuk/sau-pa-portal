@@ -33,8 +33,13 @@ en:
   dashboard: Dashboard
   upload_report: Upload final report
 
+  buttons:
+    submit: Save and continue
+    confirm: Confirm and send
+    upload_files: Upload file
+
   service: 
-    name: "Subsidy Control Public Authority Portal"
+    name: "Request a Report from the Subsidy Advice Unit"
 
   link:
     back: Back    
@@ -191,6 +196,8 @@ en:
       detail_text: This is what the organisation provides. For example, a greengroccer provides goods, while a dentist provides services.
     locations:
       page_title: Locations
+    location:
+      page_title: Location
     sectors:
       page_title: Sectors
     sector:

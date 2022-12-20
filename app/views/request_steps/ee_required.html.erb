@@ -10,5 +10,5 @@
       legend: {size: "m", tag: 'h1'}, bold_labels: false, small:true,
       hint: { text: t("helpers.hint.request.ee_assess_required", type: scheme_subsidy_name(@request).downcase ) } %>
 
-  <%= f.govuk_submit %>
+  <%= f.govuk_submit t("buttons.submit") %>
 <% end %>
