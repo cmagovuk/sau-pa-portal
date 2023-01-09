@@ -2,8 +2,8 @@
 <% title(t('.page_title')) %>
 <% 
 breadcrumbs = {
-      "Dashboard" => dashboard_path,
-      "Request progress" => nil
+      t("dashboard") => dashboard_path,
+      t("request_progress") => nil
     }
 %>
 <%= govuk_breadcrumbs(breadcrumbs: breadcrumbs) %>

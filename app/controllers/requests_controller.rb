@@ -1,6 +1,8 @@
 class RequestsController < ApplicationController
   def show
     load_request(params[:id])
+    return if performed?
+
     respond_to do |format|
       format.html { render :show }
       format.xlsx do

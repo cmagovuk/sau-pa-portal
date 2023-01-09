@@ -1,4 +1,4 @@
-class CallInController < SauTeamController
+class CallInController < SauLeadershipController
   def edit
     render "/errors/not_found", status: :not_found and return unless call_in.status == "Accepted"
   end

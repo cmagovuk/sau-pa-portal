@@ -83,6 +83,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :sau_dashboard, only: %i[index]
+
   get "/pages/:page", to: "pages#show"
 
   resource :cookies,

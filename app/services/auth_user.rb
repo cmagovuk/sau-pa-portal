@@ -42,6 +42,10 @@ class AuthUser
     has_role?("SAU-PA-SU") || has_role?("SAU-PA-U")
   end
 
+  def is_sau_user?
+    has_role?("SAU-Casework") || has_role?("SAU-Pipeline") || has_role?("SAU-Admin")
+  end
+
   def case_access?(case_id)
     return false if case_id.blank?
 

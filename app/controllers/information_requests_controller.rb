@@ -1,4 +1,4 @@
-class InformationRequestsController < SauTeamController
+class InformationRequestsController < SauLeadershipController
   def new
     @information_request = Request.find(params[:id]).information_requests.new
   end

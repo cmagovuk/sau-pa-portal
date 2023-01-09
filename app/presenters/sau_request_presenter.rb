@@ -7,19 +7,19 @@ class SauRequestPresenter
     "/sau_requests/view/#{@request.id}"
   end
 
-  def actions(*)
+  def actions(auth_user)
     actions = []
-    if @request.status == "Submitted"
+    if @request.status == "Submitted" && auth_user.has_role?("SAU-Pipeline")
       actions += [
         { title: "Set decision", link: "/set_decision/#{@request.id}", secondary: false },
       ]
     end
 
-    if @request.status == "Accepted"
+    if @request.status == "Accepted" && auth_user.has_role?("SAU-Pipeline")
       actions += [
         { title: "Upload report", link: "/sau_requests/#{@request.id}/report", secondary: false },
       ]
-      if @request.internal_state.blank?
+      unless @request.internal_state == "info_required"
         rfis = @request.information_requests.reject { |x| x.status == "response-confirmed" }
         if rfis.count.zero?
           actions += [

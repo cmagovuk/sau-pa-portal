@@ -31,6 +31,8 @@
 
 en:
   dashboard: Dashboard
+  request_progress: Request progress
+  submission: Original submission
   upload_report: Upload final report
 
   buttons:
@@ -125,6 +127,11 @@ en:
       page_title: Confirm call in direction
       heading: Confirm re-apply for report on call in
       confirm_button: Confirm
+
+  sau_dashboard:
+    index:
+      page_title: Request dashboard
+      heading: Dashboard
 
   requests:
     show:
