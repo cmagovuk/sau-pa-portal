@@ -6,14 +6,12 @@ class AuthUser
     @email = "Not given"
     @roles = []
     @id = "Not given"
-    @decoded_token_print = "No token found"
     @user = nil
 
     aad_token = request.headers["HTTP_X_MS_TOKEN_AAD_ID_TOKEN"]
 
     if aad_token.present?
       decoded_token = JWT.decode aad_token, nil, false
-      @decoded_token_print = decoded_token.pretty_inspect
       @email = decoded_token[0]["email"]
       @roles = decoded_token[0]["roles"]
       @name = decoded_token[0]["name"]

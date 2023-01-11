@@ -11,7 +11,7 @@ wb.styles do |style|
       beneficiary = (r.beneficiary.present? && r.beneficiary.first == "=" ? " #{r.beneficiary}" : r.beneficiary)
       scheme_name = (r.scheme_name.present? && r.scheme_name.first == "=" ? " #{r.scheme_name}" : r.scheme_name)
 
-      sheet.add_row [r.reference_number, r.pa_name, referral_type_shortname(r), scheme_name, beneficiary, r.status, r.updated_at.strftime("%d/%m/%y")]
+      sheet.add_row [r.reference_number, r.pa_name, referral_type_name(r), scheme_name, beneficiary, r.status, r.updated_at.strftime("%d/%m/%y")]
     end
   end
 end

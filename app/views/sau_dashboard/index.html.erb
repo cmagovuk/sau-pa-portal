@@ -6,14 +6,19 @@
 <% if auth_user.is_sau_user? %>
     <%= form_with method: :get, local: true do |f| %>
       <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-half">
+          <%= f.govuk_select :pa_id, options_for_select([["No filter", ""]] + @authorities, params[:pa_id]),
+            label: { text: "Filter by Public Authority"}, class: "sau-filter"
+          %>
+        </div>
         <div class="govuk-grid-column-one-quarter">
           <%= f.govuk_select :status, options_for_select(select_filter_options(Request::STATUS - ["Draft"]), params[:status]),
             label: { text: "Filter by Status" }, class: "sau-filter"
           %>
         </div>
-        <div class="govuk-grid-column-three-quarters">
-          <%= f.govuk_select :pa_id, options_for_select([["No filter", ""]] + @authorities, params[:pa_id]),
-            label: { text: "Filter by Public Authority"}, class: "sau-filter"
+        <div class="govuk-grid-column-one-quarter">
+          <%= f.govuk_select :rfi, options_for_select([["No filter", ""],["Received","r"],["Pending","p"]], params[:rfi]),
+            label: { text: "RFI" }, class: "sau-filter"
           %>
         </div>
       </div>
@@ -50,7 +55,7 @@
                   govuk_link_to request.reference_number, sau_request_path(request.id), no_visited_state: true
                 end
                 row.cell(text: request.pa_name)
-                row.cell(text: referral_type_shortname(request))
+                row.cell(text: referral_type_name(request))
                 row.cell(text: request.scheme_name.present? ? request.scheme_name : request.beneficiary)
                 row.cell(text: request.status, classes: "app-stack")
                 row.cell do |cell|

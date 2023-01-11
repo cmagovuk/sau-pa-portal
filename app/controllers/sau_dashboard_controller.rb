@@ -8,14 +8,12 @@ class SauDashboardController < SauController
     @requests = @requests.filter_by_status(params[:status]) if params[:status].present? && Request::STATUS.include?(params[:status])
     @requests = @requests.filter_by_pa(params[:pa_id]) if params[:pa_id].present?
 
-    # if params[:act].present? && Request::ACTIONS.include?(params[:act])
-    #   case params[:act]
-    #   when "Continue" then @requests = @requests.filter_by_status("Draft")
-    #   when "Info required" then @requests = @requests.filter_by_internal_state("info-required").filter_by_status("Accepted")
-    #   when "View" then @requests = @requests.filter_by_status(%w[Accepted Submitted])
-    #   when "View report" then @requests = @requests.filter_by_status("Completed")
-    #   end
-    # end
+    if params[:rfi].present? && %w[r p].include?(params[:rfi])
+      case params[:rfi]
+      when "p" then @requests = @requests.filter_by_internal_state("info-required").filter_by_status("Accepted")
+      when "r" then @requests = @requests.filter_by_internal_state("rfi-complete").filter_by_status("Accepted")
+      end
+    end
 
     respond_to do |format|
       format.html { render :index }
