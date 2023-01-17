@@ -11,7 +11,7 @@ class UserStepsController < AdminController
         redirect_to user_step_path(next_step)
       elsif user.id.present?
         user_to_update = User.find(user.id)
-        user_to_update.update!(user_name: user.user_name, phone: user.phone)
+        user_to_update.update!(user_name: user.user_name, phone: user.phone, role: user.role, public_authority_id: user.public_authority_id, disabled: user.disabled)
         redirect_to users_path
       else
         result = user_service.invitation_result(user)
@@ -63,7 +63,7 @@ private
   end
 
   def user_params
-    params.require(:user).permit(:user_name, :email, :public_authority_id, :role, :phone)
+    params.require(:user).permit(:user_name, :email, :public_authority_id, :role, :phone, :disabled)
   end
 
   def user_service

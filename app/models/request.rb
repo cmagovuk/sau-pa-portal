@@ -20,6 +20,7 @@ class Request < ApplicationRecord
   serialize :location, Array
 
   scope :filter_by_status, ->(status) { where status: status }
+  scope :filter_by_user, ->(user_id) { where user_id: user_id }
   scope :filter_by_pa, ->(pa_id) { where public_authority_id: pa_id }
   scope :submitted, -> { where.not(reference_number: nil) }
   scope :pa_requests, ->(id) { where("public_authority_id = ?", id) }

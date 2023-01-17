@@ -33,11 +33,16 @@ class AuthUser
   end
 
   def is_authorised?
-    @user.present? || has_role?("SAU-Casework") || has_role?("SAU-Pipeline") || has_role?("SAU-Admin")
+    (@user.present? && @user.disabled != "x") || has_role?("SAU-Casework") || has_role?("SAU-Pipeline") || has_role?("SAU-Admin")
   end
 
   def is_pa_user?
-    has_role?("SAU-PA-SU") || has_role?("SAU-PA-U")
+    # has_role?("SAU-PA-SU") || has_role?("SAU-PA-U")
+    @user.present? && @user.disabled != "x" && (%w[su u].include? @user.role)
+  end
+
+  def is_pa_std_user?
+    @user.present? && @user.disabled != "x" && @user.role == "u"
   end
 
   def is_sau_user?
@@ -53,6 +58,8 @@ class AuthUser
   def can_access_request?(request)
     return false unless is_pa_user? && request.present?
 
+    return false unless @user.role == "su" || request.user_id == @user.id
+
     request.public_authority_id == pa_id
   end
 
@@ -62,6 +69,10 @@ class AuthUser
 
   def pa_id
     @user.public_authority.id if @user.present? && @user.public_authority.present?
+  end
+
+  def public_authority
+    @user.public_authority if @user.present? && @user.public_authority.present?
   end
 
   def user_id

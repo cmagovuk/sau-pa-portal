@@ -3,25 +3,53 @@
 <h1 class="govuk-heading-l">Public Authority</h1>
 <h2 class="govuk-heading-m"><%= @authority.pa_name %></h2>
 
-<%= govuk_table do |table|
-  table.caption(size: 'm', text: 'Users')
+  <%= govuk_table do |table|
+    table.caption(size: 'm', text: 'Super users')
 
-  table.head do |head|
-    head.row do |row|
-      row.cell(header: true, text: 'Name')
-      row.cell(header: true, text: 'Email')
+    table.head do |head|
+      head.row do |row|
+        row.cell(header: true, text: 'Name')
+        row.cell(header: true, text: 'Email')
+        row.cell(header: true, text: 'Action')
+      end
     end
-  end
 
-  table.body do |body|
-    @authority.users.each do |user| 
-      body.row do |row|
-        row.cell(text: user.user_name)
-        row.cell(text: user.email)
+    table.body do |body|
+      @authority.users.select { |u| u.role == 'su' }.each do |user| 
+        body.row do |row|
+          row.cell(text: user.user_name)
+          row.cell(text: user.email)
+        row.cell do |cell| 
+            govuk_link_to "Edit", edit_user_path(user), no_visited_state: true
+          end
+        end
       end
     end
   end
-end
-%>
+  %>
+  <%= govuk_table do |table|
+    table.caption(size: 'm', text: 'Standard users')
+
+    table.head do |head|
+      head.row do |row|
+        row.cell(header: true, text: 'Name')
+        row.cell(header: true, text: 'Email')
+        row.cell(header: true, text: 'Action')
+      end
+    end
+
+    table.body do |body|
+      @authority.users.select { |u| u.role == 'u' }.each do |user| 
+        body.row do |row|
+          row.cell(text: user.user_name)
+          row.cell(text: user.email)
+        row.cell do |cell| 
+            govuk_link_to "Edit", edit_user_path(user), no_visited_state: true
+          end
+        end
+      end
+    end
+  end
+  %>
 </div>
 </div>

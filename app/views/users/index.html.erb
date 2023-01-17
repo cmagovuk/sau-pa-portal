@@ -10,6 +10,7 @@
       row.cell(header: true, text: 'Name')
       row.cell(header: true, text: 'Email address')
       row.cell(header: true, text: 'Public authority')
+      row.cell(header: true, text: 'Role')
       row.cell(header: true, text: 'Action')
     end
   end
@@ -20,10 +21,9 @@
         row.cell(text: user.user_name)
         row.cell(text: user.email)
         row.cell(text: user.public_authority.pa_name)
-       row.cell do |cell| 
-        %>          
-        <%= govuk_link_to "Edit", edit_user_path(user), no_visited_state: true %>
-    <%
+        row.cell(text: t(user.role, scope: "helpers.label.user.role_options"))
+        row.cell do |cell| 
+          govuk_link_to "Edit", edit_user_path(user), no_visited_state: true 
         end
       end
     end

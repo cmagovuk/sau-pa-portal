@@ -28,6 +28,8 @@ class RequestsController < ApplicationController
        .select(:id, :reference_number, :beneficiary, :scheme_name, :sectors, :status, :updated_at, :internal_state)
        .order(updated_at: :desc)
 
+    @requests = @requests.filter_by_user(auth_user.user_id) if auth_user.is_pa_std_user?
+
     @requests = @requests.filter_by_status(params[:status]) if params[:status].present? && Request::STATUS.include?(params[:status])
 
     if params[:act].present? && Request::ACTIONS.include?(params[:act])
@@ -52,6 +54,8 @@ class RequestsController < ApplicationController
   def reload
     session[:issue_id] = params[:id]
     load_request(params[:id])
+    return if performed?
+
     step = "review"
     step = "referral_type" if @request.referral_type.blank?
     step = "call_in_type" if @request.referral_type == "call" && @request.call_in_type.blank?

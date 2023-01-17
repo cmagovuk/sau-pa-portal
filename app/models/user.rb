@@ -4,7 +4,7 @@ class User < ApplicationRecord
 
   belongs_to :public_authority
 
-  USER_ROLE_OPTIONS = %w[su].freeze
+  USER_ROLE_OPTIONS = %w[su u].freeze
 
   validates :user_name, presence: true, length: { maximum: 255 }
   validates :email, presence: true, length: { maximum: 255 }, uniqueness: { case_sensitive: false }, format: { with: EMAIL_REGEX }, unless: -> { id.present? }

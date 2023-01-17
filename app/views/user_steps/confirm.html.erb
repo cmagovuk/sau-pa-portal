@@ -13,6 +13,11 @@
         end
 
         summary_list.row do |row|
+            row.key { 'Role' }
+            row.value { @user.role.present? ? t(@user.role&.to_sym, scope: "helpers.label.user.role_options") : "" }
+        end
+
+        summary_list.row do |row|
             row.key { 'Name' }
             row.value { @user.user_name }
         end
@@ -25,6 +30,11 @@
         summary_list.row do |row|
             row.key(text: 'Email address')
             row.value(text: @user.email )
+        end
+
+        summary_list.row do |row|
+            row.key(text: 'Disable account')
+            row.value(text: @user.disabled == "x" ? "Yes" : "" )
         end
     end %>
 

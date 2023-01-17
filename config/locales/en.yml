@@ -357,10 +357,25 @@ en:
       heading: Confirm user
       submit_btn: Confirm
 
+  pa_user_steps:
+    input:
+      page_title: Public authority user
+      heading: Public authority standard user
+    confirm:
+      page_title: Confirm user
+      heading: Confirm user
+      submit_btn: Confirm
+
   users:
     index:
       page_title: Users
       heading: Users
+      add_user_button: Add user
+
+  pa_users:
+    index:
+      page_title: Public authority users
+      heading: Public authority users
       add_user_button: Add user
 
   public_authorities:
@@ -462,7 +477,17 @@ en:
       set_decision:
         decision: Set the decision for this request
 
+      user:
+        disabled: Disable account
+
     hint:
+      user:
+        role_options:
+          su: Can manage all requests and standard users within their Public Authority 
+          u: Can manage their own requests within their Public Authority
+        disabled_options:
+          x: Preventing user from having any access
+
       request:
         nc_description: This description should include any links to published announcements of the %{type}
         call_in: Please upload a copy of the direction given by the Secretary of State
@@ -535,6 +560,11 @@ en:
         user_name: Name
         email: Email address
         phone: Telephone (optional)
+        role_options:
+          su: Super user
+          u: Standard user
+        disabled_options:
+          x: Select to disable account
       request:
         scheme_subsidy_options:
           scheme: Subsidy Scheme
