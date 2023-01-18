@@ -11,6 +11,10 @@ class UserService
     @has_case_access_result ||= has_case_access(user_id, request_id)
   end
 
+  def pa_user_result(user_email, creator_name, creator_email, pa_name)
+    @pa_user_result ||= pa_user_email(user_email, creator_name, creator_email, pa_name)
+  end
+
   def request_invitation(user)
     if ENV.key?(URL_ENV)
       call_api_invite(user)
@@ -20,6 +24,12 @@ class UserService
   def has_case_access(user_id, request_id)
     if ENV.key?(URL_ENV)
       call_has_case_access(user_id, request_id)
+    end
+  end
+
+  def pa_user_email(user_email, creator_name, creator_email, pa_name)
+    if ENV.key?(URL_ENV)
+      call_pa_user_email(user_email, creator_name, creator_email, pa_name)
     end
   end
 
@@ -33,20 +43,7 @@ private
         role: user.role,
       },
     }.to_json
-    url = ENV.fetch(URL_ENV)
-
-    conn = Faraday.new do |f|
-      f.response :json # decode response body as JSON
-    end
-
-    response = conn.post(url, body, "Content-Type" => "application/json")
-    if response.body["success"]
-      response.body["data"]
-    else
-      Rails.logger.warn "API failed"
-      Rails.logger.warn response.body["error"] if response.body["error"].present?
-      nil
-    end
+    send_post(body)
   end
 
   def call_has_case_access(user_id, request_id)
@@ -57,6 +54,23 @@ private
         requestId: request_id,
       },
     }.to_json
+    send_post(body)
+  end
+
+  def call_pa_user_email(user_email, creator_name, creator_email, pa_name)
+    body = {
+      method: "User.PACreatedUser",
+      payload: {
+        userCreated: user_email,
+        creatorName: creator_name,
+        creatorEmail: creator_email,
+        pa_name: pa_name,
+      },
+    }.to_json
+    send_post(body)
+  end
+
+  def send_post(body)
     url = ENV.fetch(URL_ENV)
 
     conn = Faraday.new do |f|

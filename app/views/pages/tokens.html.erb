@@ -13,6 +13,8 @@
           <tr><td>SAU-Casework</td><td><%= @auth_user.has_role?("SAU-Casework") %></td></tr>
           <tr><td>SAU-Pipeline</td><td><%= @auth_user.has_role?("SAU-Pipeline") %></td></tr>
           <tr><td>SAU-Admin</td><td><%= @auth_user.has_role?("SAU-Admin") %></td></tr>
+          <tr><td>Super User</td><td><%= @auth_user.is_pa_super_user? %></td></tr>
+          <tr><td>Standard User</td><td><%= @auth_user.is_pa_std_user? %></td></tr>
       </table>
 
       <h2 class = "govuk-heading-m">Headers</h2>

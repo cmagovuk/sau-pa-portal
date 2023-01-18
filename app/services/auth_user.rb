@@ -45,6 +45,10 @@ class AuthUser
     @user.present? && @user.disabled != "x" && @user.role == "u"
   end
 
+  def is_pa_super_user?
+    @user.present? && @user.disabled != "x" && @user.role == "su"
+  end
+
   def is_sau_user?
     has_role?("SAU-Casework") || has_role?("SAU-Pipeline") || has_role?("SAU-Admin")
   end

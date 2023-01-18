@@ -27,6 +27,8 @@ en:
         too_long: Name must be %{count} characters or fewer
       phone:
         too_long: Telephone must be %{count} characters or fewer
+      role:
+        blank: Select the role
       scheme_subsidy:
         blank: Select whether you are requesting advice in relation to a subsidy or subsidy scheme
       scheme_name:

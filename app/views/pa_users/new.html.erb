@@ -1,0 +1,4 @@
+<h1 class="govuk-heading-l">Add User for <%= @authority.pa_name %></h1>
+<%= form_for @user, url: public_authority_users_path, :as => :user do |f| %>
+    <%= render "#{@user.current_step}_step", :f => f %>
+<% end %>

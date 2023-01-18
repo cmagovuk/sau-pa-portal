@@ -1,4 +1,4 @@
-class UserStepsController < AdminController
+class PaUserStepsController < SuperUserController
   before_action :load_user_params, :load_authorities
 
   def edit
@@ -6,24 +6,25 @@ class UserStepsController < AdminController
   end
 
   def update
-    if user.valid?
+    if pa_user_valid?
       if next_step
-        redirect_to user_step_path(next_step)
+        redirect_to pa_user_step_path(next_step)
       elsif user.id.present?
         user_to_update = User.find(user.id)
-        user_to_update.update!(user_name: user.user_name, phone: user.phone, role: user.role, public_authority_id: user.public_authority_id, disabled: user.disabled)
+        user_to_update.update!(user_name: user.user_name, phone: user.phone, disabled: user.disabled)
         user_to_update.audit_logs.create!(AuditLog.log(auth_user, :updated_user, email: user.email, role: I18n.t(user.role, scope: "helpers.label.user.role_options"), pa_name: user.public_authority.pa_name, disabled: user.disabled))
-        redirect_to users_path
+        redirect_to pa_users_path
       else
         result = user_service.invitation_result(user)
         if result.present?
           user.save!
           user.update!(oid: result.to_s)
           user.audit_logs.create!(AuditLog.log(auth_user, :created_user, email: user.email, role: I18n.t(user.role, scope: "helpers.label.user.role_options"), pa_name: user.public_authority.pa_name))
+          user_service.pa_user_result(user.email, auth_user.name, auth_user.email, user.public_authority.pa_name)
           # send notification to client
           GovukNotifyService.send_user_invite_email(user)
           session[:user_step] = session[:users_params] = nil
-          redirect_to users_path
+          redirect_to pa_users_path
         else
           render "/errors/internal_server_error", status: :internal_server_error
         end
@@ -49,6 +50,17 @@ private
 
   def user
     @user ||= User.new(session[:users_params])
+  end
+
+  def pa_user_valid?
+    return false unless user.valid?
+
+    user_domain = auth_user.email.split("@").last.downcase
+    input_domain = user.email.split("@").last.downcase
+    return true if user_domain == input_domain
+
+    user.errors.add(:email, "Email domain must match your own domain '@#{user_domain}'")
+    false
   end
 
   def load_authorities

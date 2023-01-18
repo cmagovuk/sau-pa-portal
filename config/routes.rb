@@ -5,8 +5,14 @@ Rails.application.routes.draw do
 
   resources :users, only: %i[new edit index]
 
+  resources :pa_users, only: %i[new edit index]
+
   scope "/user" do
     resources :user_steps, only: %i[edit update], path_names: { edit: "" }
+  end
+
+  scope "/pa_user" do
+    resources :pa_user_steps, only: %i[edit update], path_names: { edit: "" }
   end
 
   patch "request/request_steps/:id/upload" => "request_steps#upload"

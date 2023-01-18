@@ -437,6 +437,8 @@ en:
     info_response: Response to RFI sent
     created_pa: Public Authority '%{pa}' created
     updated_pa: Public Authority '%{pa}' updated
+    created_user: User '%{email}' created, role = %{role}, pa = %{pa_name}
+    updated_user: User '%{email}' updated, role = %{role}, pa = %{pa_name}, disabled='%{disabled}'
     copied: Request originally copied from %{source}
     copy_source: Request duplicated for %{reason}
     called_in: Changed to Call in
