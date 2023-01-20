@@ -5,6 +5,11 @@ class PublicAuthoritiesController < AdminController
 
   def show
     @authority = PublicAuthority.find(params[:id])
+    @users = if params[:show_all] == "x"
+               @authority.users.order(disabled: :desc, user_name: :asc)
+             else
+               @authority.users.active_users.order(:user_name)
+             end
   end
 
   def new

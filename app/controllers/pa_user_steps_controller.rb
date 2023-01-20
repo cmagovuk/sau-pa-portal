@@ -1,5 +1,5 @@
 class PaUserStepsController < SuperUserController
-  before_action :load_user_params, :load_authorities
+  before_action :load_user_params
 
   def edit
     render step
@@ -11,8 +11,8 @@ class PaUserStepsController < SuperUserController
         redirect_to pa_user_step_path(next_step)
       elsif user.id.present?
         user_to_update = User.find(user.id)
-        user_to_update.update!(user_name: user.user_name, phone: user.phone, disabled: user.disabled)
-        user_to_update.audit_logs.create!(AuditLog.log(auth_user, :updated_user, email: user.email, role: I18n.t(user.role, scope: "helpers.label.user.role_options"), pa_name: user.public_authority.pa_name, disabled: user.disabled))
+        user_to_update.update!(user_name: user.user_name, phone: user.phone)
+        user_to_update.audit_logs.create!(AuditLog.log(auth_user, :updated_user, email: user.email, role: I18n.t(user.role, scope: "helpers.label.user.role_options"), pa_name: user.public_authority.pa_name))
         redirect_to pa_users_path
       else
         result = user_service.invitation_result(user)
@@ -54,21 +54,14 @@ private
 
   def pa_user_valid?
     return false unless user.valid?
+    return true if user.id.present?
 
     user_domain = auth_user.email.split("@").last.downcase
     input_domain = user.email.split("@").last.downcase
     return true if user_domain == input_domain
 
-    user.errors.add(:email, "Email domain must match your own domain '@#{user_domain}'")
+    user.errors.add(:email, I18n.t("errors.attributes.email.domain", domain: user_domain))
     false
-  end
-
-  def load_authorities
-    authorities
-  end
-
-  def authorities
-    @authorities ||= PublicAuthority.order(:pa_name).map { |a| [a.pa_name, a.id] }
   end
 
   def next_step
@@ -77,7 +70,7 @@ private
   end
 
   def user_params
-    params.require(:user).permit(:user_name, :email, :public_authority_id, :role, :phone, :disabled)
+    params.require(:user).permit(:user_name, :email, :public_authority_id, :role, :phone)
   end
 
   def user_service

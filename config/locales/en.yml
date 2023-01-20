@@ -361,6 +361,13 @@ en:
     input:
       page_title: Public authority user
       heading: Public authority standard user
+      page_text_html: |
+        <p class="govuk-body">As a super user you can add standard users for your organisation.</p>
+        <div class="govuk-inset-text">
+          <p class="govuk-body">Standard users can only view and manage requests created by themselves.</p>
+          <p class="govuk-body">You can only create accounts for users in your organisation.</p>
+          <p class="govuk-body">Please contact the SAU at <a href="mailto:%{feedback_email}?subject=User request from '%{pa_name}'">%{feedback_email}</a> if you need to create a super user account, promote a user to a super user or invite people from outside your organisation.</p>
+        </div>
     confirm:
       page_title: Confirm user
       heading: Confirm user
@@ -370,13 +377,32 @@ en:
     index:
       page_title: Users
       heading: Users
+      inactive_filter: Include inactive accounts
       add_user_button: Add user
+    change_state:
+      page_title: User account status change
+      deactive_submit_btn: Deactivate
+      reactive_submit_btn: Reactivate
+      cancel_btn: Cancel
+      deactive_heading: Deactivate user
+      reactive_heading: Reactivate user
 
   pa_users:
     index:
-      page_title: Public authority users
-      heading: Public authority users
+      page_title: Active public authority users
+      heading: Active public authority users
       add_user_button: Add user
+    change_state:
+      page_title: Deactivate user account
+      submit_btn: Deactivate
+      cancel_btn: Cancel
+      heading: Deactivate user account
+      page_text_html: |
+        <p class="govuk-body">As a super user you can deactivate standard users for your organisation.</p>
+        <div class="govuk-inset-text">
+          <p class="govuk-body">You are unable to re-activate a user once deactivated.</p>
+          <p class="govuk-body">Please contact the SAU at <a href="mailto:%{feedback_email}?subject=User activation query from '%{pa_name}'">%{feedback_email}</a> if you need to deactivate a super user account or re-activate a deactivated user.</p>
+        </div>
 
   public_authorities:
     index:
@@ -386,6 +412,10 @@ en:
     new:
       page_title: Add public authority
       heading: Add public authority
+    show:
+      page_title: Public authority users
+      heading: Public authority users
+      inactive_filter: Include inactive accounts
 
   information_requests:
     index:
@@ -438,7 +468,8 @@ en:
     created_pa: Public Authority '%{pa}' created
     updated_pa: Public Authority '%{pa}' updated
     created_user: User '%{email}' created, role = %{role}, pa = %{pa_name}
-    updated_user: User '%{email}' updated, role = %{role}, pa = %{pa_name}, disabled='%{disabled}'
+    updated_user: User '%{email}' updated, role = %{role}, pa = %{pa_name}
+    user_status_change: User '%{email}' has been %{status}
     copied: Request originally copied from %{source}
     copy_source: Request duplicated for %{reason}
     called_in: Changed to Call in

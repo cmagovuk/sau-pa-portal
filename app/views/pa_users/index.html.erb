@@ -12,7 +12,6 @@
       head.row do |row|
         row.cell(header: true, text: 'Name')
         row.cell(header: true, text: 'Email')
-        row.cell(header: true, text: 'Action')
       end
     end
 
@@ -21,9 +20,6 @@
         body.row do |row|
           row.cell(text: user.user_name)
           row.cell(text: user.email)
-        row.cell do |cell| 
-            govuk_link_to "Edit", edit_pa_user_path(user), no_visited_state: true
-          end
         end
       end
     end
@@ -45,9 +41,18 @@
         body.row do |row|
           row.cell(text: user.user_name)
           row.cell(text: user.email)
-        row.cell do |cell| 
-            govuk_link_to "Edit", edit_pa_user_path(user), no_visited_state: true
-          end
+          row.cell do |cell| %>
+            <dd class="govuk-summary-list__actions govuk-!-padding-top-0 govuk-!-padding-bottom-0">
+              <ul class="govuk-summary-list__actions-list">
+                <li class="govuk-summary-list__actions-list-item">
+                  <%= govuk_link_to "Edit", edit_pa_user_path(user), no_visited_state: true %>
+                </li>
+                <li class="govuk-summary-list__actions-list-item">
+                  <%= govuk_link_to (user.disabled == "x" ? "Activate" : "Deactivate"), change_state_pa_user_path(user), no_visited_state: true %>
+                </li>
+              </ul>
+            </dd>
+      <%   end
         end
       end
     end

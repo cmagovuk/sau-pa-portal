@@ -12,11 +12,6 @@
     <%= f.govuk_text_field :user_name, width:"two-thirds" %>
     <%= f.govuk_text_field :phone, width:"one-third" %>
     <%= f.govuk_text_field :email, width:"two-thirds", disabled: @user.id.present? %>
-    <% if @user.id.present? %>
-      <%= f.govuk_check_boxes_fieldset :disabled, legend: { class: "govuk-fieldset__legend govuk-fieldset__legend--s govuk-!-font-weight-regular" }, multiple: false do %>
-          <%= f.govuk_check_box :disabled, "x", "", multiple: false, link_errors: true %>
-      <% end %>
-    <% end %>
     <%= f.govuk_submit %>
 <% end %>
 </div>

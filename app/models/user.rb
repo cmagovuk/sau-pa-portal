@@ -12,6 +12,8 @@ class User < ApplicationRecord
   validates :role, presence: true, inclusion: { in: USER_ROLE_OPTIONS }
   validates :phone, length: { maximum: 30 }
 
+  scope :active_users, -> { where disabled: nil }
+
   def current_step
     @current_step || "input"
   end

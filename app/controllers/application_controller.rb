@@ -13,11 +13,15 @@ class ApplicationController < ActionController::Base
     @feedback_link ||= Rails.application.config.feedback_link
   end
 
+  def feedback_email
+    @feedback_email ||= Rails.application.config.x.feedback_email
+  end
+
   def home_page_url
     "/dashboard"
   end
 
-  helper_method :maintenance_text, :home_page_url, :feedback_link
+  helper_method :maintenance_text, :home_page_url, :feedback_link, :feedback_email
 
   def auth_user
     @auth_user ||= AuthUser.new(request)

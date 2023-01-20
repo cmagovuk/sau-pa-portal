@@ -22,6 +22,7 @@ en:
         too_long: Email address must be %{count} characters or fewer
         invalid: Enter an email address in the correct format, like name@example.com
         taken: Email address has already been added
+        domain: Email domain must match your own organisation domain '@%{domain}'
       user_name:
         blank: Enter the users name
         too_long: Name must be %{count} characters or fewer

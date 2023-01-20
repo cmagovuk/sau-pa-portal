@@ -3,12 +3,22 @@ Rails.application.routes.draw do
 
   resources :public_authorities
 
-  resources :users, only: %i[new edit index]
+  resources :users, only: %i[new edit index], path_names: { edit: "" } do
+    member do
+      get "change_state"
+      delete "confirm_state"
+    end
+  end
 
-  resources :pa_users, only: %i[new edit index]
+  resources :pa_users, only: %i[new edit index], path_names: { edit: "" } do
+    member do
+      get "change_state"
+      delete "confirm_state"
+    end
+  end
 
   scope "/user" do
-    resources :user_steps, only: %i[edit update], path_names: { edit: "" }
+    resources :user_steps, only: %i[edit update delete], path_names: { edit: "" }
   end
 
   scope "/pa_user" do

@@ -31,13 +31,6 @@
             row.key(text: 'Email address')
             row.value(text: @user.email )
         end
-
-        if @user.id.present?
-          summary_list.row do |row|
-              row.key(text: 'Disable account')
-              row.value(text: @user.disabled == "x" ? "Yes" : "" )
-          end
-        end
     end %>
 
     <%= f.govuk_submit t(".submit_btn") %>

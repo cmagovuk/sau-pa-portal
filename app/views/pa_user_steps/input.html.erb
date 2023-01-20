@@ -1,18 +1,18 @@
 <% title(t('.page_title')) %>
 
+<h1 class="govuk-heading-l"><%= t(".heading") %></h1>
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-<h1 class="govuk-heading-l"><%= t(".heading") %></h1>
+    <%= t(".page_text_html", feedback_email: feedback_email, pa_name: auth_user.pa_name) %>
+  </div>
+</div>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
 <%= form_for @user, url: pa_user_step_path(params[:id]), method: :patch, :as => :user do |f| %>
     <%= f.govuk_error_summary %>
     <%= f.govuk_text_field :user_name, width:"two-thirds" %>
     <%= f.govuk_text_field :phone, width:"one-third" %>
     <%= f.govuk_text_field :email, width:"two-thirds", disabled: @user.id.present? %>
-    <% if @user.id.present? %>
-      <%= f.govuk_check_boxes_fieldset :disabled, legend: { class: "govuk-fieldset__legend govuk-fieldset__legend--s govuk-!-font-weight-regular" }, multiple: false do %>
-          <%= f.govuk_check_box :disabled, "x", "", multiple: false, link_errors: true %>
-      <% end %>
-    <% end %>
     <%= f.hidden_field :role, value:"u" %>
     <%= f.hidden_field :public_authority_id, value: auth_user.pa_id %>
     <%= f.govuk_submit %>

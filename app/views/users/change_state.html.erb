@@ -2,14 +2,12 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
-<h1 class="govuk-heading-l"><%= t(".heading") %></h1>
-<%= form_for @user, url: user_step_path(params[:id]), method: :patch, :as => :user do |f| %>
+<h1 class="govuk-heading-l"><%= t(@user.disabled == "x" ? ".reactive_heading" : ".deactive_heading") %></h1>
 
-    <%= govuk_summary_list do |summary_list|
+    <%= govuk_summary_list(actions:false) do |summary_list|
         summary_list.row do |row|
             row.key { 'Public Authority' }
-            row.value { @authorities.find{|a| a[1] == @user.public_authority_id}[0]}
-            row.action(text: "Change", href: user_step_path('input'), visually_hidden_text: 'name')
+            row.value { @user.public_authority.pa_name }
         end
 
         summary_list.row do |row|
@@ -33,7 +31,10 @@
         end
     end %>
 
-    <%= f.govuk_submit t(".submit_btn") %>
-<% end %>
+<%= form_for @user, url: confirm_state_user_path(params[:id]), method: :delete do |f| 
+    f.govuk_submit t(@user.disabled == "x" ? ".reactive_submit_btn" : ".deactive_submit_btn"), warning: (@user.disabled != "x") do
+      govuk_button_link_to t(".cancel_btn"), users_path, secondary: true
+    end
+ end %>
 </div>
 </div>
