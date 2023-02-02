@@ -58,11 +58,11 @@ class GovukNotifyService
     Rails.logger.warn "Failed to send email #{e.message}"
   end
 
-  def self.send_rfi_request_email(request, _link_path)
+  def self.send_rfi_request_email(email_address, request, _link_path)
     template_id = Rails.application.config.govuk_notify_templates.fetch(:submit_rfi_request)
-    if api_key.present? && template_id.present? && request.submitted_by.present?
+    if api_key.present? && template_id.present? && email_address.present?
       notify_client.send_email(
-        email_address: request.submitted_by.email,
+        email_address: email_address,
         template_id: template_id,
         personalisation: {
           # link_url: "#{Rails.application.config.pap_url}#{link_path}",

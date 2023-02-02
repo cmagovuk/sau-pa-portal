@@ -44,8 +44,12 @@ class InformationRequestsController < SauLeadershipController
     if information_request.update(status: "request-confirmed")
       information_request.request.update!(internal_state: "info-required")
       information_request.request.audit_logs.create!(AuditLog.log(auth_user, :info_request))
-      # send notification to client
-      GovukNotifyService.send_rfi_request_email(information_request.request, request_path(information_request.request))
+      pa_su_users = information_request.request.public_authority.users.active_users.super_users.select(:email).map(&:email)
+      notify_users = pa_su_users.union([information_request.request.submitted_by.email]) if information_request.request.submitted_by.disabled.blank?
+      notify_users.map do |email|
+        # send notification to client
+        GovukNotifyService.send_rfi_request_email(email, information_request.request, request_path(information_request.request))
+      end
       redirect_to sau_request_path(information_request.request)
     else
       render :confirm and return

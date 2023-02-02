@@ -13,6 +13,7 @@ class User < ApplicationRecord
   validates :phone, length: { maximum: 30 }
 
   scope :active_users, -> { where disabled: nil }
+  scope :super_users, -> { where role: "su" }
 
   def current_step
     @current_step || "input"
