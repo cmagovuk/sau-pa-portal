@@ -19,6 +19,19 @@ class RequestsController < ApplicationController
     load_request(session[:issue_id])
   end
 
+  def confirm_delete
+    load_request(params[:id])
+  end
+
+  def destroy
+    load_request(params[:id])
+    return if performed?
+
+    @request.destroy!
+
+    redirect_to requests_path
+  end
+
   def new
     @request_type_form = RequestTypeForm.new
   end

@@ -32,7 +32,11 @@ Rails.application.routes.draw do
   get "dashboard", to: "requests#index"
   post "requests/reload/:id", to: "requests#reload"
 
-  resources :requests # , only: %i[create index]
+  resources :requests do # , only: %i[create index]
+    member do
+      get "confirm_delete"
+    end
+  end
 
   resources :sau_requests, only: %i[show]
   get "sau_requests/view/:id", to: "sau_requests#view"

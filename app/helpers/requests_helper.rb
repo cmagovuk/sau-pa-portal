@@ -8,13 +8,22 @@ module RequestsHelper
 
   def action_link(request)
     if request.status.blank? || request.status == "Draft"
-      link_to "Continue", "/requests/reload/#{request.id}", method: :post, class: "govuk-link"
+      content_tag(:dd, class: "govuk-summary-list__actions govuk-!-padding-top-0 govuk-!-padding-bottom-0") do
+        content_tag(:ul, class: "govuk-summary-list__actions-list") do
+          concat(content_tag(:li, class: "govuk-summary-list__actions-list-item") do
+            concat govuk_link_to "Continue", "/requests/reload/#{request.id}", method: :post, no_visited_state: true
+          end)
+          concat(content_tag(:li, class: "govuk-summary-list__actions-list-item") do
+            concat govuk_link_to "Delete", confirm_delete_request_path(request), no_visited_state: true
+          end)
+        end
+      end
     elsif request.status == "Completed"
-      link_to "View report", request_path(request), class: "govuk-link"
+      govuk_link_to "View report", request_path(request), no_visited_state: true
     elsif request.internal_state == "info-required"
-      link_to "Info required", request_path(request), class: "govuk-link"
+      govuk_link_to "Info required", request_path(request), no_visited_state: true
     else
-      link_to "View", request_path(request), class: "govuk-link"
+      govuk_link_to "View", request_path(request), no_visited_state: true
     end
   end
 

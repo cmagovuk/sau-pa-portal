@@ -11,7 +11,7 @@ class Request < ApplicationRecord
   belongs_to :submitted_by, class_name: "User", optional: true
 
   has_many :information_requests, -> { order("created_at desc") }
-  has_many :audit_logs, -> { order("created_at desc") }, as: :log
+  has_many :audit_logs, -> { order("created_at desc") }, as: :log, dependent: :destroy
 
   serialize :completed_steps, Array
   serialize :sectors, Array
@@ -26,6 +26,7 @@ class Request < ApplicationRecord
   scope :pa_requests, ->(id) { where("public_authority_id = ?", id) }
   scope :sau_requests, -> { joins(:public_authority).where.not status: "Draft" }
   scope :filter_by_internal_state, ->(internal_state) { where internal_state: internal_state }
+  scope :submitted_by, ->(user_id) { where submitted_by_id: user_id }
 
   # TAX_OPTIONS = %w[upto_60 upto_500 upto_1000 upto_2000 upto_5000 upto_10000 upto_30000 over_30000].freeze
 

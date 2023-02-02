@@ -38,6 +38,7 @@ en:
   buttons:
     submit: Save and continue
     confirm: Confirm and send
+    delete: Delete
     upload_files: Upload file
 
   service: 
@@ -157,7 +158,16 @@ en:
       feedback_link: What did you think of this service?
     new:
       page_title: Scheme or subsidy
-
+    confirm_delete:
+      page_title: Confirm delete
+      heading: Confirm delete draft request
+      submit_btn: Confirm delete
+      cancel_btn: Return to dashboard
+      delete_text_html: |
+        <p class="govuk-body">
+          Deleting a request is an irreversible action.  The request will be permanently deleted from the system.
+        </p>
+      
   set_decision:
     edit:
       page_title: Set decision
