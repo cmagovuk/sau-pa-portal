@@ -15,6 +15,10 @@ class UserService
     @pa_user_result ||= pa_user_email(user_email, creator_name, creator_email, pa_name)
   end
 
+  def remove_user_result(oid, role)
+    @remove_user_result ||= remove_user(oid, role)
+  end
+
   def request_invitation(user)
     if ENV.key?(URL_ENV)
       call_api_invite(user)
@@ -30,6 +34,12 @@ class UserService
   def pa_user_email(user_email, creator_name, creator_email, pa_name)
     if ENV.key?(URL_ENV)
       call_pa_user_email(user_email, creator_name, creator_email, pa_name)
+    end
+  end
+
+  def remove_user(oid, role)
+    if ENV.key?(URL_ENV)
+      call_remove_user(oid, role)
     end
   end
 
@@ -65,6 +75,17 @@ private
         creatorName: creator_name,
         creatorEmail: creator_email,
         pa_name: pa_name,
+      },
+    }.to_json
+    send_post(body)
+  end
+
+  def call_remove_user(oid, role)
+    body = {
+      method: "User.Remove",
+      payload: {
+        userId: oid,
+        role: role,
       },
     }.to_json
     send_post(body)

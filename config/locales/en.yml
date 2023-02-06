@@ -396,6 +396,15 @@ en:
       cancel_btn: Cancel
       deactive_heading: Deactivate user
       reactive_heading: Reactivate user
+    remove:
+      page_title: Delete user account
+      submit_btn: Delete user
+      cancel_btn: Cancel
+      created_table: Number of requests user has created
+      submitted_table: Number of requests user has submitted
+      heading: Delete user
+      nothing: No requests found
+      active_user: User must be deactivated before removed
 
   pa_users:
     index:
@@ -480,6 +489,7 @@ en:
     created_user: User '%{email}' created, role = %{role}, pa = %{pa_name}
     updated_user: User '%{email}' updated, role = %{role}, pa = %{pa_name}
     user_status_change: User '%{email}' has been %{status}
+    user_removed: User '%{email}' has been removed
     copied: Request originally copied from %{source}
     copy_source: Request duplicated for %{reason}
     called_in: Changed to Call in

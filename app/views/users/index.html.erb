@@ -39,18 +39,9 @@
         row.cell(text: user.email)
         row.cell(text: user.public_authority.pa_name)
         row.cell(text: t(user.role, scope: "helpers.label.user.role_options"))
-        row.cell do |cell| %>
-            <dd class="govuk-summary-list__actions govuk-!-padding-top-0 govuk-!-padding-bottom-0">
-              <ul class="govuk-summary-list__actions-list">
-                <li class="govuk-summary-list__actions-list-item">
-                  <%= govuk_link_to "Edit", edit_user_path(user), no_visited_state: true %>
-                </li>
-                <li class="govuk-summary-list__actions-list-item">
-                  <%= govuk_link_to (user.disabled == "x" ? "Activate" : "Deactivate"), change_state_user_path(user), no_visited_state: true %>
-                </li>
-              </ul>
-            </dd>
-        <% end
+        row.cell do |cell|
+            render "layouts/user_actions", user: user
+         end
       end
     end
   end

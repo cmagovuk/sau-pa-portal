@@ -7,6 +7,8 @@ Rails.application.routes.draw do
     member do
       get "change_state"
       delete "confirm_state"
+      get "remove"
+      delete "confirm_remove"
     end
   end
 
