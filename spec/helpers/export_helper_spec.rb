@@ -173,8 +173,28 @@ RSpec.describe ExportHelper, type: :helper do
       end
     end
 
-    context "it outputs first not blank value" do
-      it { expect(helper.map_sectors([""] + Request::Sectors::SECTOR_OPTIONS[1..4])).to eq(helper.map_sectors([Request::Sectors::SECTOR_OPTIONS[1]])) }
+    context "it outputs values with | separation" do
+      it { expect(helper.map_sectors([""] + Request::Sectors::SECTOR_OPTIONS[12..14])).to eq("Manufacturing|Mining and quarrying|Other service activities") }
+    end
+  end
+
+  describe "#map_sector" do
+    context "return blank" do
+      it { expect(helper.map_sector(nil)).to be_blank }
+      it { expect(helper.map_sector([])).to be_blank }
+      it { expect(helper.map_sector([""])).to be_blank }
+    end
+
+    context "it outputs a text value for each possible location value" do
+      Request::Sectors::SECTOR_OPTIONS.each do |opt|
+        it "for location '#{opt}'" do
+          expect(helper.map_sector([opt])).to_not be_blank
+        end
+      end
+    end
+
+    context "it outputs first non blank value" do
+      it { expect(helper.map_sector([""] + Request::Sectors::SECTOR_OPTIONS[1..4])).to eq(helper.map_sectors([Request::Sectors::SECTOR_OPTIONS[1]])) }
     end
   end
 end

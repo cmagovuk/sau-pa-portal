@@ -144,29 +144,40 @@ module ExportHelper
     compact_terms = sectors.select(&:present?)
     return "" if compact_terms.count.zero?
 
-    case compact_terms[0]
-    when "accom" then "Accommodation and food service activities"
-    when "actex" then "Activities of extraterritorial organisations and bodies"
-    when "actho" then "Activities of households as employers; undifferentiated goods- and services-producing activities of households for own use"
-    when "admin" then "Administrative and support service activities"
-    when "agric" then "Agriculture, forestry and fishing"
-    when "artse" then "Arts, entertainment and recreation"
-    when "const" then "Construction"
-    when "educa" then "Education"
-    when "elect" then "Electricity, gas, steam and air conditioning supply"
-    when "finan" then "Financial and insurance activities"
-    when "human" then "Human health and social work activities"
-    when "infor" then "Information and communication"
-    when "manuf" then "Manufacturing"
-    when "minin" then "Mining and quarrying"
-    when "other" then "Other service activities"
-    when "profe" then "Professional, scientific and technical activities"
-    when "publi" then "Public administration  and defence; compulsory social security"
-    when "reale" then "Real estate activities"
-    when "trans" then "Transportation and storage"
-    when "water" then "Water supply; sewerage, waste management and remediation activities"
-    when "whole" then "Wholesale and retail trade; repair of motor vehicles and motorcycles"
-    else ""
+    mapped_terms = compact_terms.map do |term|
+      case term
+      when "accom" then "Accommodation and food service activities"
+      when "actex" then "Activities of extraterritorial organisations and bodies"
+      when "actho" then "Activities of households as employers; undifferentiated goods- and services-producing activities of households for own use"
+      when "admin" then "Administrative and support service activities"
+      when "agric" then "Agriculture, forestry and fishing"
+      when "artse" then "Arts, entertainment and recreation"
+      when "const" then "Construction"
+      when "educa" then "Education"
+      when "elect" then "Electricity, gas, steam and air conditioning supply"
+      when "finan" then "Financial and insurance activities"
+      when "human" then "Human health and social work activities"
+      when "infor" then "Information and communication"
+      when "manuf" then "Manufacturing"
+      when "minin" then "Mining and quarrying"
+      when "other" then "Other service activities"
+      when "profe" then "Professional, scientific and technical activities"
+      when "publi" then "Public administration  and defence; compulsory social security"
+      when "reale" then "Real estate activities"
+      when "trans" then "Transportation and storage"
+      when "water" then "Water supply; sewerage, waste management and remediation activities"
+      when "whole" then "Wholesale and retail trade; repair of motor vehicles and motorcycles"
+      else ""
+      end
     end
+
+    mapped_terms.join("|")
+  end
+
+  def map_sector(sectors)
+    return "" if sectors.blank? || sectors.count.zero?
+
+    compact_terms = sectors.select(&:present?)
+    map_sectors([compact_terms[0]])
   end
 end

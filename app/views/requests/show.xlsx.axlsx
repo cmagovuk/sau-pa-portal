@@ -3,16 +3,50 @@ wb = xlsx_package.workbook
 wb.styles do |style|
   heading = style.add_style(b: true)
 
+  export_data = []
   wb.add_worksheet(name: "Upload Template") do |sheet|
     if @request.scheme_subsidy == "scheme"
       # Create header row
-      sheet.add_row ["Reference name", "Subsidy scheme name", "Beneficiary name", "Status", "Last update"], style: heading
+      sheet.add_row ["Public authority name", "Subsidy scheme name", "Subsidy scheme description", "Legal basis", "Public authority policy URL", "Public authority policy page description", "Budget (£)", "Maximum amount given under scheme", "Confirmation Date", "Start Date", "End Date", "Spending sectors"], style: heading
 
-      r = @request
-      sheet.add_row [r.reference_number, r.scheme_name, r.beneficiary, r.status, r.updated_at.strftime("%d/%m/%y")]
+      # Public authority name (255 limit)
+      export_data << @request.public_authority.pa_name
+
+      # Subsidy scheme name (255 limit)
+      export_data << @request.scheme_name
+
+      # Subsidy scheme description (5000 character limit)
+      export_data << @request.description
+
+      # Legal basis
+      export_data << @request.legal
+
+      # Public authority policy URL (255 limit)
+      export_data << ""
+
+      # Public authority policy page description (255 limit)
+      export_data << ""
+
+      # Budget (£)
+      export_data << @request.budget
+
+      # Maximum amount given under scheme
+      export_data << @request.max_amt
+
+      # Confirmation Date
+      export_data << @request.confirm_date
+
+      # Start Date
+      export_data << @request.start_date
+
+      # End Date
+      export_data << @request.end_date
+
+      # Spending sectors
+      export_data << map_sectors(@request.sectors)
     else
       sheet.add_row ["Subsidy Control (SC) Number", "Subsidy Scheme Title", "Standalone Award", "Subsidy Description", "Subsidy Objective", 'Subsidy Objective "Other" - Text', "Subsidy Instrument", 'Subsidy Instrument "Other" - Text', "Subsidy Element Full Amount Range", "Subsidy Element Full Amount", "National ID Type", "National ID", "Beneficiary Name", "Size of the Organisation", "Public Authority Name", "Legal Granting Date", "Goods/Services Filter", "Spending Region", "Spending Sector"], style: heading
-      export_data = []
+
       # Subsidy Control (SC) Number
       export_data << ""
       # Subsidy Scheme Title
@@ -64,9 +98,9 @@ wb.styles do |style|
       export_data << map_locations(@request.location)
 
       # Spending Sector
-      export_data << map_sectors(@request.sectors)
+      export_data << map_sector(@request.sectors)
 
-      sheet.add_row export_data
     end
+    sheet.add_row export_data
   end
 end
