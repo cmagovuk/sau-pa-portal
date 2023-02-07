@@ -119,6 +119,8 @@ en:
       too_many_files_error_message: "You are limited to %{file_uploads} documents"
       file_type_error_message: "The selected file must be a DOC, DOCX, XLS, XLSX, PPT, PPTX, PDF, ZIP"
       empty_file_error_message: The selected file is empty
+      multi_file_type_error_message: "'%{filename}' must be a DOC, DOCX, XLS, XLSX, PPT, PPTX, PDF, ZIP"
+      multi_empty_file_error_message: "'%{filename}' is empty"
       no_file_error_message: Select a file to upload
       missing:
         call_in: The direction from the Secretary of State must be uploaded
