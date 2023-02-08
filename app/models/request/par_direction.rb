@@ -94,7 +94,7 @@ private
   end
 
   def validate_full_year
-    errors.add(:direction_date, I18n.t("errors.dates.full_year")) if direction_date_year.present? && direction_date.year < 1000
+    errors.add(:direction_date, I18n.t("errors.dates.full_year")) if direction_date.present? && direction_date_year.present? && direction_date.year < 1000
   end
 
   def validate_direction_date

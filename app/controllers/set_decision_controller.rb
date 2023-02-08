@@ -16,8 +16,7 @@ class SetDecisionController < SauLeadershipController
       end
     else
       if @set_decision_form.valid?
-        if @set_decision_form.valid_document?(params[:set_decision][:documents])
-          @set_decision_form.add_document(params[:set_decision][:documents])
+        if @set_decision_form.valid_document?(params[:set_decision][:documents]) && @set_decision_form.add_document(params[:set_decision][:documents])
           session[:decision] = @set_decision_form.decision
           redirect_to edit_set_decision_path and return
         end

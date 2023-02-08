@@ -35,6 +35,11 @@ class SetDecisionForm
 
   def add_document(doc)
     decision_letter.attach(doc)
+    return true if CONTENT_TYPES_ALLOWED.include?(decision_letter.content_type)
+
+    errors.add(:documents, I18n.t("errors.upload.file_type_error_message", filename: doc.original_filename))
+    decision_letter.purge
+    false
   end
 
   def remove_document(*)

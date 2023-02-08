@@ -10,10 +10,10 @@ module RequestsHelper
     if request.status.blank? || request.status == "Draft"
       content_tag(:dd, class: "govuk-summary-list__actions govuk-!-padding-top-0 govuk-!-padding-bottom-0") do
         content_tag(:ul, class: "govuk-summary-list__actions-list") do
-          concat(content_tag(:li, class: "govuk-summary-list__actions-list-item") do
+          concat(content_tag(:li, class: "govuk-summary-list__actions-list-item app-stack app-border-right-0") do
             concat govuk_link_to "Continue", "/requests/reload/#{request.id}", method: :post, no_visited_state: true
           end)
-          concat(content_tag(:li, class: "govuk-summary-list__actions-list-item") do
+          concat(content_tag(:li, class: "govuk-summary-list__actions-list-item app-stack") do
             concat govuk_link_to "Delete", confirm_delete_request_path(request), no_visited_state: true
           end)
         end

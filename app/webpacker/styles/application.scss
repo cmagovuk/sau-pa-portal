@@ -31,4 +31,8 @@ $govuk-image-url-function: frontend-image-url;
   .app-stack {
     display: table-row;
   }
+
+  .app-border-right-0 {
+    border-right: 0px !important;
+  }
 }
