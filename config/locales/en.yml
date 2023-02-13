@@ -67,7 +67,15 @@ en:
         <p class="govuk-body">In line with the requirements of the Act the SAU will notify you within <b>5 working days</b> of receiving your completed referral whether it will proceed to prepare  a report.</p>
         <p class="govuk-body">In reaching that decision, the SAU will consider whether your request complies with the submission requirements of the Act and, for certain subsidies or subsidy schemes of interest, whether the SAU has decided to prioritise your referral in accordance with its prioritisation principles.</p>
         <p class="govuk-body">We will set out in more detail the next steps in this response.</p>
-
+    contact_us:
+      page_text_html: |
+        <h1 class="govuk-heading-l">Contact us</h1>
+        <p class="govuk-body">If you need to contact us to:</p>
+        <ul class="govuk-list govuk-list--bullet">
+          <li>ask a query on using this portal</li>
+          <li>report an issue or bug on the portal</li>
+        </ul>
+        <p class="govuk-body">send an email to  <a href="mailto:%{feedback_email}?subject=General PAP enquiry">%{feedback_email}</a></p>      
   accounts:
     show:
       page_title: User account
@@ -479,6 +487,12 @@ en:
       panel-title: Response Sent
       panel-summary: Your response to the information request has been sent
       continue-button: Return to Dashboard
+
+  withdraw:
+    edit:
+      page_title: Withdraw request
+      heading: Confirm withdraw request
+      submit_btn: Withdraw
 
   audit_log:
     status_change: Status changed to %{status}
