@@ -20,8 +20,10 @@ class Request < ApplicationRecord
   serialize :location, Array
 
   scope :filter_by_status, ->(status) { where status: status }
+  scope :filter_by_pa, ->(pa_id) { where public_authority_id: pa_id }
   scope :submitted, -> { where.not(reference_number: nil) }
   scope :pa_requests, ->(id) { where("public_authority_id = ?", id) }
+  scope :sau_requests, -> { joins(:public_authority).where.not status: "Draft" }
   scope :filter_by_internal_state, ->(internal_state) { where internal_state: internal_state }
 
   # TAX_OPTIONS = %w[upto_60 upto_500 upto_1000 upto_2000 upto_5000 upto_10000 upto_30000 over_30000].freeze

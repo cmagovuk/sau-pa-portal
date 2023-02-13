@@ -15,6 +15,10 @@ $govuk-image-url-function: frontend-image-url;
   white-space: pre-wrap;
 }
 
+.app-rfi-waiting {
+  background-color: rgba(244, 119, 56, 0.25);
+}
+
 .js-enabled .sau-filter-btn {
   display: none;
 }

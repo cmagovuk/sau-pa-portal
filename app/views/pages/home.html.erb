@@ -7,5 +7,5 @@
     </div>
 </div>
 <div class="govuk-button-group">
-  <%= govuk_button_link_to 'Continue', dashboard_path %>
+  <%= govuk_button_link_to 'Continue', auth_user.is_pa_user? ? dashboard_path : sau_dashboard_index_path %>
 </div>

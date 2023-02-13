@@ -29,7 +29,7 @@ class InformationResponsesController < ApplicationController
       if request_service.submit_response(information_request)
         information_request.update!(status: "response-confirmed")
         information_request.request.audit_logs.create!(AuditLog.log(auth_user, :info_response))
-        information_request.request.update!(internal_state: nil)
+        information_request.request.update!(internal_state: "rfi-complete")
         GovukNotifyService.send_rfi_response_email(information_request.request, request_service.sau_email) if request_service.sau_email.present?
       end
       redirect_to summary_information_response_path

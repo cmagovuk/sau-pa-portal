@@ -17,6 +17,12 @@ module RequestStepsHelper
     t(request.call_in_type&.to_sym, scope: %i[referral_type short])
   end
 
+  def referral_type_name(request)
+    return "unknown referral type" if request.referral_type.blank?
+
+    t(request.referral_type&.to_sym, scope: %i[referral_type short])
+  end
+
   def scheme_subsidy_name(request)
     return t(request.scheme_subsidy&.to_sym, scope: [:scheme_subsidy]) if request.scheme_subsidy.present?
 

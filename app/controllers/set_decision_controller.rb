@@ -1,4 +1,4 @@
-class SetDecisionController < SauTeamController
+class SetDecisionController < SauLeadershipController
   def edit
     @set_decision_form = SetDecisionForm.new(param: params[:id])
     @set_decision_form.decision = session[:decision]

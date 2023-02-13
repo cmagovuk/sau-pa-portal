@@ -1,4 +1,4 @@
-class ReportController < ApplicationController
+class ReportController < SauLeadershipController
   def edit
     @request = Request::UploadReport.find(params[:id])
   end
@@ -28,6 +28,10 @@ class ReportController < ApplicationController
     else
       render step
     end
+  end
+
+  def request_id
+    params[:id]
   end
 
   def report_confirm

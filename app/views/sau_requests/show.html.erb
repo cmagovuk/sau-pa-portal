@@ -1,5 +1,12 @@
 <% @presenter = SauRequestPresenter.new(@request) %>
 <% title(t('.page_title')) %>
+<% 
+breadcrumbs = {
+      t("dashboard") => sau_dashboard_index_path,
+      t("request_progress") => nil
+    }
+%>
+<%= govuk_breadcrumbs(breadcrumbs: breadcrumbs) %>
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-l">Submission progress</h1>
@@ -38,7 +45,7 @@
     end %>
 
     <div class="govuk-button-group">
-      <% @presenter.actions(request_path(@request)).each do |a| %>
+      <% @presenter.actions(auth_user).each do |a| %>
         <%= govuk_button_link_to a[:title], a[:link], class: a[:secondary] ? "govuk-button--secondary" : "" %>
       <% end %>
     </div>
