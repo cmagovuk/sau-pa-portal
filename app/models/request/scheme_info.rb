@@ -1,5 +1,5 @@
 class Request::SchemeInfo < Request
-  validates :budget, numericality: { greater_than: 0, less_than: 10_000_000_000_000 }, allow_blank: true
+  validates :budget, numericality: { only_integer: true, greater_than: 0, less_than: 10_000_000_000_000 }, allow_blank: true
   validates :tax_low, numericality: { greater_than: 0, less_than: 10_000_000_000_000 }, allow_blank: true
   validates :tax_high, numericality: { greater_than: 0, less_than: 10_000_000_000_000 }, allow_blank: true
   validates :max_amt, numericality: { greater_than: 0, less_than: 10_000_000_000_000 }, allow_blank: true

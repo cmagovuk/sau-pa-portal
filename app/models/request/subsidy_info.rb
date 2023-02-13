@@ -1,7 +1,7 @@
 class Request::SubsidyInfo < Request
   attr_accessor :confirm_date_day, :confirm_date_month, :confirm_date_year
 
-  validates :budget, numericality: { greater_than: 0, less_than: 10_000_000_000_000 }, allow_blank: true
+  validates :budget, numericality: { only_integer: true, greater_than: 0, less_than: 10_000_000_000_000 }, allow_blank: true
   validates :tax_low, numericality: { greater_than: 0, less_than: 10_000_000_000_000 }, allow_blank: true
   validates :tax_high, numericality: { greater_than: 0, less_than: 10_000_000_000_000 }, allow_blank: true
   validates :other_form, length: { maximum: 255 }

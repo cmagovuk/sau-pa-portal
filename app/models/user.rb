@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  before_validation :strip_blanks
+
   EMAIL_REGEX = /\A(?!\.)("([^"\r\\]|\\["\r\\])*"|([-a-zA-Z0-9!#$%&'*+\/=?^_`{|}~]|(?<!\.)\.)*)(?<!\.)@[a-zA-Z0-9][\w.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z.]*[a-zA-Z]\z/.freeze
   attr_writer :current_step
 
@@ -25,5 +27,11 @@ class User < ApplicationRecord
 
   def last_step?
     current_step == "confirm"
+  end
+
+private
+
+  def strip_blanks
+    self.email = email.strip if email.present?
   end
 end

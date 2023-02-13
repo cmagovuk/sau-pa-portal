@@ -28,7 +28,7 @@ wb.styles do |style|
       export_data << ""
 
       # Budget (£)
-      export_data << @request.budget
+      export_data << @request.budget.to_i
 
       # Maximum amount given under scheme
       export_data << @request.max_amt
@@ -71,7 +71,7 @@ wb.styles do |style|
       export_data << (@request.subsidy_form == "tax" ? map_tax_amount(@request) : "")
 
       # Subsidy Element Full Amount
-      export_data << (@request.subsidy_form != "tax" ? @request.budget : "")
+      export_data << (@request.subsidy_form != "tax" ? @request.budget.to_i : "")
 
       # National ID Type
       export_data << map_ben_id_type(@request.ben_id_type)

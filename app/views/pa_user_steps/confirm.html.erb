@@ -8,7 +8,7 @@
     <%= govuk_summary_list do |summary_list|
         summary_list.row do |row|
             row.key { 'Public Authority' }
-            row.value { @authorities.find{|a| a[1] == @user.public_authority_id}[0]}
+            row.value { @user.public_authority.pa_name }
             row.action(text: "Change", href: pa_user_step_path('input'), visually_hidden_text: 'name')
         end
 
