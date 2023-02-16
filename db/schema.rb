@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_01_12_154949) do
+ActiveRecord::Schema.define(version: 2023_02_16_111538) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -145,6 +145,11 @@ ActiveRecord::Schema.define(version: 2023_01_12_154949) do
     t.date "sau_call_in"
     t.integer "tax_low"
     t.integer "tax_high"
+    t.text "withdraw_reason"
+    t.date "report_due_date"
+    t.datetime "submitted_date"
+    t.datetime "decision_date"
+    t.datetime "completed_date"
     t.index ["public_authority_id"], name: "index_requests_on_public_authority_id"
     t.index ["submitted_by_id"], name: "index_requests_on_submitted_by_id"
     t.index ["user_id"], name: "index_requests_on_user_id"

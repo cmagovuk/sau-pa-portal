@@ -49,7 +49,7 @@ class RequestsController < ApplicationController
       case params[:act]
       when "Continue" then @requests = @requests.filter_by_status("Draft")
       when "Info required" then @requests = @requests.filter_by_internal_state("info-required").filter_by_status("Accepted")
-      when "View" then @requests = @requests.filter_by_status(%w[Accepted Submitted])
+      when "View" then @requests = @requests.filter_by_status(%w[Accepted Submitted Declined Rejected Withdrawn])
       when "View report" then @requests = @requests.filter_by_status("Completed")
       end
     end

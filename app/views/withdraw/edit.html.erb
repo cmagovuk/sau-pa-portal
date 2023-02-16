@@ -1,0 +1,50 @@
+<% title(t('.page_title')) %>
+<% 
+breadcrumbs = {
+      "Request progress"     => sau_request_path(params[:id]),
+      "Withdraw submission" => nil
+    }
+%>
+<%= govuk_breadcrumbs(breadcrumbs: breadcrumbs) %>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l"><%= t(".heading") %></h1>
+   <%= govuk_summary_list(actions:false) do |summary_list|
+        summary_list.row do |row|
+            row.key { 'Reference' }
+            row.value { @request.reference_number }
+        end
+        if @request.previous_refno
+          summary_list.row do |row|
+            row.key { 'Previously submitted as' }
+            row.value { "#{@request.previous_refno} (#{@request.previous_status})" }
+          end
+        end
+        summary_list.row do |row|
+          row.key { "Status" }
+          row.value { @request.status }
+        end
+        summary_list.row do |row|
+          row.key { 'Referral type' }
+          row.value { t(@request.referral_type&.to_sym, scope: [:helpers, :label, :request, :referral_type_options]) }
+        end
+        if @request.scheme_subsidy == "scheme"
+          summary_list.row do |row|
+            row.key { 'Subsidy scheme name' }
+            row.value { @request.scheme_name }
+          end
+        end
+
+        if @request.scheme_subsidy == "subsidy"
+          summary_list.row do |row|
+            row.key { 'Beneficiary name' }
+            row.value { @request.beneficiary }
+          end
+        end
+    end %>
+  </div>
+</div>
+
+<%= form_for @request, url: withdraw_path, method: :patch, :as => :withdraw do |f| %>
+    <%= f.govuk_submit t(".submit_btn") %>
+<% end %>

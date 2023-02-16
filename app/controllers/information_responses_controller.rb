@@ -23,8 +23,6 @@ class InformationResponsesController < ApplicationController
   end
 
   def submit
-    # TODO: send notification to SAU staff that response has happened
-
     if information_request.valid?
       if request_service.submit_response(information_request)
         information_request.update!(status: "response-confirmed")

@@ -27,6 +27,21 @@ breadcrumbs = {
           row.key { "Status" }
           row.value { @request.status }
         end
+        if @request.status == "Accepted"
+          summary_list.row do |row|
+            row.key { "Report due date" }
+            row.value do %>
+            <div>
+              <div class="app-float-left">
+                <%= formatted_date(@request.report_due_date) %>
+              </div>
+              <div class="app-float-right">
+                <%= govuk_link_to "Change due date", due_date_sau_request_path, no_visited_state: true %>
+              </div>
+            </div>
+          <% end
+          end
+        end
         summary_list.row do |row|
           row.key { "Referral type" }
           row.value { t(@request.referral_type&.to_sym, scope: [:helpers, :label, :request, :referral_type_options]) }

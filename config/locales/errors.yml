@@ -113,6 +113,10 @@ en:
         too_long: Description must be %{count} words or fewer
       confirm_answers:
         not_confirmed: You must confirm your answers before submitting your request
+      withdraw_reason:
+        too_long: Reason for withdrawing must be %{count} words or fewer
+      report_due_date:
+        in_past: Report due date must be today or in the future
     upload:
       file_size_error_message: "%{filename} must be smaller than %{size_limit}"
       only_one_file_error_message: "You are limited to 1 document"
@@ -130,6 +134,8 @@ en:
     dates:
       end_before_start: End date must be the same as or after start date
       full_year: Date year must be full year, for example 2022
+    request_withdraw:
+      blank_reason_and_document: Enter a reason or upload a document
 
   activemodel:
     errors:

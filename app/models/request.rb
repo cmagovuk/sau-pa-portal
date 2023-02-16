@@ -2,6 +2,8 @@ class Request < ApplicationRecord
   has_one_attached :call_in
   has_one_attached :decision_letter
   has_one_attached :submission_text
+  has_one_attached :withdraw_document
+  has_one_attached :sau_withdrawn_doc
   has_many_attached :final_report
   has_many_attached :assessment_docs
   has_many_attached :character_desc_docs

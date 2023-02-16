@@ -1,0 +1,39 @@
+<% title(t('.page_title')) %>
+<% 
+breadcrumbs = {
+  t('dashboard') => dashboard_path,
+  "Request progress" => request_path(@request),
+  t('withdraw_request') => nil
+    }
+%>
+<%= govuk_breadcrumbs(breadcrumbs: breadcrumbs) %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    <h1 class="govuk-heading-l"><%= t('.page_title') %></h1>
+
+    <p class="govuk-body"><%= t('.summary') %></p>
+    <%= govuk_summary_list do |summary_list|
+          if @request.withdraw_reason.present?
+            summary_list.row do |row|
+              row.key { 'Withdraw reason' }
+              row.value(text: @request.withdraw_reason, classes:"app-pre-wrap")
+              row.action(href: request_withdraw_path, visually_hidden_text: 'withdraw reason')
+            end
+          end
+          if @request.withdraw_document.attached?
+            summary_list.row do |row|
+              row.key { 'Uploaded document' }
+              row.value(text: @request.withdraw_document.filename)
+              row.action(href: request_withdraw_path, visually_hidden_text: 'document')
+            end
+          end
+      end %>
+
+    <%= form_for @request, url: submit_request_withdraw_path, method: :post do |f| %>
+      <%= f.govuk_error_summary %>
+      <%= f.govuk_submit t('.confirm_button'), classes: "sau-submission-button" %>
+    <% end %>
+  </div>
+</div>

@@ -6,6 +6,7 @@ test:
   submit_rfi_request: "a77d06b1-f9a8-4b0a-b984-648c7caeac9a"
   rfi_response: "c9f5a870-5106-4820-95af-b502bb06459a"
   call_in: "73efe664-38a2-4153-9b5e-eca2c1a5c418"
+  request_withdraw: "8671ad80-e480-4843-9ee9-fa5334231886"
   request_status_changed:
     accepted: "66776f39-64f0-4362-8c9c-bd3c28021868"
     declined: "9d5f9093-75bc-41b5-b304-d61c249abd84"
@@ -20,6 +21,7 @@ production:
   submit_rfi_request: "7e308869-19e1-43a2-9f7b-2ff45fc4b6fd"
   rfi_response: "e93d561d-8b5d-4bd3-bc60-b5e5f5e663df"
   call_in: "4d1f5734-c2ce-4231-b957-ef9154d0c71e"
+  request_withdraw: "63ac13e2-7a52-4476-ab86-a988341a9676"
   request_status_changed:
     accepted: "166b7fc6-47c0-4488-898f-847657884f65"
     declined: "65fbe9fe-9539-4ab2-87c7-2c488be10676"

@@ -40,7 +40,13 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :sau_requests, only: %i[show]
+  resources :sau_requests, only: %i[show] do
+    member do
+      get "due_date"
+      patch "set_due_date"
+    end
+  end
+
   get "sau_requests/view/:id", to: "sau_requests#view"
 
   scope "/sau_requests/:id" do
@@ -74,6 +80,17 @@ Rails.application.routes.draw do
       get "confirm"
       patch "remove"
       post "submit"
+    end
+  end
+
+  resources :withdraw, only: %i[edit update], path_names: { edit: "" }
+
+  resources :request_withdraw, only: %i[edit update], path_names: { edit: "" } do
+    member do
+      get "confirm"
+      patch "remove"
+      post "submit"
+      get "summary"
     end
   end
 

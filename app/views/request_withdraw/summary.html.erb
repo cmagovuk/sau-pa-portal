@@ -2,8 +2,8 @@
 <% 
 breadcrumbs = {
   t('dashboard') => dashboard_path,
-  "Request progress" => request_path(@information_request.request),
-  t('information_request') => nil
+  "Request progress" => request_path(@request),
+  t('withdraw_request') => nil
     }
 %>
 <%= govuk_breadcrumbs(breadcrumbs: breadcrumbs) %>

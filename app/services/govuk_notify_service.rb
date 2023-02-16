@@ -58,6 +58,22 @@ class GovukNotifyService
     Rails.logger.warn "Failed to send email #{e.message}"
   end
 
+  def self.send_request_withdraw_email(request, email_address)
+    template_id = Rails.application.config.govuk_notify_templates.fetch(:request_withdraw)
+    if api_key.present? && template_id.present?
+      notify_client.send_email(
+        email_address: email_address,
+        template_id: template_id,
+        personalisation: {
+          reference_number: request.reference_number,
+        },
+      )
+    end
+  rescue Notifications::Client::BadRequestError => e
+    # silently ignore failure to send email
+    Rails.logger.warn "Failed to send email #{e.message}"
+  end
+
   def self.send_rfi_request_email(email_address, request, _link_path)
     template_id = Rails.application.config.govuk_notify_templates.fetch(:submit_rfi_request)
     if api_key.present? && template_id.present? && email_address.present?

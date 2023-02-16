@@ -34,7 +34,10 @@ en:
   request_progress: Request progress
   submission: Original submission
   upload_report: Upload final report
-
+  information_request: Information request
+  withdraw_request: Request withdraw
+  due_date: Report due date
+  
   buttons:
     submit: Save and continue
     confirm: Confirm and send
@@ -76,6 +79,21 @@ en:
           <li>report an issue or bug on the portal</li>
         </ul>
         <p class="govuk-body">send an email to  <a href="mailto:%{feedback_email}?subject=General PAP enquiry">%{feedback_email}</a></p>      
+
+  request_withdraw:
+    edit:
+      page_title: Request withdraw
+      heading: Why to you want to withdraw the request?
+    confirm:
+      page_title: Confirm withdraw
+      summary: Confirm the information you have supplied is correct
+      confirm_button: Submit
+    summary:
+      page_title: Request withdraw sent
+      panel-title: Request withdraw sent
+      panel-summary: Your request to withdraw has been sent
+      continue-button: Return to Dashboard
+
   accounts:
     show:
       page_title: User account
@@ -94,6 +112,8 @@ en:
       page_title: Request view
     view:
       page_title: Original submission
+    due_date:
+      page_title: Set report due date
 
   layouts:
     original_submission:
@@ -507,6 +527,7 @@ en:
     copied: Request originally copied from %{source}
     copy_source: Request duplicated for %{reason}
     called_in: Changed to Call in
+    report_due_date: Report due date set to %{date}
 
   helpers:
     legend:
@@ -540,6 +561,7 @@ en:
         par_on_td: Has the %{type} been entered on the BEIS Transparency database?
         par_assessed: Has any assessment been carried out, before the %{type} was given, as to whether the %{type} would comply with the Subsidy Control Requirements?
         confirm_answers: Confirm your answers
+        report_due_date: Set the report due date
 
       set_decision:
         decision: Set the decision for this request
@@ -767,6 +789,7 @@ en:
         assess_ee_pi: I. Subsidies for improvements of the energy efficiency of industrial activities in the United Kingdom shall improve energy efficiency by reducing energy consumption, either directly or per unit of production. 
         confirm_answers_options: 
           "1": We confirm that the answers provided are, to the best of our knowledge, complete and accurate
+        withdraw_reason: Provide your reason for withdrawing the request or, alternatively, upload a document detailing the reasons.
 
       set_decision:
         decision_options:

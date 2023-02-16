@@ -1,0 +1,17 @@
+<% title(t('.page_title')) %>
+<% 
+breadcrumbs = {
+      t("dashboard")        => sau_dashboard_index_path,
+      t("request_progress") => sau_request_path(@request),
+      t("due_date") => nil
+    }
+%>
+
+<%= govuk_breadcrumbs(breadcrumbs: breadcrumbs) %>
+<%= form_for @request, url: set_due_date_sau_request_path, :as => :request do |f| %>
+  <%= f.govuk_error_summary %>
+
+  <%= f.govuk_date_field :report_due_date, maxlength_enabled: true %>
+
+  <%= f.govuk_submit t("buttons.submit") %>
+<% end %>

@@ -19,6 +19,14 @@ $govuk-image-url-function: frontend-image-url;
   background-color: rgba(244, 119, 56, 0.25);
 }
 
+.app-float-left {
+  float: left;
+}
+
+.app-float-right {
+  float: right;
+}
+
 .js-enabled .sau-filter-btn {
   display: none;
 }

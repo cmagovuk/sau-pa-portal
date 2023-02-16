@@ -19,6 +19,10 @@ class RequestService
     @submit_response ||= call_api_info_response(information_request)
   end
 
+  def request_withdraw(request)
+    @request_withdraw ||= call_request_withdraw(request)
+  end
+
 private
 
   def call_api_info_response(information_request)
@@ -32,6 +36,37 @@ private
       payload: {
         uniqueId: information_request.request.id,
         documents: response_doc,
+      },
+    }.to_json
+
+    url = ENV.fetch(URL_ENV)
+
+    conn = Faraday.new do |f|
+      f.response :json # decode response body as JSON
+    end
+
+    response = conn.post(url, body, "Content-Type" => "application/json")
+    if response.body["success"]
+      @sau_email = response.body["data"]
+      true
+    else
+      Rails.logger.warn "API failed"
+      Rails.logger.warn response.body["error"] if response.body["error"].present?
+      false
+    end
+  end
+
+  def call_request_withdraw(request)
+    doc = []
+    if request.withdraw_document.attached?
+      doc.push({ key: request.withdraw_document.key, filename: request.withdraw_document.filename })
+    end
+
+    body = {
+      method: "RequestReport.WithdrawRequest",
+      payload: {
+        uniqueId: request.id,
+        documents: doc,
       },
     }.to_json
 

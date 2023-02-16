@@ -18,6 +18,7 @@ class SauRequestPresenter
     if @request.status == "Accepted" && auth_user.has_role?("SAU-Pipeline")
       actions += [
         { title: "Upload report", link: "/sau_requests/#{@request.id}/report", secondary: false },
+        # { title: "Withdraw", link: "/withdraw/#{@request.id}", secondary: true },
       ]
       unless @request.internal_state == "info_required"
         rfis = @request.information_requests.reject { |x| x.status == "response-confirmed" }
