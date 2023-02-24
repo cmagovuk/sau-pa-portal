@@ -40,7 +40,7 @@ class ReportController < SauLeadershipController
 
   def report_confirm_submit
     @request = Request::UploadReport.find(params[:id])
-    @request.update!(status: "Completed")
+    @request.update!(status: "Completed", completed_date: Time.zone.now)
     @request.audit_logs.create!(AuditLog.log(auth_user, :status_change, status: @request.status))
     GovukNotifyService.send_status_changed_email(@request, request_path(@request), :completed)
     redirect_to sau_request_path(@request)

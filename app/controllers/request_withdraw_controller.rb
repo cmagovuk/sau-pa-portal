@@ -41,13 +41,11 @@ class RequestWithdrawController < SuperUserController
   def submit
     @request = Request::RequestWithdraw.find(params[:id])
     # send document to SP
-    # update request status 'Withdraw requested'
+    # update request status 'Withdraw pending'
     # email sau team
     if request_service.request_withdraw(@request)
-      # TBD Update request with correct status
-      # @request.update!(status: "response-confirmed")
-      # @request.request.audit_logs.create!(AuditLog.log(auth_user, :info_response))
-      # @request.request.update!(internal_state: "rfi-complete")
+      @request.update!(status: "Pending withdrawal", internal_state: @request.new_internal_state(@request.status))
+      @request.audit_logs.create!(AuditLog.log(auth_user, :status_change, status: @request.status))
       GovukNotifyService.send_request_withdraw_email(@request, request_service.sau_email) if request_service.sau_email.present?
     end
     redirect_to summary_request_withdraw_path

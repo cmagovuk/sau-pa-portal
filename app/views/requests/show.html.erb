@@ -34,32 +34,37 @@ breadcrumbs = {
         end
     end %>
 
-    <div class="govuk-button-group">
-      <% @presenter.actions(request_path(@request)).each do |a| %>
-        <%= govuk_button_link_to a[:title], a[:link], class: a[:secondary] ? "govuk-button--secondary" : "" %>
-      <% end %>
-    </div>
   </div>
 </div>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
+    <div class="govuk-button-group">
+      <% @presenter.actions(auth_user).each do |a| %>
+        <%= govuk_button_link_to a[:title], a[:link], class: a[:secondary] ? "govuk-button--secondary" : "" %>
+      <% end %>
+    </div>
 
     <%= govuk_tabs(title: "Contents") do |c|
-        if @request.status == "Completed"
-        c.tab(label: "SAU documents") do %>
-            <%= render partial: "layouts/submission_report" %>
-        <% end 
+        if %w[Completed Withdrawn Declined Rejected].include?(@request.status)
+          c.tab(label: "SAU documents") do %>
+              <%= render partial: "layouts/submission_report" %>
+          <% end 
+        end
+        if @request.status == "Pending withdrawal" || (@request.status == "Withdrawn" && @request.referral_type != "par")
+          c.tab(label: "PA withdrawal info") do %>
+              <%= render partial: "layouts/withdrawal" %>
+          <% end 
         end
         if !@request.information_requests.load.empty? 
-        c.tab(label: "Further information requests") do %>
-            <%= render partial: "further_information_requests" %>
-        <% end
+          c.tab(label: "Further information requests") do %>
+              <%= render partial: "further_information_requests" %>
+          <% end
         end
-        unless @request.status == "Submitted" || @request.status == "Completed"
-        c.tab(label: "SAU documents") do %>
-            <%= render partial: "layouts/submission_report" %>
-        <% end 
+        if ["Accepted", "Pending withdrawal"].include?(@request.status) 
+          c.tab(label: "SAU documents") do %>
+              <%= render partial: "layouts/submission_report" %>
+          <% end 
         end
         c.tab(label: "Submission documents") do %>
             <%= render partial: "layouts/submission_documents" %>   

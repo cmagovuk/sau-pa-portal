@@ -56,7 +56,7 @@ class RequestStepsController < ApplicationController
         }))
         result = request_service.submit_request(@request)
         if result
-          step_model.update!(status: "Submitted", submitted_by_id: auth_user.user_id)
+          step_model.update!(status: "Submitted", submitted_date: Time.zone.now, submitted_by_id: auth_user.user_id)
           step_model.audit_logs.create!(AuditLog.log(auth_user, :status_change, status: step_model.status))
           GovukNotifyService.send_submit_request_email(step_model, auth_user) if step_model.reference_number.present?
           redirect_to request_submitted_path

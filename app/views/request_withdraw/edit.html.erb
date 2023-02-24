@@ -17,7 +17,6 @@ breadcrumbs = {
 
   <%= f.govuk_text_area :withdraw_reason, max_words: Request::MAX_WORDCOUNT %>
     <%= f.govuk_file_field :withdraw_document,
-          label: {text: "Choose a file"},
           accept: ".doc, .docx, .xls, .xlsx, .ppt, .pptx, .pdf, .zip",
           multiple: false,
           enctype: "multipart/form-data",

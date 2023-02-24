@@ -42,7 +42,7 @@ class InformationRequestsController < SauLeadershipController
 
   def submit
     if information_request.update(status: "request-confirmed")
-      information_request.request.update!(internal_state: "info-required")
+      information_request.request.update!(internal_state: information_request.request.new_internal_state("info-required", "rfi-complete"))
       information_request.request.audit_logs.create!(AuditLog.log(auth_user, :info_request))
       pa_su_users = information_request.request.public_authority.users.active_users.super_users.select(:email).map(&:email)
       notify_users = pa_su_users.union([information_request.request.submitted_by.email]) if information_request.request.submitted_by.disabled.blank?

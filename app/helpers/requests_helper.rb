@@ -20,7 +20,7 @@ module RequestsHelper
       end
     elsif request.status == "Completed"
       govuk_link_to "View report", request_path(request), no_visited_state: true
-    elsif request.internal_state == "info-required"
+    elsif request.internal_state.present? && request.internal_state.include?("info-required")
       govuk_link_to "Info required", request_path(request), no_visited_state: true
     else
       govuk_link_to "View", request_path(request), no_visited_state: true

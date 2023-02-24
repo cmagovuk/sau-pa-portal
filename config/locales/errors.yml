@@ -117,6 +117,7 @@ en:
         too_long: Reason for withdrawing must be %{count} words or fewer
       report_due_date:
         in_past: Report due date must be today or in the future
+        in_future: Report due date cannot be this far in the future
     upload:
       file_size_error_message: "%{filename} must be smaller than %{size_limit}"
       only_one_file_error_message: "You are limited to 1 document"

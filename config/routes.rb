@@ -83,7 +83,15 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :withdraw, only: %i[edit update], path_names: { edit: "" }
+  resources :withdraw, only: %i[edit update], path_names: { edit: "" } do
+    member do
+      get "confirm"
+      get "confirm_restore"
+      patch "remove"
+      post "submit"
+      post "restore"
+    end
+  end
 
   resources :request_withdraw, only: %i[edit update], path_names: { edit: "" } do
     member do

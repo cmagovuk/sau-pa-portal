@@ -27,13 +27,25 @@ class Request < ApplicationRecord
   scope :submitted, -> { where.not(reference_number: nil) }
   scope :pa_requests, ->(id) { where("public_authority_id = ?", id) }
   scope :sau_requests, -> { joins(:public_authority).where.not status: "Draft" }
-  scope :filter_by_internal_state, ->(internal_state) { where internal_state: internal_state }
+  scope :filter_by_internal_state, ->(internal_state) { where("internal_state LIKE ?", "%#{Request.sanitize_sql_like(internal_state)}%") }
   scope :submitted_by, ->(user_id) { where submitted_by_id: user_id }
 
   # TAX_OPTIONS = %w[upto_60 upto_500 upto_1000 upto_2000 upto_5000 upto_10000 upto_30000 over_30000].freeze
 
+  CONTENT_TYPES_ALLOWED = %w[
+    application/pdf
+    application/vnd.ms-excel
+    application/vnd.ms-powerpoint
+    application/vnd.openxmlformats-officedocument.wordprocessingml.document
+    application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+    application/vnd.openxmlformats-officedocument.presentationml.presentation
+    application/zip
+  ].freeze
+
+  EXTENSIONS_ALLOWED = %w[.doc .docx .xls .xlsx .ppt .pptx .pdf .zip].freeze
+
   TAX_OPTIONS = %w[upto_100 upto_300 upto_500 upto_750 upto_1500 upto_3000 upto_5000 upto_7500 upto_10000 upto_20000 upto_30000 over_30000].freeze
-  STATUS = %w[Accepted Completed Declined Draft Rejected Submitted].freeze
+  STATUS = ["Accepted", "Completed", "Declined", "Draft", "Pending withdrawal", "Rejected", "Submitted", "Withdrawn"].freeze
   ACTIONS = ["Continue", "Info required", "View", "View report"].freeze
   MAX_WORDCOUNT = 500
 
@@ -52,6 +64,13 @@ class Request < ApplicationRecord
 
   def permitted
     %w[].freeze
+  end
+
+  def new_internal_state(new_value, replacing = nil)
+    new_internal_state = internal_state.to_s
+    new_internal_state = new_internal_state.gsub(new_value, "")
+    new_internal_state = new_internal_state.gsub(replacing, "") if replacing.present?
+    new_internal_state << new_value
   end
 
   # allow pages that don't update object, such as information and confirmation pages

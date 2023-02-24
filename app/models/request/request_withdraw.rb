@@ -1,27 +1,14 @@
 class Request::RequestWithdraw < Request
-  CONTENT_TYPES_ALLOWED = %w[
-    application/pdf
-    application/msword
-    application/vnd.ms-excel
-    application/vnd.ms-powerpoint
-    application/vnd.openxmlformats-officedocument.wordprocessingml.document
-    application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
-    application/vnd.openxmlformats-officedocument.presentationml.presentation
-    application/zip
-  ].freeze
-
-  EXTENSIONS_ALLOWED = %w[.doc .docx .xls .xlsx .ppt .pptx .pdf .zip].freeze
-
   attr_accessor :continue_btn
 
   validate :validate_word_count
 
-  with_options if: :continue_btn do
-    validate :reason_or_document_present
-  end
+  # with_options if: :continue_btn do
+  #   validate :reason_or_document_present
+  # end
 
   def valid_document?(doc)
-    @valid_document ||= !too_many_files? && valid_file_type?(doc) && non_empty_file?(doc) && valid_file_extension?(doc)
+    @valid_document ||= !too_many_files? && non_empty_file?(doc) && valid_file_type?(doc) && valid_file_extension?(doc)
   end
 
   def add_document(doc)

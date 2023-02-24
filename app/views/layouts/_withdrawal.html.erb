@@ -1,0 +1,34 @@
+<% if @request.withdraw_document.attached? %>
+  <%= govuk_table do |table|
+    table.caption(size: 'm', text: 'Public Authority withdrawal document')
+
+    table.head do |head|
+      head.row do |row|
+        row.cell(header: true, text: 'File name')
+        row.cell(header: true, text: 'Uploaded')
+        row.cell(header: true, text: 'File size')
+      end
+    end
+
+    table.body do |body|               
+      body.row do |row|
+          row.cell do |cell| %>
+              <%= link_to rails_blob_path(@request.withdraw_document, "attachment"), class: 'govuk-link' do %>
+                <span class="govuk-visually-hidden">Download file </span><%= @request.withdraw_document.filename %>
+              <% end 
+            end
+          row.cell(text: @request.withdraw_document.created_at.strftime("%d/%m/%y %H:%M"))
+          row.cell(text: number_to_human_size(@request.withdraw_document.byte_size))
+      end
+    end
+  end 
+ end %>
+
+  <% if @request.withdraw_reason.present? %>
+    <h2 class="govuk-heading-m">Public Authority withdrawal reason</h2>
+    <p class="govuk-body app-pre-wrap"><%= @request.withdraw_reason %></p>
+  <% end %>
+
+  <% if @request.withdraw_reason.blank? && !@request.withdraw_document.attached %>
+    <p class="govuk-body">No reason or document provided by the Public Authority</p>
+  <% end %>

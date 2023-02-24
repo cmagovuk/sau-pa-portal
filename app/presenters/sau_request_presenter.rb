@@ -9,29 +9,37 @@ class SauRequestPresenter
 
   def actions(auth_user)
     actions = []
-    if @request.status == "Submitted" && auth_user.has_role?("SAU-Pipeline")
-      actions += [
-        { title: "Set decision", link: "/set_decision/#{@request.id}", secondary: false },
-      ]
-    end
+    if auth_user.has_role?("SAU-Pipeline")
+      if @request.status == "Submitted" || (@request.status == "Pending withdrawal" && @request.internal_state.include?("Submitted"))
+        actions += [
+          { title: "Set decision", link: "/set_decision/#{@request.id}", secondary: false },
+        ]
+      end
 
-    if @request.status == "Accepted" && auth_user.has_role?("SAU-Pipeline")
-      actions += [
-        { title: "Upload report", link: "/sau_requests/#{@request.id}/report", secondary: false },
-        # { title: "Withdraw", link: "/withdraw/#{@request.id}", secondary: true },
-      ]
-      unless @request.internal_state == "info_required"
-        rfis = @request.information_requests.reject { |x| x.status == "response-confirmed" }
-        if rfis.count.zero?
+      if @request.status == "Accepted" || (@request.status == "Pending withdrawal" && @request.internal_state.include?("Accepted"))
+        actions += [
+          { title: "Upload report", link: "/sau_requests/#{@request.id}/report", secondary: false },
+          # { title: "Withdraw", link: "/withdraw/#{@request.id}", secondary: true },
+        ]
+        unless @request.internal_state.present? && @request.internal_state.include?("info_required")
+          rfis = @request.information_requests.reject { |x| x.status == "response-confirmed" }
+          if rfis.count.zero?
+            actions += [
+              { title: "Initiate RFI", link: "/sau_requests/#{@request.id}/information_requests/new", secondary: true },
+            ]
+          end
+        end
+
+        if @request.referral_type != "par" && @request.referral_type != "call"
           actions += [
-            { title: "Initiate RFI", link: "/sau_requests/#{@request.id}/information_requests/new", secondary: true },
+            { title: "Called in", link: "/call_in/#{@request.id}", secondary: true },
           ]
         end
       end
 
-      if @request.referral_type != "par" && @request.referral_type != "call"
+      if @request.status == "Pending withdrawal" || (@request.referral_type == "par" && %w[Submitted Accepted].include?(@request.status))
         actions += [
-          { title: "Called in", link: "/call_in/#{@request.id}", secondary: true },
+          { title: "Withdraw", link: "/withdraw/#{@request.id}", secondary: true },
         ]
       end
     end

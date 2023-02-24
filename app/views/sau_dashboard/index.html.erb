@@ -59,12 +59,12 @@
                 row.cell(text: request.scheme_name.present? ? request.scheme_name : request.beneficiary)
                 row.cell(text: request.status, classes: "app-stack")
                 row.cell(classes: "app-stack") do |cell|
-                  if request.status == "Accepted" 
-                    if request.internal_state == "info-required"
+                  if request.status == "Accepted" && request.internal_state.present?
+                    if request.internal_state.include?("info-required")
                       link_to sau_request_path(request.id), class: "govuk-link", title: "Pending" do
                         govuk_tag(text: "RFI", colour: "red") 
                       end
-                    elsif request.internal_state == "rfi-complete"
+                    elsif request.internal_state.include?("rfi-complete")
                       link_to sau_request_path(request.id), class: "govuk-link", title: "Received" do
                         govuk_tag(text: "RFI", colour: "blue") 
                       end

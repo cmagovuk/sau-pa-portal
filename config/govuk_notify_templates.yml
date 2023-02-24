@@ -12,6 +12,7 @@ test:
     declined: "9d5f9093-75bc-41b5-b304-d61c249abd84"
     rejected: "82991a29-b01f-4f96-8565-2a8a85a22797"
     completed: "adc477f6-e79a-438e-aa19-e476495a13ec"
+    withdrawn: "f4e85b38-9f21-4230-b728-2f1e0d65c8d5"
 
 production:
   user_invitation: "c521d745-67c1-4ce0-aefa-99480c310296"
@@ -27,3 +28,4 @@ production:
     declined: "65fbe9fe-9539-4ab2-87c7-2c488be10676"
     rejected: "5a4ff0d7-7383-4674-952f-d050604c2db8"
     completed: "45df252e-07fb-44b4-b492-cc30bf31a5c8"
+    withdrawn: "93ebe9e7-0be7-4589-8283-78559f731bb4"

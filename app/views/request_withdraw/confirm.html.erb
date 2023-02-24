@@ -15,19 +15,20 @@ breadcrumbs = {
 
     <p class="govuk-body"><%= t('.summary') %></p>
     <%= govuk_summary_list do |summary_list|
-          if @request.withdraw_reason.present?
-            summary_list.row do |row|
-              row.key { 'Withdraw reason' }
-              row.value(text: @request.withdraw_reason, classes:"app-pre-wrap")
-              row.action(href: request_withdraw_path, visually_hidden_text: 'withdraw reason')
-            end
+          summary_list.row do |row|
+            row.key { 'Withdraw reason' }
+            row.value(text: @request.withdraw_reason, classes:"app-pre-wrap")
+            row.action(href: request_withdraw_path, visually_hidden_text: 'withdraw reason')
           end
-          if @request.withdraw_document.attached?
-            summary_list.row do |row|
-              row.key { 'Uploaded document' }
+
+          summary_list.row do |row|
+            row.key { 'Uploaded document' }
+            if @request.withdraw_document.attached?
               row.value(text: @request.withdraw_document.filename)
-              row.action(href: request_withdraw_path, visually_hidden_text: 'document')
+            else
+              row.value(text: "")
             end
+            row.action(href: request_withdraw_path, visually_hidden_text: 'document')
           end
       end %>
 

@@ -1,7 +1,6 @@
 class Request::UploadReport < Request
   CONTENT_TYPES_ALLOWED = %w[
     application/pdf
-    application/msword
     application/vnd.ms-excel
     application/vnd.ms-powerpoint
     application/vnd.openxmlformats-officedocument.wordprocessingml.document

@@ -27,13 +27,13 @@ breadcrumbs = {
           row.key { "Status" }
           row.value { @request.status }
         end
-        if @request.status == "Accepted"
+        if @request.status == "Accepted" || (@request.status == "Pending withdrawal" && @request.internal_state.include?("Accepted"))
           summary_list.row do |row|
             row.key { "Report due date" }
             row.value do %>
             <div>
               <div class="app-float-left">
-                <%= formatted_date(@request.report_due_date) %>
+                <%= @request.report_due_date.present? ? @request.report_due_date.strftime("%a %d %B %Y") : nil %>
               </div>
               <div class="app-float-right">
                 <%= govuk_link_to "Change due date", due_date_sau_request_path, no_visited_state: true %>
@@ -59,32 +59,37 @@ breadcrumbs = {
         end
     end %>
 
-    <div class="govuk-button-group">
-      <% @presenter.actions(auth_user).each do |a| %>
-        <%= govuk_button_link_to a[:title], a[:link], class: a[:secondary] ? "govuk-button--secondary" : "" %>
-      <% end %>
-    </div>
   </div>
 </div>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
+    <div class="govuk-button-group">
+      <% @presenter.actions(auth_user).each do |a| %>
+        <%= govuk_button_link_to a[:title], a[:link], class: a[:secondary] ? "govuk-button--secondary" : "" %>
+      <% end %>
+    </div>
 
     <%= govuk_tabs(title: "Contents") do |c|
-        if @request.status == "Completed"
-        c.tab(label: "SAU documents") do %>
-            <%= render partial: "layouts/submission_report" %>
-        <% end 
+        if %w[Completed Withdrawn Declined Rejected].include?(@request.status)
+          c.tab(label: "SAU documents") do %>
+              <%= render partial: "layouts/submission_report" %>
+          <% end 
+        end
+        if @request.status == "Pending withdrawal" || (@request.status == "Withdrawn" && @request.referral_type != "par")
+          c.tab(label: "Withdrawal") do %>
+              <%= render partial: "layouts/withdrawal" %>
+          <% end 
         end
         if !@request.information_requests.load.empty? 
-        c.tab(label: "Further information requests") do %>
-            <%= render partial: "further_information_requests" %>
-        <% end
+          c.tab(label: "Further information requests") do %>
+              <%= render partial: "further_information_requests" %>
+          <% end
         end
-        unless @request.status == "Submitted" || @request.status == "Completed"
-        c.tab(label: "SAU documents") do %>
-            <%= render partial: "layouts/submission_report" %>
-        <% end 
+        if ["Accepted", "Pending withdrawal"].include?(@request.status) 
+          c.tab(label: "SAU documents") do %>
+              <%= render partial: "layouts/submission_report" %>
+          <% end 
         end
         c.tab(label: "Submission documents") do %>
             <%= render partial: "layouts/submission_documents" %>   

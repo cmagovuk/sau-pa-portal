@@ -511,8 +511,23 @@ en:
   withdraw:
     edit:
       page_title: Withdraw request
-      heading: Confirm withdraw request
+      heading: Withdraw request
+      summary: Upload a withdrawal document
+      par_summary_html: | 
+        <p class='govuk-body'>Upload a withdrawal document</p>
+      pending_summary_html: | 
+        <p class='govuk-body'>To withdraw the request upload the withdrawal letter and 'Confirm withdraw'.</p>
+        <p class='govuk-body'>If the withdrawal process has been started in error 'Restore' the request to return the request to the '%{status}' status</p>
       submit_btn: Withdraw
+    confirm:
+      page_title: Confirm withdraw
+      summary: Confirm the information you have supplied is correct and submit to change the request status to 'Withdrawn'.
+      confirm_button: Submit
+    confirm_restore:
+      page_title: Confirm withdraw restore
+      summary: Confirm to restore the request to the '%{status}' status.
+      confirm_button: Confirm restore
+      cancel_btn: Cancel
 
   audit_log:
     status_change: Status changed to %{status}
@@ -789,7 +804,9 @@ en:
         assess_ee_pi: I. Subsidies for improvements of the energy efficiency of industrial activities in the United Kingdom shall improve energy efficiency by reducing energy consumption, either directly or per unit of production. 
         confirm_answers_options: 
           "1": We confirm that the answers provided are, to the best of our knowledge, complete and accurate
-        withdraw_reason: Provide your reason for withdrawing the request or, alternatively, upload a document detailing the reasons.
+        withdraw_reason: Provide your reason for withdrawing the request or, alternatively, upload a document detailing the reasons. (optional)
+        withdraw_document: Choose a file (optional)
+        sau_withdrawn_doc: Choose a file
 
       set_decision:
         decision_options:
