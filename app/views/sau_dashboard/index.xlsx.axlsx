@@ -5,13 +5,34 @@ wb.styles do |style|
 
   wb.add_worksheet(name: "Requests") do |sheet|
     # Create header row
-    sheet.add_row ["Reference name", "Public Authority", "Referral Type", "Subsidy scheme name", "Beneficiary name", "Status", "Last update"], style: heading
+    sheet.add_row ["Reference name", "Public Authority", "Referral Type", "Subsidy scheme name", "Beneficiary name", "Status", "Submission date", "Decision date", "Report due date"], style: heading
 
     @requests.each do |r|
       beneficiary = (r.beneficiary.present? && r.beneficiary.first == "=" ? " #{r.beneficiary}" : r.beneficiary)
       scheme_name = (r.scheme_name.present? && r.scheme_name.first == "=" ? " #{r.scheme_name}" : r.scheme_name)
 
-      sheet.add_row [r.reference_number, r.pa_name, referral_type_name(r), scheme_name, beneficiary, r.status, r.updated_at.strftime("%d/%m/%y")]
+      export_data = []
+
+      # Reference name
+      export_data << r.reference_number
+      # Public Authority
+      export_data << r.pa_name
+      # Referral Type
+      export_data << referral_type_name(r)
+      # Subsidy scheme name
+      export_data << scheme_name
+      # Beneficiary name
+      export_data << beneficiary
+      # Status
+      export_data << r.status
+      # Submission date
+      export_data << r.submitted_date
+      # Decision date
+      export_data << r.decision_date
+      # Report due dat
+      export_data << r.report_due_date
+
+      sheet.add_row export_data
     end
   end
 end

@@ -37,6 +37,7 @@ en:
   information_request: Information request
   withdraw_request: Request withdraw
   due_date: Report due date
+  reassign_submission: Reassign submission
   
   buttons:
     submit: Save and continue
@@ -159,8 +160,20 @@ en:
 
   sau_dashboard:
     index:
+      page_title: Active request dashboard
+      heading: Dashboard - open requests
+    all:
       page_title: Request dashboard
-      heading: Dashboard
+      heading: Dashboard - all requests
+
+  reassign:
+    edit:
+      page_title: Reassign submission
+      heading: Reassign submission to another user
+    confirm:
+      page_title: Confirm reassignment
+      heading: Confirm reassigning submission
+      submit_btn: Confirm
 
   requests:
     show:
@@ -543,6 +556,7 @@ en:
     copy_source: Request duplicated for %{reason}
     called_in: Changed to Call in
     report_due_date: Report due date set to %{date}
+    owner_change: Owner changed from %{from} to %{to}
 
   helpers:
     legend:

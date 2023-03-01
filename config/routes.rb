@@ -130,7 +130,18 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :sau_dashboard, only: %i[index]
+  resources :sau_dashboard, only: %i[index] do
+    collection do
+      get "all"
+    end
+  end
+
+  resources :reassign, only: %i[edit update], path_names: { edit: "" } do
+    member do
+      get "confirm"
+      post "submit"
+    end
+  end
 
   get "/pages/:page", to: "pages#show"
 

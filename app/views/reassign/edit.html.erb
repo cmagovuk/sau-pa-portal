@@ -1,0 +1,35 @@
+<% title(t('.page_title')) %>
+<% 
+breadcrumbs = {
+    t("dashboard") => dashboard_path,
+    t("request_progress") => request_path(params[:id]),
+    t(".page_title") => nil
+  }
+%>
+<%= govuk_breadcrumbs(breadcrumbs: breadcrumbs) %>
+<%= form_for @set_reassign_form, url: reassign_path, method: :patch, :as => :reassign do |f| %>
+  <%= f.govuk_error_summary %>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-l"><%= t(".heading") %></h1>
+        <h2 class="govuk-heading-m">Submission</h2>
+
+      <%= govuk_summary_list(actions: false) do |summary_list|
+          summary_list.row do |row|
+              row.key { 'Reference' }
+              row.value { @request.reference_number }
+          end
+          summary_list.row do |row|
+            row.key { "Current owner" }
+            row.value { @request.user.user_name }
+          end
+      end %>
+
+    </div>
+  </div>
+
+  <%= f.govuk_select :reassign_to, options_for_select([["", ""]] + @users, @set_reassign_form.reassign_to),
+    label: { text: "Select another user"}
+  %>
+  <%= f.govuk_submit %>
+<% end %>

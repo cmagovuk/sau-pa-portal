@@ -13,13 +13,13 @@ wb.styles do |style|
       export_data << @request.public_authority.pa_name
 
       # Subsidy scheme name (255 limit)
-      export_data << @request.scheme_name
+      export_data << map_free_text(@request.scheme_name, 255)
 
       # Subsidy scheme description (5000 character limit)
-      export_data << @request.description
+      export_data << map_free_text(@request.description, 5000)
 
-      # Legal basis
-      export_data << @request.legal
+      # Legal basis (5000 character limit)
+      export_data << map_free_text(@request.legal, 5000)
 
       # Public authority policy URL (255 limit)
       export_data << ""

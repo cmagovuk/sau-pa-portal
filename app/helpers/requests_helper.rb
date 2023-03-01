@@ -48,4 +48,11 @@ module RequestsHelper
       end
     end
   end
+
+  def date_colour(date)
+    return "red" if Time.zone.today >= date.days_ago(2)
+    return "yellow" if Time.zone.today >= date.days_ago(7)
+
+    "blue"
+  end
 end
