@@ -168,11 +168,14 @@ en:
 
   reassign:
     edit:
-      page_title: Reassign submission
-      heading: Reassign submission to another user
+      page_title: Re-assign submission
+      heading: Re-assign submission to another user
+      no_users_html: |
+        <p class="govuk-body">There are no other users to re-assign this request to.</p>
+
     confirm:
-      page_title: Confirm reassignment
-      heading: Confirm reassigning submission
+      page_title: Confirm re-assignment
+      heading: Confirm re-assigning submission
       submit_btn: Confirm
 
   requests:
@@ -301,7 +304,7 @@ en:
           <li>Brief description of its relevance to the assessment (for example as supporting evidence in respect of the evaluation of compliance with subsidy principle x)</li>
         </ul>
         <p>You will also need to provide a detailed description of whether any parts of the material submitted are considered as confidential, and the reasons for this. The descriptions need to be specific to allow us to understand what material, if used in our reports, would raise confidentiality concerns. Because we are required to publish our reports, we cannot accept blanket requests for confidentiality claiming that the entire contents of any or all documents are confidential.</p>
-        <p>For further information on the submission of documents in a request for a report, please see the <a href="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1116866/SAU_Guidance_Final_.pdf">SAU's Guidance on the operation of the subsidy control functions of the Subsidy Advice Unit</a></p>
+        <p>For further information on the submission of documents in a request for a report, please see the <a rel="noreferrer noopener" target="_blank" href="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1116866/SAU_Guidance_Final_.pdf">SAU's Guidance on the operation of the subsidy control functions of the Subsidy Advice Unit (opens in new tab)</a></p>
       ac_text_html: |
         <h1 class="govuk-heading-l">Assessment of Compliance with the Subsidy Control Principles</h1>
         <p class="govuk-body">To allow the SAU to understand the Assessment of Compliance with the Subsidy Control Principles and carry out its evaluation, you will need to provide:</p>

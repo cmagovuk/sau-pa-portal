@@ -10,14 +10,14 @@ prawn_document do |pdf|
 
   if @request.referral_type == "call"
     pdf_header(pdf, "Called in by Secretary of State")
-    pdf_output_field(pdf, 'Call in direction document', @request.call_in.attached? ? @request.call_in.filename : nil)
+    pdf_output_field(pdf, 'Call in direction document', @request.call_in.attached? ? @request.call_in.filename.to_s : nil)
     pdf_output_field(pdf, 'Date of direction', formatted_date(@request.direction_date))
     pdf_output_field(pdf, 'Direction relates to', t(@request.call_in_type&.to_sym, scope: [:helpers, :label, :request, :call_in_type_options]))
   end
 
   if @request.referral_type == "par"
     pdf_header(pdf, "Post-award referral")
-    pdf_output_field(pdf, 'Referral document', @request.call_in.attached? ? @request.call_in.filename : nil)
+    pdf_output_field(pdf, 'Referral document', (@request.call_in.attached? ? @request.call_in.filename.to_s : nil))
     pdf_output_field(pdf, 'Date of direction', formatted_date(@request.direction_date))
     pdf_output_field(pdf, 'Entered on BEIS database', @request.par_on_td.present? ? t(@request.par_on_td&.to_sym, scope: [:helpers, :label, :request, :par_on_td_options]) : nil)
 

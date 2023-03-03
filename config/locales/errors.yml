@@ -118,6 +118,7 @@ en:
       report_due_date:
         in_past: Report due date must be today or in the future
         in_future: Report due date cannot be this far in the future
+        blank: Enter date report is due
     upload:
       file_size_error_message: "%{filename} must be smaller than %{size_limit}"
       only_one_file_error_message: "You are limited to 1 document"
@@ -145,3 +146,7 @@ en:
           attributes: 
             decision:
               blank: Select the decision
+        reassign_form:
+          attributes: 
+            reassign_to:
+              blank: Select the user

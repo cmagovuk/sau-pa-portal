@@ -27,9 +27,12 @@ breadcrumbs = {
 
     </div>
   </div>
-
-  <%= f.govuk_select :reassign_to, options_for_select([["", ""]] + @users, @set_reassign_form.reassign_to),
-    label: { text: "Select another user"}
-  %>
-  <%= f.govuk_submit %>
+  <% if @users.empty? %>
+    <%= t(".no_users_html")%>
+  <% else %>
+    <%= f.govuk_select :reassign_to, options_for_select([["", ""]] + @users, @set_reassign_form.reassign_to),
+      label: { text: "Select another user"}
+    %>
+    <%= f.govuk_submit %>
+  <% end %>
 <% end %>

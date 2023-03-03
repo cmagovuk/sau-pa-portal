@@ -11,6 +11,7 @@ breadcrumbs = {
 <%= form_for @request, url: set_due_date_sau_request_path, :as => :request do |f| %>
   <%= f.govuk_error_summary %>
 
-  <%= f.govuk_date_field :report_due_date, maxlength_enabled: true %>
+  <%= f.govuk_text_field :report_due_date, width: 'one-third', type:"date", min: Time.zone.today, max: Time.zone.today.days_since(Request::ReportDueDate::MAX_DAYS_AHEAD),
+  label: {text: "Set the report due date", size:"m"} %>
   <%= f.govuk_submit t("buttons.submit") %>
 <% end %>

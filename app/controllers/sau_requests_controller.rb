@@ -30,7 +30,7 @@ class SauRequestsController < SauTeamController
 private
 
   def form_params
-    params.require(:request).permit(%w[report_due_date]).transform_keys { |k| date_field_to_attribute(k) }
+    params.require(:request).permit(%w[report_due_date])
   end
 
   def date_field_to_attribute(key)

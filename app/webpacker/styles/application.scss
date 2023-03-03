@@ -27,6 +27,11 @@ $govuk-image-url-function: frontend-image-url;
   float: right;
 }
 
+.app-space-between {
+  display: flex;
+  justify-content: space-between;
+}
+
 .js-enabled .sau-filter-btn {
   display: none;
 }

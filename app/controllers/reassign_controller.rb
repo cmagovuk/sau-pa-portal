@@ -1,6 +1,6 @@
 class ReassignController < SuperUserController
   def edit
-    @set_reassign_form = ReassignForm.new(param: params[:id])
+    @set_reassign_form = ReassignForm.new
     @set_reassign_form.reassign_to = session[:reassign_to]
     @request = Request.find(params[:id])
     @users = other_pa_users(@request)
@@ -8,7 +8,7 @@ class ReassignController < SuperUserController
 
   def confirm
     if session[:reassign_to].present?
-      @set_reassign_form = ReassignForm.new(param: params[:id])
+      @set_reassign_form = ReassignForm.new
       @set_reassign_form.reassign_to = session[:reassign_to]
       @request = Request.find(params[:id])
       @user = User.find(@set_reassign_form.reassign_to)
@@ -18,7 +18,7 @@ class ReassignController < SuperUserController
   end
 
   def update
-    @set_reassign_form = ReassignForm.new(set_reassign_params.merge(param: params[:id]))
+    @set_reassign_form = ReassignForm.new(set_reassign_params)
     if @set_reassign_form.valid?
       session[:reassign_to] = @set_reassign_form.reassign_to
       redirect_to confirm_reassign_path

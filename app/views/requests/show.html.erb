@@ -32,6 +32,18 @@ breadcrumbs = {
           row.key { "Referral type" }
           row.value { t(@request.referral_type&.to_sym, scope: [:helpers, :label, :request, :referral_type_options]) }
         end
+        if auth_user.is_pa_super_user?
+          summary_list.row do |row|
+            row.key { "Current owner" }
+            row.value { @request.user.user_name }
+              row.value do %>
+              <div class="app-space-between">
+                  <%= @request.user.user_name %>
+                  <%= govuk_link_to "Change owner", reassign_path, no_visited_state: true %>
+              </div>
+            <% end
+          end
+        end
     end %>
 
   </div>

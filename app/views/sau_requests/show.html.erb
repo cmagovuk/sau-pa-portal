@@ -31,13 +31,9 @@ breadcrumbs = {
           summary_list.row do |row|
             row.key { "Report due date" }
             row.value do %>
-            <div>
-              <div class="app-float-left">
+            <div class="app-space-between">
                 <%= @request.report_due_date.present? ? @request.report_due_date.strftime("%a %d %B %Y") : nil %>
-              </div>
-              <div class="app-float-right">
                 <%= govuk_link_to "Change due date", due_date_sau_request_path, no_visited_state: true %>
-              </div>
             </div>
           <% end
           end
