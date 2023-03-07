@@ -53,6 +53,12 @@ The application requires the following environment variables to be configured
 | Name | Purpose |
 | --- | --- |
 | **AZURE_API** | URL for Azure Function
+| **DB_DATABASE** | Database name
+| **DB_HOST** | Database host name
+| **DB_PASSWORD** | Database password
+| **DB_USERNAME** | Database user name
+| **FEEDBACK_EMAIL** | E-mail address for feedback
+| **FEEDBACK_LINK** | Url of Feedback form
 | **GA_TRACKING_ID** | Google Analytics ID
 | **GOVUK_NOTIFY_API_KEY** | Key to GOV.UK Notify
 | **GOVUK_NOTIFY_ENV** | GOV.UK Notify template set
@@ -63,7 +69,6 @@ The application requires the following environment variables to be configured
 | **STORAGE_ACCOUNT_NAME** | Azure storage account name
 | **STORAGE_CONTAINER** | Azure storage container name
 | **TRANSPARENCY_LINK** | Url of BEIS Transparency admin portal
-| **FEEDBACK_LINK** | Url of Feedback form
 
 When running in development with no authentication configure the following additional variables are needed to represent the user
 | Name | Purpose |
