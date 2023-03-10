@@ -155,6 +155,29 @@
             end
 
             summary_list.row do |row|
+                row.key { 'Locations' }
+                row.value do
+                    values = translate_terms(@request.location, "helpers.label.request.location_options")
+                    if values.count > 0 
+                       values.each do |v| %>
+                        <%= v %><br>
+                  <%   end
+                     elsif (@request.referral_type != "par" || @request.par_on_td == "n") %> 
+                       <p class="govuk-error-message">Required information missing</p>
+                  <% end
+                end
+                row.action(href: request_step_path(:locations), visually_hidden_text: 'locations')
+            end
+
+            summary_list.row do |row|
+                row.key { 'Additional location information' }
+                row.value(classes:"app-pre-wrap") do 
+                   render partial:"summary_value", locals: {value: @request.other_loc, field: :other_loc}
+                end
+                row.action(href: request_step_path(:locations), visually_hidden_text: 'additional location information')
+           end
+
+            summary_list.row do |row|
                 row.key { 'Sectors' }
                 row.value do
                     values = translate_terms(@request.sectors, "helpers.label.request.sectors_options")
@@ -583,6 +606,25 @@
             row.action(href: request_step_path(:ee_required), visually_hidden_text: 'confirmation date')
         end
 
+        summary_list.row do |row|
+            row.key { 'Chapter 2 prohibitions and requirements' }
+            row.value(classes:"app-pre-wrap") do 
+            render partial:"summary_value", locals: {value: @request.is_c2_relevant.present? ? t(@request.is_c2_relevant&.to_sym, scope: [:helpers, :label, :request, :is_c2_relevant_options]) : nil,
+                                                        field: :is_c2_relevant}
+            end
+            row.action(href: request_step_path(:chapter_two), visually_hidden_text: 'Chapter 2 relevance')
+        end
+            
+        if (@request.is_c2_relevant == "y")
+            summary_list.row do |row|
+                row.key { 'Chapter 2 details' }
+                row.value(classes:"app-pre-wrap") do 
+                render partial:"summary_value", locals: {value: @request.c2_description, field: :c2_description}
+                end
+                row.action(href: request_step_path(:chapter_two), visually_hidden_text: 'Chapter 2 description')
+            end
+        end
+           
         summary_list.row do |row|
             row.key { 'Supporting evidence' }
             row.value do 

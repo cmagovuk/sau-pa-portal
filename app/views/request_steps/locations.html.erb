@@ -5,8 +5,9 @@
   <%= f.govuk_error_summary %>
       <%= f.govuk_collection_check_boxes :location, 
         Request::Locations::OPTIONS, ->(option) {option}, ->(option) {option},
-        legend: { size:"l", tag:"h1" },
+        legend: { size:"l", tag:"h1", text: t("helpers.legend.request.location.scheme") },
          small:true %>
-      <%= f.govuk_text_area :other_loc, width: 'two-thirds', max_words: Request::MAX_WORDCOUNT %>
+      <%= f.govuk_text_area :other_loc, width: 'two-thirds', max_words: Request::MAX_WORDCOUNT,
+            hint: { text: t("helpers.hint.request.other_loc.scheme") } %>
   <%= f.govuk_submit t("buttons.submit") %>
 <% end %>

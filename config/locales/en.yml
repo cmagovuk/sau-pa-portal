@@ -287,6 +287,9 @@ en:
       page_title: Location of further information
     par_assessment:
       page_title: Has assessment been carried out
+    chapter_two:
+      page_title: Chapter 2
+      heading: Prohibitions and other requirements - Chapter 2
     assessment:
       page_title: Assessment
       heading: Assessment of Compliance
@@ -587,8 +590,11 @@ en:
         ben_id_type: Beneficiary ID type
         ben_size: The size of the beneficiary
         ben_good_svr: Does the subsidy apply to goods or services, or both?
-        location: Location of the subsidy spend
+        location: 
+          scheme: Geographical location(s) of the economic activities relating to the scheme
+          subsidy: Geographical location(s) of the economic activities to which the subsidy relate
         is_nc: Can the description above be used as the non-confidential description published by the SAU?
+        is_c2_relevant: Please confirm you have considered and assessed the %{type} compliance with the prohibitions and requirements of Chapter 2 of the Subsidy Control Act 2022 and
         ee_assess_required: Have you carried out an Assessment of Compliance with the Energy and Environment Principles?
         par_on_td: Has the %{type} been entered on the BEIS Transparency database?
         par_assessed: Has any assessment been carried out, before the %{type} was given, as to whether the %{type} would comply with the Subsidy Control Requirements?
@@ -632,7 +638,8 @@ en:
             Please provide a brief description of the subsidy scheme. This should include the following information:  
             <ul class="govuk-list govuk-list--bullet govuk-hint">
               <li>Scheme eligibility and categories of beneficiary eligible under the scheme.</li>
-              <li>Any relevant time limits or other conditions which may be attached to the scheme, standalone award or subsidy awards made under the scheme; and</li>
+              <li>A summary of any time limits which may be attached to the scheme or subsidy awards made under the scheme</li>
+              <li>A summary of the terms and conditions for eligibility to receive subsidies under the scheme; and</li>
               <li>Information on how the subsidy awards given under the scheme are calculated.</li>
             </ul>
           subsidy_html: |
@@ -652,12 +659,20 @@ en:
         ee_assess_required: If the %{type} relates to energy or the environment, the %{type} must be assessed against the Energy and Environment Principles
         end_date: Can be left blank
         confirm_date: 
-          scheme: For example, 31 03 2020
-          subsidy: For example, 31 03 2020
+          scheme: The date the public authority confirmed the decision to make the scheme.
+          subsidy: The date the public authority confirmed the decision to give the subsidy.
         info_location: 
           scheme: Provide location of any information which cannot already be provided on the database or to provide further description of the subsidy scheme
           subsidy: The location of any information, including information which is publicly available, which cannot already be provided or to provide further description of the subsidy/standalone award.
-        other_loc: Please provide any additional location information of the subsidy spend
+        other_loc: 
+          scheme: Please provide any additional location information of the economic activities relating to the scheme
+          subsidy: Please provide any additional location information of the economic activities to which the subsidy relate
+        c2_description_html: |
+          Please also indicate:  
+          <ul class="govuk-list govuk-list--bullet govuk-hint">
+            <li>details of where in the Assessment of Compliance the relevant prohibitions and requirements have been assessed, and</li>
+            <li>details of which evidence documents are the ones relevant to the part of the assessment</li>
+          </ul>
       set_decision:
         decision_options:
           declined: Does not meet prioritisation principles
@@ -779,8 +794,8 @@ en:
         character_desc: Description of why the %{type} meets the characteristics of a %{fullname}
         character_desc_docs: Attach any supporting documentation in line with the SAU Guidance
         legal: 
-          scheme: Legal basis under which a subsidy is given
-          subsidy: Legal basis under which the subsidy is given
+          scheme: Legal basis for the subsidy scheme
+          subsidy: Legal basis for the subsidy
         policy: Policy objective of the %{type}
         purposes_options:
           cultu: Culture or Heritage
@@ -824,6 +839,11 @@ en:
         withdraw_reason: Provide your reason for withdrawing the request or, alternatively, upload a document detailing the reasons. (optional)
         withdraw_document: Choose a file (optional)
         sau_withdrawn_doc: Choose a file
+        c2_description: Provide details of the sections that are relevant
+        is_c2_relevant_options:
+          n: Found none to be relevant
+          y: Found one or more to be relevant
+        c2_description: Please specify in the free text box below which Chapter 2 prohibitions and requirements apply.
 
       set_decision:
         decision_options:

@@ -33,6 +33,8 @@ prawn_document do |pdf|
     pdf_output_field(pdf, 'Amount budgeted for scheme', @request.budget.present? ? "£#{format_numeric(@request, :budget)}" : nil)
     pdf_output_field(pdf, 'For tax awards', @request.tax_amt.present? ? t(tax_amount_output(@request)) : nil)
     pdf_output_field(pdf, 'Maximum amount that can be given', @request.max_amt.present? ? "£#{format_numeric(@request, :max_amt)}" : nil)
+    pdf_output_field(pdf, 'Locations', translate_terms(@request.location, "helpers.label.request.location_options").join("\n"))
+    pdf_output_field(pdf, 'Additional location information', @request.other_loc)
     pdf_output_field(pdf, 'Sectors', translate_terms(@request.sectors, "helpers.label.request.sectors_options").join("\n"))
     pdf_output_field(pdf, 'Description', @request.description)
     pdf_output_field(pdf, 'Description is non-confidential', @request.is_nc.present? ? @request.is_nc.humanize : nil )
@@ -117,6 +119,12 @@ prawn_document do |pdf|
   if @request.referral_type != "par" || @request.par_assessed == "y"
     pdf_header(pdf, "Assessment of compliance")
     pdf_output_field(pdf, 'Energy and Environment assessment carried out', @request.ee_assess_required.present? ? t(@request.ee_assess_required&.to_sym, scope: [:helpers, :label, :request, :ee_assess_required_options]) : nil)
+
+    pdf_output_field(pdf, "Chapter 2 prohibitions and requirements", @request.is_c2_relevant.present? ? t(@request.is_c2_relevant&.to_sym, scope: [:helpers, :label, :request, :is_c2_relevant_options]) : nil)
+      
+    if (@request.is_c2_relevant == "y")
+      pdf_output_field(pdf, "Chapter 2 details", @request.c2_description)
+    end
 
     docs = []
     @request.assessment_docs.each do |d|

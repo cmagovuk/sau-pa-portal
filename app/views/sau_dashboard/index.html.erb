@@ -72,7 +72,7 @@
                     end
                   end
                 end
-                row.cell() do |cell| %>
+                row.cell(classes: "app-stack") do |cell| %>
                   <%= if request.status == "Accepted" || (request.status == "Pending withdrawal" && request.internal_state.include?("Accepted"))
                         if request.report_due_date.present?
                           govuk_tag(text: request.report_due_date.strftime("%d/%m/%y"), colour: date_colour(request.report_due_date))
