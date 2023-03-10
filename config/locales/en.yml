@@ -589,7 +589,9 @@ en:
           subsidy: Award confirmation date
         ben_id_type: Beneficiary ID type
         ben_size: The size of the beneficiary
-        ben_good_svr: Does the subsidy apply to goods or services, or both?
+        ben_good_svr:
+          scheme: Does the scheme relate to goods or services, or both?
+          subsidy: Does the subsidy relate to goods or services, or both?
         location: 
           scheme: Geographical location(s) of the economic activities relating to the scheme
           subsidy: Geographical location(s) of the economic activities to which the subsidy relate
@@ -683,7 +685,6 @@ en:
         call_in: Call in Direction
         call_in_type: Call in Direction
         characteristics: "%{type} characteristics"
-        ben_good_svr: Subsidy characteristics
         location: Subsidy characteristics
         par_on_td: BEIS transparency database
         par_assessed: Assessment of compliance

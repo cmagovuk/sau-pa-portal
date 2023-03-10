@@ -147,10 +147,7 @@ class Request < ApplicationRecord
     if referral_type != "par" || par_on_td == "n"
       submitable &= budget.present? || tax_amt.present? if scheme_subsidy == "scheme"
 
-      if scheme_subsidy == "subsidy"
-        submitable &= ben_good_svr.count > 1
-      end
-
+      submitable &= ben_good_svr.count > 1
       submitable &= location.count > 1
       submitable &= sectors.count > 1
       submitable &= purposes.count > 1

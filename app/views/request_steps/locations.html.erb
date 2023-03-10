@@ -5,6 +5,7 @@
   <%= f.govuk_error_summary %>
       <%= f.govuk_collection_check_boxes :location, 
         Request::Locations::OPTIONS, ->(option) {option}, ->(option) {option},
+        caption: { text:t("helpers.caption.request.characteristics", type: scheme_subsidy_name(@request)) },
         legend: { size:"l", tag:"h1", text: t("helpers.legend.request.location.scheme") },
          small:true %>
       <%= f.govuk_text_area :other_loc, width: 'two-thirds', max_words: Request::MAX_WORDCOUNT,

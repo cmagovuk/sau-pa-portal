@@ -93,6 +93,18 @@
             end
 
             summary_list.row do |row|
+                row.key { 'Does scheme relate to goods or services' }
+                row.value do
+                    values = translate_terms(@request.ben_good_svr, "helpers.label.request.ben_good_svr_options")
+                    if values.count > 0 
+                       values.each do |v| %>
+                        <%= v %><br>
+                  <%   end
+                  end
+                end
+            end
+
+            summary_list.row do |row|
                 row.key { 'Locations' }
                 row.value do
                     values = translate_terms(@request.location, "helpers.label.request.location_options")
@@ -245,7 +257,7 @@
             end
 
             summary_list.row do |row|
-                row.key { 'Does subsidy apply to goods or services' }
+                row.key { 'Does subsidy relate to goods or services' }
                 row.value do
                     values = translate_terms(@request.ben_good_svr, "helpers.label.request.ben_good_svr_options")
                     if values.count > 0 
