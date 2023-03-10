@@ -122,30 +122,14 @@
 
             summary_list.row do |row|
                 row.key { 'Amount budgeted for scheme' }
-                row.value do %>
-                  <% if @request.budget.present? %>
-                    <%= "£#{format_numeric(@request, :budget)}" %>
-                  <% elsif @request.tax_amt.blank? %> 
-                       <p class="govuk-error-message">Budget or tax amount required</p>
-                  <% end
-                end 
+                row.value do 
+                    render partial:"summary_value", 
+                           locals: {
+                             value: @request.budget.present? ? "£#{format_numeric(@request, :budget)}" : nil, 
+                             field: :budget
+                            }
+                end
                 row.action(href: request_step_path(:scheme_info), visually_hidden_text: 'budget')
-            end
-
-            summary_list.row do |row|
-                row.key { 'For tax awards' }
-                row.value do %>
-                  <% if @request.tax_amt.present? %>
-                    <% if tax_amount_output(@request).present? %>
-                    <%= tax_amount_output(@request) %>
-                    <% else %>
-                       <p class="govuk-error-message">Required information missing</p>
-                    <% end %>
-                  <% elsif @request.budget.blank?  %> 
-                       <p class="govuk-error-message">Budget or tax amount required</p>
-                  <% end
-                end 
-                row.action(href: request_step_path(:scheme_info), visually_hidden_text: 'tax amount')
             end
 
             summary_list.row do |row|

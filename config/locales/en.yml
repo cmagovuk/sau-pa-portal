@@ -594,9 +594,9 @@ en:
           subsidy: Does the subsidy relate to goods or services, or both?
         location: 
           scheme: Geographical location(s) of the economic activities relating to the scheme
-          subsidy: Geographical location(s) of the economic activities to which the subsidy relate
+          subsidy: Geographical location of the economic activities to which the subsidy relate
         is_nc: Can the description above be used as the non-confidential description published by the SAU?
-        is_c2_relevant: Please confirm you have considered and assessed the %{type} compliance with the prohibitions and requirements of Chapter 2 of the Subsidy Control Act 2022 and
+        is_c2_relevant: Please confirm that you have considered and assessed the %{type} compliance with the prohibitions and requirements of Chapter 2 of the Subsidy Control Act 2022 and
         ee_assess_required: Have you carried out an Assessment of Compliance with the Energy and Environment Principles?
         par_on_td: Has the %{type} been entered on the BEIS Transparency database?
         par_assessed: Has any assessment been carried out, before the %{type} was given, as to whether the %{type} would comply with the Subsidy Control Requirements?
@@ -626,10 +626,10 @@ en:
           <p>Please provide a brief explanation of why you consider that the %{type} would meet the definition of a %{fullname} (%{shortname}) in the free text box below.</p>
           <p>In line with the SAU's guidance, you can also provide further explanation in a standalone document, together with any additional information and analysis, if sufficient for your needs.</p>
         budget: 
-          scheme: Please use numeric values only. For tax awards, please provide a range below
+          scheme: Please use numeric values only
         tax_low: For example, 30000001
         tax_high: For example, 40000000
-        max_amt: To be left blank for those schemes where this is no maximum
+        max_amt: Please enter the maximum award value that can be given under the scheme - If there is no maximum - please leave blank
         ben_id: This must match the ID type. For example, if you selected 'VAT Number' for ID type, you must enter the recipient's VAT Number.
         ben_good_svr: Select all that apply
         sectors:
@@ -642,7 +642,7 @@ en:
               <li>Scheme eligibility and categories of beneficiary eligible under the scheme.</li>
               <li>A summary of any time limits which may be attached to the scheme or subsidy awards made under the scheme</li>
               <li>A summary of the terms and conditions for eligibility to receive subsidies under the scheme; and</li>
-              <li>Information on how the subsidy awards given under the scheme are calculated.</li>
+              <li>Information on how the subsidy awards given under the scheme are calculated, including a summary of any conditions relating to subsidy ratios or amounts.</li>
             </ul>
           subsidy_html: |
             Please provide a brief description of the subsidy award. This should include the following information: 
@@ -672,8 +672,8 @@ en:
         c2_description_html: |
           Please also indicate:  
           <ul class="govuk-list govuk-list--bullet govuk-hint">
-            <li>details of where in the Assessment of Compliance the relevant prohibitions and requirements have been assessed, and</li>
-            <li>details of which evidence documents are the ones relevant to the part of the assessment</li>
+            <li>Details of where in the Assessment of Compliance the relevant prohibitions and requirements have been assessed; and</li>
+            <li>Details of which evidence documents are relevant to the assessment of compliance with the prohibitions and requirements</li>
           </ul>
       set_decision:
         decision_options:

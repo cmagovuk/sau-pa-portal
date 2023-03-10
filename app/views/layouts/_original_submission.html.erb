@@ -83,11 +83,6 @@
             end
 
             summary_list.row do |row|
-                row.key { 'For tax awards' }
-                row.value { @request.tax_amt.present? ? tax_amount_output(@request) : nil }
-            end
-
-            summary_list.row do |row|
                 row.key { 'Maximum amount that can be given' }
                 row.value { "£#{format_numeric(@request, :max_amt)}" unless @request.max_amt.blank? }
             end

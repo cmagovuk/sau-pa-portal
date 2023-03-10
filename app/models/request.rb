@@ -92,7 +92,7 @@ class Request < ApplicationRecord
   CALL_IN_FIELDS = %w[direction_date call_in_type].freeze
   PAR_FIELDS = %w[direction_date par_on_td par_assessed].freeze
   SUBSIDY_FIELDS = %w[subsidy_form ben_id_type ben_id beneficiary ben_size legal policy confirm_date].freeze
-  SCHEME_FIELDS = %w[scheme_name legal policy confirm_date start_date].freeze
+  SCHEME_FIELDS = %w[scheme_name budget legal policy confirm_date start_date].freeze
   # ASSESSMENT_FIELDS = %w[ee_assess_required assess_pa assess_pb assess_pc assess_pd assess_pe assess_pf assess_pg].freeze
   # EE_ASSESSMENT_FIELDS = %w[assess_ee_pa assess_ee_pb].freeze
 
@@ -145,8 +145,6 @@ class Request < ApplicationRecord
     # complex interaction rules
 
     if referral_type != "par" || par_on_td == "n"
-      submitable &= budget.present? || tax_amt.present? if scheme_subsidy == "scheme"
-
       submitable &= ben_good_svr.count > 1
       submitable &= location.count > 1
       submitable &= sectors.count > 1

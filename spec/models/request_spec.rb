@@ -43,23 +43,23 @@ RSpec.describe Request, type: :model do
     end
     it "when scheme" do
       subject = described_class.new(scheme_subsidy: "scheme", ee_assess_required: "n")
-      expect(subject.determine_required_fields).to match_array(%w[scheme_name legal policy confirm_date start_date referral_type description is_nc ee_assess_required is_c2_relevant character_desc])
+      expect(subject.determine_required_fields).to match_array(%w[scheme_name budget legal policy confirm_date start_date referral_type description is_nc ee_assess_required is_c2_relevant character_desc])
     end
     it "when scheme with chapter 2" do
       subject = described_class.new(scheme_subsidy: "scheme", is_c2_relevant: "y")
-      expect(subject.determine_required_fields).to match_array(%w[scheme_name legal policy confirm_date start_date referral_type description is_nc ee_assess_required is_c2_relevant c2_description character_desc])
+      expect(subject.determine_required_fields).to match_array(%w[scheme_name budget legal policy confirm_date start_date referral_type description is_nc ee_assess_required is_c2_relevant c2_description character_desc])
     end
     it "when scheme with e&e assessment" do
       subject = described_class.new(scheme_subsidy: "scheme", ee_assess_required: "y")
-      expect(subject.determine_required_fields).to match_array(%w[scheme_name legal policy confirm_date start_date referral_type description is_nc ee_assess_required is_c2_relevant character_desc])
+      expect(subject.determine_required_fields).to match_array(%w[scheme_name budget legal policy confirm_date start_date referral_type description is_nc ee_assess_required is_c2_relevant character_desc])
     end
     it "when scheme call in" do
       subject = described_class.new(referral_type: "call", scheme_subsidy: "scheme")
-      expect(subject.determine_required_fields).to match_array(%w[scheme_name legal policy confirm_date start_date referral_type direction_date call_in_type description is_nc ee_assess_required is_c2_relevant character_desc])
+      expect(subject.determine_required_fields).to match_array(%w[scheme_name budget legal policy confirm_date start_date referral_type direction_date call_in_type description is_nc ee_assess_required is_c2_relevant character_desc])
     end
     it "when scheme PAR not on TD" do
       subject = described_class.new(referral_type: "par", scheme_subsidy: "scheme", par_on_td: "n")
-      expect(subject.determine_required_fields).to match_array(%w[referral_type description is_nc direction_date par_on_td par_assessed scheme_name legal policy confirm_date start_date ee_assess_required is_c2_relevant])
+      expect(subject.determine_required_fields).to match_array(%w[referral_type description is_nc direction_date par_on_td par_assessed scheme_name budget legal policy confirm_date start_date ee_assess_required is_c2_relevant])
     end
     it "when scheme PAR on TD accessed" do
       subject = described_class.new(referral_type: "par", scheme_subsidy: "scheme", par_on_td: "y", par_assessed: "y")
