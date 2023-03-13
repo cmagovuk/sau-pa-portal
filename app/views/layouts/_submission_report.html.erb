@@ -27,7 +27,7 @@
 end %>
 <% end %>
 
-<% if @request.status == "Withdrawn" %>
+<% if @request.status == "Withdrawn" && @request.sau_withdrawn_doc.attached? %>
   <%= govuk_table do |table|
     table.caption(size: 'm', text: 'SAU withdrawal letter')
 

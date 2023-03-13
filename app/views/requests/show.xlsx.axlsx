@@ -31,7 +31,7 @@ wb.styles do |style|
       export_data << @request.budget.to_i
 
       # Maximum amount given under scheme
-      export_data << (@request.max_amt.present? ? @request.max_amt.to_i.to_s : nil)
+      export_data << map_free_text(@request.max_amt_s, 255)
 
       # Confirmation Date
       export_data << @request.confirm_date

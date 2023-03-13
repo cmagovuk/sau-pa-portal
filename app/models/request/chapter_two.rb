@@ -9,7 +9,6 @@ class Request::ChapterTwo < Request
   validate :validate_word_count
 
   def validate_word_count
-    errors.add(:description, :too_long, count: 5000) if description.present? && description.gsub("\r\n", "\n").length > 5000
     errors.add(:c2_description, :too_long, count: Request::MAX_WORDCOUNT) if field_too_long(c2_description)
   end
 

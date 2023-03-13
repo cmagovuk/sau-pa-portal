@@ -1,6 +1,6 @@
 class Request::SchemeInfo < Request
   validates :budget, numericality: { greater_than: 0, less_than: 10_000_000_000_000 }, allow_blank: true
-  validates :max_amt, numericality: { greater_than: 0, less_than: 10_000_000_000_000 }, allow_blank: true
+  validates :max_amt_s, length: { maximum: 255 }
   validates :scheme_name, length: { maximum: 255 }
   validate :validate_int_value
   validate :validate_word_count
@@ -20,6 +20,6 @@ class Request::SchemeInfo < Request
   end
 
   def permitted
-    %w[scheme_name budget max_amt is_emergency emergency_desc].freeze
+    %w[scheme_name budget max_amt_s is_emergency emergency_desc].freeze
   end
 end

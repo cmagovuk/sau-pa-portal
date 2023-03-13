@@ -134,7 +134,7 @@
 
             summary_list.row do |row|
                 row.key { 'Maximum amount that can be given' }
-                row.value { "£#{format_numeric(@request, :max_amt)}" unless @request.max_amt.blank? }
+                row.value { @request.max_amt_s }
                 row.action(href: request_step_path(:scheme_info), visually_hidden_text: 'maximum amount')
             end
 
@@ -150,8 +150,8 @@
             if (@request.is_emergency == "y")
               summary_list.row do |row|
                   row.key { 'Emergency information' }
-                  row.value(classes:"app-pre-wrap") do 
-                  render partial:"summary_value", locals: {value: @request.emergency_desc, field: :emergency_desc}
+                  row.value(classes:"app-pre-wrap") do
+                    render partial:"summary_value", locals: {value: @request.emergency_desc, field: :emergency_desc}
                   end
                   row.action(href: request_step_path(:scheme_info), visually_hidden_text: 'emergency description')
               end

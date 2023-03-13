@@ -15,8 +15,7 @@
             label:{ text: t("helpers.label.request.budget.scheme") },
             hint: {text: t("helpers.hint.request.budget.scheme") }  %>
 
-          <%= f.govuk_text_field :max_amt, width: 'one-third', prefix_text: '£',
-            value: format_numeric(@request, :max_amt) %>
+          <%= f.govuk_text_field :max_amt_s %>
       <% end %>
 
       <%= f.govuk_radio_buttons_fieldset(:is_emergency, small:true, 

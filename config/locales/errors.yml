@@ -40,11 +40,8 @@ en:
         not_a_number: Amount must be a number
         less_than: Amount must be less than %{count}
         greater_than: Amount must be more than %{count}
-      max_amt:
-        not_an_integer: Maximum amount must be a whole number
-        not_a_number: Maximum amount must be a number
-        less_than: Maximum amount be less than %{count}
-        greater_than: Maximum amount be more than %{count}
+      max_amt_s:
+        too_long: Maximum amount must be %{count} characters or fewer
       direction_date:
         blank: Enter date direction was given
       other_purpose:
