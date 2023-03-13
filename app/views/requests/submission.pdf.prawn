@@ -32,6 +32,12 @@ prawn_document do |pdf|
     pdf_output_field(pdf, 'Public Authority name', @request.public_authority.pa_name)
     pdf_output_field(pdf, 'Amount budgeted for scheme', @request.budget.present? ? "£#{format_numeric(@request, :budget)}" : nil)
     pdf_output_field(pdf, 'Maximum amount that can be given', @request.max_amt.present? ? "£#{format_numeric(@request, :max_amt)}" : nil)
+
+    pdf_output_field(pdf, 'Subsidy forms', translate_terms(@request.subsidy_forms, "subsidy_form_options").join("\n"))
+    if @request.subsidy_forms.present? && @request.subsidy_forms.include?("other")
+      pdf_output_field(pdf, 'Other form', @request.other_form)
+    end
+
     pdf_output_field(pdf, 'Does scheme relate to goods or services', translate_terms(@request.ben_good_svr, "helpers.label.request.ben_good_svr_options").join("\n"))
     pdf_output_field(pdf, 'Locations', translate_terms(@request.location, "helpers.label.request.location_options").join("\n"))
     pdf_output_field(pdf, 'Additional location information', @request.other_loc)

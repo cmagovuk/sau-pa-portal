@@ -45,6 +45,10 @@ RSpec.describe Request, type: :model do
       subject = described_class.new(scheme_subsidy: "scheme", ee_assess_required: "n")
       expect(subject.determine_required_fields).to match_array(%w[scheme_name budget legal policy confirm_date start_date referral_type description is_nc ee_assess_required is_c2_relevant character_desc])
     end
+    it "when scheme with other form" do
+      subject = described_class.new(scheme_subsidy: "scheme", ee_assess_required: "n", subsidy_forms: %w[loan tax other])
+      expect(subject.determine_required_fields).to match_array(%w[scheme_name budget legal policy confirm_date start_date referral_type description is_nc ee_assess_required is_c2_relevant character_desc other_form])
+    end
     it "when scheme with chapter 2" do
       subject = described_class.new(scheme_subsidy: "scheme", is_c2_relevant: "y")
       expect(subject.determine_required_fields).to match_array(%w[scheme_name budget legal policy confirm_date start_date referral_type description is_nc ee_assess_required is_c2_relevant c2_description character_desc])

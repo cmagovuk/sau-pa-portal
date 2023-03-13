@@ -271,6 +271,8 @@ en:
       fieldset_legend: Legal basis and policy objective
       detail_summary: What is legal basis?
       detail_text: This is the legal justification of this %{type}.
+    subsidy_forms:
+      page_title: Subsidy forms
     purposes:
       page_title: Purposes
     purpose:
@@ -584,6 +586,7 @@ en:
           scheme: Purpose(s) of the subsidy scheme
           subsidy: Purpose of the subsidy
         end_date: End date
+        subsidy_forms: The form(s) of the subsidies given under the scheme
         confirm_date: 
           scheme: Confirmation date
           subsidy: Award confirmation date
@@ -655,6 +658,7 @@ en:
           scheme: Please provide a summary of the legal basis under which the subsidy scheme is made
           subsidy: Please provide a summary of the legal basis under which the subsidy is given
         policy: Please provide a summary of the policy objective of the %{type}
+        subsidy_forms: Select all that apply
         purposes:
           scheme: Select all that apply
           subsidy: Select one option
@@ -688,6 +692,7 @@ en:
         location: Subsidy characteristics
         par_on_td: BEIS transparency database
         par_assessed: Assessment of compliance
+        subsidy_forms: Subsidy scheme characteristics
 
     label:
       authority:

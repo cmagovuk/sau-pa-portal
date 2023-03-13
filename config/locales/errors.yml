@@ -54,6 +54,7 @@ en:
         too_long: Location of further information must be %{count} words or fewer
       other_form: 
         too_long: Other form must be %{count} characters or fewer
+        blank: Enter description of other form
       beneficiary:
         too_long: Beneficiary name must be %{count} characters or fewer
       ben_id_type:

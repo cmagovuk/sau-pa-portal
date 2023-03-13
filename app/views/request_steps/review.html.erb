@@ -139,6 +139,31 @@
             end
 
             summary_list.row do |row|
+                row.key { 'Subsidy forms' }
+                row.value do
+                    values = translate_terms(@request.subsidy_forms, "subsidy_form_options")
+                    if values.count > 0 
+                       values.each do |v| %>
+                        <%= v %><br>
+                  <%   end
+                     elsif (@request.referral_type != "par" || @request.par_on_td == "n") %> 
+                       <p class="govuk-error-message">Required information missing</p>
+                  <% end
+                end
+                row.action(href: request_step_path(:subsidy_forms), visually_hidden_text: 'subsidy forms')
+            end
+
+            if @request.subsidy_forms.present? && @request.subsidy_forms.include?("other")
+              summary_list.row do |row|
+                row.key { 'Other form' }
+                row.value do 
+                  render partial:"summary_value", locals: {value: @request.other_form, field: :other_form}
+                end
+                row.action(href: request_step_path(:subsidy_forms), visually_hidden_text: 'other form')
+              end
+            end
+
+            summary_list.row do |row|
                 row.key { 'Does scheme relate to goods or services' }
                 row.value do
                     values = translate_terms(@request.ben_good_svr, "helpers.label.request.ben_good_svr_options")
@@ -150,7 +175,7 @@
                        <p class="govuk-error-message">Required information missing</p>
                   <% end
                 end
-                row.action(href: request_step_path(:goods_services), visually_hidden_text: 'beneficiary ID type')
+                row.action(href: request_step_path(:goods_services), visually_hidden_text: 'goods or services')
             end
 
             summary_list.row do |row|
@@ -406,7 +431,7 @@
                        <p class="govuk-error-message">Required information missing</p>
                   <% end
                 end
-                row.action(href: request_step_path(:goods_services), visually_hidden_text: 'beneficiary ID type')
+                row.action(href: request_step_path(:goods_services), visually_hidden_text: 'goods or services')
             end
 
             summary_list.row do |row|

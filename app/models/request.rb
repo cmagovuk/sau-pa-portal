@@ -20,6 +20,7 @@ class Request < ApplicationRecord
   serialize :purposes, Array
   serialize :ben_good_svr, Array
   serialize :location, Array
+  serialize :subsidy_forms, Array
 
   scope :filter_by_status, ->(status) { where status: status }
   scope :filter_by_user, ->(user_id) { where user_id: user_id }
@@ -45,6 +46,7 @@ class Request < ApplicationRecord
 
   EXTENSIONS_ALLOWED = %w[.doc .docx .xls .xlsx .ppt .pptx .pdf .zip].freeze
 
+  SUBSIDY_FORM_OPTIONS = %w[dire equi gaur loan above below tax other].freeze
   TAX_OPTIONS = %w[upto_100 upto_300 upto_500 upto_750 upto_1500 upto_3000 upto_5000 upto_7500 upto_10000 upto_20000 upto_30000 over_30000].freeze
   STATUS = ["Accepted", "Completed", "Declined", "Draft", "Pending withdrawal", "Rejected", "Submitted", "Withdrawn"].freeze
   ACTIONS = ["Continue", "Info required", "View", "View report"].freeze
@@ -122,8 +124,8 @@ class Request < ApplicationRecord
         fields += %w[budget] if subsidy_form != "tax"
         fields += %w[tax_amt] if subsidy_form == "tax"
         fields += %w[tax_low tax_high] if subsidy_form == "tax" && tax_amt == "over_30000"
-      elsif tax_amt == "over_30000"
-        fields += %w[tax_low tax_high]
+      elsif subsidy_forms.present? && subsidy_forms.include?("other")
+        fields += %w[other_form]
       end
     end
 
@@ -149,6 +151,9 @@ class Request < ApplicationRecord
       submitable &= location.count > 1
       submitable &= sectors.count > 1
       submitable &= purposes.count > 1
+      if scheme_subsidy == "scheme"
+        submitable &= subsidy_forms.count > 1
+      end
     end
 
     if referral_type != "par" || par_assessed != "n"

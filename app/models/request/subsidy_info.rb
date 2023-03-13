@@ -10,8 +10,6 @@ class Request::SubsidyInfo < Request
 
   delegate :pa_name, to: :public_authority
 
-  SUBSIDY_FORM_OPTIONS = %w[dire equi gaur loan above below tax other].freeze
-
   def select_form_options
     [OpenStruct.new(name: "Select form type", id: "")] +
       SUBSIDY_FORM_OPTIONS.map do |id|

@@ -74,7 +74,7 @@
 
             summary_list.row do |row|
                 row.key { 'Public Authority name' }
-                row.value { @request.public_authority.pa_name}
+                row.value { @request.public_authority.pa_name }
             end
 
             summary_list.row do |row|
@@ -85,6 +85,25 @@
             summary_list.row do |row|
                 row.key { 'Maximum amount that can be given' }
                 row.value { "£#{format_numeric(@request, :max_amt)}" unless @request.max_amt.blank? }
+            end
+
+            summary_list.row do |row|
+                row.key { 'Subsidy forms' }
+                row.value do
+                    values = translate_terms(@request.subsidy_forms, "subsidy_form_options")
+                    if values.count > 0 
+                       values.each do |v| %>
+                        <%= v %><br>
+                  <%   end
+                    end
+                end
+            end
+
+            if @request.subsidy_forms.present? && @request.subsidy_forms.include?("other")
+              summary_list.row do |row|
+                row.key { 'Other form' }
+                row.value { @request.other_form }
+              end
             end
 
             summary_list.row do |row|
