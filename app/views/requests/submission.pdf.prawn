@@ -33,6 +33,11 @@ prawn_document do |pdf|
     pdf_output_field(pdf, 'Amount budgeted for scheme', @request.budget.present? ? "£#{format_numeric(@request, :budget)}" : nil)
     pdf_output_field(pdf, 'Maximum amount that can be given', @request.max_amt.present? ? "£#{format_numeric(@request, :max_amt)}" : nil)
 
+    pdf_output_field(pdf, 'Subsidy in response to emergency', @request.is_emergency.present? ? t(@request.is_emergency, scope: "helpers.label.request.is_emergency_options") : nil)
+    if @request.is_emergency == "y"
+      pdf_output_field(pdf, 'Emergency information', @request.emergency_desc)
+    end
+
     pdf_output_field(pdf, 'Subsidy forms', translate_terms(@request.subsidy_forms, "subsidy_form_options").join("\n"))
     if @request.subsidy_forms.present? && @request.subsidy_forms.include?("other")
       pdf_output_field(pdf, 'Other form', @request.other_form)

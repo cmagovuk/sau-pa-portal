@@ -586,6 +586,7 @@ en:
           scheme: Purpose(s) of the subsidy scheme
           subsidy: Purpose of the subsidy
         end_date: End date
+        is_emergency: Is the subsidy to be given in response to a national or global economic emergency?
         subsidy_forms: The form(s) of the subsidies given under the scheme
         confirm_date: 
           scheme: Confirmation date
@@ -725,6 +726,7 @@ en:
           ssi: Subsidy Scheme of Interest (SSoI)
           other: Other
         par_td_ref_no: BEIS transparency database reference number
+        emergency_desc: Please provide further information in the free text box below, including details of where in the Assessment of Compliance this is assessed and any relevant evidence documents.
         ben_id_type_options:
           comp: Company Registration Number
           charity: Charity Number
@@ -797,6 +799,9 @@ en:
         tax_low: Low range value
         tax_high: High range value
         max_amt: Maximum amount that can be given under the scheme
+        is_emergency_options:
+          y: "Yes"
+          n: "No"
         character_desc: Description of why the %{type} meets the characteristics of a %{fullname}
         character_desc_docs: Attach any supporting documentation in line with the SAU Guidance
         legal: 

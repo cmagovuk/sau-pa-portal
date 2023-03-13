@@ -19,6 +19,14 @@
             value: format_numeric(@request, :max_amt) %>
       <% end %>
 
+      <%= f.govuk_radio_buttons_fieldset(:is_emergency, small:true, 
+                                          legend: { size:"s", class:"govuk-fieldset__legend govuk-fieldset__legend--s govuk-!-font-weight-regular" }) do %>
+        <%= f.govuk_radio_button :is_emergency, 'n', link_errors: true %>
+        <%= f.govuk_radio_button :is_emergency, 'y' do %>
+            <%= f.govuk_text_area :emergency_desc, width: 'two-thirds', max_words: Request::MAX_WORDCOUNT %>
+        <% end %>
+      <% end %>
+
       <%= f.govuk_submit t("buttons.submit") %>
     <% end %>
   </div>

@@ -94,7 +94,7 @@ class Request < ApplicationRecord
   CALL_IN_FIELDS = %w[direction_date call_in_type].freeze
   PAR_FIELDS = %w[direction_date par_on_td par_assessed].freeze
   SUBSIDY_FIELDS = %w[subsidy_form ben_id_type ben_id beneficiary ben_size legal policy confirm_date].freeze
-  SCHEME_FIELDS = %w[scheme_name budget legal policy confirm_date start_date].freeze
+  SCHEME_FIELDS = %w[scheme_name budget is_emergency legal policy confirm_date start_date].freeze
   # ASSESSMENT_FIELDS = %w[ee_assess_required assess_pa assess_pb assess_pc assess_pd assess_pe assess_pf assess_pg].freeze
   # EE_ASSESSMENT_FIELDS = %w[assess_ee_pa assess_ee_pb].freeze
 
@@ -124,8 +124,9 @@ class Request < ApplicationRecord
         fields += %w[budget] if subsidy_form != "tax"
         fields += %w[tax_amt] if subsidy_form == "tax"
         fields += %w[tax_low tax_high] if subsidy_form == "tax" && tax_amt == "over_30000"
-      elsif subsidy_forms.present? && subsidy_forms.include?("other")
-        fields += %w[other_form]
+      else
+        fields += %w[other_form] if subsidy_forms.present? && subsidy_forms.include?("other")
+        fields += %w[emergency_desc] if is_emergency == "y"
       end
     end
 

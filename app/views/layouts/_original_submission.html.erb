@@ -88,6 +88,18 @@
             end
 
             summary_list.row do |row|
+                row.key { 'Subsidy in response to emergency' }
+                row.value { @request.is_emergency.present? ? t(@request.is_emergency, scope: "helpers.label.request.is_emergency_options") : nil }
+            end
+            
+            if (@request.is_emergency == "y")
+              summary_list.row do |row|
+                  row.key { 'Emergency information' }
+                  row.value(classes:"app-pre-wrap", text: @request.emergency_desc)
+              end
+            end
+           
+            summary_list.row do |row|
                 row.key { 'Subsidy forms' }
                 row.value do
                     values = translate_terms(@request.subsidy_forms, "subsidy_form_options")
