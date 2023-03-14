@@ -40,7 +40,7 @@
         row.cell(text: user.public_authority.pa_name)
         row.cell(text: t(user.role, scope: "helpers.label.user.role_options"))
         row.cell do |cell|
-            render "layouts/user_actions", user: user
+            render "layouts/user_actions", user: user, src: nil
          end
       end
     end

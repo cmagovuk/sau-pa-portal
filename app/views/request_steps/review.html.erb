@@ -139,7 +139,7 @@
             end
 
             summary_list.row do |row|
-                row.key { 'Subsidy in response to emergency' }
+                row.key { 'Scheme in response to emergency' }
                 row.value do 
                   render partial:"summary_value", locals: {value: @request.is_emergency.present? ? t(@request.is_emergency, scope: "helpers.label.request.is_emergency_options") : nil,
                                                          field: :is_emergency}
@@ -400,6 +400,25 @@
                 row.action(href: request_step_path(:subsidy_info), visually_hidden_text: 'confirmation date')
             end
 
+            summary_list.row do |row|
+                row.key { 'Subsidy in response to emergency' }
+                row.value do 
+                  render partial:"summary_value", locals: {value: @request.is_emergency.present? ? t(@request.is_emergency, scope: "helpers.label.request.is_emergency_options") : nil,
+                                                         field: :is_emergency}
+                end
+                row.action(href: request_step_path(:subsidy_info), visually_hidden_text: 'for emergency')
+            end
+            
+            if (@request.is_emergency == "y")
+              summary_list.row do |row|
+                  row.key { 'Emergency information' }
+                  row.value(classes:"app-pre-wrap") do
+                    render partial:"summary_value", locals: {value: @request.emergency_desc, field: :emergency_desc}
+                  end
+                  row.action(href: request_step_path(:subsidy_info), visually_hidden_text: 'emergency description')
+              end
+            end
+           
             summary_list.row do |row|
                 row.key { 'Beneficiary ID type' }
                 row.value do 

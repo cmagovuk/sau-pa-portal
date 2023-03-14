@@ -45,11 +45,13 @@ wb.styles do |style|
       # Spending sectors
       export_data << map_sectors(@request.sectors)
     else
-      sheet.add_row ["Subsidy Control (SC) Number", "Subsidy Scheme Title", "Standalone Award", "Subsidy Description", "Subsidy Objective", 'Subsidy Objective "Other" - Text', "Subsidy Instrument", 'Subsidy Instrument "Other" - Text', "Subsidy Element Full Amount Range", "Subsidy Element Full Amount", "National ID Type", "National ID", "Beneficiary Name", "Size of the Organisation", "Public Authority Name", "Legal Granting Date", "Goods/Services Filter", "Spending Region", "Spending Sector"], style: heading
+      sheet.add_row ["Subsidy Control (SC) Number", "Subsidy Scheme Title", "Admin Program (AP) Number", "Standalone Award", "Subsidy Description", "Subsidy Objective", 'Subsidy Objective "Other" - Text', "Subsidy Instrument", 'Subsidy Instrument "Other" - Text', "Subsidy Element Full Amount Range", "Subsidy Element Full Amount", "National ID Type", "National ID", "Beneficiary Name", "Size of the Organisation", "Public Authority Name", "Legal Granting Date", "Goods/Services Filter", "Spending Region", "Spending Sector"], style: heading
 
       # Subsidy Control (SC) Number
       export_data << ""
       # Subsidy Scheme Title
+      export_data << ""
+      # Admin Program (AP) Number
       export_data << ""
       # Standalone Award
       export_data << "Yes"

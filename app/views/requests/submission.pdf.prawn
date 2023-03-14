@@ -33,7 +33,7 @@ prawn_document do |pdf|
     pdf_output_field(pdf, 'Amount budgeted for scheme', @request.budget.present? ? "£#{format_numeric(@request, :budget)}" : nil)
     pdf_output_field(pdf, 'Maximum amount that can be given', @request.max_amt_s)
 
-    pdf_output_field(pdf, 'Subsidy in response to emergency', @request.is_emergency.present? ? t(@request.is_emergency, scope: "helpers.label.request.is_emergency_options") : nil)
+    pdf_output_field(pdf, 'Scheme in response to emergency', @request.is_emergency.present? ? t(@request.is_emergency, scope: "helpers.label.request.is_emergency_options") : nil)
     if @request.is_emergency == "y"
       pdf_output_field(pdf, 'Emergency information', @request.emergency_desc)
     end
@@ -82,6 +82,12 @@ prawn_document do |pdf|
     end
 
     pdf_output_field(pdf, 'Award confirmation date', @request.confirm_date.present? ? formatted_date(@request.confirm_date) : nil)
+
+    pdf_output_field(pdf, 'Subsidy in response to emergency', @request.is_emergency.present? ? t(@request.is_emergency, scope: "helpers.label.request.is_emergency_options") : nil)
+    if @request.is_emergency == "y"
+      pdf_output_field(pdf, 'Emergency information', @request.emergency_desc)
+    end
+
     pdf_output_field(pdf, 'Beneficiary ID type', @request.ben_id_type.present? ? t(@request.ben_id_type&.to_sym, scope: "helpers.label.request.ben_id_type_options") : "")
     pdf_output_field(pdf, 'Beneficiary ID', @request.ben_id)
     pdf_output_field(pdf, 'Beneficiary name', @request.beneficiary)

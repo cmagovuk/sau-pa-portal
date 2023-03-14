@@ -586,7 +586,7 @@ en:
           scheme: Purpose(s) of the subsidy scheme
           subsidy: Purpose of the subsidy
         end_date: End date
-        is_emergency: Is the subsidy to be given in response to a national or global economic emergency?
+        is_emergency: Is the %{type} to be given in response to a national or global economic emergency?
         subsidy_forms: The form(s) of the subsidies given under the scheme
         confirm_date: 
           scheme: Confirmation date

@@ -109,6 +109,8 @@ en:
         too_long: Principle I field must be %{count} words or fewer
       character_desc:
         too_long: Description must be %{count} words or fewer
+      emergency_desc:
+        too_long: Emergency information must be %{count} words or fewer
       confirm_answers:
         not_confirmed: You must confirm your answers before submitting your request
       withdraw_reason:

@@ -88,7 +88,7 @@
             end
 
             summary_list.row do |row|
-                row.key { 'Subsidy in response to emergency' }
+                row.key { 'Scheme in response to emergency' }
                 row.value { @request.is_emergency.present? ? t(@request.is_emergency, scope: "helpers.label.request.is_emergency_options") : nil }
             end
             
@@ -262,6 +262,18 @@
                 row.value { @request.confirm_date.present? ? formatted_date(@request.confirm_date) : nil }
             end
 
+            summary_list.row do |row|
+                row.key { 'Subsidy in response to emergency' }
+                row.value { @request.is_emergency.present? ? t(@request.is_emergency, scope: "helpers.label.request.is_emergency_options") : nil }
+            end
+            
+            if (@request.is_emergency == "y")
+              summary_list.row do |row|
+                  row.key { 'Emergency information' }
+                  row.value(classes:"app-pre-wrap", text: @request.emergency_desc)
+              end
+            end
+           
             summary_list.row do |row|
                 row.key { 'Beneficiary ID type' }
                 row.value { @request.ben_id_type.present? ? t(@request.ben_id_type&.to_sym, scope: "helpers.label.request.ben_id_type_options") : "" } 

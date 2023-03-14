@@ -78,7 +78,7 @@
      %>
     <%= form_for @user, url: confirm_remove_user_path(params[:id]), method: :delete do |f| 
       f.govuk_submit t(".submit_btn"), warning: true, disabled: @requests_created.any? || @requests_submitted.any? || @user.disabled.blank? do
-        govuk_button_link_to t(".cancel_btn"), users_path, secondary: true
+        govuk_button_link_to t(".cancel_btn"), params[:src] == "pa" ? public_authority_path(@user.public_authority_id) : users_path, secondary: true
       end
     end %>
   </div>
