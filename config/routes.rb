@@ -133,6 +133,7 @@ Rails.application.routes.draw do
   resources :sau_dashboard, only: %i[index] do
     collection do
       get "all"
+      get "full"
     end
   end
 

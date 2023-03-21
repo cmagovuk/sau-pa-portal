@@ -29,6 +29,7 @@
             <%= govuk_button_link_to "Clear filters", all_sau_dashboard_index_path, secondary: true %>
             <%= f.govuk_submit "Filter", secondary: true, classes: "sau-filter-btn" %>
             <%= govuk_button_link_to "Export as Excel", all_sau_dashboard_index_path(format: :xlsx, status: params[:status], pa_id: params[:pa_id]), secondary: true %>
+            <%= govuk_button_link_to "Full export", full_sau_dashboard_index_path(format: :xlsx, status: params[:status], pa_id: params[:pa_id]), secondary: true %>
           </div>
         </div>
       </div>
