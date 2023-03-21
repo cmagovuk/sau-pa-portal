@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_13_082329) do
+ActiveRecord::Schema.define(version: 2023_03_21_104448) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -72,7 +72,9 @@ ActiveRecord::Schema.define(version: 2023_03_13_082329) do
     t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.uuid "umbrella_authority_id"
     t.index ["pa_name"], name: "index_public_authorities_on_pa_name", unique: true
+    t.index ["umbrella_authority_id"], name: "index_public_authorities_on_umbrella_authority_id"
   end
 
   create_table "requests", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -179,6 +181,7 @@ ActiveRecord::Schema.define(version: 2023_03_13_082329) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "information_requests", "requests"
+  add_foreign_key "public_authorities", "public_authorities", column: "umbrella_authority_id"
   add_foreign_key "requests", "public_authorities"
   add_foreign_key "requests", "users"
   add_foreign_key "users", "public_authorities"
