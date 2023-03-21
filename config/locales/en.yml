@@ -319,6 +319,7 @@ en:
         </ul>
         <p class="govuk-body">You may provide this information in a standalone document and upload this alongside the assessment and supporting documents.</p>
         <p class="govuk-body">Alternatively, you can use the free text fields below to note against each of the Subsidy Control Principles where each Principle is addressed in the assessment and, the evidence documents relevant to each Principle.</p>
+        <p class="govuk-inset-text">For example, 'Principle [A] is addressed on pages [2-7] of the Assessment of Compliance. Please also see the supporting evidence document titled '[Example 1]', pages [1-4]'.</p>
     ee_assessment:
       page_title: Energy and Environment assessment
       heading: Assessment of Compliance with the Energy and Environment Principles
@@ -331,6 +332,7 @@ en:
         </ul>
         <p>You may provide this information in a standalone document and upload this alongside the assessment and supporting documents.</p>
         <p>Alternatively, you can use the free text fields below to note against each of the Energy and Environment Principles where each Principle is addressed in the assessment and, the evidence documents relevant to each Principle.</p>
+        <p>For example, 'Principle [A] is addressed on pages [2-7] of the Assessment of Compliance. Please also see the supporting evidence document titled '[Example 1]', pages [1-4]'.</p>
       additional_a_text_html: |
         <ul class="govuk-list govuk-list--bullet">
           <li>delivering a secure, affordable and sustainable energy system and a well-functioning and competitive energy market, or</li>
@@ -600,7 +602,9 @@ en:
           scheme: Geographical location(s) of the economic activities relating to the scheme
           subsidy: Geographical location of the economic activities to which the subsidy relate
         is_nc: Can the description above be used as the non-confidential description published by the SAU?
-        is_c2_relevant: Please confirm that you have considered and assessed the %{type} compliance with the prohibitions and requirements of Chapter 2 of the Subsidy Control Act 2022 and
+        is_c2_relevant: 
+          scheme: Please confirm that you have considered and assessed the subsidy scheme compliance with the prohibitions and requirements of Chapter 2 of the Subsidy Control Act 2022 and
+          subsidy: Please confirm that you have considered and assessed the subsidy's compliance with the prohibitions and requirements of Chapter 2 of the Subsidy Control Act 2022 and
         ee_assess_required: Have you carried out an Assessment of Compliance with the Energy and Environment Principles?
         par_on_td: Has the %{type} been entered on the BEIS Transparency database?
         par_assessed: Has any assessment been carried out, before the %{type} was given, as to whether the %{type} would comply with the Subsidy Control Requirements?

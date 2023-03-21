@@ -6,7 +6,7 @@
   <%= f.govuk_error_summary %>
     <%= f.govuk_radio_buttons_fieldset(:is_c2_relevant, small:true, 
                                        legend: {
-                                         text: t("helpers.legend.request.is_c2_relevant", type: scheme_subsidy_name(@request).downcase ),
+                                         text: t("helpers.legend.request.is_c2_relevant.#{@request.scheme_subsidy}"),
                                          class:"govuk-fieldset__legend govuk-!-font-weight-regular" }) do %>
       <%= f.govuk_radio_button :is_c2_relevant, :n, link_errors: true %>
       <%= f.govuk_radio_button :is_c2_relevant, :y do %>
