@@ -38,6 +38,8 @@ en:
   withdraw_request: Request withdraw
   due_date: Report due date
   reassign_submission: Reassign submission
+  sub_authority_html: |
+    <p class="govuk-body">Part of the <b>%{pa_name}</b> group public authority</p>
   
   buttons:
     submit: Save and continue
@@ -186,6 +188,9 @@ en:
     index:
       page_title: Request dashboard
       heading: Dashboard
+    ga_dashboard:
+      page_title: Request dashboard
+      heading: Group dashboard
     submitted:
       page_title: Request submitted
       panel_title: Submission complete
@@ -486,6 +491,9 @@ en:
       page_title: Public authority users
       heading: Public authority users
       inactive_filter: Include inactive accounts
+    assign_sub:
+      page_title: Manage sub authorities
+      heading: Manage sub authorities
 
   information_requests:
     index:
@@ -620,6 +628,7 @@ en:
     hint:
       user:
         role_options:
+          ga: Can view all requests in a group of authorities.  Unable to modify or create requests.
           su: Can manage all requests and standard users within their Public Authority 
           u: Can manage their own requests within their Public Authority
         disabled_options:
@@ -700,6 +709,9 @@ en:
         subsidy_forms: Subsidy scheme characteristics
 
     label:
+      assign_sub:
+        sub_authority: Select authority to add as a sub authority
+
       authority:
         pa_name: Name of public authority
       user:
@@ -708,6 +720,7 @@ en:
         email: Email address
         phone: Telephone (optional)
         role_options:
+          ga: Group admin
           su: Super user
           u: Standard user
         disabled_options:

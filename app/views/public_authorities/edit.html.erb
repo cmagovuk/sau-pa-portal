@@ -1,6 +1,7 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
 <h1 class="govuk-heading-l">Edit Public Authority</h1>
+<%= t("sub_authority_html", pa_name: @authority.umbrella_authority.pa_name) if is_sub_authority? %>
 <%= render "form", authority: @authority %>
 </div>
 </div>

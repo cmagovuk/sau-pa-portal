@@ -1,7 +1,13 @@
 Rails.application.routes.draw do
   root "pages#show", defaults: { page: "home" }
 
-  resources :public_authorities
+  resources :public_authorities do
+    member do
+      get "assign_sub"
+      patch "remove_sub"
+      patch "add_sub"
+    end
+  end
 
   resources :users, only: %i[new edit index], path_names: { edit: "" } do
     member do
@@ -32,11 +38,15 @@ Rails.application.routes.draw do
   get "request/submitted", to: "requests#submitted"
   get "requests/view/:id", to: "requests#view"
   get "dashboard", to: "requests#index"
+  get "ga_dashboard", to: "requests#ga_dashboard"
   post "requests/reload/:id", to: "requests#reload"
 
   resources :requests do # , only: %i[create index]
     member do
       get "confirm_delete"
+    end
+    collection do
+      get "ga_dashboard"
     end
   end
 

@@ -1,8 +1,8 @@
-<% @presenter = RequestPresenter.new(@request) %>
+<% @presenter = auth_user.is_pa_ga_user? ? GaRequestPresenter.new(@request) : RequestPresenter.new(@request) %>
 <% title(t('.page_title')) %>
 <% 
 breadcrumbs = {
-      t("dashboard") => dashboard_path,
+      t("dashboard") => auth_user.is_pa_ga_user? ? ga_dashboard_path : dashboard_path,
       t("request_progress") => nil
     }
 %>

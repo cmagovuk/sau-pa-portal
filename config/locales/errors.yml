@@ -30,6 +30,8 @@ en:
         too_long: Telephone must be %{count} characters or fewer
       role:
         blank: Select the role
+        must_be_ga: Role must be Group admin when authority is a group authority
+        must_not_be_ga: Role cannot be Group admin unless authority is a group authority
       scheme_subsidy:
         blank: Select whether you are requesting advice in relation to a subsidy or subsidy scheme
       scheme_name:
@@ -150,3 +152,7 @@ en:
           attributes: 
             reassign_to:
               blank: Select the user
+        assign_sub_form:
+          attributes:
+            sub_authority:
+              has_sub_authorities: Selected authority must not have sub authorities of its own

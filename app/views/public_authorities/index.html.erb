@@ -1,7 +1,7 @@
 <% title(t('.page_title')) %>
 
 <div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
+  <div class="govuk-grid-column-full">
 <%= govuk_table do |table|
   table.caption(size: 'l', text: t(".heading"))
 
@@ -25,6 +25,9 @@
         </li>
         <li class="govuk-summary-list__actions-list-item">
           <%= govuk_link_to "View users", public_authority_path(auth), no_visited_state: true %>
+        </li>
+        <li class="govuk-summary-list__actions-list-item">
+          <%= govuk_link_to "Manage sub-authorities", assign_sub_public_authority_path(auth), no_visited_state: true %>
         </li>
       </ul>
     </dd>

@@ -1,0 +1,47 @@
+<% title(t('.page_title')) %>
+<h1 class="govuk-heading-l">
+  <%= t('.heading') -%>
+</h1>
+<h2 class="govuk-heading-m"><%= @authority.pa_name %></h2>
+<%= t("sub_authority_html", pa_name: @authority.umbrella_authority.pa_name) if is_sub_authority? %>
+<% if has_users? || has_requests? || is_sub_authority? %>
+  <p class="govuk-body">This Public Authority cannot be configured as an umbrella authority because the authority:</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <% if has_users? %> <li>has super and/or standard users assigned</li><% end %>
+    <% if has_requests? %><li>has one or more requests created under this authority</li><% end %>
+    <% if is_sub_authority? %><li>is already a member of a group authority</li><% end %>
+  </ul>
+<% else %>
+  <%= form_for @assign_sub, url: add_sub_public_authority_path(params[:id]), method: :patch, :as => :assign_sub do |f| %>
+    <%= f.govuk_error_summary %>
+    <%= f.govuk_collection_select :sub_authority, @authorities,:last, :first %>
+    <%= f.govuk_submit "Add authority" %>
+  <% end %>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+
+    <%= govuk_table do |table|
+      table.caption(size: 'm', text: 'Sub authorities')
+
+      table.head do |head|
+        head.row do |row|
+          row.cell(header: true, text: 'Public Authority')
+          row.cell(header: true, text: 'Action')
+        end
+      end
+
+      table.body do |body|
+        @authority.sub_authorities.each do |a| 
+          body.row do |row|
+            row.cell(text: a.pa_name)
+            row.cell do
+              govuk_link_to "Remove", "#{remove_sub_public_authority_path(@authority)}?pa_id="+ a.id, no_visited_state: true, method: :patch
+            end
+          end
+        end
+      end
+    end
+    %>
+  </div>
+  </div>
+<% end %>

@@ -27,6 +27,7 @@ class Request < ApplicationRecord
   scope :filter_by_pa, ->(pa_id) { where public_authority_id: pa_id }
   scope :submitted, -> { where.not(reference_number: nil) }
   scope :pa_requests, ->(id) { where("public_authority_id = ?", id) }
+  scope :pa_ga_requests, ->(pa_ids) { joins(:public_authority).where public_authority_id: pa_ids }
   scope :sau_requests, -> { joins(:public_authority).where.not status: "Draft" }
   scope :open_sau_requests, -> { joins(:public_authority).where status: ["Accepted", "Pending withdrawal", "Submitted"] }
   scope :filter_by_internal_state, ->(internal_state) { where("internal_state LIKE ?", "%#{Request.sanitize_sql_like(internal_state)}%") }

@@ -3,6 +3,7 @@
   <%= t('.heading') -%>
 </h1>
 <h2 class="govuk-heading-m"><%= @authority.pa_name %></h2>
+<%= t("sub_authority_html", pa_name: @authority.umbrella_authority.pa_name) if is_sub_authority? %>
 <%= form_with method: :get, local: true do |f| %>
   <div class="govuk-grid-row govuk-!-padding-bottom-5">
     <div class="govuk-grid-column-one-half">
@@ -59,6 +60,30 @@
 
     table.body do |body|
       @users.select { |u| u.role == 'u' }.each do |user| 
+        body.row do |row|
+          row.cell(text: user.user_name)
+          row.cell(text: user.email)
+          row.cell do |cell|
+            render "layouts/user_actions", user: user, src: "pa"
+          end
+        end
+      end
+    end
+  end
+  %>
+  <%= govuk_table do |table|
+    table.caption(size: 'm', text: 'Group admins')
+
+    table.head do |head|
+      head.row do |row|
+        row.cell(header: true, text: 'Name')
+        row.cell(header: true, text: 'Email')
+        row.cell(header: true, text: 'Action')
+      end
+    end
+
+    table.body do |body|
+      @users.select { |u| u.role == 'ga' }.each do |user| 
         body.row do |row|
           row.cell(text: user.user_name)
           row.cell(text: user.email)
