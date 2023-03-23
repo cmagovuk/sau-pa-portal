@@ -94,16 +94,19 @@ class GovukNotifyService
 
   def self.send_status_changed_email(request, _link_path, status)
     template_id = Rails.application.config.govuk_notify_templates.fetch(:request_status_changed).fetch(status)
-    if api_key.present? && template_id.present? && request.submitted_by.present?
-      notify_client.send_email(
-        email_address: request.submitted_by.email,
-        template_id: template_id,
-        personalisation: {
-          # link_url: "#{Rails.application.config.pap_url}#{link_path}",
-          link_url: "#{Rails.application.config.pap_url}/dashboard",
-          reference_number: request.reference_number,
-        },
-      )
+    if api_key.present? && template_id.present?
+      pa_su_users = request.public_authority.users.active_users.super_users.select(:email).map(&:email)
+      notify_users = pa_su_users.union([request.submitted_by.email]) if request.submitted_by.present? && request.submitted_by.disabled.blank?
+      notify_users.map do |email|
+        notify_client.send_email(
+          email_address: email,
+          template_id: template_id,
+          personalisation: {
+            link_url: "#{Rails.application.config.pap_url}/dashboard",
+            reference_number: request.reference_number,
+          },
+        )
+      end
     end
   rescue Notifications::Client::BadRequestError => e
     # silently ignore failure to send email
