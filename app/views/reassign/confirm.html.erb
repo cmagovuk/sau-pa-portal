@@ -1,0 +1,29 @@
+<% title(t('.page_title')) %>
+<% 
+breadcrumbs = {
+      t("dashboard") => dashboard_path,
+      t("request_progress") => request_path(params[:id]),
+      t(".page_title") => nil
+    }
+%>
+<%= govuk_breadcrumbs(breadcrumbs: breadcrumbs) %>
+
+<h1 class="govuk-heading-l"><%= t('.heading') -%></h1>
+
+<%= govuk_summary_list do |summary_list|
+  summary_list.row do |row|
+    row.key { 'Current user' }
+    row.value { @request.user.user_name }
+  end
+
+  summary_list.row do |row|
+    row.key { 'Reassign to' }
+    row.value(text: @user.user_name)
+    row.action(href: reassign_path, visually_hidden_text: 'reassign user')
+  end
+
+end %>
+<%= form_for @set_reassign_form, url: submit_reassign_path, :as => :reassign do |f| %>
+  <%= f.hidden_field :reassign_to %>
+  <%= f.govuk_submit t(".submit_btn") %>
+<% end %>

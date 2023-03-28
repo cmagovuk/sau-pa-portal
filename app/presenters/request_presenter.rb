@@ -7,9 +7,9 @@ class RequestPresenter
     "/requests/view/#{@request.id}"
   end
 
-  def actions(*)
+  def actions(auth_user)
     actions = []
-    if @request.internal_state == "info-required" && @request.status == "Accepted"
+    if @request.internal_state.present? && @request.internal_state.include?("info-required") && @request.status == "Accepted"
       rfis = @request.information_requests.select { |x| x.status == "request-confirmed" }
       if rfis.count.positive?
         actions += [{ title: "Provide further information", link: "/information_responses/#{rfis[0].id}", secondary: false }]
@@ -18,6 +18,9 @@ class RequestPresenter
     actions += [{ title: "View submission", link: view_path, secondary: actions.count.positive? }]
     if %w[Declined Rejected].include?(@request.status)
       actions += [{ title: "Called in", link: "/call_in_direction/#{@request.id}", secondary: true }]
+    end
+    if @request.referral_type != "par" && %w[Submitted Accepted].include?(@request.status) && auth_user.is_pa_super_user?
+      actions += [{ title: "Withdraw", link: "/request_withdraw/#{@request.id}", secondary: true }]
     end
     if @request.referral_type != "par" || @request.par_on_td != "y"
       actions += [{ title: "Export for BEIS database", link: "/requests/#{@request.id}.xlsx", secondary: true }]

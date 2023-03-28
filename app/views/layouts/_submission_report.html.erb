@@ -27,6 +27,32 @@
 end %>
 <% end %>
 
+<% if @request.status == "Withdrawn" && @request.sau_withdrawn_doc.attached? %>
+  <%= govuk_table do |table|
+    table.caption(size: 'm', text: 'SAU withdrawal letter')
+
+    table.head do |head|
+      head.row do |row|
+        row.cell(header: true, text: 'File name')
+        row.cell(header: true, text: 'Uploaded')
+        row.cell(header: true, text: 'File size')
+      end
+    end
+
+    table.body do |body|               
+      body.row do |row|
+          row.cell do |cell| %>
+              <%= link_to rails_blob_path(@request.sau_withdrawn_doc, "attachment"), class: 'govuk-link' do %>
+                <span class="govuk-visually-hidden">Download file </span><%= @request.sau_withdrawn_doc.filename %>
+              <% end 
+            end
+          row.cell(text: @request.sau_withdrawn_doc.created_at.strftime("%d/%m/%y %H:%M"))
+          row.cell(text: number_to_human_size(@request.sau_withdrawn_doc.byte_size))
+      end
+    end
+  end %>
+<% end %>
+
 <% if @request.decision_letter.attached? %>
   <%= govuk_table do |table|
     table.caption(size: 'm', text: 'Decision letter')

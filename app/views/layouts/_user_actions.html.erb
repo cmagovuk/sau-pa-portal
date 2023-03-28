@@ -1,0 +1,19 @@
+<dd class="govuk-summary-list__actions govuk-!-padding-top-0 govuk-!-padding-bottom-0">
+  <ul class="govuk-summary-list__actions-list">
+    <% if user.disabled == "x" %>
+      <li class="govuk-summary-list__actions-list-item">
+        <%= govuk_link_to "Activate", change_state_user_path(user, src: src), no_visited_state: true %>
+      </li>
+      <li class="govuk-summary-list__actions-list-item">
+        <%= govuk_link_to "Delete", remove_user_path(user, src: src), no_visited_state: true %>
+      </li>
+    <% else %>
+      <li class="govuk-summary-list__actions-list-item">
+        <%= govuk_link_to "Edit", edit_user_path(user, src: src), no_visited_state: true %>
+      </li>
+      <li class="govuk-summary-list__actions-list-item">
+        <%= govuk_link_to "Deactivate", change_state_user_path(user, src: src), no_visited_state: true %>
+      </li>
+    <% end %>
+  </ul>
+</dd>

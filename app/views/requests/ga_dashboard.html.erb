@@ -1,0 +1,71 @@
+<% title(t('.page_title')) %>
+    <h1 class="govuk-heading-l">
+      <%= t('.heading') -%>
+    </h1>
+
+<% if auth_user.is_pa_ga_user? %>
+    <%= form_with method: :get, local: true do |f| %>
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-half">
+          <%= f.govuk_select :pa_id, options_for_select([["No filter", ""]] + @authorities, params[:pa_id]),
+            label: { text: "Filter by Public Authority"}, class: "sau-filter"
+          %>
+        </div>
+        <div class="govuk-grid-column-one-quarter">
+          <%= f.govuk_select :status, options_for_select(select_filter_options(Request::STATUS), params[:status]),
+            label: { text: "Filter by Status" }, class: "sau-filter"
+          %>
+        </div>
+        <div class="govuk-grid-column-one-quarter">
+          <%= f.govuk_select :act, options_for_select(select_filter_options(Request::ACTIONS - ["Continue"]), params[:act]),
+            label: { text: "Filter by Action" }, class: "sau-filter"
+          %>
+        </div>
+      </div>
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-third">
+        <br>
+          <div class="govuk-button-group">
+            <%= govuk_button_link_to "Clear filters", ga_dashboard_path, secondary: true %>
+            <%= f.govuk_submit "Filter", secondary: true, classes: "sau-filter-btn" %>
+            <%= govuk_button_link_to "Export as Excel", ga_dashboard_path(format: :xlsx, status: params[:status], act: params[:act], pa_id: params[:pa_id]), secondary: true %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <%= govuk_table do |table|
+      table.head do |head|
+        head.row do |row|
+          row.cell(header: true, text: 'Reference no.')
+          row.cell(header: true, text: 'Public Authority')
+          row.cell(header: true, text: 'Subsidy scheme name / Beneficiary')
+          row.cell(header: true, text: 'Status', classes: "app-stack")
+          row.cell(header: true, text: 'Last update', classes: "app-stack")
+          row.cell(header: true, text: 'Action', classes: "app-stack")
+        end
+
+        if @requests.present?
+          table.body do |body|
+            @requests.each do |request|
+              body.row do |row|
+                row.cell(text: request.reference_number)
+                row.cell(text: request.pa_name)
+                row.cell(text: request.scheme_name.present? ? request.scheme_name : request.beneficiary)
+                row.cell(text: request.status, classes: "app-stack")
+                row.cell(text: request.updated_at.strftime("%d/%m/%y"), classes: "app-stack")
+                row.cell(classes: "app-stack") do |cell|
+                    ga_action_link(request)
+                end
+              end
+            end
+          end
+        end
+      end
+    end
+%>
+  </div>
+</div>
+<% end %>

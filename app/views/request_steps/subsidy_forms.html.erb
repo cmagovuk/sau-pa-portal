@@ -1,0 +1,21 @@
+<% title(t('.page_title')) %>
+<%= render partial: 'back_link' %>
+
+<%= form_for @request, url: request_step_path(params[:id]), :as => :request do |f| %>
+  <%= f.govuk_error_summary %>
+    <%= f.govuk_check_boxes_fieldset :subsidy_forms, 
+      legend: { size: "l" },
+      small:true do %>
+      <% @request.select_form_options.each_with_index do |opt, idx| %>
+        <% if opt.id != "other" %>
+          <%= f.govuk_check_box :subsidy_forms, opt.id, label: { text: opt.name }, link_errors: idx == 0 %>
+        <% else %>
+          <%= f.govuk_check_box :subsidy_forms, opt.id, label: { text: opt.name } do %>
+            <%= f.govuk_text_field :other_form, label: { text: "Other form(s)"} %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+
+  <%= f.govuk_submit t("buttons.submit") %>
+<% end %>

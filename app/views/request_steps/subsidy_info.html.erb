@@ -45,6 +45,15 @@
                      class: "govuk-fieldset__legend govuk-fieldset__legend--s govuk-!-font-weight-regular" },
            hint: { text: t("helpers.hint.request.confirm_date.subsidy") } %>
 
+      <%= f.govuk_radio_buttons_fieldset(:is_emergency, small:true, 
+                                          legend: { size:"s",
+                                          text: t("helpers.legend.request.is_emergency", type: scheme_subsidy_name(@request).downcase),
+                                          class:"govuk-fieldset__legend govuk-fieldset__legend--s govuk-!-font-weight-regular" }) do %>
+        <%= f.govuk_radio_button :is_emergency, 'n', link_errors: true %>
+        <%= f.govuk_radio_button :is_emergency, 'y' do %>
+            <%= f.govuk_text_area :emergency_desc, width: 'two-thirds', max_words: Request::MAX_WORDCOUNT %>
+        <% end %>
+      <% end %>
   <% end %>
 
   <%= f.govuk_submit t("buttons.submit") %>

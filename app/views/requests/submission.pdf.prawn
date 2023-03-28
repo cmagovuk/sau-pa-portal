@@ -10,14 +10,14 @@ prawn_document do |pdf|
 
   if @request.referral_type == "call"
     pdf_header(pdf, "Called in by Secretary of State")
-    pdf_output_field(pdf, 'Call in direction document', @request.call_in.attached? ? @request.call_in.filename : nil)
+    pdf_output_field(pdf, 'Call in direction document', @request.call_in.attached? ? @request.call_in.filename.to_s : nil)
     pdf_output_field(pdf, 'Date of direction', formatted_date(@request.direction_date))
     pdf_output_field(pdf, 'Direction relates to', t(@request.call_in_type&.to_sym, scope: [:helpers, :label, :request, :call_in_type_options]))
   end
 
   if @request.referral_type == "par"
     pdf_header(pdf, "Post-award referral")
-    pdf_output_field(pdf, 'Referral document', @request.call_in.attached? ? @request.call_in.filename : nil)
+    pdf_output_field(pdf, 'Referral document', (@request.call_in.attached? ? @request.call_in.filename.to_s : nil))
     pdf_output_field(pdf, 'Date of direction', formatted_date(@request.direction_date))
     pdf_output_field(pdf, 'Entered on BEIS database', @request.par_on_td.present? ? t(@request.par_on_td&.to_sym, scope: [:helpers, :label, :request, :par_on_td_options]) : nil)
 
@@ -31,8 +31,21 @@ prawn_document do |pdf|
     pdf_output_field(pdf, 'Subsidy scheme name', @request.scheme_name)
     pdf_output_field(pdf, 'Public Authority name', @request.public_authority.pa_name)
     pdf_output_field(pdf, 'Amount budgeted for scheme', @request.budget.present? ? "£#{format_numeric(@request, :budget)}" : nil)
-    pdf_output_field(pdf, 'For tax awards', @request.tax_amt.present? ? t(tax_amount_output(@request)) : nil)
-    pdf_output_field(pdf, 'Maximum amount that can be given', @request.max_amt.present? ? "£#{format_numeric(@request, :max_amt)}" : nil)
+    pdf_output_field(pdf, 'Maximum amount that can be given', @request.max_amt_s)
+
+    pdf_output_field(pdf, 'Scheme in response to emergency', @request.is_emergency.present? ? t(@request.is_emergency, scope: "helpers.label.request.is_emergency_options") : nil)
+    if @request.is_emergency == "y"
+      pdf_output_field(pdf, 'Emergency information', @request.emergency_desc)
+    end
+
+    pdf_output_field(pdf, 'Subsidy forms', translate_terms(@request.subsidy_forms, "subsidy_form_options").join("\n"))
+    if @request.subsidy_forms.present? && @request.subsidy_forms.include?("other")
+      pdf_output_field(pdf, 'Other form', @request.other_form)
+    end
+
+    pdf_output_field(pdf, 'Does scheme relate to goods or services', translate_terms(@request.ben_good_svr, "helpers.label.request.ben_good_svr_options").join("\n"))
+    pdf_output_field(pdf, 'Locations', translate_terms(@request.location, "helpers.label.request.location_options").join("\n"))
+    pdf_output_field(pdf, 'Additional location information', @request.other_loc)
     pdf_output_field(pdf, 'Sectors', translate_terms(@request.sectors, "helpers.label.request.sectors_options").join("\n"))
     pdf_output_field(pdf, 'Description', @request.description)
     pdf_output_field(pdf, 'Description is non-confidential', @request.is_nc.present? ? @request.is_nc.humanize : nil )
@@ -69,11 +82,17 @@ prawn_document do |pdf|
     end
 
     pdf_output_field(pdf, 'Award confirmation date', @request.confirm_date.present? ? formatted_date(@request.confirm_date) : nil)
+
+    pdf_output_field(pdf, 'Subsidy in response to emergency', @request.is_emergency.present? ? t(@request.is_emergency, scope: "helpers.label.request.is_emergency_options") : nil)
+    if @request.is_emergency == "y"
+      pdf_output_field(pdf, 'Emergency information', @request.emergency_desc)
+    end
+
     pdf_output_field(pdf, 'Beneficiary ID type', @request.ben_id_type.present? ? t(@request.ben_id_type&.to_sym, scope: "helpers.label.request.ben_id_type_options") : "")
     pdf_output_field(pdf, 'Beneficiary ID', @request.ben_id)
     pdf_output_field(pdf, 'Beneficiary name', @request.beneficiary)
     pdf_output_field(pdf, 'Beneficiary size', @request.ben_size.present? ? t(@request.ben_size&.to_sym, scope: "helpers.label.request.ben_size_options") : "") 
-    pdf_output_field(pdf, 'Does subsidy apply to goods or services', translate_terms(@request.ben_good_svr, "helpers.label.request.ben_good_svr_options").join("\n"))
+    pdf_output_field(pdf, 'Does subsidy relate to goods or services', translate_terms(@request.ben_good_svr, "helpers.label.request.ben_good_svr_options").join("\n"))
     pdf_output_field(pdf, 'Location of spend', translate_terms(@request.location, "helpers.label.request.location_options").join("\n"))
     pdf_output_field(pdf, 'Additional location information', @request.other_loc)
     pdf_output_field(pdf, 'Sector', translate_terms(@request.sectors, "helpers.label.request.sectors_options").join("\n"))
@@ -117,6 +136,12 @@ prawn_document do |pdf|
   if @request.referral_type != "par" || @request.par_assessed == "y"
     pdf_header(pdf, "Assessment of compliance")
     pdf_output_field(pdf, 'Energy and Environment assessment carried out', @request.ee_assess_required.present? ? t(@request.ee_assess_required&.to_sym, scope: [:helpers, :label, :request, :ee_assess_required_options]) : nil)
+
+    pdf_output_field(pdf, "Chapter 2 prohibitions and requirements", @request.is_c2_relevant.present? ? t(@request.is_c2_relevant&.to_sym, scope: [:helpers, :label, :request, :is_c2_relevant_options]) : nil)
+      
+    if (@request.is_c2_relevant == "y")
+      pdf_output_field(pdf, "Chapter 2 details", @request.c2_description)
+    end
 
     docs = []
     @request.assessment_docs.each do |d|

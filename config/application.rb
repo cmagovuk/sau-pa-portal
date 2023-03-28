@@ -52,5 +52,6 @@ module GovukSauPortal
     config.pap_url = ENV.fetch("PAP_URL","")
     config.sau_email_format = ENV.fetch("SAU_EMAIL_FORMAT","")
     config.feedback_link = ENV.fetch("FEEDBACK_LINK","")
+    config.x.feedback_email = ENV.fetch("FEEDBACK_EMAIL","")
   end
 end

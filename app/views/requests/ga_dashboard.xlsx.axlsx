@@ -1,0 +1,17 @@
+wb = xlsx_package.workbook
+
+wb.styles do |style|
+  heading = style.add_style(b: true)
+
+  wb.add_worksheet(name: "Requests") do |sheet|
+    # Create header row
+    sheet.add_row ["Reference name", "Public authority", "Subsidy scheme name", "Beneficiary name", "Status", "Last update"], style: heading
+
+    @requests.each do |r|
+      beneficiary = (r.beneficiary.present? && r.beneficiary.first == "=" ? " #{r.beneficiary}" : r.beneficiary)
+      scheme_name = (r.scheme_name.present? && r.scheme_name.first == "=" ? " #{r.scheme_name}" : r.scheme_name)
+
+      sheet.add_row [r.reference_number, r.pa_name, scheme_name, beneficiary, r.status, r.updated_at.strftime("%d/%m/%y")]
+    end
+  end
+end

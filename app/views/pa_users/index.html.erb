@@ -1,0 +1,66 @@
+<% title(t('.page_title')) %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+  <h1 class="govuk-heading-l"><%= t(".heading") %></h1>
+  <h2 class="govuk-heading-m"><%= auth_user.pa_name %></h2>
+
+  <%= govuk_table do |table|
+    table.caption(size: 'm', text: 'Super users')
+
+    table.head do |head|
+      head.row do |row|
+        row.cell(header: true, text: 'Name')
+        row.cell(header: true, text: 'Email')
+      end
+    end
+
+    table.body do |body|
+      @users.select { |u| u.role == 'su' }.each do |user| 
+        body.row do |row|
+          row.cell(text: user.user_name)
+          row.cell(text: user.email)
+        end
+      end
+    end
+  end
+  %>
+  <%= govuk_table do |table|
+    table.caption(size: 'm', text: 'Standard users')
+
+    table.head do |head|
+      head.row do |row|
+        row.cell(header: true, text: 'Name')
+        row.cell(header: true, text: 'Email')
+        row.cell(header: true, text: 'Action')
+      end
+    end
+
+    table.body do |body|
+      @users.select { |u| u.role == 'u' }.each do |user| 
+        body.row do |row|
+          row.cell(text: user.user_name)
+          row.cell(text: user.email)
+          row.cell do |cell| %>
+            <dd class="govuk-summary-list__actions govuk-!-padding-top-0 govuk-!-padding-bottom-0">
+              <ul class="govuk-summary-list__actions-list">
+                <li class="govuk-summary-list__actions-list-item">
+                  <%= govuk_link_to "Edit", edit_pa_user_path(user), no_visited_state: true %>
+                </li>
+                <li class="govuk-summary-list__actions-list-item">
+                  <%= govuk_link_to (user.disabled == "x" ? "Activate" : "Deactivate"), change_state_pa_user_path(user), no_visited_state: true %>
+                </li>
+              </ul>
+            </dd>
+      <%   end
+        end
+      end
+    end
+  end
+  %>
+
+<div class="govuk-button-group">
+  <%= govuk_button_link_to t(".add_user_button"), new_pa_user_path %>
+</div>
+</div>
+</div>

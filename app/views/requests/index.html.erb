@@ -3,7 +3,7 @@
       <%= t('.heading') -%>
     </h1>
 
-<% if auth_user.has_role?("SAU-PA-SU") || auth_user.has_role?("SAU-PA-U") %>
+<% if auth_user.is_pa_super_user? || auth_user.is_pa_std_user? %>
     <%= form_with method: :get, local: true do |f| %>
       <div class="govuk-grid-row">
         <div class="govuk-grid-column-one-quarter">

@@ -5,7 +5,8 @@
   <%= f.govuk_error_summary %>
       <%= f.govuk_collection_check_boxes :ben_good_svr, 
         Request::GoodsServices::OPTIONS, ->(option) {option}, ->(option) {option},
-        legend: { size:"l", tag:"h1" },
+        legend: { size:"l", tag:"h1", text: t("helpers.legend.request.ben_good_svr.#{@request.scheme_subsidy}") },
+        caption: { text:t("helpers.caption.request.characteristics", type: scheme_subsidy_name(@request)) },
          small:true %>
 
   <%= f.govuk_submit t("buttons.submit") %>

@@ -1,12 +1,36 @@
 Rails.application.routes.draw do
   root "pages#show", defaults: { page: "home" }
 
-  resources :public_authorities
+  resources :public_authorities do
+    member do
+      get "assign_sub"
+      patch "remove_sub"
+      patch "add_sub"
+    end
+  end
 
-  resources :users, only: %i[new edit index]
+  resources :users, only: %i[new edit index], path_names: { edit: "" } do
+    member do
+      get "change_state"
+      delete "confirm_state"
+      get "remove"
+      delete "confirm_remove"
+    end
+  end
+
+  resources :pa_users, only: %i[new edit index], path_names: { edit: "" } do
+    member do
+      get "change_state"
+      delete "confirm_state"
+    end
+  end
 
   scope "/user" do
-    resources :user_steps, only: %i[edit update], path_names: { edit: "" }
+    resources :user_steps, only: %i[edit update delete], path_names: { edit: "" }
+  end
+
+  scope "/pa_user" do
+    resources :pa_user_steps, only: %i[edit update], path_names: { edit: "" }
   end
 
   patch "request/request_steps/:id/upload" => "request_steps#upload"
@@ -14,11 +38,25 @@ Rails.application.routes.draw do
   get "request/submitted", to: "requests#submitted"
   get "requests/view/:id", to: "requests#view"
   get "dashboard", to: "requests#index"
+  get "ga_dashboard", to: "requests#ga_dashboard"
   post "requests/reload/:id", to: "requests#reload"
 
-  resources :requests # , only: %i[create index]
+  resources :requests do # , only: %i[create index]
+    member do
+      get "confirm_delete"
+    end
+    collection do
+      get "ga_dashboard"
+    end
+  end
 
-  resources :sau_requests, only: %i[show]
+  resources :sau_requests, only: %i[show] do
+    member do
+      get "due_date"
+      patch "set_due_date"
+    end
+  end
+
   get "sau_requests/view/:id", to: "sau_requests#view"
 
   scope "/sau_requests/:id" do
@@ -55,6 +93,25 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :withdraw, only: %i[edit update], path_names: { edit: "" } do
+    member do
+      get "confirm"
+      get "confirm_restore"
+      patch "remove"
+      post "submit"
+      post "restore"
+    end
+  end
+
+  resources :request_withdraw, only: %i[edit update], path_names: { edit: "" } do
+    member do
+      get "confirm"
+      patch "remove"
+      post "submit"
+      get "summary"
+    end
+  end
+
   scope "/request" do
     resources :request_steps, only: %i[edit update], path_names: { edit: "" }
   end
@@ -83,7 +140,19 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :sau_dashboard, only: %i[index]
+  resources :sau_dashboard, only: %i[index] do
+    collection do
+      get "all"
+      get "full"
+    end
+  end
+
+  resources :reassign, only: %i[edit update], path_names: { edit: "" } do
+    member do
+      get "confirm"
+      post "submit"
+    end
+  end
 
   get "/pages/:page", to: "pages#show"
 

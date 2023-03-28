@@ -1,0 +1,85 @@
+<% title(t('.page_title')) %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l"><%= t(".heading") %></h1>
+
+    <%= govuk_summary_list(actions:false) do |summary_list|
+        summary_list.row do |row|
+            row.key { 'Public Authority' }
+            row.value { @user.public_authority.pa_name }
+        end
+        summary_list.row do |row|
+            row.key { 'Role' }
+            row.value { @user.role.present? ? t(@user.role&.to_sym, scope: "helpers.label.user.role_options") : "" }
+        end
+        summary_list.row do |row|
+            row.key { 'Name' }
+            row.value { @user.user_name }
+        end
+        summary_list.row do |row|
+            row.key { 'Telephone' }
+            row.value { @user.phone }
+        end
+        summary_list.row do |row|
+            row.key(text: 'Email address')
+            row.value(text: @user.email )
+        end
+    end %>
+    <h2 class="govuk-heading-m"><%= t(".created_table") %></h2>
+    <% if @requests_created.any? %>
+      <%= govuk_table do |table|
+        table.head do |head|
+          head.row do |row|
+            row.cell(header: true, text: t('.status') )
+            row.cell(header: true, text: t('.count') )
+          end
+        end
+
+        table.body do |body|
+          @requests_created.each do |status, count| 
+            body.row do |row|
+              row.cell(text: status )
+              row.cell(text: count )
+            end
+          end
+        end
+      end
+    %>
+    <% else %>
+      <p class="govuk-body"><%= t(".nothing") %></p>
+    <% end %>
+    <h2 class="govuk-heading-m"><%= t(".submitted_table") %></h2>
+    <% if @requests_submitted.any? %>
+      <%= govuk_table do |table|
+        table.head do |head|
+          head.row do |row|
+            row.cell(header: true, text: t('.status') )
+            row.cell(header: true, text: t('.count') )
+          end
+        end
+
+        table.body do |body|
+          @requests_submitted.each do |status, count| 
+            body.row do |row|
+              row.cell(text: status )
+              row.cell(text: count )
+            end
+          end
+        end
+      end
+    %>
+    <% else %>
+      <p class="govuk-body"><%= t(".nothing") %></p>
+    <% end %>
+    <%= if @user.disabled.blank? 
+          govuk_warning_text(text: t(".active_user"));
+        end
+     %>
+    <%= form_for @user, url: confirm_remove_user_path(params[:id]), method: :delete do |f| 
+      f.govuk_submit t(".submit_btn"), warning: true, disabled: @requests_created.any? || @requests_submitted.any? || @user.disabled.blank? do
+        govuk_button_link_to t(".cancel_btn"), params[:src] == "pa" ? public_authority_path(@user.public_authority_id) : users_path, secondary: true
+      end
+    end %>
+  </div>
+</div>

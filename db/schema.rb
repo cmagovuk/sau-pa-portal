@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_30_115216) do
+ActiveRecord::Schema.define(version: 2023_03_21_104448) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -72,7 +72,9 @@ ActiveRecord::Schema.define(version: 2022_11_30_115216) do
     t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.uuid "umbrella_authority_id"
     t.index ["pa_name"], name: "index_public_authorities_on_pa_name", unique: true
+    t.index ["umbrella_authority_id"], name: "index_public_authorities_on_umbrella_authority_id"
   end
 
   create_table "requests", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -145,6 +147,17 @@ ActiveRecord::Schema.define(version: 2022_11_30_115216) do
     t.date "sau_call_in"
     t.integer "tax_low"
     t.integer "tax_high"
+    t.text "withdraw_reason"
+    t.date "report_due_date"
+    t.datetime "submitted_date"
+    t.datetime "decision_date"
+    t.datetime "completed_date"
+    t.string "is_c2_relevant"
+    t.text "c2_description"
+    t.string "is_emergency"
+    t.string "max_amt_s"
+    t.string "subsidy_forms"
+    t.text "emergency_desc"
     t.index ["public_authority_id"], name: "index_requests_on_public_authority_id"
     t.index ["submitted_by_id"], name: "index_requests_on_submitted_by_id"
     t.index ["user_id"], name: "index_requests_on_user_id"
@@ -159,6 +172,7 @@ ActiveRecord::Schema.define(version: 2022_11_30_115216) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "role"
+    t.string "disabled"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["oid"], name: "index_users_on_oid"
     t.index ["public_authority_id"], name: "index_users_on_public_authority_id"
@@ -167,6 +181,7 @@ ActiveRecord::Schema.define(version: 2022_11_30_115216) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "information_requests", "requests"
+  add_foreign_key "public_authorities", "public_authorities", column: "umbrella_authority_id"
   add_foreign_key "requests", "public_authorities"
   add_foreign_key "requests", "users"
   add_foreign_key "users", "public_authorities"

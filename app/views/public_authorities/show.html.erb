@@ -1,27 +1,99 @@
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
-<h1 class="govuk-heading-l">Public Authority</h1>
+<% title(t('.page_title')) %>
+<h1 class="govuk-heading-l">
+  <%= t('.heading') -%>
+</h1>
 <h2 class="govuk-heading-m"><%= @authority.pa_name %></h2>
+<%= t("sub_authority_html", pa_name: @authority.umbrella_authority.pa_name) if is_sub_authority? %>
+<%= form_with method: :get, local: true do |f| %>
+  <div class="govuk-grid-row govuk-!-padding-bottom-5">
+    <div class="govuk-grid-column-one-half">
+    <div class="govuk-checkboxes__item">
+      <input id="show_all" class="govuk-checkboxes__input sau-filter" type="checkbox" value="x" <%= params[:show_all].present? ? "checked" : "" %> name="show_all">
+      <label for="show_all" class="govuk-label govuk-checkboxes__label"><%= t(".inactive_filter") %></label>
+    </div>
+    </div>
+    <div class="govuk-grid-column-one-third">
+    <br>
+      <div class="govuk-button-group">
+        <%= f.govuk_submit "Filter", secondary: true, classes: "sau-filter-btn" %>
+      </div>
+    </div>
+  </div>
+<% end %>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
 
-<%= govuk_table do |table|
-  table.caption(size: 'm', text: 'Users')
+  <%= govuk_table do |table|
+    table.caption(size: 'm', text: 'Super users')
 
-  table.head do |head|
-    head.row do |row|
-      row.cell(header: true, text: 'Name')
-      row.cell(header: true, text: 'Email')
+    table.head do |head|
+      head.row do |row|
+        row.cell(header: true, text: 'Name')
+        row.cell(header: true, text: 'Email')
+        row.cell(header: true, text: 'Action')
+      end
     end
-  end
 
-  table.body do |body|
-    @authority.users.each do |user| 
-      body.row do |row|
-        row.cell(text: user.user_name)
-        row.cell(text: user.email)
+    table.body do |body|
+      @users.select { |u| u.role == 'su' }.each do |user| 
+        body.row do |row|
+          row.cell(text: user.user_name)
+          row.cell(text: user.email)
+          row.cell do |cell|
+            render "layouts/user_actions", user: user, src: "pa"
+          end
+        end
       end
     end
   end
-end
-%>
+  %>
+  <%= govuk_table do |table|
+    table.caption(size: 'm', text: 'Standard users')
+
+    table.head do |head|
+      head.row do |row|
+        row.cell(header: true, text: 'Name')
+        row.cell(header: true, text: 'Email')
+        row.cell(header: true, text: 'Action')
+      end
+    end
+
+    table.body do |body|
+      @users.select { |u| u.role == 'u' }.each do |user| 
+        body.row do |row|
+          row.cell(text: user.user_name)
+          row.cell(text: user.email)
+          row.cell do |cell|
+            render "layouts/user_actions", user: user, src: "pa"
+          end
+        end
+      end
+    end
+  end
+  %>
+  <%= govuk_table do |table|
+    table.caption(size: 'm', text: 'Group admins')
+
+    table.head do |head|
+      head.row do |row|
+        row.cell(header: true, text: 'Name')
+        row.cell(header: true, text: 'Email')
+        row.cell(header: true, text: 'Action')
+      end
+    end
+
+    table.body do |body|
+      @users.select { |u| u.role == 'ga' }.each do |user| 
+        body.row do |row|
+          row.cell(text: user.user_name)
+          row.cell(text: user.email)
+          row.cell do |cell|
+            render "layouts/user_actions", user: user, src: "pa"
+          end
+        end
+      end
+    end
+  end
+  %>
 </div>
 </div>

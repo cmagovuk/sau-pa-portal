@@ -3,7 +3,7 @@ module PdfHelper
     pdf.start_new_page if pdf.cursor < 25
     pdf.text title, style: :bold
     pdf.indent(20) do
-      pdf.text value
+      pdf.text value.present? ? value.encode("Windows-1252", invalid: :replace, undef: :replace, replace: " ") : ""
     end
     pdf.move_down 20
   end

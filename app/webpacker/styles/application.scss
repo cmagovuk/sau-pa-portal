@@ -19,6 +19,23 @@ $govuk-image-url-function: frontend-image-url;
   background-color: rgba(244, 119, 56, 0.25);
 }
 
+.app-float-left {
+  float: left;
+}
+
+.app-float-right {
+  float: right;
+}
+
+.app-space-between {
+  display: flex;
+  justify-content: space-between;
+}
+
+.app-template {
+  background-color: #ffffff;
+}
+
 .js-enabled .sau-filter-btn {
   display: none;
 }
@@ -30,5 +47,9 @@ $govuk-image-url-function: frontend-image-url;
 @media(max-width: 480px) {
   .app-stack {
     display: table-row;
+  }
+
+  .app-border-right-0 {
+    border-right: 0px !important;
   }
 }

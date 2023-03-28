@@ -22,11 +22,16 @@ en:
         too_long: Email address must be %{count} characters or fewer
         invalid: Enter an email address in the correct format, like name@example.com
         taken: Email address has already been added
+        domain: Email domain must match your own organisation domain '@%{domain}'
       user_name:
         blank: Enter the users name
         too_long: Name must be %{count} characters or fewer
       phone:
         too_long: Telephone must be %{count} characters or fewer
+      role:
+        blank: Select the role
+        must_be_ga: Role must be Group admin when authority is a group authority
+        must_not_be_ga: Role cannot be Group admin unless authority is a group authority
       scheme_subsidy:
         blank: Select whether you are requesting advice in relation to a subsidy or subsidy scheme
       scheme_name:
@@ -37,11 +42,8 @@ en:
         not_a_number: Amount must be a number
         less_than: Amount must be less than %{count}
         greater_than: Amount must be more than %{count}
-      max_amt:
-        not_an_integer: Maximum amount must be a whole number
-        not_a_number: Maximum amount must be a number
-        less_than: Maximum amount be less than %{count}
-        greater_than: Maximum amount be more than %{count}
+      max_amt_s:
+        too_long: Maximum amount must be %{count} characters or fewer
       direction_date:
         blank: Enter date direction was given
       other_purpose:
@@ -51,6 +53,7 @@ en:
         too_long: Location of further information must be %{count} words or fewer
       other_form: 
         too_long: Other form must be %{count} characters or fewer
+        blank: Enter description of other form
       beneficiary:
         too_long: Beneficiary name must be %{count} characters or fewer
       ben_id_type:
@@ -108,14 +111,24 @@ en:
         too_long: Principle I field must be %{count} words or fewer
       character_desc:
         too_long: Description must be %{count} words or fewer
+      emergency_desc:
+        too_long: Emergency information must be %{count} words or fewer
       confirm_answers:
         not_confirmed: You must confirm your answers before submitting your request
+      withdraw_reason:
+        too_long: Reason for withdrawing must be %{count} words or fewer
+      report_due_date:
+        in_past: Report due date must be today or in the future
+        in_future: Report due date cannot be this far in the future
+        blank: Enter date report is due
     upload:
       file_size_error_message: "%{filename} must be smaller than %{size_limit}"
       only_one_file_error_message: "You are limited to 1 document"
       too_many_files_error_message: "You are limited to %{file_uploads} documents"
       file_type_error_message: "The selected file must be a DOC, DOCX, XLS, XLSX, PPT, PPTX, PDF, ZIP"
       empty_file_error_message: The selected file is empty
+      multi_file_type_error_message: "'%{filename}' must be a DOC, DOCX, XLS, XLSX, PPT, PPTX, PDF, ZIP"
+      multi_empty_file_error_message: "'%{filename}' is empty"
       no_file_error_message: Select a file to upload
       missing:
         call_in: The direction from the Secretary of State must be uploaded
@@ -125,6 +138,8 @@ en:
     dates:
       end_before_start: End date must be the same as or after start date
       full_year: Date year must be full year, for example 2022
+    request_withdraw:
+      blank_reason_and_document: Enter a reason or upload a document
 
   activemodel:
     errors:
@@ -133,3 +148,11 @@ en:
           attributes: 
             decision:
               blank: Select the decision
+        reassign_form:
+          attributes: 
+            reassign_to:
+              blank: Select the user
+        assign_sub_form:
+          attributes:
+            sub_authority:
+              has_sub_authorities: Selected authority must not have sub authorities of its own

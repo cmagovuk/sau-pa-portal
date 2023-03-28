@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="govuk-template ">
+<html lang="en" class="govuk-template app-template">
   <head>
     <title><%= content_for?(:page_title) ? yield(:page_title): service_name + " - GOV.UK" %></title>
     <%= csrf_meta_tags %>
@@ -35,6 +35,7 @@
        header.navigation_item(text: "Manage UK subsidies", href: transparency_link) if transparency_link.present?
        header.navigation_item(text: "Public authorities", href: public_authorities_path) if auth_user.has_role?("SAU-Admin")
        header.navigation_item(text: "Users", href: users_path) if auth_user.has_role?("SAU-Admin")
+       header.navigation_item(text: "View users", href: pa_users_path) if auth_user.is_pa_super_user?
        header.navigation_item(text: "Profile", href: account_path) if auth_user.is_pa_user?
        header.navigation_item(text: "Sign out", href: "/.auth/logout") 
     end %>
@@ -52,6 +53,6 @@
       </main>
     </div>
 
-    <%= govuk_footer(meta_items_title: "Support links", meta_items: { t(".cookies") => cookies_path } )%>
+    <%= govuk_footer(meta_items_title: "Support links", meta_items: { t(".cookies") => cookies_path, "Contact us" => "pages/contact_us" } )%>
   </body>
 </html>

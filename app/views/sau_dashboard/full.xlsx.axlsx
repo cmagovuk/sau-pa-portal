@@ -1,0 +1,109 @@
+wb = xlsx_package.workbook
+
+wb.styles do |style|
+  heading = style.add_style(b: true)
+
+  wb.add_worksheet(name: "Requests") do |sheet|
+    # Create header row
+
+    header = ["Reference name", "Public Authority", "Subsidy or scheme", "Referral Type", "Created date", "Updated date", "Status"]
+    header += ["Budget", "Tax Low", "Tax High", "For emergency", "Chapter Two relevance", "EE assessment required", "Subsidy Forms"]
+    header += ["Sectors", "Purposes", "Locations", "Beneficiary name", "Beneficiary ID type", "Beneficiary ID", "Beneficiary size"]
+    header += ["Goods and services", "Start date", "End date", "Confirm date", "Submission date", "Decision date"]
+    header += ["Report due date", "Completed date", "Call in date", "Call in type", "Direction date", "PAR on Transparency Db"]
+    header += ["Transparency Db ID", "Is PAR assessed", "Previous reference number", "Previous status"]
+
+    sheet.add_row header, style: heading
+
+    @requests.each do |r|
+      export_data = []
+
+      # Reference name
+      export_data << r.reference_number
+      # Public Authority
+      export_data << r.pa_name
+      # Subsidy or scheme
+      export_data << scheme_subsidy_name(r)
+      # Referral Type
+      export_data << referral_type_name(r)
+      # Created date
+      export_data << r.created_at
+      # Updated date
+      export_data << r.updated_at
+      # Status
+      export_data << r.status
+
+      # Budget
+      export_data << (r.scheme_subsidy == "scheme" || r.subsidy_form != "tax") ? r.budget.to_i : ""
+      # Tax Low & High
+      if r.scheme_subsidy == "subsidy" && r.subsidy_form == "tax"
+        tax = map_tax_amount(r).split("-")
+        export_data << tax[0]
+        export_data << tax[1]
+      else
+        export_data << nil
+        export_data << nil
+      end
+      # For emergency
+      export_data << r.is_emergency
+      # Chapter Two relevance
+      export_data << r.is_c2_relevant
+      # EE assessment required
+      export_data << r.ee_assess_required
+      # Subsidy Forms
+      export_data << translate_terms((r.scheme_subsidy == "scheme" ? r.subsidy_forms : [r.subsidy_form]), "subsidy_form_options").join("\r\n")
+
+      # Sectors
+      export_data << translate_terms(r.sectors, "helpers.label.request.sectors_options").join("\r\n")
+      # Purposes
+      export_data << translate_terms(r.purposes, "helpers.label.request.purposes_options").join("\r\n")
+      # Locations
+      export_data << translate_terms(r.location, "helpers.label.request.location_options").join("\r\n")
+      # Beneficiary name
+      export_data << map_free_text(r.beneficiary, 255)
+      # Beneficiary ID type
+      export_data << (r.scheme_subsidy == "subsidy" && r.ben_id_type.present? ? t(r.ben_id_type&.to_sym, scope: "helpers.label.request.ben_id_type_options") : nil)
+      # Beneficiary ID
+      export_data << r.ben_id
+      # Beneficiary size
+      export_data << (r.scheme_subsidy == "subsidy" && r.ben_size.present? ? t(r.ben_size&.to_sym, scope: "helpers.label.request.ben_size_options") : nil)
+
+      # Goods and services
+      export_data << translate_terms(r.ben_good_svr, "helpers.label.request.ben_good_svr_options").join("\r\n")
+      # Start date
+      export_data << r.start_date
+      # End date
+      export_data << r.end_date
+      # Confirm date
+      export_data << r.confirm_date
+      # Submission date
+      export_data << r.submitted_date
+      # Decision date
+      export_data << r.decision_date
+
+      # Report due date
+      export_data << r.report_due_date
+      # Completed date
+      export_data << r.completed_date
+      # Call in date
+      export_data << r.sau_call_in
+      # Call in type
+      export_data << r.call_in_type
+      # Direction date
+      export_data << r.direction_date
+      # PAR on Transparency Db
+      export_data << r.par_on_td
+
+      # Transparency Db ID
+      export_data << r.par_td_ref_no
+      # Is PAR assessed
+      export_data << r.par_assessed
+      # Previous reference number
+      export_data << r.previous_refno
+      # Previous status
+      export_data << r.previous_status
+
+      sheet.add_row export_data
+    end
+  end
+end

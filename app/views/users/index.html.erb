@@ -1,15 +1,33 @@
 <% title(t('.page_title')) %>
+<h1 class="govuk-heading-l">
+  <%= t('.heading') -%>
+</h1>
 
+<%= form_with method: :get, local: true do |f| %>
+  <div class="govuk-grid-row govuk-!-padding-bottom-5">
+    <div class="govuk-grid-column-one-half">
+    <div class="govuk-checkboxes__item">
+      <input id="show_all" class="govuk-checkboxes__input sau-filter" type="checkbox" value="x" <%= params[:show_all].present? ? "checked" : "" %> name="show_all">
+      <label for="show_all" class="govuk-label govuk-checkboxes__label"><%= t(".inactive_filter") %></label>
+    </div>
+    </div>
+    <div class="govuk-grid-column-one-third">
+    <br>
+      <div class="govuk-button-group">
+        <%= f.govuk_submit "Filter", secondary: true, classes: "sau-filter-btn" %>
+      </div>
+    </div>
+  </div>
+<% end %>
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
 <%= govuk_table do |table|
-  table.caption(size: 'l', text: t(".heading"))
-
   table.head do |head|
     head.row do |row|
       row.cell(header: true, text: 'Name')
       row.cell(header: true, text: 'Email address')
       row.cell(header: true, text: 'Public authority')
+      row.cell(header: true, text: 'Role')
       row.cell(header: true, text: 'Action')
     end
   end
@@ -20,11 +38,10 @@
         row.cell(text: user.user_name)
         row.cell(text: user.email)
         row.cell(text: user.public_authority.pa_name)
-       row.cell do |cell| 
-        %>          
-        <%= govuk_link_to "Edit", edit_user_path(user), no_visited_state: true %>
-    <%
-        end
+        row.cell(text: t(user.role, scope: "helpers.label.user.role_options"))
+        row.cell do |cell|
+            render "layouts/user_actions", user: user, src: nil
+         end
       end
     end
   end

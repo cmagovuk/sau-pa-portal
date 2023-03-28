@@ -5,18 +5,21 @@ class Request::SubsidyInfo < Request
   validates :tax_low, numericality: { greater_than: 0, less_than: 10_000_000_000_000 }, allow_blank: true
   validates :tax_high, numericality: { greater_than: 0, less_than: 10_000_000_000_000 }, allow_blank: true
   validates :other_form, length: { maximum: 255 }
+  validate :validate_word_count
   validate :validate_confirm_date
   validate :validate_tax_range
 
   delegate :pa_name, to: :public_authority
-
-  SUBSIDY_FORM_OPTIONS = %w[dire equi gaur loan above below tax other].freeze
 
   def select_form_options
     [OpenStruct.new(name: "Select form type", id: "")] +
       SUBSIDY_FORM_OPTIONS.map do |id|
         OpenStruct.new(id: id, name: I18n.t(id&.to_sym, scope: [:subsidy_form_options]))
       end
+  end
+
+  def validate_word_count
+    errors.add(:emergency_desc, :too_long, count: Request::MAX_WORDCOUNT) if field_too_long(emergency_desc)
   end
 
   def validate_tax_range
@@ -65,6 +68,6 @@ class Request::SubsidyInfo < Request
   end
 
   def permitted
-    %w[subsidy_form other_form budget tax_amt confirm_date tax_low tax_high].freeze
+    %w[subsidy_form other_form budget tax_amt confirm_date tax_low tax_high is_emergency emergency_desc].freeze
   end
 end

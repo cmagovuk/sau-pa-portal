@@ -1,0 +1,40 @@
+<% title(t('.page_title')) %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+<h1 class="govuk-heading-l"><%= t(@user.disabled == "x" ? ".reactive_heading" : ".deactive_heading") %></h1>
+
+    <%= govuk_summary_list(actions:false) do |summary_list|
+        summary_list.row do |row|
+            row.key { 'Public Authority' }
+            row.value { @user.public_authority.pa_name }
+        end
+
+        summary_list.row do |row|
+            row.key { 'Role' }
+            row.value { @user.role.present? ? t(@user.role&.to_sym, scope: "helpers.label.user.role_options") : "" }
+        end
+
+        summary_list.row do |row|
+            row.key { 'Name' }
+            row.value { @user.user_name }
+        end
+
+        summary_list.row do |row|
+            row.key { 'Telephone' }
+            row.value { @user.phone }
+        end
+
+        summary_list.row do |row|
+            row.key(text: 'Email address')
+            row.value(text: @user.email )
+        end
+    end %>
+
+<%= form_for @user, url: confirm_state_user_path(params[:id]), method: :delete do |f| 
+    f.govuk_submit t(@user.disabled == "x" ? ".reactive_submit_btn" : ".deactive_submit_btn"), warning: (@user.disabled != "x") do
+      govuk_button_link_to t(".cancel_btn"), users_path, secondary: true
+    end
+ end %>
+</div>
+</div>

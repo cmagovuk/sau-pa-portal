@@ -13,7 +13,7 @@
   <%= f.govuk_file_field :documents,
           label: {text: "Choose a file"},
           accept: ".doc, .docx, .xls, .xlsx, .ppt, .pptx, .pdf, .zip",
-          multiple: false,
+          multiple: true,
           enctype: "multipart/form-data",
           class: "upload-input" %>
   <%= render partial: "document_list", object: @request.assessment_docs %>

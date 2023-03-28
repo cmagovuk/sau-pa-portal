@@ -3,10 +3,9 @@ require "rails_helper"
 RSpec.describe Request::SchemeInfo, type: :model do
   describe "validations" do
     it { should validate_presence_of(:scheme_name) }
+    it { should validate_length_of(:max_amt_s).is_at_most(255) }
     it { should validate_numericality_of(:budget).is_less_than(10_000_000_000_000) }
     it { should validate_numericality_of(:budget).is_greater_than(0) }
-    it { should validate_numericality_of(:max_amt).is_less_than(10_000_000_000_000) }
-    it { should validate_numericality_of(:max_amt).is_greater_than(0) }
   end
 
   describe "#info_only?" do

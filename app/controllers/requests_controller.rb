@@ -19,14 +19,31 @@ class RequestsController < ApplicationController
     load_request(session[:issue_id])
   end
 
+  def confirm_delete
+    load_request(params[:id])
+  end
+
+  def destroy
+    load_request(params[:id])
+    return if performed?
+
+    @request.destroy!
+
+    redirect_to requests_path
+  end
+
   def new
     @request_type_form = RequestTypeForm.new
   end
 
   def index
+    redirect_to ga_dashboard_path and return if auth_user.is_pa_ga_user?
+
     @requests = Request.pa_requests(auth_user.pa_id)
        .select(:id, :reference_number, :beneficiary, :scheme_name, :sectors, :status, :updated_at, :internal_state)
        .order(updated_at: :desc)
+
+    @requests = @requests.filter_by_user(auth_user.user_id) if auth_user.is_pa_std_user?
 
     @requests = @requests.filter_by_status(params[:status]) if params[:status].present? && Request::STATUS.include?(params[:status])
 
@@ -34,12 +51,10 @@ class RequestsController < ApplicationController
       case params[:act]
       when "Continue" then @requests = @requests.filter_by_status("Draft")
       when "Info required" then @requests = @requests.filter_by_internal_state("info-required").filter_by_status("Accepted")
-      when "View" then @requests = @requests.filter_by_status(%w[Accepted Submitted])
+      when "View" then @requests = @requests.filter_by_status(%w[Accepted Submitted Declined Rejected Withdrawn])
       when "View report" then @requests = @requests.filter_by_status("Completed")
       end
     end
-
-    #  @requests = @requests.filter_by_action(params[:act]) if params[:act].present? && Request::ACTIONS.include?(params[:act])
 
     respond_to do |format|
       format.html { render :index }
@@ -49,9 +64,39 @@ class RequestsController < ApplicationController
     end
   end
 
+  def ga_dashboard
+    redirect_to dashboard_path and return unless auth_user.is_pa_ga_user?
+
+    @authorities = auth_user.sub_authorities.map { |a| [a.pa_name, a.id] }
+    @requests = Request.pa_ga_requests(@authorities.map { |a| a[1] })
+       .select(:id, :reference_number, :pa_name, :beneficiary, :scheme_name, :sectors, :status, :updated_at, :internal_state)
+       .order(updated_at: :desc)
+
+    @requests = @requests.filter_by_pa(params[:pa_id]) if params[:pa_id].present?
+
+    @requests = @requests.filter_by_status(params[:status]) if params[:status].present? && Request::STATUS.include?(params[:status])
+
+    if params[:act].present? && Request::ACTIONS.include?(params[:act])
+      case params[:act]
+      when "Info required" then @requests = @requests.filter_by_internal_state("info-required").filter_by_status("Accepted")
+      when "View" then @requests = @requests.filter_by_status(%w[Accepted Submitted Declined Rejected Withdrawn])
+      when "View report" then @requests = @requests.filter_by_status("Completed")
+      end
+    end
+
+    respond_to do |format|
+      format.html { render :ga_dashboard }
+      format.xlsx do
+        response.headers["Content-Disposition"] = "attachment; filename=dashboard.xlsx"
+      end
+    end
+  end
+
   def reload
     session[:issue_id] = params[:id]
     load_request(params[:id])
+    return if performed?
+
     step = "review"
     step = "referral_type" if @request.referral_type.blank?
     step = "call_in_type" if @request.referral_type == "call" && @request.call_in_type.blank?

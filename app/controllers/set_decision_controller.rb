@@ -16,8 +16,7 @@ class SetDecisionController < SauLeadershipController
       end
     else
       if @set_decision_form.valid?
-        if @set_decision_form.valid_document?(params[:set_decision][:documents])
-          @set_decision_form.add_document(params[:set_decision][:documents])
+        if @set_decision_form.valid_document?(params[:set_decision][:documents]) && @set_decision_form.add_document(params[:set_decision][:documents])
           session[:decision] = @set_decision_form.decision
           redirect_to edit_set_decision_path and return
         end
@@ -47,8 +46,12 @@ class SetDecisionController < SauLeadershipController
     if session[:decision].present?
       @request = Request.find(params[:id])
       # send notification to client
+      if @request.status == "Pending withdrawal" && session[:decision] == "accepted"
+        @request.update!(internal_state: @request.new_internal_state("Accepted", "Submitted"))
+      else
+        @request.update!(decision_date: Time.zone.now, status: t(session[:decision]&.to_sym, scope: "helpers.label.set_decision.decision_options"))
+      end
       GovukNotifyService.send_status_changed_email(@request, request_path(@request), session[:decision]&.to_sym)
-      @request.update!(status: t(session[:decision]&.to_sym, scope: "helpers.label.set_decision.decision_options"))
       @request.audit_logs.create!(AuditLog.log(auth_user, :status_change, status: @request.status))
       session[:decision] = nil
       redirect_to sau_request_path(params[:id])
