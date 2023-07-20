@@ -16,9 +16,13 @@ breadcrumbs = {
     <p class="govuk-body"><%= t('.summary') %></p>
     <%= govuk_summary_list do |summary_list|
           summary_list.row do |row|
-            row.key { 'Response document' }
-            row.value(text: @information_request.response_doc.filename)
-            row.action(href: information_response_path, visually_hidden_text: 'response document')
+            row.key { 'Response documents' }
+            row.value do 
+              @information_request.response_doc.each do |d| %>
+                <%= d.filename %><br>
+              <% end
+            end
+            row.action(href: information_response_path, visually_hidden_text: 'response documents')
           end
       end %>
 

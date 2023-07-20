@@ -7,7 +7,7 @@ class InformationRequestsController < SauLeadershipController
     @information_request = Request.find(params[:id]).information_requests.new
 
     if params[:information_request].present? && params[:information_request].key?(:documents)
-      if @information_request.valid_document?(params[:information_request][:documents])
+      if @information_request.valid_request_documents?(params[:information_request][:documents])
         @information_request.add_request_doc(params[:information_request][:documents])
         @information_request.update!(status: "request-unconfirmed")
         redirect_to edit_information_request_path(@information_request) and return
@@ -27,16 +27,33 @@ class InformationRequestsController < SauLeadershipController
   end
 
   def remove
-    information_request.destroy!
-    redirect_to new_information_request_path(information_request.request)
+    information_request
+    if params.key?(:doc_id)
+      if @information_request.request_doc.count == 1
+        information_request.destroy!
+        redirect_to new_information_request_path(information_request.request)
+      else
+        @information_request.remove_request_doc(params[:doc_id])
+        redirect_to edit_information_request_path(@information_request)
+      end
+    else
+      render :edit
+    end
   end
 
   def update
+    information_request
     if params[:information_request].present? && params[:information_request].key?(:request_doc)
-      information_request.errors.add(:request_doc, I18n.t("errors.upload.only_one_file_error_message"))
-      render :edit
-    else
+      if @information_request.valid_request_documents?(params[:information_request][:request_doc])
+        @information_request.add_request_doc(params[:information_request][:request_doc])
+        redirect_to edit_information_request_path(@information_request)
+      else
+        render :edit
+      end
+    elsif @information_request.valid?
       redirect_to confirm_information_request_path(information_request) and return
+    else
+      render :edit
     end
   end
 

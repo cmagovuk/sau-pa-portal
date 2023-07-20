@@ -7,7 +7,7 @@ class Requests::StepWorkflow
   SCHEME_STEPS = %w[scheme_info subsidy_forms goods_services locations sectors descriptions legal purposes dates].freeze
   SUBSIDY_STEPS = %w[subsidy_info beneficiary goods_services location sector descriptions legal purpose].freeze
   CHARACTERISTICS_STEPS = %w[character_desc].freeze
-  ASSESSMENT_STEPS = %w[ee_required chapter_two assessment].freeze
+  ASSESSMENT_STEPS = %w[ee_required chapter_two part_three assessment].freeze
   EE_ASSESSMENT_STEPS = %w[ee_assessment].freeze
   PAR_ASSESSMENT_STEPS = %w[par_assessment].freeze
   REVIEW_STEPS = %w[review].freeze

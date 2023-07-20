@@ -7,7 +7,7 @@ wb.styles do |style|
     # Create header row
 
     header = ["Reference name", "Public Authority", "Subsidy or scheme", "Referral Type", "Created date", "Updated date", "Status"]
-    header += ["Budget", "Tax Low", "Tax High", "For emergency", "Chapter Two relevance", "EE assessment required", "Subsidy Forms"]
+    header += ["Budget", "Tax Low", "Tax High", "For emergency", "Chapter Two relevance", "Part 3 relevance", "EE assessment required", "Subsidy Forms"]
     header += ["Sectors", "Purposes", "Locations", "Beneficiary name", "Beneficiary ID type", "Beneficiary ID", "Beneficiary size"]
     header += ["Goods and services", "Start date", "End date", "Confirm date", "Submission date", "Decision date"]
     header += ["Report due date", "Completed date", "Call in date", "Call in type", "Direction date", "PAR on Transparency Db"]
@@ -48,6 +48,8 @@ wb.styles do |style|
       export_data << r.is_emergency
       # Chapter Two relevance
       export_data << r.is_c2_relevant
+      # Part 3 relevance
+      export_data << r.is_p3_relevant
       # EE assessment required
       export_data << r.ee_assess_required
       # Subsidy Forms

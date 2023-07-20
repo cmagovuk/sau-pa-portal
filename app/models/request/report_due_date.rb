@@ -1,9 +1,9 @@
 class Request::ReportDueDate < Request
   validates :report_due_date, presence: true
   validate :report_due_date_connot_be_in_the_past
-  validate :report_due_date_connot_be_in_far_future
+  #  validate :report_due_date_connot_be_in_far_future
 
-  MAX_DAYS_AHEAD = 40
+  MAX_DAYS_AHEAD = 30
 
 private
 

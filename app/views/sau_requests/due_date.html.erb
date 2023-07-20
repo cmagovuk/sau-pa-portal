@@ -11,7 +11,10 @@ breadcrumbs = {
 <%= form_for @request, url: set_due_date_sau_request_path, :as => :request do |f| %>
   <%= f.govuk_error_summary %>
 
-  <%= f.govuk_text_field :report_due_date, width: 'one-third', type:"date", min: Time.zone.today, max: Time.zone.today.days_since(Request::ReportDueDate::MAX_DAYS_AHEAD),
-  label: {text: "Set the report due date", size:"m"} %>
+  <%= f.govuk_text_field :report_due_date, class: "sau-report-due", width: 'one-third', type:"date", min: Time.zone.today,
+  label: {text: "Set the report due date", size:"m"}, data: {sau_max: Time.zone.today.days_since(Request::ReportDueDate::MAX_DAYS_AHEAD)} %>
+  <div class="sau-date-warning">
+    <%= govuk_warning_text(text: t(".warning_text", max_days:Request::ReportDueDate::MAX_DAYS_AHEAD)) %>
+  </div>
   <%= f.govuk_submit t("buttons.submit") %>
 <% end %>

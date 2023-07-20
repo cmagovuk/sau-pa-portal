@@ -99,7 +99,7 @@ class Request < ApplicationRecord
   # ASSESSMENT_FIELDS = %w[ee_assess_required assess_pa assess_pb assess_pc assess_pd assess_pe assess_pf assess_pg].freeze
   # EE_ASSESSMENT_FIELDS = %w[assess_ee_pa assess_ee_pb].freeze
 
-  ASSESSMENT_FIELDS = %w[ee_assess_required is_c2_relevant].freeze
+  ASSESSMENT_FIELDS = %w[ee_assess_required is_c2_relevant is_p3_relevant].freeze
   EE_ASSESSMENT_FIELDS = %w[].freeze
 
   def determine_required_fields
@@ -110,6 +110,7 @@ class Request < ApplicationRecord
     fields += EE_ASSESSMENT_FIELDS if ee_assess_required == "y" && (referral_type != "par" || par_assessed != "n")
 
     fields += %w[c2_description] if is_c2_relevant == "y" && (referral_type != "par" || par_assessed != "n")
+    fields += %w[p3_description] if is_p3_relevant == "y" && (referral_type != "par" || par_assessed != "n")
     fields += %w[nc_description] if is_nc == "no"
     fields += %w[par_td_ref_no] if referral_type == "par" && par_on_td == "y"
     fields += %w[par_reason] if referral_type == "par" && par_assessed == "n"
