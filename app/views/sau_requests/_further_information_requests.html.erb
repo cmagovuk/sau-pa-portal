@@ -2,40 +2,44 @@
     table.head do |head|
         head.row do |row|
         row.cell(header: true, text: 'Request Date')
-        row.cell(header: true, text: 'Request Document')
+        row.cell(header: true, text: 'Request Documents')
         row.cell(header: true, text: 'Response Date')
-        row.cell(header: true, text: 'Response Document')
+        row.cell(header: true, text: 'Response Documents')
         row.cell(header: true, text: 'Action')
         end
     end
 
     table.body do |body|
-        @request.information_requests.each do |d|                
+        @request.information_requests.each do |ir|                
             body.row do |row|
-                if d.request_doc.attached?
-                  row.cell(text: d.request_doc.created_at.strftime("%d/%m/%y %H:%M"))
-                  row.cell do |cell| %>
-                    <%= link_to rails_blob_path(d.request_doc, "attachment"), class: 'govuk-link' do %>
-                      <span class="govuk-visually-hidden">Download file </span><%= d.request_doc.filename %>
-                    <% end %>
-                  <% end
+                if ir.request_doc.attached?
+                  row.cell(text: ir.request_doc[0].created_at.strftime("%d/%m/%y %H:%M"))
+                  row.cell do |cell|
+                    ir.request_doc.each do |d| %>
+                      <%= link_to rails_blob_path(d, "attachment"), class: 'govuk-link' do %>
+                        <span class="govuk-visually-hidden">Download file </span><%= d.filename %>
+                      <% end %><br />
+                    <% end 
+                  end
                 else
                   row.cell
                   row.cell
                 end
-                if d.response_doc.attached? && d.status == "response-confirmed"
-                  row.cell(text: d.response_doc.created_at.strftime("%d/%m/%y %H:%M"))
-                  row.cell do |cell| %>
-                      <%= link_to rails_blob_path(d.response_doc, "attachment"), class: 'govuk-link' do %>
-                        <span class="govuk-visually-hidden">Download file </span><%= d.response_doc.filename %>
-                      <% end %>
+                if ir.response_doc.attached? && ir.status == "response-confirmed"
+                  row.cell(text: ir.response_doc[0].created_at.strftime("%d/%m/%y %H:%M"))
+                  row.cell do |cell|
+                    ir.response_doc.each do |d| %>
+                      <%= link_to rails_blob_path(d, "attachment"), class: 'govuk-link' do %>
+                        <span class="govuk-visually-hidden">Download file </span><%= d.filename %>
+                      <% end %><br />
                     <% end
+                  end
                 else
                   row.cell
                   row.cell
                 end
                 row.cell do |cell| %>
-                    <%= further_info_link(d, @presenter.info_actions) %>
+                    <%= further_info_link(ir, @presenter.info_actions) %>
             <% end
             end
         end

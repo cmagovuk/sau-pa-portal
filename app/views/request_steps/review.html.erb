@@ -676,7 +676,7 @@
             end
             row.action(href: request_step_path(:chapter_two), visually_hidden_text: 'Chapter 2 relevance')
         end
-            
+
         if (@request.is_c2_relevant == "y")
             summary_list.row do |row|
                 row.key { 'Chapter 2 details' }
@@ -686,7 +686,26 @@
                 row.action(href: request_step_path(:chapter_two), visually_hidden_text: 'Chapter 2 description')
             end
         end
-           
+
+        summary_list.row do |row|
+            row.key { 'Part 3 exemptions' }
+            row.value(classes:"app-pre-wrap") do 
+            render partial:"summary_value", locals: {value: @request.is_p3_relevant.present? ? t(@request.is_p3_relevant&.to_sym, scope: [:helpers, :label, :request, :is_p3_relevant_options]) : nil,
+                                                        field: :is_p3_relevant}
+            end
+            row.action(href: request_step_path(:part_three), visually_hidden_text: 'Part 3 relevance')
+        end
+
+        if (@request.is_p3_relevant == "y")
+            summary_list.row do |row|
+                row.key { 'Part 3 details' }
+                row.value(classes:"app-pre-wrap") do 
+                render partial:"summary_value", locals: {value: @request.p3_description, field: :p3_description}
+                end
+                row.action(href: request_step_path(:part_three), visually_hidden_text: 'Part 3 description')
+            end
+        end
+
         summary_list.row do |row|
             row.key { 'Supporting evidence' }
             row.value do 

@@ -28,7 +28,9 @@ private
   def call_api_info_response(information_request)
     response_doc = []
     if information_request.response_doc.attached?
-      response_doc.push({ key: information_request.response_doc.key, filename: information_request.response_doc.filename })
+      information_request.response_doc.each do |single|
+        response_doc.push({ key: single.key, filename: single.filename })
+      end
     end
 
     body = {

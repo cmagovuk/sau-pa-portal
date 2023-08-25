@@ -454,6 +454,18 @@
         end
 
         summary_list.row do |row|
+            row.key { 'Part 3 exemptions' }
+            row.value { @request.is_p3_relevant.present? ? t(@request.is_p3_relevant&.to_sym, scope: [:helpers, :label, :request, :is_p3_relevant_options]) : nil }
+        end
+
+        if (@request.is_p3_relevant == "y")
+            summary_list.row do |row|
+                row.key { 'Part 3 details' }
+                row.value(classes:"app-pre-wrap", text: @request.p3_description)
+            end
+        end
+
+        summary_list.row do |row|
             row.key { 'Supporting evidence' }
             row.value do 
                 if @request.assessment_docs.attached?

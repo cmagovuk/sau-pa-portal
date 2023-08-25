@@ -5,7 +5,7 @@ class InformationResponsesController < ApplicationController
 
   def update
     if params[:information_request].present? && params[:information_request].key?(:documents)
-      if information_request.valid_document?(params[:information_request][:documents])
+      if information_request.valid_response_documents?(params[:information_request][:documents])
         information_request.add_response_doc(params[:information_request][:documents])
         information_request.update!(status: "response-unconfirmed")
         redirect_to edit_information_response_path and return
@@ -37,9 +37,16 @@ class InformationResponsesController < ApplicationController
   end
 
   def remove
-    information_request.remove_response_doc
-    information_request.update!(status: "request-confirmed")
-    redirect_to edit_information_response_path
+    information_request
+    if params.key?(:doc_id)
+      @information_request.remove_response_doc(params[:doc_id])
+      if @information_request.response_doc.count.zero?
+        information_request.update!(status: "request-confirmed")
+      end
+      redirect_to edit_information_response_path
+    else
+      render :edit
+    end
   end
 
   def summary

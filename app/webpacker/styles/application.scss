@@ -44,6 +44,10 @@ $govuk-image-url-function: frontend-image-url;
   display: none;
 }
 
+.sau-date-warning {
+  display: none;
+}
+
 @media(max-width: 480px) {
   .app-stack {
     display: table-row;

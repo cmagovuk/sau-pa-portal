@@ -143,6 +143,12 @@ prawn_document do |pdf|
       pdf_output_field(pdf, "Chapter 2 details", @request.c2_description)
     end
 
+    pdf_output_field(pdf, "Part 3 exemptions", @request.is_p3_relevant.present? ? t(@request.is_p3_relevant&.to_sym, scope: [:helpers, :label, :request, :is_p3_relevant_options]) : nil)
+      
+    if (@request.is_p3_relevant == "y")
+      pdf_output_field(pdf, "Part 3 details", @request.p3_description)
+    end
+
     docs = []
     @request.assessment_docs.each do |d|
       docs += [d.filename]

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_21_104448) do
+ActiveRecord::Schema.define(version: 2023_07_19_111011) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -158,6 +158,8 @@ ActiveRecord::Schema.define(version: 2023_03_21_104448) do
     t.string "max_amt_s"
     t.string "subsidy_forms"
     t.text "emergency_desc"
+    t.string "is_p3_relevant"
+    t.text "p3_description"
     t.index ["public_authority_id"], name: "index_requests_on_public_authority_id"
     t.index ["submitted_by_id"], name: "index_requests_on_submitted_by_id"
     t.index ["user_id"], name: "index_requests_on_user_id"

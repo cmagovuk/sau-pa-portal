@@ -73,12 +73,23 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-
     const submissionButton = document.getElementsByClassName("sau-submission-button")[0];
     if (submissionButton) {
         submissionButton.addEventListener('click', onceClicked);
         addEventListener('pageshow', (e) => {
             alreadyClicked = false;
         });
+    }
+
+    const reportDueDate =  document.getElementsByClassName("sau-report-due")[0];
+    if (reportDueDate) {
+        const warningText = document.getElementsByClassName("sau-date-warning")[0];
+        if (warningText) {
+            const maxDate = new Date(reportDueDate.getAttribute("data-sau-max"));
+            warningText.style.display = reportDueDate.value == "" || new Date(reportDueDate.value) <= maxDate ? "none" : "block";
+            reportDueDate.addEventListener('change', (e) => {
+                warningText.style.display = new Date(e.target.value) <= maxDate ?  "none" : "block";
+            });
+        }
     }
 });
