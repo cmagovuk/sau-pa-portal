@@ -11,7 +11,7 @@ class Request::UploadReport < Request
 
   EXTENSIONS_ALLOWED = %w[.doc .docx .xls .xlsx .ppt .pptx .pdf .zip].freeze
 
-  MAXIMUM_FILE_UPLOADS = 30
+  MAXIMUM_FILE_UPLOADS = 100
 
   validate :atleast_one_file
 

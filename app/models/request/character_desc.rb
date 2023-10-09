@@ -11,7 +11,7 @@ class Request::CharacterDesc < Request
 
   EXTENSIONS_ALLOWED = %w[.doc .docx .xls .xlsx .ppt .pptx .pdf .zip].freeze
 
-  MAXIMUM_FILE_UPLOADS = 25
+  MAXIMUM_FILE_UPLOADS = 100
 
   validate :validate_word_count
 

@@ -16,7 +16,7 @@ class InformationRequest < ApplicationRecord
 
   EXTENSIONS_ALLOWED = %w[.doc .docx .xls .xlsx .ppt .pptx .pdf .zip].freeze
 
-  MAXIMUM_FILE_UPLOADS = 10
+  MAXIMUM_FILE_UPLOADS = 100
 
   def valid_request_documents?(docs)
     @valid_request_documents ||= validate_documents?(docs, request_doc)

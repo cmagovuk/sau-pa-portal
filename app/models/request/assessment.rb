@@ -13,7 +13,7 @@ class Request::Assessment < Request
 
   # Zip file content type application/zip
 
-  MAXIMUM_FILE_UPLOADS = 30
+  MAXIMUM_FILE_UPLOADS = 100
 
   validate :validate_word_count
 
@@ -42,7 +42,7 @@ class Request::Assessment < Request
   def validate_documents?(docs)
     all_valid = true
     docs.each_with_index do |doc, idx|
-      doc_valid = !too_many_files? && non_empty_file?(doc, idx) && valid_file_type?(doc, idx) && valid_file_extension?(doc, idx)
+      doc_valid = !too_many_files?(docs) && non_empty_file?(doc, idx) && valid_file_type?(doc, idx) && valid_file_extension?(doc, idx)
       all_valid &&= doc_valid
     end
     all_valid
@@ -85,8 +85,8 @@ private
     false
   end
 
-  def too_many_files?
-    return false unless assessment_docs.count >= MAXIMUM_FILE_UPLOADS
+  def too_many_files?(docs)
+    return false unless (assessment_docs.count + docs.count) > MAXIMUM_FILE_UPLOADS
 
     errors.add(:documents, I18n.t("errors.upload.too_many_files_error_message", file_uploads: MAXIMUM_FILE_UPLOADS))
     true
