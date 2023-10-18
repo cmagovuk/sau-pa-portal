@@ -18,7 +18,7 @@ breadcrumbs = {
           summary_list.row do |row|
             row.key { 'Response documents' }
             row.value do 
-              @information_request.response_doc.each do |d| %>
+              @information_request.ordered_response_doc.each do |d| %>
                 <%= d.filename %><br>
               <% end
             end

@@ -82,6 +82,14 @@ class Request < ApplicationRecord
     permitted.empty?
   end
 
+  def ordered_assessment_docs
+    assessment_docs.includes(:blob).references(:blob).order("active_storage_blobs.filename ASC")
+  end
+
+  def ordered_character_desc_docs
+    character_desc_docs.includes(:blob).references(:blob).order("active_storage_blobs.filename ASC")
+  end
+
   def self.next_reference_number
     max_submitted = Request.submitted.count
     sprintf("SAU%05d", max_submitted + 1)

@@ -117,7 +117,7 @@ prawn_document do |pdf|
     pdf_header(pdf, "Why the #{scheme_subsidy_name(@request).downcase} meets the characteristics of a #{referral_type_shortname(@request)}")
     pdf_output_field(pdf, 'Description', @request.character_desc)
     docs = []
-    @request.character_desc_docs.each do |d|
+    @request.ordered_character_desc_docs.each do |d|
       docs += [d.filename]
     end
 
@@ -150,7 +150,7 @@ prawn_document do |pdf|
     end
 
     docs = []
-    @request.assessment_docs.each do |d|
+    @request.ordered_assessment_docs.each do |d|
       docs += [d.filename]
     end
 

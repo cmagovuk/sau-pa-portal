@@ -16,7 +16,7 @@
                 if ir.status != "" && ir.request_doc.attached?
                   row.cell(text: ir.request_doc[0].created_at.strftime("%d/%m/%y %H:%M"))
                   row.cell do |cell|
-                    ir.request_doc.each do |d| %>
+                    ir.ordered_request_doc.each do |d| %>
                       <%= link_to rails_blob_path(d, "attachment"), class: 'govuk-link' do %>
                         <span class="govuk-visually-hidden">Download file </span><%= d.filename %>
                       <% end %><br />
@@ -29,7 +29,7 @@
                 if ir.response_doc.attached?
                   row.cell(text: ir.response_doc[0].created_at.strftime("%d/%m/%y %H:%M"))
                   row.cell do |cell|
-                    ir.response_doc.each do |d| %>
+                    ir.ordered_response_doc.each do |d| %>
                       <%= link_to rails_blob_path(d, "attachment"), class: 'govuk-link' do %>
                         <span class="govuk-visually-hidden">Download file </span><%= d.filename %>
                       <% end %><br />

@@ -57,6 +57,14 @@ class InformationRequest < ApplicationRecord
     response_doc.attach(doc)
   end
 
+  def ordered_request_doc
+    request_doc.includes(:blob).references(:blob).order("active_storage_blobs.filename ASC")
+  end
+
+  def ordered_response_doc
+    response_doc.includes(:blob).references(:blob).order("active_storage_blobs.filename ASC")
+  end
+
 private
 
   def non_empty_file?(document, idx)
