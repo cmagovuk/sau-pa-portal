@@ -43,6 +43,7 @@ class Request < ApplicationRecord
     application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
     application/vnd.openxmlformats-officedocument.presentationml.presentation
     application/zip
+    application/x-zip-compressed
   ].freeze
 
   EXTENSIONS_ALLOWED = %w[.doc .docx .xls .xlsx .ppt .pptx .pdf .zip].freeze
