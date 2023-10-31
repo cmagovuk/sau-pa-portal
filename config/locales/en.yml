@@ -69,10 +69,15 @@ en:
     home:
       page_text_html: |
         <h1 class="govuk-heading-l">Public Authority Portal</h1>
-        <p class="govuk-body">The purpose of the PAP is to allow you to request a report from the Subsidy Advice Unit (SAU) evaluating your assessment of a subsidy or subsidy scheme against the subsidy control requirements set out in the Subsidy Control Act 2022 (Act), including the subsidy control principles.</p>
+        <p class="govuk-body">The purpose of the Public Authority Portal (PAP) is to allow you to request a report from the Subsidy Advice Unit (SAU) evaluating your assessment of a subsidy or subsidy scheme against the subsidy control requirements set out in the Subsidy Control Act 2022 (Act), including the subsidy control principles.</p>
         <p class="govuk-body">In line with the requirements of the Act the SAU will notify you within <b>5 working days</b> of receiving your completed referral whether it will proceed to prepare  a report.</p>
         <p class="govuk-body">In reaching that decision, the SAU will consider whether your request complies with the submission requirements of the Act and, for certain subsidies or subsidy schemes of interest, whether the SAU has decided to prioritise your referral in accordance with its prioritisation principles.</p>
         <p class="govuk-body">We will set out in more detail the next steps in this response.</p>
+        <h2 class="govuk-heading-m">Pre-referral discussions with the SAU</h2>
+        <p class="govuk-body">In advance of formally submitting a request for a report through the PAP, we encourage public authorities to contact the SAU via <a class="govuk-link" href="mailto:sau@cma.gov.uk">SAU@cma.gov.uk</a> to discuss their prospective referral. Although pre-referral discussions are a voluntary step, they support the public authority to identify the information that should be submitted when the subsidy or scheme is formally referred and help to ensure that the SAU is provided with all the information it needs to evaluate a public authority's Assessment of Compliance. For more information about the SAU's referrals process and the scope of pre-referral discussions, please visit our <a target="_blank" class="govuk-link" rel="noreferrer noopener" href="https://www.gov.uk/guidance/the-sau-referrals-process-information-for-public-authorities">webpage</a> and see the <a target="_blank" class="govuk-link"rel="noreferrer noopener" href="https://www.gov.uk/government/publications/guidance-on-the-operation-of-the-subsidy-control-functions-of-the-subsidy-advice-unit/operation-of-the-subsidy-control-functions-of-the-subsidy-advice-unit#procedural-arrangements">procedural arrangements</a> in the SAU guidance.</p>
+        <div class="govuk-inset-text">
+        Please be aware that the PAP is separate from the Department for Business and Trade (DBT) Transparency Database. To access the DBT transparency database, PAs can click 'Manage UK Subsidies' at the top of the page. 
+        </div>
     contact_us:
       page_text_html: |
         <h1 class="govuk-heading-l">Contact us</h1>
