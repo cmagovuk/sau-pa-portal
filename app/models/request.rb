@@ -43,6 +43,7 @@ class Request < ApplicationRecord
     application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
     application/vnd.openxmlformats-officedocument.presentationml.presentation
     application/zip
+    application/x-zip-compressed
   ].freeze
 
   EXTENSIONS_ALLOWED = %w[.doc .docx .xls .xlsx .ppt .pptx .pdf .zip].freeze
@@ -80,6 +81,14 @@ class Request < ApplicationRecord
   # allow pages that don't update object, such as information and confirmation pages
   def info_only?
     permitted.empty?
+  end
+
+  def ordered_assessment_docs
+    assessment_docs.includes(:blob).references(:blob).order("active_storage_blobs.filename ASC")
+  end
+
+  def ordered_character_desc_docs
+    character_desc_docs.includes(:blob).references(:blob).order("active_storage_blobs.filename ASC")
   end
 
   def self.next_reference_number

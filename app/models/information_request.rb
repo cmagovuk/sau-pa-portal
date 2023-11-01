@@ -12,11 +12,12 @@ class InformationRequest < ApplicationRecord
     application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
     application/vnd.openxmlformats-officedocument.presentationml.presentation
     application/zip
+    application/x-zip-compressed
   ].freeze
 
   EXTENSIONS_ALLOWED = %w[.doc .docx .xls .xlsx .ppt .pptx .pdf .zip].freeze
 
-  MAXIMUM_FILE_UPLOADS = 10
+  MAXIMUM_FILE_UPLOADS = 100
 
   def valid_request_documents?(docs)
     @valid_request_documents ||= validate_documents?(docs, request_doc)
@@ -55,6 +56,14 @@ class InformationRequest < ApplicationRecord
 
   def add_response_doc(doc)
     response_doc.attach(doc)
+  end
+
+  def ordered_request_doc
+    request_doc.includes(:blob).references(:blob).order("active_storage_blobs.filename ASC")
+  end
+
+  def ordered_response_doc
+    response_doc.includes(:blob).references(:blob).order("active_storage_blobs.filename ASC")
   end
 
 private

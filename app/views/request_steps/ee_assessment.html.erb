@@ -16,7 +16,7 @@
           multiple: true,
           enctype: "multipart/form-data",
           class: "upload-input" %>
-  <%= render partial: "document_list", object: @request.assessment_docs %>
+  <%= render partial: "document_list", object: @request.ordered_assessment_docs %>
   <%= f.govuk_submit t("buttons.upload_files"), secondary: true, classes: "upload-files-button" %>
 
   <%= f.govuk_text_area :assess_ee_pa do %>

@@ -36,7 +36,7 @@ end %>
     end
 
     table.body do |body|
-        @request.assessment_docs.each do |d|                
+        @request.ordered_assessment_docs.each do |d|                
             body.row do |row|
                 row.cell do |cell| %>
                     <%= link_to rails_blob_path(d, "attachment"), class: 'govuk-link' do %>
@@ -63,7 +63,7 @@ end %>
     end
 
     table.body do |body|
-        @request.character_desc_docs.each do |d|                
+        @request.ordered_character_desc_docs.each do |d|                
             body.row do |row|
                 row.cell do |cell| %>
                     <%= link_to rails_blob_path(d, "attachment"), class: 'govuk-link' do %>

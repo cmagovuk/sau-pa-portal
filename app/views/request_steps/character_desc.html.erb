@@ -19,11 +19,11 @@
           label: {text: t('helpers.label.request.character_desc_docs')},
           hint: {text: t('helpers.hint.request.character_desc_docs')},
           accept: ".doc, .docx, .xls, .xlsx, .ppt, .pptx, .pdf, .zip",
-          multiple: false,
+          multiple: true,
           enctype: "multipart/form-data",
           class: "upload-input" %>
   <%= f.govuk_submit t("buttons.upload_files"), secondary: true, classes: "upload-files-button" %>
-  <%= render partial: "document_list", object: @request.character_desc_docs %>
+  <%= render partial: "document_list", object: @request.ordered_character_desc_docs %>
 
   <%= f.govuk_submit t("buttons.submit"), classes: "upload-continue-button", name: "continue" %>
 <% end %>

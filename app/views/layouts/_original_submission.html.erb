@@ -407,7 +407,7 @@
             summary_list.row do |row|
                 row.key { 'Supporting documents' }
                 row.value do 
-                @request.character_desc_docs.each do |d| %>
+                @request.ordered_character_desc_docs.each do |d| %>
                     <%=d.filename %><br>
                 <% end 
                 end
@@ -469,7 +469,7 @@
             row.key { 'Supporting evidence' }
             row.value do 
                 if @request.assessment_docs.attached?
-                    @request.assessment_docs.each do |d| %>
+                    @request.ordered_assessment_docs.each do |d| %>
                         <%= d.filename %><br>
                   <% end
                  end

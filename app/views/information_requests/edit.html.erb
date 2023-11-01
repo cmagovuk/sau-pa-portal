@@ -19,7 +19,7 @@ breadcrumbs = {
         multiple: true,
         enctype: "multipart/form-data",
         class: "upload-input" %>
-  <%= render partial: "/layouts/document_list", object: @information_request.request_doc %>
+  <%= render partial: "/layouts/document_list", object: @information_request.ordered_request_doc %>
 
   <%= f.govuk_submit t("buttons.upload_files"), secondary: true, classes: "upload-files-button", name: "upload" %>
   <%= f.govuk_submit classes: "upload-continue-button" %>
