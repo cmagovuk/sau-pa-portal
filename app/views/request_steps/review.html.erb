@@ -263,6 +263,14 @@
             end
            
             summary_list.row do |row|
+                row.key { 'Contact email address' }
+                row.value do 
+                  render partial:"summary_value", locals: { value: @request.third_party_email,  field: :third_party_email }
+                end
+                row.action(href: request_step_path(:descriptions), visually_hidden_text: 'contact email address')
+            end
+
+            summary_list.row do |row|
                 row.key { 'Legal basis' }
                 row.value(classes:"app-pre-wrap") do 
                    render partial:"summary_value", locals: {value: @request.legal, field: :legal}
@@ -537,7 +545,15 @@
                   row.action(href: request_step_path(:descriptions), visually_hidden_text: 'description')
               end
             end
-           
+
+            summary_list.row do |row|
+                row.key { 'Contact email address' }
+                row.value do 
+                  render partial:"summary_value", locals: { value: @request.third_party_email,  field: :third_party_email }
+                end
+                row.action(href: request_step_path(:descriptions), visually_hidden_text: 'contact email address')
+            end
+
             summary_list.row do |row|
                 row.key { 'Legal basis' }
                 row.value(classes:"app-pre-wrap") do 

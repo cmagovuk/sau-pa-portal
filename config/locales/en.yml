@@ -678,6 +678,7 @@ en:
               <li>Categories of beneficiary; and</li>
               <li>Any relevant time limits or other conditions which may be attached to the award.</li>
             </ul>
+        third_party_email: On publication of the SAU's Notice under section 53(1)(a) of the Subsidy Control Act 2022, we will direct third parties to provide comments to the SAU's email address, copying in the address provided.
         legal: 
           scheme: Please provide a summary of the legal basis under which the subsidy scheme is made
           subsidy: Please provide a summary of the legal basis under which the subsidy is given
@@ -816,6 +817,7 @@ en:
            scheme: Description of the subsidy scheme
            subsidy: Description of the subsidy award
         nc_description: Please provide an appropriate non-confidential description of the %{type} to be published by the SAU
+        third_party_email: Please provide an email address to be used as a designated contact point for third party submissions on our webpage.
         call_in: Call in Direction by the Secretary of State
         par_call_in: Post-award referral
         par_on_td_options:

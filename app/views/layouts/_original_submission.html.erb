@@ -177,6 +177,11 @@
             end
 
             summary_list.row do |row|
+                row.key { 'Contact email address' }
+                row.value { @request.third_party_email }
+            end
+
+            summary_list.row do |row|
                 row.key { 'Legal basis' }
                 row.value(classes:"app-pre-wrap", text: @request.legal)
             end
@@ -352,6 +357,11 @@
               end
             end
            
+            summary_list.row do |row|
+                row.key { 'Contact email address' }
+                row.value { @request.third_party_email }
+            end
+
             summary_list.row do |row|
                 row.key { 'Legal basis' }
                 row.value(classes:"app-pre-wrap", text: @request.legal)

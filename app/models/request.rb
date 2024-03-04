@@ -100,7 +100,7 @@ class Request < ApplicationRecord
     false
   end
 
-  CORE_FIELDS = %w[referral_type description is_nc].freeze
+  CORE_FIELDS = %w[referral_type description is_nc third_party_email].freeze
   CALL_IN_FIELDS = %w[direction_date call_in_type].freeze
   PAR_FIELDS = %w[direction_date par_on_td par_assessed].freeze
   SUBSIDY_FIELDS = %w[subsidy_form is_emergency ben_id_type ben_id beneficiary ben_size legal policy confirm_date].freeze
