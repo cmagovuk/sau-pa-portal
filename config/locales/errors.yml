@@ -23,6 +23,9 @@ en:
         invalid: Enter an email address in the correct format, like name@example.com
         taken: Email address has already been added
         domain: Email domain must match your own organisation domain '@%{domain}'
+      third_party_email:
+        invalid: Enter an email address in the correct format, like name@example.com
+        too_long: Email address must be %{count} characters or fewer
       user_name:
         blank: Enter the users name
         too_long: Name must be %{count} characters or fewer
