@@ -44,6 +44,18 @@ $govuk-image-url-function: frontend-image-url;
   display: none;
 }
 
+.js-enabled .pa-org-2-fg {
+  display: none;
+}
+
+.js-enabled .pa-org-2-select-fg {
+  display: none;
+}
+
+.js-enabled .pa-org-1-fg {
+  display: none;
+}
+
 .sau-date-warning {
   display: none;
 }

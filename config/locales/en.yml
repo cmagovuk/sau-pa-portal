@@ -731,6 +731,8 @@ en:
 
       authority:
         pa_name: Name of public authority
+        org_level_1: Reporting group level 1
+        org_level_2: Reporting group level 2
       user:
         public_authority_id: Public authority
         user_name: Name

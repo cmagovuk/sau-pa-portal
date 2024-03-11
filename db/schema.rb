@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_02_26_170819) do
+ActiveRecord::Schema.define(version: 2024_03_08_093724) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -73,6 +73,8 @@ ActiveRecord::Schema.define(version: 2024_02_26_170819) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.uuid "umbrella_authority_id"
+    t.string "org_level_1"
+    t.string "org_level_2"
     t.index ["pa_name"], name: "index_public_authorities_on_pa_name", unique: true
     t.index ["umbrella_authority_id"], name: "index_public_authorities_on_umbrella_authority_id"
   end
