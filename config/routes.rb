@@ -88,7 +88,11 @@ Rails.application.routes.draw do
   resources :set_decision, only: %i[edit update], path_names: { edit: "" } do
     member do
       get "confirm"
+      get "amend"
       patch "remove"
+      patch "amend_remove"
+      patch "amend_update"
+      put "amend_update"
       post "submit"
     end
   end
@@ -121,6 +125,9 @@ Rails.application.routes.draw do
       get "confirm"
       post "submit"
       patch "remove"
+      get "amend"
+      patch "amend_remove"
+      put "amend_update"
     end
   end
 

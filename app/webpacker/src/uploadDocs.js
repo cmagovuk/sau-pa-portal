@@ -12,8 +12,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const inputFileUpload = document.getElementsByClassName("upload-input")[0];
     if (inputFileUpload) {
         const uploadFileButton = document.getElementsByClassName("upload-files-button")[0];
-        const continueButton = document.getElementsByClassName("upload-continue-button")[0];
-        if (continueButton && uploadFileButton) {
+        if (uploadFileButton) {
+            const continueButton = document.getElementsByClassName("upload-continue-button")[0];
             inputFileUpload.addEventListener('change', (e) => {
                 if (continueButton) {
                     continueButton.disabled = true;

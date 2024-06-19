@@ -4,6 +4,26 @@ class SetDecisionController < SauLeadershipController
     @set_decision_form.decision = session[:decision]
   end
 
+  def amend
+    @set_decision_form = SetDecisionForm.new(param: params[:id])
+    @set_decision_form.decision = session[:decision]
+  end
+
+  def amend_update
+    @set_decision_form = SetDecisionForm.new(set_decision_params.merge(param: params[:id]))
+    @set_decision_form.continue_btn = params.key?(:continue)
+
+    if @set_decision_form.valid?
+      if @set_decision_form.valid_document?(params[:set_decision][:documents]) && @set_decision_form.add_document(params[:set_decision][:documents])
+        session[:decision] = @set_decision_form.decision
+        redirect_to amend_set_decision_path and return
+      end
+    else
+      @set_decision_form.valid_document?(params[:set_decision][:documents])
+    end
+    render :amend
+  end
+
   def update
     @set_decision_form = SetDecisionForm.new(set_decision_params.merge(param: params[:id]))
     @set_decision_form.continue_btn = params.key?(:continue)
@@ -34,6 +54,16 @@ class SetDecisionController < SauLeadershipController
       redirect_to edit_set_decision_path and return
     else
       render :edit
+    end
+  end
+
+  def amend_remove
+    if params.key?(:doc_id)
+      @set_decision_form = SetDecisionForm.new(param: params[:id])
+      @set_decision_form.remove_document(params[:doc_id])
+      redirect_to amend_set_decision_path and return
+    else
+      render :amend
     end
   end
 

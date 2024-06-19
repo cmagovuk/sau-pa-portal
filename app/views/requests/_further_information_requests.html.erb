@@ -40,7 +40,7 @@
                   row.cell
                 end
                 row.cell do |cell| %>
-                    <%= further_info_link(ir, @presenter.info_actions) %>
+                    <%= further_info_link(ir, @presenter.info_actions(nil)) %>
             <% end
             end
           end

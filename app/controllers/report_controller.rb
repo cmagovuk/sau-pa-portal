@@ -3,6 +3,10 @@ class ReportController < SauLeadershipController
     @request = Request::UploadReport.find(params[:id])
   end
 
+  def modify_set
+    @request = Request::UploadReport.find(params[:id])
+  end
+
   def report_upload
     @request = Request::UploadReport.find(params[:id])
     if params.key?(:request) && params[:request].key?(:final_report)

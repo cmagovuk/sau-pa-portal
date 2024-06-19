@@ -26,6 +26,34 @@ class InformationRequestsController < SauLeadershipController
     information_request
   end
 
+  def amend
+    information_request
+  end
+
+  def amend_remove
+    information_request
+    if params.key?(:doc_id)
+      @information_request.remove_request_doc(params[:doc_id])
+      redirect_to amend_information_request_path(@information_request)
+    else
+      render :amend
+    end
+  end
+
+  def amend_update
+    information_request
+    if params[:information_request].present? && params[:information_request].key?(:request_doc)
+      if @information_request.valid_request_documents?(params[:information_request][:request_doc])
+        @information_request.add_request_doc(params[:information_request][:request_doc])
+        redirect_to amend_information_request_path(@information_request)
+      else
+        render :amend
+      end
+    else
+      render :amend
+    end
+  end
+
   def remove
     information_request
     if params.key?(:doc_id)

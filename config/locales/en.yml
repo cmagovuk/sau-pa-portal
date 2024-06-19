@@ -132,7 +132,8 @@ en:
     edit:
       page_title: Upload final report
       heading: Upload final report
-      summary: Upload final report. This will also set the request to 'Completed'
+      status_text_html: <p class="govuk-body">This will also set the request to 'Completed'</p>
+      summary_html: <p class="govuk-body">Please ensure you upload <b>both</b> the final report and the accompanying letter to the public authority before proceeding.</p>
     report_confirm:
       page_title: Confirm final report
       heading: Confirm final report
@@ -227,6 +228,9 @@ en:
     edit:
       page_title: Set decision
       summary: Upload the decision letter
+    amend:
+      page_title: Amend decision documents
+      summary: Amend the decision letter
     confirm:
       page_title: Confirm decision
       heading: Confirm decision
@@ -520,6 +524,9 @@ en:
       confirm-button: Confirm
     edit:
       page_title: Initiate RFI
+      summary: Upload information request documents to initiate a new information request.
+    amend:
+      page_title: Amend RFI documents
       summary: Upload information request documents to initiate a new information request.
     request_summary:
       page-title: Information request sent

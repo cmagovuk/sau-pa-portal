@@ -48,12 +48,23 @@ class SauRequestPresenter
     actions
   end
 
-  def info_actions
-    @info_actions ||= {
-      "request-confirmed" => { link: false, tag_text: "Info required", colour: "red" },
+  def info_actions(auth_user)
+    @info_actions ||= determine_info_actions(auth_user)
+  end
+
+  def determine_info_actions(auth_user)
+    actions = {
       "response-confirmed" => { link: false, tag_text: "Completed", colour: nil },
       "request-unconfirmed" => { link: "/information_requests/:id/confirm", tag_text: "Request incomplete", colour: "red" },
-      "response-unconfirmed" => { link: false, tag_text: "Info required", colour: "red" },
-    }.freeze
+      "response-unconfirmed" => { link: false, tag_text: "Awaiting info", colour: "red" },
+    }
+
+    actions["request-confirmed"] = if auth_user.has_role?("SAU-Pipeline")
+                                     { link: "/information_requests/:id/amend", tag_text: "Amend docs", colour: "red" }
+                                   else
+                                     { link: false, tag_text: "Awaiting info", colour: "red" }
+                                   end
+    actions.freeze
+    actions
   end
 end

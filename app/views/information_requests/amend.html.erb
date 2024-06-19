@@ -1,0 +1,50 @@
+<% title(t('.page_title')) %>
+<% 
+breadcrumbs = {
+  "Request progress" => sau_request_path(@information_request.request),
+  t('information-requests') => nil
+    }
+%>
+<%= govuk_breadcrumbs(breadcrumbs: breadcrumbs) %>
+
+<h1 class='govuk-heading-l'><%= t('.page_title') %></h1>
+
+<p class='govuk-body'><%= t('.summary') %></p>
+
+<%= form_for @information_request, url: amend_update_information_request_path(params[:id]), method: :put, :as => :information_request do |f| %>
+  <%= f.govuk_error_summary %>
+  <%= f.govuk_file_field :request_doc,
+        label: {text: "Choose a file"},
+        accept: ".doc, .docx, .xls, .xlsx, .ppt, .pptx, .pdf, .zip",
+        multiple: true,
+        enctype: "multipart/form-data",
+        class: "upload-input" %>
+
+<% if @information_request.ordered_request_doc.count > 0 %>
+<table class="govuk-table">
+  <thead class="govuk-table__head">
+    <tr govuk-table__row>
+      <th class="govuk-table__header"><%= t("documents_table.headers.file_name") %></th>
+      <th class="govuk-table__header app-hide-col"><%= t("documents_table.headers.file_size") %></th>
+      <th class="govuk-table__header"><%= t("documents_table.headers.action") %></th>
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+    <%  @information_request.ordered_request_doc.each do |document| %>
+                <tr class="govuk-table__row">
+              <td class="govuk-table__cell"><%= link_to document.filename, document.url, class: 'govuk-link' %></td>
+              <td class="govuk-table__cell app-hide-col"><%= number_to_human_size(document.byte_size) %></td>
+              <td class="govuk-table__cell">
+                <%= link_to "#{amend_remove_information_request_path(@information_request)}?doc_id="+ document.id, method: :patch, class: 'govuk-link' do %>
+                  Remove<span class="govuk-visually-hidden"> file <%= document.filename %></span>
+                <% end %>
+              </td>
+            </tr>
+    <% end %>
+  </tbody>
+</table>
+<% end %>
+
+  <%= f.govuk_submit t("buttons.upload_files"), secondary: true, classes: "upload-files-button", name: "upload" %>
+  
+<% end %>

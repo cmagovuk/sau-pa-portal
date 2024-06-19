@@ -1,0 +1,41 @@
+<% title(t('.page_title')) %>
+<% 
+breadcrumbs = {
+      "Request progress"     => sau_request_path(params[:id]),
+      "Original submission" => nil
+    }
+%>
+<%= govuk_breadcrumbs(breadcrumbs: breadcrumbs) %>
+
+<%= form_for @set_decision_form, url: amend_update_set_decision_path, method: :patch, :as => :set_decision do |f| %>
+  <%= f.govuk_error_summary %>
+    <%= f.govuk_file_field :documents,
+          label: {text: t('.summary'), size: 'l' },
+          accept: ".doc, .docx, .xls, .xlsx, .ppt, .pptx, .pdf, .zip",
+          multiple: false,
+          enctype: "multipart/form-data",
+          class: "upload-input" %>
+    <% if @set_decision_form.decision_letter.id.present? %>
+      <table class="govuk-table">
+        <thead class="govuk-table__head">
+          <tr govuk-table__row>
+            <th class="govuk-table__header"><%= t("documents_table.headers.file_name") %></th>
+            <th class="govuk-table__header app-hide-col"><%= t("documents_table.headers.file_size") %></th>
+            <th class="govuk-table__header"><%= t("documents_table.headers.action") %></th>
+          </tr> 
+        </thead>
+        <tbody class="govuk-table__body">
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell"><%=@set_decision_form.decision_letter.filename %></td>
+            <td class="govuk-table__cell app-hide-col"><%= number_to_human_size(@set_decision_form.decision_letter.byte_size) %></td>
+            <td class="govuk-table__cell">
+              <%= link_to "#{amend_remove_set_decision_path}?doc_id="+ @set_decision_form.decision_letter.id, method: :patch, class: 'govuk-link' do %>
+                Remove<span class="govuk-visually-hidden"> file <%= @set_decision_form.decision_letter.filename %></span>
+              <% end %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    <% end %>
+    <%= f.govuk_submit t("buttons.upload_files"), secondary: true, classes: "upload-files-button", name: "upload" %>
+<% end %>
