@@ -12,6 +12,7 @@ class ReportController < SauLeadershipController
     if params.key?(:request) && params[:request].key?(:final_report)
       if @request.valid_document?(params[:request][:final_report])
         @request.add_document(params[:request][:final_report])
+        @request.audit_logs.create!(AuditLog.log(auth_user, :amend_added, doc_set: "Final report")) if @request.status == "Completed"
         redirect_to "/sau_requests/#{@request.id}/report" and return
       else
         render :edit
@@ -27,6 +28,7 @@ class ReportController < SauLeadershipController
     @request = Request::UploadReport.find(params[:id])
     if params.key?(:doc_id)
       @request.remove_document(params[:doc_id])
+      @request.audit_logs.create!(AuditLog.log(auth_user, :amend_remove, doc_set: "Final report")) if @request.status == "Completed"
       #  redirect_to "/sau_requests/#{@request.id}/report"
       redirect_to "#{sau_request_path(@request)}/report"
     else

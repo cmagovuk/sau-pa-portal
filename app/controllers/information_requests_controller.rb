@@ -34,6 +34,7 @@ class InformationRequestsController < SauLeadershipController
     information_request
     if params.key?(:doc_id)
       @information_request.remove_request_doc(params[:doc_id])
+      @information_request.request.audit_logs.create!(AuditLog.log(auth_user, :amend_remove, doc_set: "RFI"))
       redirect_to amend_information_request_path(@information_request)
     else
       render :amend
@@ -45,6 +46,7 @@ class InformationRequestsController < SauLeadershipController
     if params[:information_request].present? && params[:information_request].key?(:request_doc)
       if @information_request.valid_request_documents?(params[:information_request][:request_doc])
         @information_request.add_request_doc(params[:information_request][:request_doc])
+        @information_request.request.audit_logs.create!(AuditLog.log(auth_user, :amend_added, doc_set: "RFI"))
         redirect_to amend_information_request_path(@information_request)
       else
         render :amend

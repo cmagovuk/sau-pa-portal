@@ -15,7 +15,7 @@ class SetDecisionController < SauLeadershipController
 
     if @set_decision_form.valid?
       if @set_decision_form.valid_document?(params[:set_decision][:documents]) && @set_decision_form.add_document(params[:set_decision][:documents])
-        session[:decision] = @set_decision_form.decision
+        @set_decision_form.audit_logs.create!(AuditLog.log(auth_user, :amend_added, doc_set: "Decision"))
         redirect_to amend_set_decision_path and return
       end
     else
@@ -61,6 +61,7 @@ class SetDecisionController < SauLeadershipController
     if params.key?(:doc_id)
       @set_decision_form = SetDecisionForm.new(param: params[:id])
       @set_decision_form.remove_document(params[:doc_id])
+      @set_decision_form.audit_logs.create!(AuditLog.log(auth_user, :amend_remove, doc_set: "Decision"))
       redirect_to amend_set_decision_path and return
     else
       render :amend

@@ -22,7 +22,7 @@ class SetDecisionForm
 
   OPTIONS = %w[accepted declined rejected].freeze
 
-  delegate :decision_letter, to: :request
+  delegate :decision_letter, :audit_logs, to: :request
 
   with_options if: :continue_btn do
     validates :decision, presence: true

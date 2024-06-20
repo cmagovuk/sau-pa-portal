@@ -591,6 +591,8 @@ en:
     called_in: Changed to Call in
     report_due_date: Report due date set to %{date}
     owner_change: Owner changed from %{from} to %{to}
+    amend_remove: Removed %{doc_set} document
+    amend_added: Added %{doc_set} document
 
   helpers:
     legend:
