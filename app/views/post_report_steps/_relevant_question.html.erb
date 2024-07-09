@@ -1,0 +1,13 @@
+<%= f.govuk_radio_buttons_fieldset choice_field.to_sym, 
+    legend: { class: "govuk-fieldset__legend" },
+    small:true do %>
+        <% PostReport::REL_OPTIONS.each_with_index do |opt, idx| %>
+        <% if opt != "rel" %>
+            <%= f.govuk_radio_button choice_field.to_sym, opt, link_errors: idx == 0 %>
+        <% else %>
+            <%= f.govuk_radio_button choice_field.to_sym, opt do %>
+            <%= f.govuk_text_area "#{choice_field}_text".to_sym, max_chars: 10000 %>
+            <% end %>
+        <% end %>
+    <% end %>
+<% end %>

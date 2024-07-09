@@ -9,6 +9,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :post_reports, only: %i[new edit update show]
+
   resources :users, only: %i[new edit index], path_names: { edit: "" } do
     member do
       get "change_state"
@@ -55,6 +57,7 @@ Rails.application.routes.draw do
       get "due_date"
       patch "set_due_date"
     end
+    resources :post_report_steps, only: %i[edit update], path_names: { edit: "" }
   end
 
   get "sau_requests/view/:id", to: "sau_requests#view"

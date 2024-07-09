@@ -12,6 +12,7 @@ class Request < ApplicationRecord
   belongs_to :user
   belongs_to :submitted_by, class_name: "User", optional: true
 
+  has_one :post_report
   has_many :information_requests, -> { order("created_at desc") }
   has_many :audit_logs, -> { order("created_at desc") }, as: :log, dependent: :destroy
 

@@ -235,6 +235,38 @@ en:
       page_title: Confirm decision
       heading: Confirm decision
 
+  post_report_steps:
+    referral_details:
+      page_title: Referral details
+      fieldset_legend: Referral details
+    principle_a:
+      page_title: Principle A
+      fieldset_legend: Principle A
+    principle_b:
+      page_title: Principle B
+      fieldset_legend: Principle B
+    principle_c:
+      page_title: Principle C
+      fieldset_legend: Principle C
+    principle_d:
+      page_title: Principle D
+      fieldset_legend: Principle D
+    principle_e:
+      page_title: Principle E
+      fieldset_legend: Principle E
+    principle_f:
+      page_title: Principle F
+      fieldset_legend: Principle F
+    principle_g:
+      page_title: Principle G
+      fieldset_legend: Principle G
+    ee_principles:
+      page_title: Energy and Environment Principles
+      fieldset_legend: Energy and Environment Principles
+    other_issues:
+      page_title: Any other issues
+      fieldset_legend: Are there any other issues or important features in this report that were not covered in the questions above?
+
   request_steps:
     referral_type:
       page_title: Referral type
@@ -602,6 +634,25 @@ en:
       call_in_direction:
         direction_date: Please provide the date that the direction was given
 
+      post_report:
+        pe_policy: Is there a substantial reasoning of any issue relating to 'most appropriate instrument for addressing the policy objective' in the report?
+        pe_other_means: Is there a substantial reasoning of any issue relating to 'cannot be achieved through other, less distortive, means' in the report?
+        pa_policy_evidence: Is there a substantial reasoning of any issue relating to 'setting out and evidencing the specific policy objective(s)' in the report?
+        pa_market_fail: Is there a substantial reasoning of any issue relating to 'remedy an identified market failure' in the report?
+        pa_equity: Is there a substantial reasoning of any issue relating to 'address an equity rationale' in the report?
+        pc_counterfactual: Is there a substantial reasoning of any issue relating to the counterfactual ('baseline for assessing change') in the report?
+        pc_eco_behaviour: Is there a substantial reasoning of any issue relating to the 'changes in economic behaviour of the beneficiary' in the report? 
+        pd_additionality: Is there a substantial reasoning of any issue relating to additionality ('something that would not happen without the subsidy') in the report? 
+        pd_costs: Is there a substantial reasoning of any issue relating to 'costs that would be funded anyway' in the report? 
+        pb_proportion: Is there a substantial reasoning of any issue relating to proportionality and 'limited to what is necessary' in the report?
+        pf_subsidy_char: Is there a substantial reasoning of any issue relating to subsidy characteristics in the report?
+        pf_market_char: Is there a substantial reasoning of any issue relating to market characteristics in the report? 
+        pg_balance_uk: Is there a substantial reasoning of any issue relating to the balancing test and competition and investment in the UK in the report?
+        pg_balance_intl: Is there a substantial reasoning of any issue relating to the balancing test and international trade or investment in the report? 
+        ee_principles: Which energy and environment principles were engaged in this referral?
+        ee_issues: Is there a substantial reasoning of any issue relating to the energy and environment principles in the report?
+        other_issues: Are there any other issues or important features in this report that were not covered in the questions above?
+
       request:
         scheme_subsidy: Is a report requested in relation to a subsidy or subsidy scheme?
         referral_type: Referral type
@@ -753,6 +804,76 @@ en:
           u: Standard user
         disabled_options:
           x: Select to disable account
+      post_report:
+        pe_policy_options:
+          rel: Relevant
+          not_rel: Not relevant
+        pe_policy_text: Provide details
+        pe_other_means_options:
+          rel: Relevant
+          not_rel: Not relevant
+        pe_other_means_text: Provide details
+        pa_policy_evidence_options:
+          rel: Relevant
+          not_rel: Not relevant
+        pa_policy_evidence_text: Provide details
+        pa_market_fail_options: 
+          rel: Relevant
+          not_rel: Not relevant
+        pa_market_fail_text: Of which market failures is there a substantial reasoning in the report?
+        pa_equity_options:
+          rel: Relevant
+          not_rel: Not relevant
+        pa_equity_text: Provide details
+        pc_counterfactual_options:
+          rel: Relevant
+          not_rel: Not relevant
+        pc_counterfactual_text: Provide details
+        pc_eco_behaviour_options:
+          rel: Relevant
+          not_rel: Not relevant
+        pc_eco_behaviour_text: Provide details
+        pd_additionality_options:
+          rel: Relevant
+          not_rel: Not relevant
+        pd_additionality_text: Provide details
+        pd_costs_options:
+          rel: Relevant
+          not_rel: Not relevant
+        pd_costs_text: Provide details
+        pb_proportion_options:
+                  rel: Relevant
+                  not_rel: Not relevant
+        pb_proportion_text: Provide details
+        pf_subsidy_char_options:
+                  rel: Relevant
+                  not_rel: Not relevant
+        pf_subsidy_char_text: Provide details
+        pf_market_char_options:
+                  rel: Relevant
+                  not_rel: Not relevant
+        pf_market_char_text: Provide details
+        pg_balance_uk_options:
+                  rel: Relevant
+                  not_rel: Not relevant
+        pg_balance_uk_text: Provide details
+        pg_balance_intl_options:
+                  rel: Relevant
+                  not_rel: Not relevant
+        pg_balance_intl_text: Provide details
+        ee_principles_options:
+                  rel: Relevant
+                  not_rel: Not relevant
+        ee_principles_text: Provide details
+        ee_issues_options:
+                  rel: Relevant
+                  not_rel: Not relevant
+        ee_issues_text: Provide details
+        other_issues_options:
+                  rel: Relevant
+                  not_rel: Not relevant
+        other_issues_text: Provide details
+
       request:
         scheme_subsidy_options:
           scheme: Subsidy Scheme

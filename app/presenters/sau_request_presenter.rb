@@ -42,6 +42,12 @@ class SauRequestPresenter
           { title: "Withdraw", link: "/withdraw/#{@request.id}", secondary: true },
         ]
       end
+
+      if %w[Completed].include?(@request.status)
+        actions += [
+          { title: "Post report", link: "/post_reports/#{@request.id}/edit", secondary: false },
+        ]
+      end
     end
 
     actions += [{ title: "View submission", link: view_path, secondary: actions.count.positive? }]

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_03_08_093724) do
+ActiveRecord::Schema.define(version: 2024_07_09_153425) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -65,6 +65,55 @@ ActiveRecord::Schema.define(version: 2024_03_08_093724) do
     t.datetime "updated_at", precision: 6, null: false
     t.uuid "request_id", null: false
     t.index ["request_id"], name: "index_information_requests_on_request_id"
+  end
+
+  create_table "post_reports", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "status"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.uuid "request_id"
+    t.text "referral_name"
+    t.string "completed_steps"
+    t.string "pe_policy"
+    t.string "pe_other_means"
+    t.string "pc_counterfactual"
+    t.string "pc_eco_behaviour"
+    t.string "pd_additionality"
+    t.string "pd_costs"
+    t.string "pb_proportion"
+    t.string "pf_subsidy_char"
+    t.string "pf_market_char"
+    t.string "pg_balance_uk"
+    t.string "pg_balance_intl"
+    t.string "ee_engaged"
+    t.string "ee_reasoning"
+    t.text "pe_policy_text"
+    t.text "pe_other_means_text"
+    t.text "pc_counterfactual_text"
+    t.text "pc_eco_behaviour_text"
+    t.text "pd_additionality_text"
+    t.text "pd_costs_text"
+    t.text "pb_proportion_text"
+    t.text "pf_subsidy_char_text"
+    t.text "pf_market_char_text"
+    t.text "pg_balance_uk_text"
+    t.text "pg_balance_intl_text"
+    t.text "ee_engaged_text"
+    t.text "ee_reasoning_text"
+    t.string "pa_policy_evidence"
+    t.string "pa_market_fail"
+    t.string "pa_equity"
+    t.text "pa_policy_evidence_text"
+    t.text "pa_market_fail_text"
+    t.text "pa_equity_text"
+    t.string "ee_relevant"
+    t.string "ee_principles"
+    t.string "ee_issues"
+    t.string "other_issues"
+    t.text "ee_principles_text"
+    t.text "ee_issues_text"
+    t.text "other_issues_text"
+    t.index ["request_id"], name: "index_post_reports_on_request_id"
   end
 
   create_table "public_authorities", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -186,6 +235,7 @@ ActiveRecord::Schema.define(version: 2024_03_08_093724) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "information_requests", "requests"
+  add_foreign_key "post_reports", "requests"
   add_foreign_key "public_authorities", "public_authorities", column: "umbrella_authority_id"
   add_foreign_key "requests", "public_authorities"
   add_foreign_key "requests", "users"
