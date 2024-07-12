@@ -48,18 +48,12 @@ class PostReportStepsController < SauLeadershipController
       if next_step
         redirect_to sau_request_post_report_step_path(step_model.request_id, next_step)
       elsif wf.completed_steps?
-        # step_model.update!(reference_number: Request.next_reference_number) if step_model.reference_number.blank?
-        # step_model.submission_text.attach(({
-        #  io: StringIO.new(render_to_string("requests/submission", formats: [:pdf])),
-        #  filename: "submission.pdf",
-        #  content_type: "application.pdf",
-        # }))
-        # result = post_report_service.submit_request(@post_report)
+        result = post_report_service.submit_post_report(@post_report.request)
         if result
-          # step_model.update!(status: "Submitted", submitted_date: Time.zone.now, submitted_by_id: auth_user.user_id)
+          step_model.update!(status: "Completed")
           # step_model.audit_logs.create!(AuditLog.log(auth_user, :status_change, status: step_model.status))
           # GovukNotifyService.send_submit_request_email(step_model, auth_user) if step_model.reference_number.present?
-          # redirect_to post_report_submitted_path
+          redirect_to sau_request_path(params[:sau_request_id])
         else
           Rails.logger.warn "Failed to submit post report"
           render "/errors/internal_server_error", status: :internal_server_error
@@ -107,11 +101,11 @@ private
   end
 
   def post_report_service
-    @post_report_service ||= RequestService.new
+    @post_report_service ||= PostReportService.new
   end
 
   def redirect_completed
-    redirect_to post_report_submitted_path unless step_model.status == "Draft"
+    redirect_to sau_request_path(params[:sau_request_id]) unless step_model.status == "Draft"
   end
 
   delegate :step, :step_model, :next_step, to: :wf

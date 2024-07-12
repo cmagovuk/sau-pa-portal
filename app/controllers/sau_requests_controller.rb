@@ -7,6 +7,11 @@ class SauRequestsController < SauTeamController
     @request = Request.find(params[:id])
   end
 
+  def view_post_report
+    @request = Request.find(params[:id])
+    @post_report = @request.post_report
+  end
+
   def due_date
     @request = Request::ReportDueDate.find(params[:id])
   end

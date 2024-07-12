@@ -7,6 +7,53 @@
       <%= f.govuk_error_summary %>
       <%= f.govuk_fieldset legend: {text: t('.fieldset_legend'), size: 'l', tag: 'h1'} do %>
           <%= f.govuk_text_field :referral_name %>
+          <%= f.govuk_radio_buttons_fieldset :confi_issues, 
+              legend: { class: "govuk-fieldset__legend" },
+              small:true do %>
+                  <% PostReport::YES_NO_OPTIONS.each_with_index do |opt, idx| %>
+                  <% if opt != "y" %>
+                      <%= f.govuk_radio_button :confi_issues, opt, link_errors: idx == 0 %>
+                  <% else %>
+                      <%= f.govuk_radio_button :confi_issues, opt do %>
+                      <%= f.govuk_text_area :confi_issues_text, max_chars: PostReport::MAX_CHAR_COUNT %>
+                      <% end %>
+                  <% end %>
+              <% end %>
+          <% end %>
+          <%= f.govuk_radio_buttons_fieldset :special_cats, 
+              legend: { class: "govuk-fieldset__legend" },
+              small:true do %>
+                  <% PostReport::YES_NO_OPTIONS.each_with_index do |opt, idx| %>
+                  <% if opt != "y" %>
+                      <%= f.govuk_radio_button :special_cats, opt, link_errors: idx == 0 %>
+                  <% else %>
+                      <%= f.govuk_radio_button :special_cats, opt do %>
+                      <%= f.govuk_text_area :special_cats_text, max_chars: PostReport::MAX_CHAR_COUNT %>
+                      <% end %>
+                  <% end %>
+              <% end %>
+          <% end %>
+
+          <%= f.govuk_radio_buttons_fieldset :third_party_reps, 
+              legend: { class: "govuk-fieldset__legend" },
+              small:true do %>
+                  <% PostReport::YES_NO_OPTIONS.each_with_index do |opt, idx| %>
+                  <% if opt != "y" %>
+                      <%= f.govuk_radio_button :third_party_reps, opt, link_errors: idx == 0 %>
+                  <% else %>
+                      <%= f.govuk_radio_button :third_party_reps, opt do %>
+                      <%= f.govuk_text_area :third_party_reps_text, max_chars: PostReport::MAX_CHAR_COUNT %>
+                      <% end %>
+                  <% end %>
+              <% end %>
+          <% end %>
+          <%= f.govuk_text_field :value %>
+          <% if @post_report.request.status == "Rejected" %>
+            <%= f.govuk_text_area :reject_reason, max_chars: PostReport::MAX_CHAR_COUNT %>
+          <% end %>
+          <% if @post_report.request.status == "Withdrawn" %>
+            <%= f.govuk_text_area :reject_reason, max_chars: PostReport::MAX_CHAR_COUNT %>
+          <% end %>
       <% end %>
       <%= f.govuk_submit %>
   <% end %>

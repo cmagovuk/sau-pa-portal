@@ -1,0 +1,13 @@
+<% title(t('.page_title')) %>
+<%= render partial: 'back_link' %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+  <%= form_for @post_report, url: sau_request_post_report_step_path(params[:sau_request_id], params[:id]), method: :patch, :as => :post_report do |f| %>
+      <%= f.govuk_error_summary %>
+      <%= f.govuk_collection_radio_buttons :ee_required, PostReport::YES_NO_OPTIONS, ->(option) {option}, nil,
+          legend: { size: "l" }, bold_labels: false, small:true %>
+      <%= f.govuk_submit %>
+  <% end %>
+  </div>
+</div>

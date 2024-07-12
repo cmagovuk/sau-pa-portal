@@ -9,12 +9,14 @@
       <%= f.govuk_radio_buttons_fieldset :other_issues, 
           legend: { size:'l' },
           small:true do %>
-              <% PostReport::REL_OPTIONS.each_with_index do |opt, idx| %>
-              <% if opt != "rel" %>
+              <% PostReport::YES_NO_OPTIONS.each_with_index do |opt, idx| %>
+              <% if opt != "y" %>
                   <%= f.govuk_radio_button :other_issues, opt, link_errors: idx == 0 %>
               <% else %>
                   <%= f.govuk_radio_button :other_issues, opt do %>
-                  <%= f.govuk_text_area :other_issues_text, max_chars: 10000 %>
+                    <%= f.govuk_text_area :other_issues_text, max_chars: PostReport::MAX_CHAR_COUNT %>
+                    <p class="govuk-body govuk-!-font-weight-bold">OR</p>
+                    <%= f.govuk_text_field :other_issues_link %>
                   <% end %>
               <% end %>
           <% end %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_07_09_153425) do
+ActiveRecord::Schema.define(version: 2024_07_12_111044) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -113,6 +113,18 @@ ActiveRecord::Schema.define(version: 2024_07_09_153425) do
     t.text "ee_principles_text"
     t.text "ee_issues_text"
     t.text "other_issues_text"
+    t.string "special_cats"
+    t.string "third_party_reps"
+    t.text "special_cats_text"
+    t.text "value"
+    t.string "other_issues_link"
+    t.string "confi_issues"
+    t.text "confi_issues_text"
+    t.text "reject_reason"
+    t.text "third_party_reps_text"
+    t.string "ee_required"
+    t.text "withdrawn_reason"
+    t.text "pa_names"
     t.index ["request_id"], name: "index_post_reports_on_request_id"
   end
 
@@ -126,6 +138,14 @@ ActiveRecord::Schema.define(version: 2024_07_09_153425) do
     t.string "org_level_2"
     t.index ["pa_name"], name: "index_public_authorities_on_pa_name", unique: true
     t.index ["umbrella_authority_id"], name: "index_public_authorities_on_umbrella_authority_id"
+  end
+
+  create_table "report_pa_names", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "pa_name"
+    t.string "disabled"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["pa_name"], name: "index_report_pa_names_on_pa_name", unique: true
   end
 
   create_table "requests", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

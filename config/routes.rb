@@ -56,6 +56,7 @@ Rails.application.routes.draw do
     member do
       get "due_date"
       patch "set_due_date"
+      get "view_post_report"
     end
     resources :post_report_steps, only: %i[edit update], path_names: { edit: "" }
   end
@@ -161,6 +162,12 @@ Rails.application.routes.draw do
     member do
       get "confirm"
       post "submit"
+    end
+  end
+
+  resources :report_pa_names, only: %i[index create edit new update] do
+    member do
+      get "change_state"
     end
   end
 

@@ -1,7 +1,12 @@
 class PostReports::StepWorkflow
   attr_reader :request_id, :page_id
 
-  STEPS = %w[referral_details principle_a principle_e principle_c principle_d principle_b principle_f principle_g ee_principles other_issues temp review].freeze
+  INITIAL_STEPS = %w[pa_names referral_details].freeze
+  PRINCIPLE_STEPS = %w[principle_a principle_e principle_c principle_d principle_b principle_f principle_g].freeze
+  EE_CHECK_STEPS = %w[ee_check].freeze
+  EE_PRINCIPLE_STEPS = %w[ee_principles].freeze
+  OTHER_ISSUE_STEPS = %w[other_issues].freeze
+  REVIEW_STEPS = %w[review].freeze
 
   def initialize(request_id, page_id)
     @request_id = request_id
@@ -54,7 +59,7 @@ class PostReports::StepWorkflow
   end
 
   def first_step
-    STEPS.first
+    INITIAL_STEPS.first
   end
 
   def completed_steps?
@@ -65,7 +70,14 @@ private
 
   def determine_steps
     # this needs to work out all steps, given the current state of the step model
-    calculated_steps = STEPS
+    calculated_steps = INITIAL_STEPS
+    calculated_steps += PRINCIPLE_STEPS
+    calculated_steps += EE_CHECK_STEPS if step_model.request.ee_assess_required != "y"
+    calculated_steps += EE_PRINCIPLE_STEPS if step_model.request.ee_assess_required == "y" || step_model.ee_required == "y"
+    calculated_steps += OTHER_ISSUE_STEPS
+
+    calculated_steps += REVIEW_STEPS
+
     calculated_steps.freeze
   end
 
