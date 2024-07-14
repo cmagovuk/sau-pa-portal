@@ -40,6 +40,7 @@ class PostReport < ApplicationRecord
     fields += %w[confi_issues_text] if confi_issues == "y"
     fields += %w[third_party_reps_text] if third_party_reps == "y"
     fields += %w[reject_reason] if request.status == "Rejected"
+    fields += %w[withdraw_reason] if request.status == "Withdrawn"
     fields += %w[ee_issues_text] if (request.ee_assess_required == "y" || ee_required == "y") && ee_issues_text == "y"
     fields
   end

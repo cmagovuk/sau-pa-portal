@@ -863,6 +863,7 @@ en:
           n: "No"
         third_party_reps_text: Please provide further details
         reject_reason: Provide reasons why the referral was rejected
+        withdrawn_reason: Provide reasons why the referral was withdrawn
         pe_policy_options:
           y: "Yes"
           n: "No"

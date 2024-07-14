@@ -76,6 +76,13 @@ breadcrumbs = {
                 row.value { @post_report.reject_reason }
             end
         end
+
+        if @post_report.request.status == "Withdrawn"
+            summary_list.row do |row|
+                row.key { 'Why was the referral withdrawn?' }
+                row.value { @post_report.withdrawn_reason }
+            end
+        end
     end %>
 
     <h2 class="govuk-heading-m">Principle A</h2>

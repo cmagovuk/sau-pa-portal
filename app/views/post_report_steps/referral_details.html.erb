@@ -55,7 +55,7 @@
             <%= f.govuk_text_area :reject_reason, max_chars: PostReport::MAX_CHAR_COUNT %>
           <% end %>
           <% if @post_report.request.status == "Withdrawn" %>
-            <%= f.govuk_text_area :reject_reason, max_chars: PostReport::MAX_CHAR_COUNT %>
+            <%= f.govuk_text_area :withdrawn_reason, max_chars: PostReport::MAX_CHAR_COUNT %>
           <% end %>
       <% end %>
       <%= f.govuk_submit %>

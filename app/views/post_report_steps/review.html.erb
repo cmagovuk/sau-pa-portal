@@ -113,7 +113,19 @@
                             locals: { value: @post_report.reject_reason,
                                     field: :reject_reason}
                 end
-                row.action(href: sau_request_post_report_step_path(params[:sau_request_id], :referral_details), visually_hidden_text: 'value')
+                row.action(href: sau_request_post_report_step_path(params[:sau_request_id], :referral_details), visually_hidden_text: 'rejected reason')
+            end
+        end
+
+        if @post_report.request.status == "Withdrawn"
+            summary_list.row do |row|
+                row.key { 'Why was the referral withdrawn?' }
+                row.value do 
+                    render partial:"summary_value", 
+                            locals: { value: @post_report.reject_reason,
+                                    field: :withdrawn_reason}
+                end
+                row.action(href: sau_request_post_report_step_path(params[:sau_request_id], :referral_details), visually_hidden_text: 'withdrawn reason')
             end
         end
     end %>
