@@ -45,7 +45,14 @@ breadcrumbs = {
         if @post_report.special_cats == "y"
             summary_list.row do |row|
                 row.key { 'Special category details' }
-                row.value(classes:"app-pre-wrap") { @post_report.special_cats_text }
+                row.value do
+                    values = translate_terms(@post_report.special_cat_values, "helpers.label.post_report.special_cat_values_options")
+                    if values.count > 0 
+                       values.each do |v| %>
+                        <%= v %><br>
+                  <%   end
+                  end
+                end
             end
         end
         summary_list.row do |row|

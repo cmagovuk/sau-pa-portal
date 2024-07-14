@@ -17,6 +17,8 @@ private
   end
 
   def call_api_post_report_submission(request)
+    pr = request.post_report
+    spec_cat_val = pr.special_cats == "y" ? translate_terms(pr.special_cat_values, "helpers.label.post_report.special_cat_values_options") : []
     body = {
       method: "PostReport.Submit",
       payload: {
@@ -30,6 +32,7 @@ private
         sectors: translate_terms(request.sectors, "helpers.label.request.sectors_options"),
         purposes: translate_terms(request.purposes, "helpers.label.request.purposes_options"),
         locations: translate_terms(request.location, "helpers.label.request.location_options"),
+        special_cat_values: spec_cat_val,
         beneficiary: request.beneficiary.present? ? request.beneficiary[0, 255] : nil,
         ben_size: (request.scheme_subsidy == "subsidy" && request.ben_size.present? ? t(request.ben_size&.to_sym, scope: "helpers.label.request.ben_size_options") : nil),
         ben_good_svr: translate_terms(request.ben_good_svr, "helpers.label.request.ben_good_svr_options"),
@@ -38,7 +41,7 @@ private
         confirm_date: request.confirm_date,
         submitted_date: request.submitted_date,
         completed_date: request.completed_date,
-        post_report: request.post_report,
+        post_report: pr,
       },
     }.to_json
 

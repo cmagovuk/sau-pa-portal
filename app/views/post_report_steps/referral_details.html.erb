@@ -28,7 +28,10 @@
                       <%= f.govuk_radio_button :special_cats, opt, link_errors: idx == 0 %>
                   <% else %>
                       <%= f.govuk_radio_button :special_cats, opt do %>
-                      <%= f.govuk_text_area :special_cats_text, max_chars: PostReport::MAX_CHAR_COUNT %>
+                      <%= f.govuk_collection_check_boxes :special_cat_values, 
+                                                        PostReport::SPECIAL_CAT_OPTIONS,
+                                                        ->(option) {option}, ->(option) {option},
+                                                        legend: {class: "govuk-fieldset__legend"}, small:true %>
                       <% end %>
                   <% end %>
               <% end %>

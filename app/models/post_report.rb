@@ -3,6 +3,7 @@ class PostReport < ApplicationRecord
 
   serialize :completed_steps, Array
   serialize :pa_names, Array
+  serialize :special_cat_values, Array
 
   REL_OPTIONS = %w[rel not_rel].freeze
   YES_NO_OPTIONS = %w[y n].freeze
@@ -37,7 +38,6 @@ class PostReport < ApplicationRecord
       fields += ["#{f}_text"] if send(f).present? && send(f) == "y"
     end
     fields += %w[confi_issues_text] if confi_issues == "y"
-    fields += %w[special_cats_text] if special_cats == "y"
     fields += %w[third_party_reps_text] if third_party_reps == "y"
     fields += %w[reject_reason] if request.status == "Rejected"
     fields += %w[ee_issues_text] if (request.ee_assess_required == "y" || ee_required == "y") && ee_issues_text == "y"
@@ -56,6 +56,7 @@ class PostReport < ApplicationRecord
     submitable = true
 
     submitable &= pa_names.count > 1
+    submitable &= special_cat_values.count > 1 if special_cats == "y"
 
     required_fields.each do |f|
       submitable &= send(f).present?

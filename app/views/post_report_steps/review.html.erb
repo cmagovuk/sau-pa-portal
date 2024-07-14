@@ -62,10 +62,15 @@
         if @post_report.special_cats == "y"
             summary_list.row do |row|
                 row.key { 'Special category details' }
-                row.value(classes:"app-pre-wrap") do 
-                    render partial:"summary_value", 
-                            locals: { value: @post_report.special_cats_text,
-                                    field: :special_cats_text}
+                row.value do
+                    values = translate_terms(@post_report.special_cat_values, "helpers.label.post_report.special_cat_values_options")
+                    if values.count > 0 
+                       values.each do |v| %>
+                        <%= v %><br>
+                  <%   end
+                     else  %> 
+                       <p class="govuk-error-message">Required information missing</p>
+                  <% end
                 end
                 row.action(href: sau_request_post_report_step_path(params[:sau_request_id], :referral_details), visually_hidden_text: 'special categories text')
             end

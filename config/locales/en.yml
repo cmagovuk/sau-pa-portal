@@ -681,6 +681,7 @@ en:
         ee_issues: Does the report provide substantial reasoning for any issue relating to the energy and environment principles? 
         other_issues: Are there any other issues or important features in this report that were not covered in the questions above?
         special_cats: Does the data fall into any of the special categories?
+        special_cat_values: Select all that apply
         confi_issues: Were there any significant issues raised during the confidentiality representations review process?
         third_party_reps: Were any third party representations made?
         ee_required: Was it identified that the Energy and Environment Principles should have been addressed in the referral?
@@ -850,6 +851,9 @@ en:
           y: "Yes"
           n: "No"
         special_cats_text: Provide details
+        special_cat_values_options: 
+          spei: SPEI
+          rest: Restructuring
         confi_issues_options:
           y: "Yes"
           n: "No"
