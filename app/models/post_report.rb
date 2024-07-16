@@ -23,25 +23,33 @@ class PostReport < ApplicationRecord
     @pa_name_options ||= ReportPaName.active_names.order(:pa_name).map(&:pa_name)
   end
 
-  CORE_FIELDS = %w[pa_names referral_name confi_issues special_cats third_party_reps value other_issues].freeze
+  CORE_FIELDS = %w[pa_names referral_name other_issues].freeze
+  COMPLETED_FIELDS = %w[confi_issues special_cats third_party_reps value].freeze
   PRINCIPLE_FIELDS = %w[pa_policy_evidence pa_market_fail pa_equity pe_policy pe_other_means pc_counterfactual pc_eco_behaviour pd_additionality pd_costs pb_proportion pf_subsidy_char pf_market_char pg_balance_uk pg_balance_intl].freeze
   EE_FIELDS = %w[ee_principles ee_issues].freeze
   EE_CHECK_FIELDS = %w[ee_required].freeze
 
   def determine_required_fields
     fields = CORE_FIELDS
-    fields += PRINCIPLE_FIELDS
-    fields += EE_CHECK_FIELDS if request.ee_assess_required != "y"
-    fields += EE_FIELDS if request.ee_assess_required == "y" || ee_required == "y"
+    fields += COMPLETED_FIELDS if request.status == "Completed"
+    if %w[Withdrawn Completed].include?(request.status) && request.decision_letter.attached?
+      fields += PRINCIPLE_FIELDS
+      fields += EE_CHECK_FIELDS if request.ee_assess_required != "y"
+      fields += EE_FIELDS if request.ee_assess_required == "y" || ee_required == "y"
 
-    PRINCIPLE_FIELDS.each do |f|
-      fields += ["#{f}_text"] if send(f).present? && send(f) == "y"
+      PRINCIPLE_FIELDS.each do |f|
+        fields += ["#{f}_text"] if send(f).present? && send(f) == "y"
+      end
+      fields += %w[ee_issues_text] if (request.ee_assess_required == "y" || ee_required == "y") && ee_issues_text == "y"
     end
-    fields += %w[confi_issues_text] if confi_issues == "y"
-    fields += %w[third_party_reps_text] if third_party_reps == "y"
+
+    if request.status == "Completed"
+      fields += %w[confi_issues_text] if confi_issues == "y"
+      fields += %w[third_party_reps_text] if third_party_reps == "y"
+    end
+
     fields += %w[reject_reason] if request.status == "Rejected"
-    fields += %w[withdraw_reason] if request.status == "Withdrawn"
-    fields += %w[ee_issues_text] if (request.ee_assess_required == "y" || ee_required == "y") && ee_issues_text == "y"
+    fields += %w[withdrawn_reason] if request.status == "Withdrawn"
     fields
   end
 

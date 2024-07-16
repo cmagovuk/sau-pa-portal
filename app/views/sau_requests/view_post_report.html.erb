@@ -28,48 +28,49 @@ breadcrumbs = {
             row.key { 'Referral name' }
             row.value { @post_report.referral_name }
         end
-        summary_list.row do |row|
-            row.key { 'Were there any confi rep issues?' }
-            row.value { t(@post_report.confi_issues&.to_sym, scope: [:helpers, :label, :post_report, :confi_issues_options]) }
-        end
-        if @post_report.confi_issues == "y"
+        if @post_report.request.status == "Completed"
             summary_list.row do |row|
-                row.key { 'Confi rep issue details' }
-                row.value(classes:"app-pre-wrap") { @post_report.confi_issues_text }
+                row.key { 'Were there any confi rep issues?' }
+                row.value { t(@post_report.confi_issues&.to_sym, scope: [:helpers, :label, :post_report, :confi_issues_options]) }
             end
-        end
-        summary_list.row do |row|
-            row.key { 'Any special categories?' }
-            row.value { t(@post_report.special_cats&.to_sym, scope: [:helpers, :label, :post_report, :special_cats_options]) }
-        end
-        if @post_report.special_cats == "y"
-            summary_list.row do |row|
-                row.key { 'Special category details' }
-                row.value do
-                    values = translate_terms(@post_report.special_cat_values, "helpers.label.post_report.special_cat_values_options")
-                    if values.count > 0 
-                       values.each do |v| %>
-                        <%= v %><br>
-                  <%   end
-                  end
+            if @post_report.confi_issues == "y"
+                summary_list.row do |row|
+                    row.key { 'Confi rep issue details' }
+                    row.value(classes:"app-pre-wrap") { @post_report.confi_issues_text }
                 end
             end
-        end
-        summary_list.row do |row|
-            row.key { 'Did third parties make representations?' }
-            row.value { t(@post_report.third_party_reps&.to_sym, scope: [:helpers, :label, :post_report, :third_party_reps_options]) }
-        end
-        if @post_report.third_party_reps == "y"
             summary_list.row do |row|
-                row.key { 'Third part representation details' }
-                row.value(classes:"app-pre-wrap") { @post_report.third_party_reps_text }
+                row.key { 'Any special categories?' }
+                row.value { t(@post_report.special_cats&.to_sym, scope: [:helpers, :label, :post_report, :special_cats_options]) }
+            end
+            if @post_report.special_cats == "y"
+                summary_list.row do |row|
+                    row.key { 'Special category details' }
+                    row.value do
+                        values = translate_terms(@post_report.special_cat_values, "helpers.label.post_report.special_cat_values_options")
+                        if values.count > 0 
+                        values.each do |v| %>
+                            <%= v %><br>
+                    <%   end
+                    end
+                    end
+                end
+            end
+            summary_list.row do |row|
+                row.key { 'Did third parties make representations?' }
+                row.value { t(@post_report.third_party_reps&.to_sym, scope: [:helpers, :label, :post_report, :third_party_reps_options]) }
+            end
+            if @post_report.third_party_reps == "y"
+                summary_list.row do |row|
+                    row.key { 'Third part representation details' }
+                    row.value(classes:"app-pre-wrap") { @post_report.third_party_reps_text }
+                end
+            end
+            summary_list.row do |row|
+                row.key { 'Subsidy/scheme value' }
+                row.value { @post_report.value }
             end
         end
-        summary_list.row do |row|
-            row.key { 'Subsidy/scheme value' }
-            row.value { @post_report.value }
-        end
-
         if @post_report.request.status == "Rejected"
             summary_list.row do |row|
                 row.key { 'Why was the referral rejected?' }
@@ -85,6 +86,7 @@ breadcrumbs = {
         end
     end %>
 
+    <% if %w[Withdrawn Completed].include?(@post_report.request.status) && @post_report.request.decision_letter.attached? %>
     <h2 class="govuk-heading-m">Principle A</h2>
     <%= govuk_summary_list(actions: false) do |summary_list|
         summary_list.row do |row|
@@ -284,6 +286,7 @@ breadcrumbs = {
             end
         end
     end %>
+    <% end %>
 
     <h2 class="govuk-heading-m">Other issues</h2>
     <%= govuk_summary_list(actions: false) do |summary_list|

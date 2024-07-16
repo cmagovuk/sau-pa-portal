@@ -71,11 +71,13 @@ private
   def determine_steps
     # this needs to work out all steps, given the current state of the step model
     calculated_steps = INITIAL_STEPS
-    calculated_steps += PRINCIPLE_STEPS
-    calculated_steps += EE_CHECK_STEPS if step_model.request.ee_assess_required != "y"
-    calculated_steps += EE_PRINCIPLE_STEPS if step_model.request.ee_assess_required == "y" || step_model.ee_required == "y"
-    calculated_steps += OTHER_ISSUE_STEPS
+    if %w[Withdrawn Completed].include?(step_model.request.status) && step_model.request.decision_letter.attached?
+      calculated_steps += PRINCIPLE_STEPS
+      calculated_steps += EE_CHECK_STEPS if step_model.request.ee_assess_required != "y"
+      calculated_steps += EE_PRINCIPLE_STEPS if step_model.request.ee_assess_required == "y" || step_model.ee_required == "y"
+    end
 
+    calculated_steps += OTHER_ISSUE_STEPS
     calculated_steps += REVIEW_STEPS
 
     calculated_steps.freeze
