@@ -124,6 +124,8 @@ en:
         in_past: Report due date must be today or in the future
         in_future: Report due date cannot be this far in the future
         blank: Enter date report is due
+      other_issues_link:
+        format: Enter a link, starting 'https://'
     upload:
       file_size_error_message: "%{filename} must be smaller than %{size_limit}"
       only_one_file_error_message: "You are limited to 1 document"
@@ -143,6 +145,7 @@ en:
       full_year: Date year must be full year, for example 2022
     request_withdraw:
       blank_reason_and_document: Enter a reason or upload a document
+
 
   activemodel:
     errors:

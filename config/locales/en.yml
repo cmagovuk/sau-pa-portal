@@ -883,7 +883,7 @@ en:
         pa_equity_options:
           y: "Yes"
           n: "No"
-        pa_equity_text: lease provide further details, including information on which equity rationale(s) have substantial reasoning of any issue in the report.
+        pa_equity_text: Please provide further details, including information on which equity rationale(s) have substantial reasoning of any issue in the report.
         pc_counterfactual_options:
           y: "Yes"
           n: "No"
