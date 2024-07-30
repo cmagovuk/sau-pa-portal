@@ -66,6 +66,7 @@ class PostReport < ApplicationRecord
 
     submitable &= pa_names.count > 1
     submitable &= special_cat_values.count > 1 if special_cats == "y"
+    submitable &= other_issues == "n" || other_issues_link.present? || other_issues_text.present?
 
     required_fields.each do |f|
       submitable &= send(f).present?

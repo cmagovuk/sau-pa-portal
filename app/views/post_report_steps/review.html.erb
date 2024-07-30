@@ -510,21 +510,26 @@
             row.action(href: sau_request_post_report_step_path(params[:sau_request_id], :other_issues), visually_hidden_text: 'special categories')
         end
         if @post_report.other_issues == "y"
+
             summary_list.row do |row|
                 row.key { 'Relevant details' }
-                row.value(classes:"app-pre-wrap") do 
-                    render partial:"summary_value", 
-                            locals: { value: @post_report.other_issues_text,
-                                    field: :other_issues_text}
+                if @post_report.other_issues_link.present? || @post_report.other_issues_text.present?
+                    row.value(classes:"app-pre-wrap", text: @post_report.other_issues_text)
+                else
+                    row.value do -%>
+                        <p class="govuk-error-message">Text or link required</p>
+                <% end
                 end
                 row.action(href: sau_request_post_report_step_path(params[:sau_request_id], :other_issues), visually_hidden_text: 'special categories text')
             end
             summary_list.row do |row|
                 row.key { 'Link to document' }
-                row.value do 
-                    render partial:"summary_value", 
-                            locals: { value: @post_report.other_issues_link,
-                                    field: :other_issues_link}
+                if @post_report.other_issues_link.present? || @post_report.other_issues_text.present?
+                    row.value(classes:"app-pre-wrap", text: @post_report.other_issues_link)
+                else
+                    row.value do -%>
+                        <p class="govuk-error-message">Text or link required</p>
+                <% end
                 end
                 row.action(href: sau_request_post_report_step_path(params[:sau_request_id], :other_issues), visually_hidden_text: 'special categories text')
             end
