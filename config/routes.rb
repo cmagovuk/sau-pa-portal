@@ -158,6 +158,16 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :sau_users, only: %i[index destroy new create] do
+    member do
+      get "remove"
+    end
+    collection do
+      get "confirm"
+      post "submit"
+    end
+  end
+
   resources :reassign, only: %i[edit update], path_names: { edit: "" } do
     member do
       get "confirm"

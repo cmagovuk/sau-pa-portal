@@ -1,0 +1,24 @@
+<% title(t('.page_title')) %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <h1 class="govuk-heading-l"><%= t(".heading") %></h1>
+    <%= form_for @sau_user_form, url: submit_sau_users_path do |f| %>
+
+        <%= govuk_summary_list do |summary_list|
+            summary_list.row do |row|
+                row.key { "Add user to #{t("sau_groups.#{@sau_user_form.group}")}" }
+                row.value { @sau_user_form.email_addr }
+                row.action(href: new_sau_user_path, visually_hidden_text: 'email address')
+            end
+        end %>
+
+        <div class="govuk-button-group">
+        <%= f.govuk_submit t(".confirm_button") %>
+        <%= govuk_button_link_to t(".cancel_button"), 
+            "#{sau_users_path}##{t("sau_groups.#{@sau_user_form.group}").parameterize}", 
+            secondary: true %>
+        </div>
+    <% end %>
+  </div>
+</div>

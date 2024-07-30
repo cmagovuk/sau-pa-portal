@@ -150,6 +150,12 @@ en:
   activemodel:
     errors:
       models:
+        sau_user_form:
+          attributes:
+            email_addr:
+              blank: Enter the users email address
+              too_long: Email address must be %{count} characters or fewer
+              invalid: Enter an email address in the correct format, like name@example.com
         set_decision_form:
           attributes: 
             decision:

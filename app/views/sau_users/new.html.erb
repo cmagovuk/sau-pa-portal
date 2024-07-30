@@ -1,0 +1,18 @@
+<% title(t('.page_title')) %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+  <h1 class="govuk-heading-l"><%= t(".heading", team: t("sau_groups.#{@sau_user_form.group}")) %></h1>
+  <%= form_for @sau_user_form, url: sau_users_path do |f| %>
+      <%= f.govuk_error_summary %>
+      <%= f.govuk_text_field :email_addr, width:"two-thirds" %>
+      <%= f.hidden_field :group %>
+      <div class="govuk-button-group">
+        <%= f.govuk_submit %>
+        <%= govuk_button_link_to t(".cancel_button"), 
+            sau_users_path, 
+            secondary: true %>
+      </div>
+  <% end %>
+</div>
+</div>

@@ -89,6 +89,32 @@ en:
         </ul>
         <p class="govuk-body">send an email to  <a href="mailto:%{feedback_email}?subject=General PAP enquiry">%{feedback_email}</a></p>      
 
+  sau_groups:
+    admin: Admin team
+    lead: Leadership team
+    team: SAU team
+
+  sau_users:
+    user_list:
+      add_button: Add user to %{team}
+    index:
+      page_title: SAU users
+      heading: SAU users
+    new:
+      page_title: Add SAU user
+      heading: Add user to %{team}
+      cancel_button: Cancel
+    remove:
+      page_title: Remove SAU user
+      heading: Remove user from %{team}
+      cancel_button: Cancel
+      remove_button: Remove
+    confirm:
+      page_title: Confirm user information
+      heading: Check answer
+      confirm_button: Submit
+      cancel_button: Cancel
+
   request_withdraw:
     edit:
       page_title: Request withdraw
@@ -936,6 +962,8 @@ en:
           n: "No"
         other_issues_text: Please provide further details.
 
+      sau_user_form:
+        email_addr: Email address
       request:
         scheme_subsidy_options:
           scheme: Subsidy Scheme

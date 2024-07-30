@@ -1,0 +1,26 @@
+<%= govuk_button_link_to t(".add_button", team: t("sau_groups.#{group}")), "#{new_sau_user_path}?group=#{group}" %>
+<%= govuk_table do |table|
+  table.head do |head|
+    head.row do |row|
+      row.cell(header: true, text: 'Name')
+      row.cell(header: true, text: 'Email address')
+      row.cell(header: true, text: 'Action')
+    end
+  end
+
+  table.body do |body|
+    @user_data[group].each do |user| 
+      body.row do |row|
+        row.cell(text: user["name"])
+        row.cell(text: user["email"])
+        row.cell do |cell| 
+            if auth_user.id != user["id"]
+                govuk_link_to("Remove", "#{remove_sau_user_path(user["id"])}?group=#{group}", 
+                        no_visited_state: true, visually_hidden_suffix: user["name"])
+            end
+        end
+      end
+    end
+  end
+end
+%>
