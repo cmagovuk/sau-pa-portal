@@ -36,6 +36,7 @@
        header.navigation_item(text: "Public authorities", href: public_authorities_path) if auth_user.has_role?("SAU-Admin")
        header.navigation_item(text: "Users", href: users_path) if auth_user.has_role?("SAU-Admin")
        header.navigation_item(text: "PA names", href: report_pa_names_path) if auth_user.has_role?("SAU-Admin")
+       header.navigation_item(text: "SAU users", href: sau_users_path) if auth_user.has_role?("SAU-Admin")
        header.navigation_item(text: "View users", href: pa_users_path) if auth_user.is_pa_super_user?
        header.navigation_item(text: "Profile", href: account_path) if auth_user.is_pa_user?
        header.navigation_item(text: "Sign out", href: "/.auth/logout") 
