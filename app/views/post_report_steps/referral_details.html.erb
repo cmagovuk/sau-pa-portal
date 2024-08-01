@@ -38,6 +38,23 @@
                 <% end %>
             <% end %>
 
+            <%= f.govuk_radio_buttons_fieldset :intl_obligations, 
+                legend: { class: "govuk-fieldset__legend" },
+                small:true do %>
+                    <% PostReport::YES_NO_OPTIONS.each_with_index do |opt, idx| %>
+                    <% if opt != "y" %>
+                        <%= f.govuk_radio_button :intl_obligations, opt, link_errors: idx == 0 %>
+                    <% else %>
+                        <%= f.govuk_radio_button :intl_obligations, opt do %>
+                        <%= f.govuk_collection_check_boxes :intl_obligation_values, 
+                                                            PostReport::INTL_OB_OPTIONS,
+                                                            ->(option) {option}, ->(option) {option},
+                                                            legend: {class: "govuk-fieldset__legend"}, small:true %>
+                        <% end %>
+                    <% end %>
+                <% end %>
+            <% end %>
+
             <%= f.govuk_radio_buttons_fieldset :third_party_reps, 
                 legend: { class: "govuk-fieldset__legend" },
                 small:true do %>
@@ -51,8 +68,12 @@
                     <% end %>
                 <% end %>
             <% end %>
-            <%= f.govuk_text_field :value %>
+            <%= f.govuk_text_field :value, prefix_text: '£' %>
+            <%= f.govuk_text_field :final_report_url %>
+            <%= f.govuk_text_field :principle_adviser %>
+            <%= f.govuk_text_field :assist_director %>
           <% end %>
+
           <% if @post_report.request.status == "Rejected" %>
             <%= f.govuk_text_area :reject_reason, max_chars: PostReport::MAX_CHAR_COUNT %>
           <% end %>

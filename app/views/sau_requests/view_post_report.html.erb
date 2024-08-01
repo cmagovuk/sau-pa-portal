@@ -57,6 +57,23 @@ breadcrumbs = {
                 end
             end
             summary_list.row do |row|
+                row.key { 'Any relevant international obligations?' }
+                row.value { t(@post_report.intl_obligations&.to_sym, scope: [:helpers, :label, :post_report, :intl_obligations_options]) }
+            end
+            if @post_report.intl_obligations == "y"
+                summary_list.row do |row|
+                    row.key { 'Relevant international obligations' }
+                    row.value do
+                        values = translate_terms(@post_report.intl_obligation_values, "helpers.label.post_report.intl_obligation_values_options")
+                        if values.count > 0 
+                        values.each do |v| %>
+                            <%= v %><br>
+                    <%   end
+                    end
+                    end
+                end
+            end
+            summary_list.row do |row|
                 row.key { 'Did third parties make representations?' }
                 row.value { t(@post_report.third_party_reps&.to_sym, scope: [:helpers, :label, :post_report, :third_party_reps_options]) }
             end
@@ -68,7 +85,19 @@ breadcrumbs = {
             end
             summary_list.row do |row|
                 row.key { 'Subsidy/scheme value' }
-                row.value { @post_report.value }
+                row.value { "£#{format_numeric(@post_report, :value)}" }
+            end
+            summary_list.row do |row|
+                row.key { 'Web link to the final report' }
+                row.value { @post_report.final_report_url }
+            end
+            summary_list.row do |row|
+                row.key { 'Principal Subsidy Adviser' }
+                row.value { @post_report.principle_adviser }
+            end
+            summary_list.row do |row|
+                row.key { 'Assistant Director' }
+                row.value { @post_report.assist_director }
             end
         end
         if @post_report.request.status == "Rejected"
@@ -266,12 +295,13 @@ breadcrumbs = {
         if @post_report.request.ee_assess_required == "y" || @post_report.ee_required == "y"
             summary_list.row do |row|
                 row.key { "Which energy and environment principles were engaged in this referral?" }
-                row.value { t(@post_report.ee_principles&.to_sym, scope: [:helpers, :label, :post_report, :ee_principles_options]) }
-            end
-            if @post_report.ee_principles == "y"
-                summary_list.row do |row|
-                    row.key { 'Relevant details' }
-                    row.value(classes:"app-pre-wrap") { @post_report.ee_principles_text }
+                row.value do
+                    values = translate_terms(@post_report.ee_principles, "helpers.label.post_report.ee_principles_options")
+                    if values.count > 0 
+                        values.each do |v| %>
+                            <%= v %><br>
+                    <%   end
+                    end
                 end
             end
             summary_list.row do |row|

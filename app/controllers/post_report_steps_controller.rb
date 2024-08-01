@@ -51,18 +51,16 @@ class PostReportStepsController < SauLeadershipController
         result = post_report_service.submit_post_report(@post_report.request)
         if result
           step_model.update!(status: "Completed")
-          # step_model.audit_logs.create!(AuditLog.log(auth_user, :status_change, status: step_model.status))
-          # GovukNotifyService.send_submit_request_email(step_model, auth_user) if step_model.reference_number.present?
           redirect_to sau_request_path(params[:sau_request_id])
         else
-          Rails.logger.warn "Failed to submit post report"
+          Rails.logger.warn "Failed to submit lessons learned"
           render "/errors/internal_server_error", status: :internal_server_error
         end
       else
         redirect_to edit_sau_request_post_report_step_path(step_model.request_id, wf.missed_step)
       end
     else
-      Rails.logger.warn "Failed to save post report step"
+      Rails.logger.warn "Failed to save lessons learned step"
       render step
     end
   end

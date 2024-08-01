@@ -77,6 +77,31 @@
                 end
             end
             summary_list.row do |row|
+                row.key { 'Any relevant international obligations?' }
+                row.value do 
+                    render partial:"summary_value", 
+                            locals: { value: t(@post_report.intl_obligations&.to_sym, scope: [:helpers, :label, :post_report, :intl_obligations_options]),
+                                    field: :special_cats}
+                end
+                row.action(href: sau_request_post_report_step_path(params[:sau_request_id], :referral_details), visually_hidden_text: 'international obligations')
+            end
+            if @post_report.intl_obligations == "y"
+                summary_list.row do |row|
+                    row.key { 'Relevant international obligations' }
+                    row.value do
+                        values = translate_terms(@post_report.intl_obligation_values, "helpers.label.post_report.intl_obligation_values_options")
+                        if values.count > 0 
+                        values.each do |v| %>
+                            <%= v %><br>
+                    <%   end
+                        else  %> 
+                        <p class="govuk-error-message">Required information missing</p>
+                    <% end
+                    end
+                    row.action(href: sau_request_post_report_step_path(params[:sau_request_id], :referral_details), visually_hidden_text: 'special categories text')
+                end
+            end
+            summary_list.row do |row|
                 row.key { 'Did third parties make representations?' }
                 row.value do 
                     render partial:"summary_value", 
@@ -100,8 +125,36 @@
                 row.key { 'Subsidy/scheme value' }
                 row.value do 
                     render partial:"summary_value", 
-                            locals: { value: @post_report.value,
+                            locals: { value: "£#{format_numeric(@post_report, :value)}",
                                     field: :value}
+                end
+                row.action(href: sau_request_post_report_step_path(params[:sau_request_id], :referral_details), visually_hidden_text: 'value')
+            end
+
+            summary_list.row do |row|
+                row.key { 'Web link to the final report' }
+                row.value do 
+                    render partial:"summary_value", 
+                            locals: { value: @post_report.final_report_url,
+                                    field: :final_report_url}
+                end
+                row.action(href: sau_request_post_report_step_path(params[:sau_request_id], :referral_details), visually_hidden_text: 'value')
+            end
+            summary_list.row do |row|
+                row.key { 'Principal Subsidy Adviser' }
+                row.value do 
+                    render partial:"summary_value", 
+                            locals: { value: @post_report.principle_adviser,
+                                    field: :principle_adviser}
+                end
+                row.action(href: sau_request_post_report_step_path(params[:sau_request_id], :referral_details), visually_hidden_text: 'value')
+            end
+            summary_list.row do |row|
+                row.key { 'Assistant Director' }
+                row.value do 
+                    render partial:"summary_value", 
+                            locals: { value: @post_report.assist_director,
+                                    field: :assist_director}
                 end
                 row.action(href: sau_request_post_report_step_path(params[:sau_request_id], :referral_details), visually_hidden_text: 'value')
             end
@@ -457,23 +510,17 @@
         if @post_report.request.ee_assess_required == "y" || @post_report.ee_required == "y"
             summary_list.row do |row|
                 row.key { "Which energy and environment principles were engaged in this referral?" }
-                row.value do 
-                    render partial:"summary_value", 
-                            locals: { value: t(@post_report.ee_principles&.to_sym, scope: [:helpers, :label, :post_report, :ee_principles_options]),
-                                    field: :ee_principles}
+                row.value do
+                    values = translate_terms(@post_report.ee_principles, "helpers.label.post_report.ee_principles_options")
+                    if values.count > 0 
+                    values.each do |v| %>
+                        <%= v %><br>
+                <%   end
+                    else  %> 
+                    <p class="govuk-error-message">Required information missing</p>
+                <% end
                 end
                 row.action(href: sau_request_post_report_step_path(params[:sau_request_id], :ee_principles), visually_hidden_text: 'special categories')
-            end
-            if @post_report.ee_principles == "y"
-                summary_list.row do |row|
-                    row.key { 'Relevant details' }
-                    row.value(classes:"app-pre-wrap") do 
-                        render partial:"summary_value", 
-                                locals: { value: @post_report.ee_principles_text,
-                                        field: :ee_principles_text}
-                    end
-                    row.action(href: sau_request_post_report_step_path(params[:sau_request_id], :ee_principles), visually_hidden_text: 'special categories text')
-                end
             end
             summary_list.row do |row|
                 row.key { "Any issue relating to the energy and environment principles?" }
@@ -537,5 +584,5 @@
     end %>
   </div>
 </div>
-  <%= f.govuk_submit t("buttons.confirm"), disabled: !@post_report.submitable?, classes: "sau-submission-button"  %>
+  <%= f.govuk_submit "Submit", disabled: !@post_report.submitable?, classes: "sau-submission-button"  %>
 <% end %>

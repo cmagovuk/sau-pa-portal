@@ -46,7 +46,7 @@ class SauRequestPresenter
       if %w[Completed Rejected Decined Withdrawn].include?(@request.status) &&
           !(@request.post_report.present? && @request.post_report.status == "Completed")
         actions += [
-          { title: "Post report", link: "/post_reports/#{@request.id}/edit", secondary: false },
+          { title: "Submit lessons learned", link: "/post_reports/#{@request.id}/edit", secondary: false },
         ]
       end
     end
@@ -54,7 +54,7 @@ class SauRequestPresenter
     actions += [{ title: "View submission", link: view_path, secondary: actions.count.positive? }]
 
     if @request.post_report.present? && @request.post_report.status == "Completed"
-      actions += [{ title: "View post report",
+      actions += [{ title: "View lessons learned",
                     secondary: actions.count.positive?,
                     link: "/sau_requests/#{@request.id}/view_post_report" }]
     end

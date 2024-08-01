@@ -126,6 +126,20 @@ en:
         blank: Enter date report is due
       other_issues_link:
         format: Enter a link, starting 'https://'
+      final_report_url:
+        format: Enter a link, starting 'https://'
+        too_long: Final report link must be %{count} words or fewer
+      value:
+        less_than: Value must be less than %{count}
+        not_a_number: Value must be a number
+        greater_than: Value must be more than %{count}
+      referral_name:
+        too_long: Referral name must be %{count} words or fewer
+      principle_adviser:
+        too_long: Principal Subsidy Adviser name must be %{count} words or fewer
+      assist_director:
+        too_long: Assistant Director must be %{count} words or fewer
+
     upload:
       file_size_error_message: "%{filename} must be smaller than %{size_limit}"
       only_one_file_error_message: "You are limited to 1 document"

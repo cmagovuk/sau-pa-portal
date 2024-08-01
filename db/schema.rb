@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_07_14_092200) do
+ActiveRecord::Schema.define(version: 2024_08_01_134839) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -126,6 +126,11 @@ ActiveRecord::Schema.define(version: 2024_07_14_092200) do
     t.text "withdrawn_reason"
     t.text "pa_names"
     t.text "special_cat_values"
+    t.string "intl_obligations"
+    t.string "final_report_url"
+    t.string "principle_adviser"
+    t.string "assist_director"
+    t.text "intl_obligation_values"
     t.index ["request_id"], name: "index_post_reports_on_request_id"
   end
 

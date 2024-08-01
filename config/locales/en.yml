@@ -32,7 +32,7 @@
 en:
   dashboard: Dashboard
   request_progress: Request progress
-  post_report: Post report
+  post_report: Lessons learned
   submission: Original submission
   upload_report: Upload final report
   information_request: Information request
@@ -151,8 +151,8 @@ en:
       page_title: Set report due date
       warning_text: Report due date is over %{max_days} days in the future. Please check the date entered is correct before continuing.
     view_post_report:
-      page_title: View post report
-      heading: Post report
+      page_title: View lessons learned
+      heading: Lessons learned
 
   layouts:
     original_submission:
@@ -708,6 +708,8 @@ en:
         other_issues: Are there any other issues or important features in this report that were not covered in the questions above?
         special_cats: Does the data fall into any of the special categories?
         special_cat_values: Select all that apply
+        intl_obligations: Were there any international obligations relevant to this referral?
+        intl_obligation_values: Select all that apply. This should include any relevant issues resolved before referral
         confi_issues: Were there any significant issues raised during the confidentiality representations review process?
         third_party_reps: Were any third party representations made?
         ee_required: Was it identified that the Energy and Environment Principles should have been addressed in the referral?
@@ -764,8 +766,21 @@ en:
           x: Preventing user from having any access
 
       post_report:
-        referral_name: Provide the name as written in final report
+        referral_name: Provide the name as written in the final report e.g. 'Proposed [subsidy to [beneficiary name]] / [scheme name] referred by [PA name]'
         pa_names: In the case where multiple authorities are involved, select all authorities not just the one submitting the referral.  This referral was submitted by '%{pa_name}', for reporting purposes the name may be listed differently.
+        value: Please record the figure in a numerical format, e.g. £10,000,000,000
+        final_report_url: This should link to the PDF version on gov.uk/cma-cases
+        ee_principles: Select all that apply
+        ee_principles_options:
+          p_a: Subsidies in relation to energy and environment shall be aimed at and incentivise the beneficiary in (a)delivering a secure, affordable and sustainable energy system and a well-functioning and competitive energy market, or (b)increasing the level of environmental protection compared to the level that would be achieved in the absence of the subsidy.
+          p_b: Subsidies in relation to energy and environment shall not relieve the beneficiary from liabilities arising from its responsibilities as a polluter under the law of England and Wales, Scotland or Northern Ireland.
+          p_c: Subsidies for electricity generation adequacy, renewable energy or cogeneration.
+          p_d: Subsidies for electricity generation adequacy may be limited to installations not exceeding specified CO2 emission limits.
+          p_e: Subsidies for renewable energy or cogeneration shall not affect beneficiaries' obligations or opportunities to participate in electricity markets.
+          p_f: Subsidies in the form of partial exemptions from energy-related taxes and levies in favour of energy-intensive users shall not exceed the total amount of the tax or levy concerned.
+          p_g: Subsidies in the form of compensation for electricity-intensive users given in the event of an increase in electricity costs resulting from climate policy instruments shall be restricted to sectors at significant risk of carbon leakage due to the cost increase. 
+          p_h: Subsidies for the decarbonisation of emissions linked to industrial activities in the United Kingdom shall- (a)achieve an overall reduction in greenhouse gas emissions, and (b)reduce the emissions directly resulting from the industrial activities.
+          p_i: Subsidies for improvements of the energy efficiency of industrial activities in the United Kingdom shall improve energy efficiency by reducing energy consumption, either directly or per unit of production.
 
       request:
         nc_description: This description should include any links to published announcements of the %{type}
@@ -872,14 +887,39 @@ en:
       post_report:
         referral_name: Name of the referral
         value: Enter the value of the subsidy/scheme
+        final_report_url: Please provide a web link to the final report published on the SAU's webpage
+        principle_adviser: Who was the Principal Subsidy Adviser on this referral?
+        assist_director: Who was the Assistant Director on this referral?
         other_issues_link: Alternatively, enter a hyperlink to any relevant document that includes additional lessons learned and information not already captured.
         special_cats_options:
           y: "Yes"
           n: "No"
         special_cats_text: Provide details
         special_cat_values_options: 
-          spei: SPEI
+          sens: Sensitive sectors as defined by the Act
+          relo: Relocation of activities
+          resc: Rescue 
           rest: Restructuring
+          rdep: Restructuring deposit takers or insurance companies
+          ldep: Liquidating deposit takers or insurance companies
+          lpro: Liquidating provision for deposit takers or insurance companies
+          sins: Subsidies for insurers that provide export credit insurance
+          sair: Subsidies for air carriers for the operation of routes
+          spei: Services of Public Economic Interest (SPEI)
+          mini: Minimal financial assistance
+          serv: Services of public economic interest assistance
+          ndis: Natural disasters and other exceptional circumstances
+          nglo: National or global economic emergencies
+          fina: Financial stability
+          lsub: Legacy subsidies
+          lxbd: Large cross-border or international cooperation projects
+        intl_obligations_options:
+          y: "Yes"
+          n: "No"
+        intl_obligation_values_options: 
+          winds: Windsor Framework
+          trade: Trade Corporation Agreement
+          wto: WTO Agreement on Subsidies and Countervailing Measures (ASCM)
         confi_issues_options:
           y: "Yes"
           n: "No"
@@ -901,7 +941,7 @@ en:
         pa_policy_evidence_options:
           y: "Yes"
           n: "No"
-        pa_policy_evidence_text: Please provide further details
+        pa_policy_evidence_text: Please provide further details, including which market failures have substantial reasoning in the report, such as externalities, public goods, asymmetric or imperfect information, coordination failure, or any other relevant issues.
         pa_market_fail_options: 
           y: "Yes"
           n: "No"
@@ -950,8 +990,16 @@ en:
           y: "Yes"
           n: "No"
         ee_principles_options:
-          y: "Yes"
-          n: "No"
+          p_a: Principle A
+          p_b: Principle B
+          p_c: Principle C
+          p_d: Principle D
+          p_e: Principle E
+          p_f: Principle F
+          p_g: Principle G
+          p_h: Principle H
+          p_i: Principle I
+
         ee_principles_text: Provide details
         ee_issues_options:
           y: "Yes"
