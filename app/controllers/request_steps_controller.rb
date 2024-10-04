@@ -49,11 +49,11 @@ class RequestStepsController < ApplicationController
         redirect_to request_step_path(next_step)
       elsif wf.completed_steps?
         step_model.update!(reference_number: Request.next_reference_number) if step_model.reference_number.blank?
-        step_model.submission_text.attach(({
+        step_model.submission_text.attach({
           io: StringIO.new(render_to_string("requests/submission", formats: [:pdf])),
           filename: "submission.pdf",
           content_type: "application.pdf",
-        }))
+        })
         result = request_service.submit_request(@request)
         if result
           step_model.update!(status: "Submitted", submitted_date: Time.zone.now, submitted_by_id: auth_user.user_id)

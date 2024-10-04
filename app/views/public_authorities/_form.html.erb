@@ -5,12 +5,12 @@
         label: { text: "Reporting group level 1"}, class: "pa-org-1-select",
         hint: {text: "Select a value or enter a new one"}
     %>
-    <%= f.govuk_text_field :org_level_1, class: "pa-org-1", form_group: {classes: "pa-org-1-fg"} %>
+    <%= f.govuk_text_field :org_level_1, class: "pa-org-1", form_group: {class: "pa-org-1-fg"} %>
     <%= f.govuk_select :org_level_2_select, options_for_select([["Enter new value", ""]]) + grouped_options_for_select(@grouped_level_2_orgs, @authority.org_level_2),
         label: { text: "Reporting group level 2"}, class: "pa-org-2-select",
         hint: {text: "Select a value or enter a new one"}, 
-        form_group: {classes: "pa-org-2-select-fg"}
+        form_group: {class: "pa-org-2-select-fg"}
     %>
-    <%= f.govuk_text_field :org_level_2, class: "pa-org-2", form_group: {classes: "pa-org-2-fg"} %>
+    <%= f.govuk_text_field :org_level_2, class: "pa-org-2", form_group: {class: "pa-org-2-fg"} %>
     <%= f.govuk_submit %>
 <% end %>

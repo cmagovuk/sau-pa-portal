@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_08_01_134839) do
-
+ActiveRecord::Schema[7.0].define(version: 2024_09_24_114730) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -34,7 +33,7 @@ ActiveRecord::Schema.define(version: 2024_08_01_134839) do
     t.text "metadata"
     t.string "service_name", null: false
     t.bigint "byte_size", null: false
-    t.string "checksum", null: false
+    t.string "checksum"
     t.datetime "created_at", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
@@ -53,24 +52,24 @@ ActiveRecord::Schema.define(version: 2024_08_01_134839) do
     t.uuid "public_authority_id"
     t.string "log_type"
     t.uuid "log_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["log_type", "log_id"], name: "index_audit_logs_on_log"
     t.index ["public_authority_id"], name: "index_audit_logs_on_public_authority_id"
   end
 
   create_table "information_requests", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "status"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.uuid "request_id", null: false
     t.index ["request_id"], name: "index_information_requests_on_request_id"
   end
 
   create_table "post_reports", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "status"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.uuid "request_id"
     t.text "referral_name"
     t.string "completed_steps"
@@ -137,8 +136,8 @@ ActiveRecord::Schema.define(version: 2024_08_01_134839) do
   create_table "public_authorities", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "pa_name"
     t.string "status"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.uuid "umbrella_authority_id"
     t.string "org_level_1"
     t.string "org_level_2"
@@ -149,8 +148,8 @@ ActiveRecord::Schema.define(version: 2024_08_01_134839) do
   create_table "report_pa_names", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "pa_name"
     t.string "disabled"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["pa_name"], name: "index_report_pa_names_on_pa_name", unique: true
   end
 
@@ -163,8 +162,8 @@ ActiveRecord::Schema.define(version: 2024_08_01_134839) do
     t.string "reference_number"
     t.date "direction_date"
     t.uuid "public_authority_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.text "assess_pa"
     t.text "assess_pb"
     t.text "assess_pc"
@@ -249,8 +248,8 @@ ActiveRecord::Schema.define(version: 2024_08_01_134839) do
     t.string "oid"
     t.string "phone"
     t.uuid "public_authority_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "role"
     t.string "disabled"
     t.index ["email"], name: "index_users_on_email", unique: true

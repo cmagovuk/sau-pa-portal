@@ -19,7 +19,7 @@ class PostReports::StepWorkflow
     rescue StandardError
       PostReport
     end
-    @step_model ||= sub_class.find_by(request_id: request_id)
+    @step_model ||= sub_class.find_by(request_id:)
   end
 
   def next_step

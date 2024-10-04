@@ -12,7 +12,6 @@ require "action_mailbox/engine"
 require "action_text/engine"
 require "action_view/railtie"
 # require "action_cable/engine"
-# require "sprockets/railtie"
 require "rails/test_unit/railtie"
 
 # Require the gems listed in Gemfile, including any gems
@@ -24,10 +23,15 @@ module GovukSauPortal
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.2
 
-    # Settings in config/environments/* take precedence over those specified here.
-    # Application configuration can go into files in config/initializers
-    # -- all .rb files in that directory are automatically loaded after loading
-    # the framework and any gems in your application.
+    # Configuration for the application, engines, and railties goes here.
+    #
+    # These settings can be overridden in specific environments using the files
+    # in config/environments, which are processed later.
+    #
+    # config.time_zone = "Central Time (US & Canada)"
+    # config.eager_load_paths << Rails.root.join("extras")
+    config.assets.paths << Rails.root.join('node_modules/govuk-frontend/dist/govuk/assets')
+
     config.time_zone = "Europe/London"
     config.action_dispatch.cookies_same_site_protection = :strict
     config.active_storage.content_types_allowed_inline -= ["application/pdf"]
@@ -35,7 +39,7 @@ module GovukSauPortal
 
     config.exceptions_app = routes
 
-    config.middleware.use Rack::Deflater
+    #config.middleware.use Rack::Deflater
 
     # Load Govuk template set from "config/govuk_notify_templates.yml"
     config.govuk_notify_templates = config_for(

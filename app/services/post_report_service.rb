@@ -42,7 +42,7 @@ private
         intl_obligations: intl_obl,
         ee_principles: ee_princ,
         beneficiary: request.beneficiary.present? ? request.beneficiary[0, 255] : nil,
-        ben_size: (request.scheme_subsidy == "subsidy" && request.ben_size.present? ? t(request.ben_size&.to_sym, scope: "helpers.label.request.ben_size_options") : nil),
+        ben_size: (request.scheme_subsidy == "subsidy" && request.ben_size.present? ? I18n.t(request.ben_size&.to_sym, scope: "helpers.label.request.ben_size_options") : nil),
         ben_good_svr: translate_terms(request.ben_good_svr, "helpers.label.request.ben_good_svr_options"),
         start_date: request.start_date,
         end_date: request.end_date,

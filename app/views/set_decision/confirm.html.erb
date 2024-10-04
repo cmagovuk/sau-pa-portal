@@ -10,16 +10,16 @@ breadcrumbs = {
 <h1 class="govuk-heading-l"><%= t('.heading') -%></h1>
 
 <%= govuk_summary_list do |summary_list|
-  summary_list.row do |row|
-    row.key { 'Decision' }
-    row.value { t(@set_decision_form.decision&.to_sym, scope: [:helpers, :label, :set_decision, :decision_options]) }
-    row.action(href: set_decision_path, visually_hidden_text: 'decision')
+  summary_list.with_row do |row|
+    row.with_key { 'Decision' }
+    row.with_value { t(@set_decision_form.decision&.to_sym, scope: [:helpers, :label, :set_decision, :decision_options]) }
+    row.with_action(href: set_decision_path, visually_hidden_text: 'decision')
   end
 
-  summary_list.row do |row|
-    row.key { 'Decision letter' }
-    row.value(text: @set_decision_form.decision_letter.filename)
-    row.action(href: set_decision_path, visually_hidden_text: 'decision letter')
+  summary_list.with_row do |row|
+    row.with_key { 'Decision letter' }
+    row.with_value(text: @set_decision_form.decision_letter.filename)
+    row.with_action(href: set_decision_path, visually_hidden_text: 'decision letter')
   end
 
 end %>

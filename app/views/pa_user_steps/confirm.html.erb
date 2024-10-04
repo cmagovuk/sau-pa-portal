@@ -6,30 +6,30 @@
 <%= form_for @user, url: pa_user_step_path(params[:id]), method: :patch, :as => :user do |f| %>
 
     <%= govuk_summary_list do |summary_list|
-        summary_list.row do |row|
-            row.key { 'Public Authority' }
-            row.value { @user.public_authority.pa_name }
-            row.action(text: "Change", href: pa_user_step_path('input'), visually_hidden_text: 'name')
+        summary_list.with_row do |row|
+            row.with_key { 'Public Authority' }
+            row.with_value { @user.public_authority.pa_name }
+            row.with_action(text: "Change", href: pa_user_step_path('input'), visually_hidden_text: 'name')
         end
 
-        summary_list.row do |row|
-            row.key { 'Role' }
-            row.value { @user.role.present? ? t(@user.role&.to_sym, scope: "helpers.label.user.role_options") : "" }
+        summary_list.with_row do |row|
+            row.with_key { 'Role' }
+            row.with_value { @user.role.present? ? t(@user.role&.to_sym, scope: "helpers.label.user.role_options") : "" }
         end
 
-        summary_list.row do |row|
-            row.key { 'Name' }
-            row.value { @user.user_name }
+        summary_list.with_row do |row|
+            row.with_key { 'Name' }
+            row.with_value { @user.user_name }
         end
 
-        summary_list.row do |row|
-            row.key { 'Telephone' }
-            row.value { @user.phone }
+        summary_list.with_row do |row|
+            row.with_key { 'Telephone' }
+            row.with_value { @user.phone }
         end
 
-        summary_list.row do |row|
-            row.key(text: 'Email address')
-            row.value(text: @user.email )
+        summary_list.with_row do |row|
+            row.with_key(text: 'Email address')
+            row.with_value(text: @user.email )
         end
     end %>
 

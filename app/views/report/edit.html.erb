@@ -21,6 +21,6 @@ breadcrumbs = {
           enctype: "multipart/form-data",
           class: "upload-input" %>
     <%= render partial: "/layouts/document_list", object: @request.final_report %>
-    <%= f.govuk_submit t("buttons.upload_files"), secondary: true, classes: "upload-files-button" %>
-    <%= f.govuk_submit classes: "upload-continue-button" unless @request.status == "Completed" %>
+    <%= f.govuk_submit t("buttons.upload_files"), secondary: true, class: "upload-files-button" %>
+    <%= f.govuk_submit class: "upload-continue-button" unless @request.status == "Completed" %>
 <% end %>

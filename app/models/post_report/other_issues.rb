@@ -1,5 +1,5 @@
 class PostReport::OtherIssues < PostReport
-  URI_REGEX = /\A#{URI::Parser.new.make_regexp(%w[https])}\z/.freeze
+  URI_REGEX = /\A#{URI::Parser.new.make_regexp(%w[https])}\z/
   validates :other_issues_text, length: { maximum: MAX_CHAR_COUNT }
   validate :other_issues_link_format
 

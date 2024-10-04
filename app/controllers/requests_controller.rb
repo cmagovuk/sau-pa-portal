@@ -46,7 +46,6 @@ class RequestsController < ApplicationController
     @requests = @requests.filter_by_user(auth_user.user_id) if auth_user.is_pa_std_user?
 
     @requests = @requests.filter_by_status(params[:status]) if params[:status].present? && Request::STATUS.include?(params[:status])
-
     if params[:act].present? && Request::ACTIONS.include?(params[:act])
       case params[:act]
       when "Continue" then @requests = @requests.filter_by_status("Draft")

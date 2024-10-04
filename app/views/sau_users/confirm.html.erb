@@ -6,10 +6,10 @@
     <%= form_for @sau_user_form, url: submit_sau_users_path do |f| %>
 
         <%= govuk_summary_list do |summary_list|
-            summary_list.row do |row|
-                row.key { "Add user to #{t("sau_groups.#{@sau_user_form.group}")}" }
-                row.value { @sau_user_form.email_addr }
-                row.action(href: new_sau_user_path, visually_hidden_text: 'email address')
+            summary_list.with_row do |row|
+                row.with_key { "Add user to #{t("sau_groups.#{@sau_user_form.group}")}" }
+                row.with_value { @sau_user_form.email_addr }
+                row.with_action(href: new_sau_user_path, visually_hidden_text: 'email address')
             end
         end %>
 

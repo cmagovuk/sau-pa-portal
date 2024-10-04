@@ -74,7 +74,7 @@ private
         userCreated: user_email,
         creatorName: creator_name,
         creatorEmail: creator_email,
-        pa_name: pa_name,
+        pa_name:,
       },
     }.to_json
     send_post(body)
@@ -85,7 +85,7 @@ private
       method: "User.Remove",
       payload: {
         userId: oid,
-        role: role,
+        role:,
       },
     }.to_json
     send_post(body)

@@ -35,7 +35,7 @@ breadcrumbs = {
             <td class="govuk-table__cell"><%=@request.withdraw_document.filename %></td>
             <td class="govuk-table__cell app-hide-col"><%= number_to_human_size(@request.withdraw_document.byte_size) %></td>
             <td class="govuk-table__cell">
-              <%= link_to "#{remove_request_withdraw_path(@request)}?doc_id=#{@request.withdraw_document.id}", method: :patch, class: 'govuk-link' do %>
+              <%= link_to "#{remove_request_withdraw_path(@request)}?doc_id=#{@request.withdraw_document.id}", class: 'govuk-link' do %>
                 Remove<span class="govuk-visually-hidden"> file <%= @request.withdraw_document.filename %></span>
               <% end %>
             </td>
@@ -44,8 +44,8 @@ breadcrumbs = {
       </table>
     <% end %>
 
-    <%= f.govuk_submit t("buttons.upload_files"), secondary: true, classes: "upload-files-button" %>
-    <%= f.govuk_submit classes: "upload-continue-button", name: "continue" %>
+    <%= f.govuk_submit t("buttons.upload_files"), secondary: true, class: "upload-files-button" %>
+    <%= f.govuk_submit class: "upload-continue-button", name: "continue" %>
 <% end %>
 </div>
 </div>

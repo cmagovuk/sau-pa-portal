@@ -23,8 +23,8 @@ class Request < ApplicationRecord
   serialize :location, Array
   serialize :subsidy_forms, Array
 
-  scope :filter_by_status, ->(status) { where status: status }
-  scope :filter_by_user, ->(user_id) { where user_id: user_id }
+  scope :filter_by_status, ->(status) { where status: }
+  scope :filter_by_user, ->(user_id) { where user_id: }
   scope :filter_by_pa, ->(pa_id) { where public_authority_id: pa_id }
   scope :submitted, -> { where.not(reference_number: nil) }
   scope :pa_requests, ->(id) { where("public_authority_id = ?", id) }
@@ -60,7 +60,7 @@ class Request < ApplicationRecord
   def select_tax_options
     [OpenStruct.new(name: "Select range", id: "")] +
       TAX_OPTIONS.map do |id|
-        OpenStruct.new(id: id, name: I18n.t(id&.to_sym, scope: [:tax_amount]))
+        OpenStruct.new(id:, name: I18n.t(id&.to_sym, scope: [:tax_amount]))
       end
   end
 

@@ -32,7 +32,7 @@ breadcrumbs = {
             <td class="govuk-table__cell"><%=@set_decision_form.decision_letter.filename %></td>
             <td class="govuk-table__cell app-hide-col"><%= number_to_human_size(@set_decision_form.decision_letter.byte_size) %></td>
             <td class="govuk-table__cell">
-              <%= link_to "#{remove_set_decision_path}?doc_id="+ @set_decision_form.decision_letter.id, method: :patch, class: 'govuk-link' do %>
+              <%= link_to "#{remove_set_decision_path}?doc_id="+ @set_decision_form.decision_letter.id, class: 'govuk-link' do %>
                 Remove<span class="govuk-visually-hidden"> file <%= @set_decision_form.decision_letter.filename %></span>
               <% end %>
             </td>
@@ -40,6 +40,6 @@ breadcrumbs = {
         </tbody>
       </table>
     <% end %>
-    <%= f.govuk_submit t("buttons.upload_files"), secondary: true, classes: "upload-files-button", name: "upload" %>
-    <%= f.govuk_submit classes: "upload-continue-button", name: "continue" %>
+    <%= f.govuk_submit t("buttons.upload_files"), secondary: true, class: "upload-files-button", name: "upload" %>
+    <%= f.govuk_submit class: "upload-continue-button", name: "continue" %>
 <% end %>

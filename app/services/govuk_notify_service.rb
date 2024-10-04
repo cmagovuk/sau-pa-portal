@@ -13,7 +13,7 @@ class GovukNotifyService
     if api_key.present? && template_id.present?
       notify_client.send_email(
         email_address: auth_user.email,
-        template_id: template_id,
+        template_id:,
         personalisation: {
           submitter_name: auth_user.name,
           reference_number: request.reference_number,
@@ -30,7 +30,7 @@ class GovukNotifyService
     if api_key.present? && template_id.present?
       notify_client.send_email(
         email_address: request.user.email,
-        template_id: template_id,
+        template_id:,
         personalisation: {
           link_url: "#{Rails.application.config.pap_url}/dashboard",
           reference_number: request.reference_number,
@@ -46,8 +46,8 @@ class GovukNotifyService
     template_id = Rails.application.config.govuk_notify_templates.fetch(:rfi_response)
     if api_key.present? && template_id.present?
       notify_client.send_email(
-        email_address: email_address,
-        template_id: template_id,
+        email_address:,
+        template_id:,
         personalisation: {
           reference_number: request.reference_number,
         },
@@ -62,8 +62,8 @@ class GovukNotifyService
     template_id = Rails.application.config.govuk_notify_templates.fetch(:request_withdraw)
     if api_key.present? && template_id.present?
       notify_client.send_email(
-        email_address: email_address,
-        template_id: template_id,
+        email_address:,
+        template_id:,
         personalisation: {
           reference_number: request.reference_number,
         },
@@ -78,8 +78,8 @@ class GovukNotifyService
     template_id = Rails.application.config.govuk_notify_templates.fetch(:submit_rfi_request)
     if api_key.present? && template_id.present? && email_address.present?
       notify_client.send_email(
-        email_address: email_address,
-        template_id: template_id,
+        email_address:,
+        template_id:,
         personalisation: {
           # link_url: "#{Rails.application.config.pap_url}#{link_path}",
           link_url: "#{Rails.application.config.pap_url}/dashboard",
@@ -100,7 +100,7 @@ class GovukNotifyService
       notify_users.map do |email|
         notify_client.send_email(
           email_address: email,
-          template_id: template_id,
+          template_id:,
           personalisation: {
             link_url: "#{Rails.application.config.pap_url}/dashboard",
             reference_number: request.reference_number,
@@ -118,7 +118,7 @@ class GovukNotifyService
     if api_key.present? && template_id.present?
       notify_client.send_email(
         email_address: user.email,
-        template_id: template_id,
+        template_id:,
         personalisation: {
           link_url: Rails.application.config.pap_url,
           name: user.user_name,

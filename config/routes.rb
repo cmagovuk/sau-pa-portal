@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   resources :public_authorities do
     member do
       get "assign_sub"
-      patch "remove_sub"
+      get "remove_sub"
       patch "add_sub"
     end
   end
@@ -36,12 +36,12 @@ Rails.application.routes.draw do
   end
 
   patch "request/request_steps/:id/upload" => "request_steps#upload"
-  patch "request/request_steps/:id/remove" => "request_steps#remove"
+  get "request/request_steps/:id/remove" => "request_steps#remove"
   get "request/submitted", to: "requests#submitted"
   get "requests/view/:id", to: "requests#view"
   get "dashboard", to: "requests#index"
   get "ga_dashboard", to: "requests#ga_dashboard"
-  post "requests/reload/:id", to: "requests#reload"
+  get "requests/reload/:id", to: "requests#reload"
 
   resources :requests do # , only: %i[create index]
     member do
@@ -71,7 +71,7 @@ Rails.application.routes.draw do
   patch "sau_requests/:id/report_upload" => "report#report_upload"
   get "sau_requests/:id/report_confirm" => "report#report_confirm"
   post "sau_requests/:id/report_confirm_submit" => "report#report_confirm_submit"
-  patch "sau_requests/:id/report_remove" => "report#remove"
+  get "sau_requests/:id/report_remove" => "report#remove"
 
   resources :call_in, only: %i[edit update], path_names: { edit: "" } do
     member do
@@ -84,7 +84,7 @@ Rails.application.routes.draw do
   resources :call_in_direction, only: %i[edit update], path_names: { edit: "" } do
     member do
       get "confirm"
-      patch "remove"
+      get "remove"
       post "submit"
     end
   end
@@ -93,8 +93,8 @@ Rails.application.routes.draw do
     member do
       get "confirm"
       get "amend"
-      patch "remove"
-      patch "amend_remove"
+      get "remove"
+      get "amend_remove"
       patch "amend_update"
       put "amend_update"
       post "submit"
@@ -105,7 +105,7 @@ Rails.application.routes.draw do
     member do
       get "confirm"
       get "confirm_restore"
-      patch "remove"
+      get "remove"
       post "submit"
       post "restore"
     end
@@ -114,7 +114,7 @@ Rails.application.routes.draw do
   resources :request_withdraw, only: %i[edit update], path_names: { edit: "" } do
     member do
       get "confirm"
-      patch "remove"
+      get "remove"
       post "submit"
       get "summary"
     end
@@ -128,9 +128,9 @@ Rails.application.routes.draw do
     member do
       get "confirm"
       post "submit"
-      patch "remove"
+      get "remove"
       get "amend"
-      patch "amend_remove"
+      get "amend_remove"
       put "amend_update"
     end
   end
@@ -139,7 +139,7 @@ Rails.application.routes.draw do
     member do
       get "confirm"
       post "submit"
-      patch "remove"
+      get "remove"
       get "summary"
     end
   end
@@ -161,6 +161,7 @@ Rails.application.routes.draw do
   resources :sau_users, only: %i[index destroy new create] do
     member do
       get "remove"
+      get "remove_user"
     end
     collection do
       get "confirm"

@@ -13,24 +13,24 @@ breadcrumbs = {
       <h2 class="govuk-heading-m">Submission</h2>
 
     <%= govuk_summary_list(actions: false) do |summary_list|
-        summary_list.row do |row|
-            row.key { 'Reference' }
-            row.value { @request.reference_number }
+        summary_list.with_row do |row|
+            row.with_key { 'Reference' }
+            row.with_value { @request.reference_number }
         end
         if @request.previous_refno
-          summary_list.row do |row|
-            row.key { "Previously submitted" }
-            row.value { "#{@request.previous_refno} (#{@request.previous_status})" }
+          summary_list.with_row do |row|
+            row.with_key { "Previously submitted" }
+            row.with_value { "#{@request.previous_refno} (#{@request.previous_status})" }
           end
         end
-        summary_list.row do |row|
-          row.key { "Status" }
-          row.value { @request.status }
+        summary_list.with_row do |row|
+          row.with_key { "Status" }
+          row.with_value { @request.status }
         end
         if @request.status == "Accepted" || (@request.status == "Pending withdrawal" && @request.internal_state.include?("Accepted"))
-          summary_list.row do |row|
-            row.key { "Report due date" }
-            row.value do %>
+          summary_list.with_row do |row|
+            row.with_key { "Report due date" }
+            row.with_value do %>
             <div class="app-space-between">
                 <%= @request.report_due_date.present? ? @request.report_due_date.strftime("%a %d %B %Y") : nil %>
                 <%= govuk_link_to "Change due date", due_date_sau_request_path, no_visited_state: true %>
@@ -38,13 +38,13 @@ breadcrumbs = {
           <% end
           end
         end
-        summary_list.row do |row|
-          row.key { "Referral type" }
-          row.value { t(@request.referral_type&.to_sym, scope: [:helpers, :label, :request, :referral_type_options]) }
+        summary_list.with_row do |row|
+          row.with_key { "Referral type" }
+          row.with_value { t(@request.referral_type&.to_sym, scope: [:helpers, :label, :request, :referral_type_options]) }
         end
-        summary_list.row do |row|
-          row.key { "Submitted by" }
-          row.value do %>
+        summary_list.with_row do |row|
+          row.with_key { "Submitted by" }
+          row.with_value do %>
           <% if @request.submitted_by_id.present? %>
             <%= govuk_link_to @request.submitted_by.user_name, "mailto:#{@request.submitted_by.email}?subject=Request #{@request.reference_number}", no_visited_state: true %>
             <% if @request.submitted_by.phone.present? %>
@@ -68,29 +68,29 @@ breadcrumbs = {
 
     <%= govuk_tabs(title: "Contents") do |c|
         if %w[Completed Withdrawn Declined Rejected].include?(@request.status)
-          c.tab(label: "SAU documents") do %>
+          c.with_tab(label: "SAU documents") do %>
               <%= render partial: "layouts/submission_report" %>
           <% end 
         end
         if @request.status == "Pending withdrawal" || (@request.status == "Withdrawn" && @request.referral_type != "par")
-          c.tab(label: "Withdrawal") do %>
+          c.with_tab(label: "Withdrawal") do %>
               <%= render partial: "layouts/withdrawal" %>
           <% end 
         end
         if !@request.information_requests.load.empty? 
-          c.tab(label: "Further information requests") do %>
+          c.with_tab(label: "Further information requests") do %>
               <%= render partial: "further_information_requests" %>
           <% end
         end
         if ["Accepted", "Pending withdrawal"].include?(@request.status) 
-          c.tab(label: "SAU documents") do %>
+          c.with_tab(label: "SAU documents") do %>
               <%= render partial: "layouts/submission_report" %>
           <% end 
         end
-        c.tab(label: "Submission documents") do %>
+        c.with_tab(label: "Submission documents") do %>
             <%= render partial: "layouts/submission_documents" %>   
         <% end
-        c.tab(label: "Log") do %>
+        c.with_tab(label: "Log") do %>
             <%= render partial: "audit_log" %>   
         <% end
     end %>

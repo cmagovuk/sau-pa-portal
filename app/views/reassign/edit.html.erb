@@ -15,13 +15,13 @@ breadcrumbs = {
         <h2 class="govuk-heading-m">Submission</h2>
 
       <%= govuk_summary_list(actions: false) do |summary_list|
-          summary_list.row do |row|
-              row.key { 'Reference' }
-              row.value { @request.reference_number }
+          summary_list.with_row do |row|
+              row.with_key { 'Reference' }
+              row.with_value { @request.reference_number }
           end
-          summary_list.row do |row|
-            row.key { "Current owner" }
-            row.value { @request.user.user_name }
+          summary_list.with_row do |row|
+            row.with_key { "Current owner" }
+            row.with_value { @request.user.user_name }
           end
       end %>
 

@@ -6,42 +6,42 @@
   <h2 class="govuk-heading-m"><%= auth_user.pa_name %></h2>
 
   <%= govuk_table do |table|
-    table.caption(size: 'm', text: 'Super users')
+    table.with_caption(size: 'm', text: 'Super users')
 
-    table.head do |head|
-      head.row do |row|
-        row.cell(header: true, text: 'Name')
-        row.cell(header: true, text: 'Email')
+    table.with_head do |head|
+      head.with_row do |row|
+        row.with_cell(header: true, text: 'Name')
+        row.with_cell(header: true, text: 'Email')
       end
     end
 
-    table.body do |body|
+    table.with_body do |body|
       @users.select { |u| u.role == 'su' }.each do |user| 
-        body.row do |row|
-          row.cell(text: user.user_name)
-          row.cell(text: user.email)
+        body.with_row do |row|
+          row.with_cell(text: user.user_name)
+          row.with_cell(text: user.email)
         end
       end
     end
   end
   %>
   <%= govuk_table do |table|
-    table.caption(size: 'm', text: 'Standard users')
+    table.with_caption(size: 'm', text: 'Standard users')
 
-    table.head do |head|
-      head.row do |row|
-        row.cell(header: true, text: 'Name')
-        row.cell(header: true, text: 'Email')
-        row.cell(header: true, text: 'Action')
+    table.with_head do |head|
+      head.with_row do |row|
+        row.with_cell(header: true, text: 'Name')
+        row.with_cell(header: true, text: 'Email')
+        row.with_cell(header: true, text: 'Action')
       end
     end
 
-    table.body do |body|
+    table.with_body do |body|
       @users.select { |u| u.role == 'u' }.each do |user| 
-        body.row do |row|
-          row.cell(text: user.user_name)
-          row.cell(text: user.email)
-          row.cell do |cell| %>
+        body.with_row do |row|
+          row.with_cell(text: user.user_name)
+          row.with_cell(text: user.email)
+          row.with_cell do |cell| %>
             <dd class="govuk-summary-list__actions govuk-!-padding-top-0 govuk-!-padding-bottom-0">
               <ul class="govuk-summary-list__actions-list">
                 <li class="govuk-summary-list__actions-list-item">

@@ -136,10 +136,10 @@ private
           call_in_docs: call_in_doc,
           par_docs: par_doc,
           submission_docs: submission_doc,
-          description_docs: description_docs,
+          description_docs:,
         },
         projectName: project_name[0, 245],
-        request: request,
+        request:,
       },
     }.to_json
 

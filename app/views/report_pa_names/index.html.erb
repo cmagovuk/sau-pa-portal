@@ -11,7 +11,7 @@
     <div class="govuk-grid-column-one-third">
     <br>
       <div class="govuk-button-group">
-        <%= f.govuk_submit "Filter", secondary: true, classes: "sau-filter-btn" %>
+        <%= f.govuk_submit "Filter", secondary: true, class: "sau-filter-btn" %>
       </div>
     </div>
   </div>
@@ -19,20 +19,20 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
 <%= govuk_table do |table|
-  table.caption(size: 'l', text: t(".heading"))
+  table.with_caption(size: 'l', text: t(".heading"))
 
-  table.head do |head|
-    head.row do |row|
-      row.cell(header: true, text: 'Name')
-      row.cell(header: true, text: 'Action')
+  table.with_head do |head|
+    head.with_row do |row|
+      row.with_cell(header: true, text: 'Name')
+      row.with_cell(header: true, text: 'Action')
     end
   end
 
-  table.body do |body|
+  table.with_body do |body|
     @report_pa_names.each do |auth| 
-      body.row do |row|
-        row.cell(text: auth.pa_name)
-        row.cell do |cell| %>
+      body.with_row do |row|
+        row.with_cell(text: auth.pa_name)
+        row.with_cell do |cell| %>
           
     <dd class="govuk-summary-list__actions govuk-!-padding-top-0 govuk-!-padding-bottom-0">
       <ul class="govuk-summary-list__actions-list">

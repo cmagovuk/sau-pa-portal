@@ -10,6 +10,11 @@ class SauUsersController < AdminController
     render template: "/errors/not_found", status: :not_found and return unless @user_data.count == 1
   end
 
+  def remove_user
+    sau_user_service.remove_user(params[:group], params[:id])
+    redirect_to "#{sau_users_path}##{t("sau_groups.#{params[:group]}").parameterize}"
+  end
+
   def destroy
     sau_user_service.remove_user(params[:group], params[:id])
     redirect_to "#{sau_users_path}##{t("sau_groups.#{params[:group]}").parameterize}"
