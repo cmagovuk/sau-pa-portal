@@ -4,7 +4,9 @@ class InformationResponsesController < ApplicationController
   end
 
   def update
-    if params[:information_request].present? && params[:information_request].key?(:documents)
+    if params[:information_request].present? &&
+        params[:information_request].key?(:documents) &&
+        params[:information_request][:documents].compact_blank.count.positive?
       if information_request.valid_response_documents?(params[:information_request][:documents])
         information_request.add_response_doc(params[:information_request][:documents])
         information_request.update!(status: "response-unconfirmed")

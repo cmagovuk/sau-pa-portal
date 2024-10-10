@@ -6,7 +6,9 @@ class InformationRequestsController < SauLeadershipController
   def create
     @information_request = Request.find(params[:id]).information_requests.new
 
-    if params[:information_request].present? && params[:information_request].key?(:documents)
+    if params[:information_request].present? &&
+        params[:information_request].key?(:documents) &&
+        params[:information_request][:documents].compact_blank.count.positive?
       if @information_request.valid_request_documents?(params[:information_request][:documents])
         @information_request.add_request_doc(params[:information_request][:documents])
         @information_request.update!(status: "request-unconfirmed")
@@ -73,7 +75,9 @@ class InformationRequestsController < SauLeadershipController
 
   def update
     information_request
-    if params[:information_request].present? && params[:information_request].key?(:request_doc)
+    if params[:information_request].present? &&
+        params[:information_request].key?(:request_doc) &&
+        params[:information_request][:request_doc].compact_blank.count.positive?
       if @information_request.valid_request_documents?(params[:information_request][:request_doc])
         @information_request.add_request_doc(params[:information_request][:request_doc])
         redirect_to edit_information_request_path(@information_request)
