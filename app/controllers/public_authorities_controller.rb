@@ -13,6 +13,8 @@ class PublicAuthoritiesController < AdminController
   end
 
   def new
+    load_org_levels
+
     @authority = PublicAuthority.new
   end
 
@@ -23,11 +25,14 @@ class PublicAuthoritiesController < AdminController
       @authority.audit_logs.create!(AuditLog.log(auth_user, :created_pa, pa: @authority.pa_name))
       redirect_to @authority
     else
+      load_org_levels
       render :new, status: :unprocessable_entity
     end
   end
 
   def edit
+    load_org_levels
+
     @authority = PublicAuthority.find(params[:id])
   end
 
@@ -37,6 +42,7 @@ class PublicAuthoritiesController < AdminController
     if @authority.update(public_authority_params)
       redirect_to @authority
     else
+      load_org_levels
       render :edit, status: :unprocessable_entity
     end
   end
@@ -90,6 +96,14 @@ class PublicAuthoritiesController < AdminController
 private
 
   def public_authority_params
-    params.require(:authority).permit(:pa_name)
+    params.require(:authority).permit(%w[pa_name org_level_1 org_level_2 org_level_1_select org_level_2_select])
+  end
+
+  def load_org_levels
+    @level_1_orgs = PublicAuthority.select(:org_level_1).distinct.where.not(org_level_1: [nil, ""]).map { |a| [a.org_level_1, a.org_level_1] }
+
+    @level_2_orgs = PublicAuthority.select(%i[org_level_1 org_level_2]).distinct.where.not(org_level_2: [nil, ""])
+    @grouped_level_2_orgs = Hash.new([])
+    @level_2_orgs.each { |o| @grouped_level_2_orgs[o.org_level_1] += [o.org_level_2] }
   end
 end

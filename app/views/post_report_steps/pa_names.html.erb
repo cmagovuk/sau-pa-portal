@@ -1,0 +1,12 @@
+<% title(t('.page_title')) %>
+<%= render partial: 'back_link' %>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+  <%= form_for @post_report, url: sau_request_post_report_step_path(params[:sau_request_id], params[:id]), method: :patch, :as => :post_report do |f| %>
+      <%= f.govuk_error_summary %>
+      <%= f.govuk_collection_check_boxes :pa_names, @post_report.pa_name_options, ->(option) {option}, ->(option) {option},
+          legend: { size: "l" }, hint: {text: t("helpers.hint.post_report.pa_names", pa_name: @post_report.request.public_authority.pa_name)}, small:true %>
+      <%= f.govuk_submit %>
+  <% end %>
+  </div>
+</div>

@@ -32,6 +32,7 @@
 en:
   dashboard: Dashboard
   request_progress: Request progress
+  post_report: Lessons learned
   submission: Original submission
   upload_report: Upload final report
   information_request: Information request
@@ -88,6 +89,32 @@ en:
         </ul>
         <p class="govuk-body">send an email to  <a href="mailto:%{feedback_email}?subject=General PAP enquiry">%{feedback_email}</a></p>      
 
+  sau_groups:
+    admin: Admin team
+    lead: Leadership team
+    team: SAU team
+
+  sau_users:
+    user_list:
+      add_button: Add user to %{team}
+    index:
+      page_title: SAU users
+      heading: SAU users
+    new:
+      page_title: Add SAU user
+      heading: Add user to %{team}
+      cancel_button: Cancel
+    remove:
+      page_title: Remove SAU user
+      heading: Remove user from %{team}
+      cancel_button: Cancel
+      remove_button: Remove
+    confirm:
+      page_title: Confirm user information
+      heading: Check answer
+      confirm_button: Submit
+      cancel_button: Cancel
+
   request_withdraw:
     edit:
       page_title: Request withdraw
@@ -123,6 +150,9 @@ en:
     due_date:
       page_title: Set report due date
       warning_text: Report due date is over %{max_days} days in the future. Please check the date entered is correct before continuing.
+    view_post_report:
+      page_title: View lessons learned
+      heading: Lessons learned
 
   layouts:
     original_submission:
@@ -132,7 +162,8 @@ en:
     edit:
       page_title: Upload final report
       heading: Upload final report
-      summary: Upload final report. This will also set the request to 'Completed'
+      status_text_html: <p class="govuk-body">This will also set the request to 'Completed'</p>
+      summary_html: <p class="govuk-body">Please ensure you upload <b>both</b> the final report and the accompanying letter to the public authority before proceeding.</p>
     report_confirm:
       page_title: Confirm final report
       heading: Confirm final report
@@ -227,10 +258,68 @@ en:
     edit:
       page_title: Set decision
       summary: Upload the decision letter
+    amend:
+      page_title: Amend decision documents
+      summary: Amend the decision letter
     confirm:
       page_title: Confirm decision
       heading: Confirm decision
 
+  post_report_steps:
+    pa_names:
+      page_title: Public Authorities
+    referral_details:
+      page_title: Referral details
+      fieldset_legend: Referral details
+    principle_a:
+      page_title: Principle A
+      fieldset_legend: Principle A
+    principle_b:
+      page_title: Principle B
+      fieldset_legend: Principle B
+    principle_c:
+      page_title: Principle C
+      fieldset_legend: Principle C
+    principle_d:
+      page_title: Principle D
+      fieldset_legend: Principle D
+    principle_e:
+      page_title: Principle E
+      fieldset_legend: Principle E
+    principle_f:
+      page_title: Principle F
+      fieldset_legend: Principle F
+    principle_g:
+      page_title: Principle G
+      fieldset_legend: Principle G
+    ee_check:
+      page_title: E&E principles addressed
+    ee_principles:
+      page_title: Energy and Environment Principles
+      fieldset_legend: Energy and Environment Principles
+    other_issues:
+      page_title: Any other issues
+      fieldset_legend: Are there any other issues or important features in this report that were not covered in the questions above?
+    review:
+      page_title: Review submission
+      heading: Review your submission
+
+  report_pa_names:
+    index:
+      page_title: Reporting Public Authority Names
+      heading: Reporting Public Authority Names
+      add_pa_button: Add name
+      disabled_filter: Include disabled names
+    edit:
+      page_title: Edit Reporting Public Authority Name
+      heading: Edit Reporting Public Authority Name
+      cancel_btn: Cancel
+    new:
+      page_title: New Reporting Public Authority Name
+      heading: New Reporting Public Authority Name
+      cancel_btn: Cancel
+
+      
   request_steps:
     referral_type:
       page_title: Referral type
@@ -521,6 +610,9 @@ en:
     edit:
       page_title: Initiate RFI
       summary: Upload information request documents to initiate a new information request.
+    amend:
+      page_title: Amend RFI documents
+      summary: Upload information request documents to initiate a new information request.
     request_summary:
       page-title: Information request sent
       panel-title: Request sent
@@ -584,6 +676,8 @@ en:
     called_in: Changed to Call in
     report_due_date: Report due date set to %{date}
     owner_change: Owner changed from %{from} to %{to}
+    amend_remove: Removed %{doc_set} document
+    amend_added: Added %{doc_set} document
 
   helpers:
     legend:
@@ -592,6 +686,33 @@ en:
 
       call_in_direction:
         direction_date: Please provide the date that the direction was given
+
+      post_report:
+        pa_names: Select all the Public Authorities involved in the referral
+        pe_policy: Does the report provide substantial reasoning for any issue related to 'most appropriate instrument for addressing the policy objective'?
+        pe_other_means: Does the report provide substantial reasoning for any issue related to 'cannot be achieved through other, less distortive means'?
+        pa_policy_evidence: Does the report provide substantial reasoning for any issue relating to 'setting out and evidencing the specific policy objective(s)'?
+        pa_market_fail: Does the report provide substantial reasoning for any issue related to 'remedying an identified market failure'?
+        pa_equity: Does the report provide substantial reasoning for any issue related to 'addressing an equity rationale'?
+        pc_counterfactual: Does the report provide substantial reasoning for any issue relating to the counterfactual ('baseline for assessing change')? 
+        pc_eco_behaviour: Does the report provide substantial reasoning for any issue relating to 'changes in economic behaviour of the beneficiary'?
+        pd_additionality: Does the report provide substantial reasoning for any issue relating to additionality ('something that would not happen without the subsidy')? 
+        pd_costs: Does the report provide substantial reasoning for any issue relating to 'costs that would be funded anyway'?
+        pb_proportion: Does the report provide substantial reasoning for any issue relating to proportionality and 'limited to what is necessary'?
+        pf_subsidy_char: Does the report provide substantial reasoning for any issue relating to subsidy characteristics?
+        pf_market_char: Does the report provide substantial reasoning for any issue relating to market characteristics?
+        pg_balance_uk: Does the report provide substantial reasoning for any issue relating to the balancing test and competition and investment in the UK?
+        pg_balance_intl: Does the report provide substantial reasoning for any issue relating to the balancing test and international trade or investment?
+        ee_principles: Which energy and environment principles were engaged in this referral?
+        ee_issues: Does the report provide substantial reasoning for any issue relating to the energy and environment principles? 
+        other_issues: Are there any other issues or important features in this report that were not covered in the questions above?
+        special_cats: Does the data fall into any of the special categories?
+        special_cat_values: Select all that apply
+        intl_obligations: Were there any international obligations relevant to this referral?
+        intl_obligation_values: Select all that apply. This should include any relevant issues resolved before referral
+        confi_issues: Were there any significant issues raised during the confidentiality representations review process?
+        third_party_reps: Were any third party representations made?
+        ee_required: Was it identified that the Energy and Environment Principles should have been addressed in the referral?
 
       request:
         scheme_subsidy: Is a report requested in relation to a subsidy or subsidy scheme?
@@ -644,6 +765,23 @@ en:
         disabled_options:
           x: Preventing user from having any access
 
+      post_report:
+        referral_name: Provide the name as written in the final report e.g. 'Proposed [subsidy to [beneficiary name]] / [scheme name] referred by [PA name]'
+        pa_names: In the case where multiple authorities are involved, select all authorities not just the one submitting the referral.  This referral was submitted by '%{pa_name}', for reporting purposes the name may be listed differently.
+        value: Please record the figure in a numerical format, e.g. £10,000,000,000
+        final_report_url: This should link to the PDF version on gov.uk/cma-cases
+        ee_principles: Select all that apply
+        ee_principles_options:
+          p_a: Subsidies in relation to energy and environment shall be aimed at and incentivise the beneficiary in (a)delivering a secure, affordable and sustainable energy system and a well-functioning and competitive energy market, or (b)increasing the level of environmental protection compared to the level that would be achieved in the absence of the subsidy.
+          p_b: Subsidies in relation to energy and environment shall not relieve the beneficiary from liabilities arising from its responsibilities as a polluter under the law of England and Wales, Scotland or Northern Ireland.
+          p_c: Subsidies for electricity generation adequacy, renewable energy or cogeneration.
+          p_d: Subsidies for electricity generation adequacy may be limited to installations not exceeding specified CO2 emission limits.
+          p_e: Subsidies for renewable energy or cogeneration shall not affect beneficiaries' obligations or opportunities to participate in electricity markets.
+          p_f: Subsidies in the form of partial exemptions from energy-related taxes and levies in favour of energy-intensive users shall not exceed the total amount of the tax or levy concerned.
+          p_g: Subsidies in the form of compensation for electricity-intensive users given in the event of an increase in electricity costs resulting from climate policy instruments shall be restricted to sectors at significant risk of carbon leakage due to the cost increase. 
+          p_h: Subsidies for the decarbonisation of emissions linked to industrial activities in the United Kingdom shall- (a)achieve an overall reduction in greenhouse gas emissions, and (b)reduce the emissions directly resulting from the industrial activities.
+          p_i: Subsidies for improvements of the energy efficiency of industrial activities in the United Kingdom shall improve energy efficiency by reducing energy consumption, either directly or per unit of production.
+
       request:
         nc_description: This description should include any links to published announcements of the %{type}
         call_in: Please upload a copy of the direction given by the Secretary of State
@@ -678,6 +816,7 @@ en:
               <li>Categories of beneficiary; and</li>
               <li>Any relevant time limits or other conditions which may be attached to the award.</li>
             </ul>
+        third_party_email: On publication of the SAU's Notice under section 53(1)(a) of the Subsidy Control Act 2022, we will direct third parties to provide comments to the SAU's email address, copying in the address provided.
         legal: 
           scheme: Please provide a summary of the legal basis under which the subsidy scheme is made
           subsidy: Please provide a summary of the legal basis under which the subsidy is given
@@ -730,6 +869,8 @@ en:
 
       authority:
         pa_name: Name of public authority
+        org_level_1: Reporting group level 1
+        org_level_2: Reporting group level 2
       user:
         public_authority_id: Public authority
         user_name: Name
@@ -741,6 +882,136 @@ en:
           u: Standard user
         disabled_options:
           x: Select to disable account
+      report_pa_name:
+        pa_name: Enter Public Authority name
+      post_report:
+        referral_name: Name of the referral
+        value: Enter the value of the subsidy/scheme
+        final_report_url: Please provide a web link to the final report published on the SAU's webpage
+        principle_adviser: Who was the Principal Subsidy Adviser on this referral?
+        assist_director: Who was the Assistant Director on this referral?
+        other_issues_link: Alternatively, enter a hyperlink to any relevant document that includes additional lessons learned and information not already captured.
+        special_cats_options:
+          y: "Yes"
+          n: "No"
+        special_cats_text: Provide details
+        special_cat_values_options: 
+          sens: Sensitive sectors as defined by the Act
+          relo: Relocation of activities
+          resc: Rescue 
+          rest: Restructuring
+          rdep: Restructuring deposit takers or insurance companies
+          ldep: Liquidating deposit takers or insurance companies
+          lpro: Liquidating provision for deposit takers or insurance companies
+          sins: Subsidies for insurers that provide export credit insurance
+          sair: Subsidies for air carriers for the operation of routes
+          spei: Services of Public Economic Interest (SPEI)
+          mini: Minimal financial assistance
+          serv: Services of public economic interest assistance
+          ndis: Natural disasters and other exceptional circumstances
+          nglo: National or global economic emergencies
+          fina: Financial stability
+          lsub: Legacy subsidies
+          lxbd: Large cross-border or international cooperation projects
+        intl_obligations_options:
+          y: "Yes"
+          n: "No"
+        intl_obligation_values_options: 
+          winds: Windsor Framework
+          trade: Trade Corporation Agreement
+          wto: WTO Agreement on Subsidies and Countervailing Measures (ASCM)
+        confi_issues_options:
+          y: "Yes"
+          n: "No"
+        confi_issues_text: Please provide further details
+        third_party_reps_options:
+          y: "Yes"
+          n: "No"
+        third_party_reps_text: Please provide further details
+        reject_reason: Provide reasons why the referral was rejected
+        withdrawn_reason: Provide reasons why the referral was withdrawn
+        pe_policy_options:
+          y: "Yes"
+          n: "No"
+        pe_policy_text: Please provide further details, including information on which instrument(s) have substantial reasoning of any issue in the report. 
+        pe_other_means_options:
+          y: "Yes"
+          n: "No"
+        pe_other_means_text: Please provide further details.
+        pa_policy_evidence_options:
+          y: "Yes"
+          n: "No"
+        pa_policy_evidence_text: Please provide further details, including which market failures have substantial reasoning in the report, such as externalities, public goods, asymmetric or imperfect information, coordination failure, or any other relevant issues.
+        pa_market_fail_options: 
+          y: "Yes"
+          n: "No"
+        pa_market_fail_text: Please provide further details, including information on which market failure(s) have substantial reasoning of any issue in the report.
+        pa_equity_options:
+          y: "Yes"
+          n: "No"
+        pa_equity_text: Please provide further details, including information on which equity rationale(s) have substantial reasoning of any issue in the report.
+        pc_counterfactual_options:
+          y: "Yes"
+          n: "No"
+        pc_counterfactual_text: Please provide further details.
+        pc_eco_behaviour_options:
+          y: "Yes"
+          n: "No"
+        pc_eco_behaviour_text: Please provide further details.
+        pd_additionality_options:
+          y: "Yes"
+          n: "No"
+        pd_additionality_text: Please provide further details.
+        pd_costs_options:
+          y: "Yes"
+          n: "No"
+        pd_costs_text: Please provide further details.
+        pb_proportion_options:
+          y: "Yes"
+          n: "No"
+        pb_proportion_text: Please provide further details.
+        pf_subsidy_char_options:
+          y: "Yes"
+          n: "No"
+        pf_subsidy_char_text: Please provide further details, including information on which subsidy characteristic(s) have substantial reasoning of any issue in the report.
+        pf_market_char_options:
+          y: "Yes"
+          n: "No"
+        pf_market_char_text: Please provide further details, including information on which market characteristic(s) have substantial reasoning of any issue in the report.
+        pg_balance_uk_options:
+          y: "Yes"
+          n: "No"
+        pg_balance_uk_text: Please provide further details.
+        pg_balance_intl_options:
+          y: "Yes"
+          n: "No"
+        pg_balance_intl_text: Please provide further details.
+        ee_required_options:
+          y: "Yes"
+          n: "No"
+        ee_principles_options:
+          p_a: Principle A
+          p_b: Principle B
+          p_c: Principle C
+          p_d: Principle D
+          p_e: Principle E
+          p_f: Principle F
+          p_g: Principle G
+          p_h: Principle H
+          p_i: Principle I
+
+        ee_principles_text: Provide details
+        ee_issues_options:
+          y: "Yes"
+          n: "No"
+        ee_issues_text: Please provide further details, including information on which energy and environment principle(s) have substantial reasoning of any issue in the report.
+        other_issues_options:
+          y: "Yes"
+          n: "No"
+        other_issues_text: Please provide further details.
+
+      sau_user_form:
+        email_addr: Email address
       request:
         scheme_subsidy_options:
           scheme: Subsidy Scheme
@@ -816,6 +1087,7 @@ en:
            scheme: Description of the subsidy scheme
            subsidy: Description of the subsidy award
         nc_description: Please provide an appropriate non-confidential description of the %{type} to be published by the SAU
+        third_party_email: Please provide an email address to be used as a designated contact point for third party submissions on our webpage.
         call_in: Call in Direction by the Secretary of State
         par_call_in: Post-award referral
         par_on_td_options:

@@ -22,7 +22,7 @@ breadcrumbs = {
         class: "upload-input" %>
   <%= render partial: "/layouts/document_list", object: @information_request.ordered_response_doc %>
 
-  <%= f.govuk_submit t("buttons.upload_files"), secondary: true, classes: "upload-files-button", name: "upload" %>
-  <%= f.govuk_submit classes: "upload-continue-button" %>
+  <%= f.govuk_submit t("buttons.upload_files"), secondary: true, class: "upload-files-button", name: "upload" %>
+  <%= f.govuk_submit class: "upload-continue-button" %>
 
 <% end %>

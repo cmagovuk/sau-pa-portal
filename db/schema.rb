@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_07_19_111011) do
-
+ActiveRecord::Schema[7.0].define(version: 2024_09_24_114730) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -34,7 +33,7 @@ ActiveRecord::Schema.define(version: 2023_07_19_111011) do
     t.text "metadata"
     t.string "service_name", null: false
     t.bigint "byte_size", null: false
-    t.string "checksum", null: false
+    t.string "checksum"
     t.datetime "created_at", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
@@ -53,28 +52,105 @@ ActiveRecord::Schema.define(version: 2023_07_19_111011) do
     t.uuid "public_authority_id"
     t.string "log_type"
     t.uuid "log_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["log_type", "log_id"], name: "index_audit_logs_on_log"
     t.index ["public_authority_id"], name: "index_audit_logs_on_public_authority_id"
   end
 
   create_table "information_requests", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "status"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.uuid "request_id", null: false
     t.index ["request_id"], name: "index_information_requests_on_request_id"
+  end
+
+  create_table "post_reports", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.uuid "request_id"
+    t.text "referral_name"
+    t.string "completed_steps"
+    t.string "pe_policy"
+    t.string "pe_other_means"
+    t.string "pc_counterfactual"
+    t.string "pc_eco_behaviour"
+    t.string "pd_additionality"
+    t.string "pd_costs"
+    t.string "pb_proportion"
+    t.string "pf_subsidy_char"
+    t.string "pf_market_char"
+    t.string "pg_balance_uk"
+    t.string "pg_balance_intl"
+    t.string "ee_engaged"
+    t.string "ee_reasoning"
+    t.text "pe_policy_text"
+    t.text "pe_other_means_text"
+    t.text "pc_counterfactual_text"
+    t.text "pc_eco_behaviour_text"
+    t.text "pd_additionality_text"
+    t.text "pd_costs_text"
+    t.text "pb_proportion_text"
+    t.text "pf_subsidy_char_text"
+    t.text "pf_market_char_text"
+    t.text "pg_balance_uk_text"
+    t.text "pg_balance_intl_text"
+    t.text "ee_engaged_text"
+    t.text "ee_reasoning_text"
+    t.string "pa_policy_evidence"
+    t.string "pa_market_fail"
+    t.string "pa_equity"
+    t.text "pa_policy_evidence_text"
+    t.text "pa_market_fail_text"
+    t.text "pa_equity_text"
+    t.string "ee_relevant"
+    t.string "ee_principles"
+    t.string "ee_issues"
+    t.string "other_issues"
+    t.text "ee_principles_text"
+    t.text "ee_issues_text"
+    t.text "other_issues_text"
+    t.string "special_cats"
+    t.string "third_party_reps"
+    t.text "special_cats_text"
+    t.text "value"
+    t.string "other_issues_link"
+    t.string "confi_issues"
+    t.text "confi_issues_text"
+    t.text "reject_reason"
+    t.text "third_party_reps_text"
+    t.string "ee_required"
+    t.text "withdrawn_reason"
+    t.text "pa_names"
+    t.text "special_cat_values"
+    t.string "intl_obligations"
+    t.string "final_report_url"
+    t.string "principle_adviser"
+    t.string "assist_director"
+    t.text "intl_obligation_values"
+    t.index ["request_id"], name: "index_post_reports_on_request_id"
   end
 
   create_table "public_authorities", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "pa_name"
     t.string "status"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.uuid "umbrella_authority_id"
+    t.string "org_level_1"
+    t.string "org_level_2"
     t.index ["pa_name"], name: "index_public_authorities_on_pa_name", unique: true
     t.index ["umbrella_authority_id"], name: "index_public_authorities_on_umbrella_authority_id"
+  end
+
+  create_table "report_pa_names", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "pa_name"
+    t.string "disabled"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["pa_name"], name: "index_report_pa_names_on_pa_name", unique: true
   end
 
   create_table "requests", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -86,8 +162,8 @@ ActiveRecord::Schema.define(version: 2023_07_19_111011) do
     t.string "reference_number"
     t.date "direction_date"
     t.uuid "public_authority_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.text "assess_pa"
     t.text "assess_pb"
     t.text "assess_pc"
@@ -160,6 +236,7 @@ ActiveRecord::Schema.define(version: 2023_07_19_111011) do
     t.text "emergency_desc"
     t.string "is_p3_relevant"
     t.text "p3_description"
+    t.string "third_party_email"
     t.index ["public_authority_id"], name: "index_requests_on_public_authority_id"
     t.index ["submitted_by_id"], name: "index_requests_on_submitted_by_id"
     t.index ["user_id"], name: "index_requests_on_user_id"
@@ -171,8 +248,8 @@ ActiveRecord::Schema.define(version: 2023_07_19_111011) do
     t.string "oid"
     t.string "phone"
     t.uuid "public_authority_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "role"
     t.string "disabled"
     t.index ["email"], name: "index_users_on_email", unique: true
@@ -183,6 +260,7 @@ ActiveRecord::Schema.define(version: 2023_07_19_111011) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "information_requests", "requests"
+  add_foreign_key "post_reports", "requests"
   add_foreign_key "public_authorities", "public_authorities", column: "umbrella_authority_id"
   add_foreign_key "requests", "public_authorities"
   add_foreign_key "requests", "users"

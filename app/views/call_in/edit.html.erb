@@ -33,7 +33,7 @@ breadcrumbs = {
             <td class="govuk-table__cell"><%=@call_in.call_in.filename %></td>
             <td class="govuk-table__cell app-hide-col"><%= number_to_human_size(@call_in.call_in.byte_size) %></td>
             <td class="govuk-table__cell">
-              <%= link_to "#{remove_call_in_path(@call_in)}?doc_id="+ @call_in.call_in.id, method: :patch, class: 'govuk-link' do %>
+              <%= link_to "#{remove_call_in_path(@call_in)}?doc_id="+ @call_in.call_in.id, class: 'govuk-link' do %>
                 Remove<span class="govuk-visually-hidden"> file <%= @call_in.call_in.filename %></span>
               <% end %>
             </td>
@@ -41,6 +41,6 @@ breadcrumbs = {
         </tbody>
       </table>
     <% end %>
-    <%= f.govuk_submit t("buttons.upload_files"), secondary: true, classes: "upload-files-button", name: "upload" %>
-    <%= f.govuk_submit classes: "upload-continue-button", name: "continue" %>
+    <%= f.govuk_submit t("buttons.upload_files"), secondary: true, class: "upload-files-button", name: "upload" %>
+    <%= f.govuk_submit class: "upload-continue-button", name: "continue" %>
 <% end %>

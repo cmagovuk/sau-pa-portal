@@ -21,7 +21,7 @@ class SauDashboardController < SauController
             :call_in_type, :subsidy_form, :budget, :tax_amt, :sectors, :purposes, :start_date, :end_date, :confirm_date,
             :beneficiary, :ben_id_type, :ben_id, :ben_size, :ben_good_svr, :location, :ee_assess_required, :par_on_td, :par_td_ref_no, :par_assessed,
             :previous_refno, :previous_status, :sau_call_in, :tax_low, :tax_high, :report_due_date, :submitted_date, :decision_date,
-            :completed_date, :is_c2_relevant, :is_p3_relevant, :is_emergency, :subsidy_forms)
+            :completed_date, :is_c2_relevant, :is_p3_relevant, :is_emergency, :subsidy_forms, :org_level_1, :org_level_2)
     .order(reference_number: :desc)
     respond_to do |format|
       format.html { render "/errors/not_found", status: :not_found }

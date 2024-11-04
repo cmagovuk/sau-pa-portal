@@ -1,4 +1,6 @@
 class PublicAuthority < ApplicationRecord
+  attr_accessor :org_level_1_select, :org_level_2_select
+
   before_validation :strip_blanks
 
   has_many :users
@@ -15,5 +17,7 @@ private
 
   def strip_blanks
     self.pa_name = pa_name.strip if pa_name.present?
+    self.org_level_1 = org_level_1.strip unless org_level_1.nil?
+    self.org_level_2 = org_level_2.strip unless org_level_2.nil?
   end
 end

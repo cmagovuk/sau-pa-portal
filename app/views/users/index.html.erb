@@ -14,7 +14,7 @@
     <div class="govuk-grid-column-one-third">
     <br>
       <div class="govuk-button-group">
-        <%= f.govuk_submit "Filter", secondary: true, classes: "sau-filter-btn" %>
+        <%= f.govuk_submit "Filter", secondary: true, class: "sau-filter-btn" %>
       </div>
     </div>
   </div>
@@ -22,24 +22,24 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
 <%= govuk_table do |table|
-  table.head do |head|
-    head.row do |row|
-      row.cell(header: true, text: 'Name')
-      row.cell(header: true, text: 'Email address')
-      row.cell(header: true, text: 'Public authority')
-      row.cell(header: true, text: 'Role')
-      row.cell(header: true, text: 'Action')
+  table.with_head do |head|
+    head.with_row do |row|
+      row.with_cell(header: true, text: 'Name')
+      row.with_cell(header: true, text: 'Email address')
+      row.with_cell(header: true, text: 'Public authority')
+      row.with_cell(header: true, text: 'Role')
+      row.with_cell(header: true, text: 'Action')
     end
   end
 
-  table.body do |body|
+  table.with_body do |body|
     @users.each do |user| 
-      body.row do |row|
-        row.cell(text: user.user_name)
-        row.cell(text: user.email)
-        row.cell(text: user.public_authority.pa_name)
-        row.cell(text: t(user.role, scope: "helpers.label.user.role_options"))
-        row.cell do |cell|
+      body.with_row do |row|
+        row.with_cell(text: user.user_name)
+        row.with_cell(text: user.email)
+        row.with_cell(text: user.public_authority.pa_name)
+        row.with_cell(text: t(user.role, scope: "helpers.label.user.role_options"))
+        row.with_cell do |cell|
             render "layouts/user_actions", user: user, src: nil
          end
       end

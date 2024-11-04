@@ -120,6 +120,12 @@ private
       end
     end
 
+    project_name = if request.scheme_subsidy == "scheme"
+                     "#{request.public_authority.pa_name} - #{request.scheme_name}"
+                   else
+                     "#{request.public_authority.pa_name} - #{request.beneficiary}"
+                   end
+
     body = {
       method: "RequestReport.Submit",
       payload: {
@@ -130,9 +136,10 @@ private
           call_in_docs: call_in_doc,
           par_docs: par_doc,
           submission_docs: submission_doc,
-          description_docs: description_docs,
+          description_docs:,
         },
-        request: request,
+        projectName: project_name[0, 245],
+        request:,
       },
     }.to_json
 

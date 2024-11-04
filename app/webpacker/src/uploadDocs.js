@@ -12,8 +12,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const inputFileUpload = document.getElementsByClassName("upload-input")[0];
     if (inputFileUpload) {
         const uploadFileButton = document.getElementsByClassName("upload-files-button")[0];
-        const continueButton = document.getElementsByClassName("upload-continue-button")[0];
-        if (continueButton && uploadFileButton) {
+        if (uploadFileButton) {
+            const continueButton = document.getElementsByClassName("upload-continue-button")[0];
             inputFileUpload.addEventListener('change', (e) => {
                 if (continueButton) {
                     continueButton.disabled = true;
@@ -91,5 +91,79 @@ document.addEventListener('DOMContentLoaded', () => {
                 warningText.style.display = new Date(e.target.value) <= maxDate ?  "none" : "block";
             });
         }
+    }
+
+    const paOrg1Select = document.getElementsByClassName("pa-org-1-select")[0];
+    if (paOrg1Select) {
+        const paOrg2Select = document.getElementsByClassName("pa-org-2-select")[0];
+        const paOrg1 = document.getElementsByClassName("pa-org-1")[0];
+        const paOrg2 = document.getElementsByClassName("pa-org-2")[0];
+        if (paOrg1.value === "") {
+            document.getElementsByClassName("pa-org-1-fg")[0].style.display = "block";
+            document.getElementsByClassName("pa-org-2-fg")[0].style.display = "block";
+        }
+        else {
+            const paOrg2Select = document.getElementsByClassName("pa-org-2-select")[0];
+            // Hide unrelated values
+            for (let index = 0; index < paOrg2Select.options.length; index++) {
+                const element = paOrg2Select.options[index];
+                if (element.parentElement.tagName === "OPTGROUP") {
+                    element.hidden = (element.parentElement.label !== paOrg1.value);
+                    element.parentElement.hidden = element.hidden;
+                    element.selected = !element.hidden && (element.label === paOrg2.value);
+                }
+            }
+            document.getElementsByClassName("pa-org-2-select-fg")[0].style.display = "block";
+            if (paOrg2.value === "") {
+                document.getElementsByClassName("pa-org-2-fg")[0].style.display = "block";
+            }
+        }
+
+
+        paOrg1Select.addEventListener('change', (e) => {
+            const paOrg1 = document.getElementsByClassName("pa-org-1")[0];
+            const paOrg2 = document.getElementsByClassName("pa-org-2")[0];
+            if (e.target.value === "") {
+                paOrg1.value = "";
+                paOrg2.value = "";
+                document.getElementsByClassName("pa-org-1-fg")[0].style.display = "block";
+                document.getElementsByClassName("pa-org-2-fg")[0].style.display = "block";
+                document.getElementsByClassName("pa-org-2-select-fg")[0].style.display = "none";
+            }
+            else {
+                paOrg1.value = e.target.value;
+                document.getElementsByClassName("pa-org-1-fg")[0].style.display = "none";
+                const paOrg2Select = document.getElementsByClassName("pa-org-2-select")[0];
+                // Hide unrelated values
+                for (let index = 0; index < paOrg2Select.options.length; index++) {
+                    const element = paOrg2Select.options[index];
+                    if (element.parentElement.tagName === "OPTGROUP") {
+                        element.hidden = (element.parentElement.label !== e.target.value);
+                        element.parentElement.hidden = element.hidden;
+                        element.selected = !element.hidden && (element.label === paOrg2.value);
+                    }
+                }
+                const paOrg2SelectFg = document.getElementsByClassName("pa-org-2-select-fg")[0].style.display = "block";
+                if (paOrg2Select.selectedOptions[0].value === "") {
+                    paOrg2.value = "";
+                    const paOrg2Fg = document.getElementsByClassName("pa-org-2-fg")[0].style.display = "block";
+                }
+                else {
+                    const paOrg2Fg = document.getElementsByClassName("pa-org-2-fg")[0].style.display = "none";
+                }
+            }
+        });
+
+        paOrg2Select.addEventListener('change', (e) => {
+            const paOrg2 = document.getElementsByClassName("pa-org-2")[0];
+            if (e.target.value === "") {
+                paOrg2.value = "";
+                document.getElementsByClassName("pa-org-2-fg")[0].style.display = "block";
+            }
+            else {
+                paOrg2.value = e.target.value;
+                document.getElementsByClassName("pa-org-2-fg")[0].style.display = "none";
+            }
+        });
     }
 });

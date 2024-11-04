@@ -7,19 +7,19 @@
     <h1 class="govuk-heading-l"><%= t('.heading') -%></h1>
 
     <%= govuk_summary_list do |summary_list|
-        summary_list.row do |row|
-            row.key { 'Referral type' }
-            row.value do 
+        summary_list.with_row do |row|
+            row.with_key { 'Referral type' }
+            row.with_value do 
                 render partial:"summary_value", 
                         locals: { value: t(@request.referral_type&.to_sym, scope: [:helpers, :label, :request, :referral_type_options]),
                                 field: :referral_type}
             end
-            row.action(href: request_step_path(:referral_type), visually_hidden_text: 'referral type')
+            row.with_action(href: request_step_path(:referral_type), visually_hidden_text: 'referral type')
         end
         if @request.previous_refno
-          summary_list.row do |row|
-            row.key { 'Previously submitted as' }
-            row.value { "#{@request.previous_refno} (#{@request.previous_status})" }
+          summary_list.with_row do |row|
+            row.with_key { 'Previously submitted as' }
+            row.with_value { "#{@request.previous_refno} (#{@request.previous_status})" }
           end
         end
     end %>
@@ -27,34 +27,34 @@
     <% if @request.referral_type == "call" %>
         <h2 class="govuk-heading-m">Called in by Secretary of State</h2>
         <%= govuk_summary_list do |summary_list|
-            summary_list.row do |row|
-                row.key { 'Call in direction document' }
-                row.value do 
+            summary_list.with_row do |row|
+                row.with_key { 'Call in direction document' }
+                row.with_value do 
                     render partial:"summary_value", 
                            locals: { value: @request.call_in.attached? ? @request.call_in.filename : nil,
                                     required: true}
                 end
-                row.action(href: request_step_path(:call_in_direction), visually_hidden_text: 'documents')
+                row.with_action(href: request_step_path(:call_in_direction), visually_hidden_text: 'documents')
             end
 
-            summary_list.row do |row|
-                row.key { 'Date of direction' }
-                row.value do 
+            summary_list.with_row do |row|
+                row.with_key { 'Date of direction' }
+                row.with_value do 
                     render partial:"summary_value", 
                            locals: { value: formatted_date(@request.direction_date),
                                     field: :direction_date}
                 end
-                row.action(href: request_step_path(:call_in_direction), visually_hidden_text: 'date of direction')
+                row.with_action(href: request_step_path(:call_in_direction), visually_hidden_text: 'date of direction')
             end
 
-            summary_list.row do |row|
-                row.key { 'Direction relates to' }
-                row.value do 
+            summary_list.with_row do |row|
+                row.with_key { 'Direction relates to' }
+                row.with_value do 
                     render partial:"summary_value", 
                            locals: {value: t(@request.call_in_type&.to_sym, scope: [:helpers, :label, :request, :call_in_type_options]),
                                     field: :call_in_type}
                 end
-                row.action(href: request_step_path(:call_in_type), visually_hidden_text: 'date of direction')
+                row.with_action(href: request_step_path(:call_in_type), visually_hidden_text: 'date of direction')
             end
 
          end %>
@@ -63,42 +63,42 @@
     <% if @request.referral_type == "par" %>
         <h2 class="govuk-heading-m">Post-award referral</h2>
         <%= govuk_summary_list do |summary_list|
-            summary_list.row do |row|
-                row.key { 'Referral document' }
-                row.value do 
+            summary_list.with_row do |row|
+                row.with_key { 'Referral document' }
+                row.with_value do 
                     render partial:"summary_value", 
                            locals: { value: @request.call_in.attached? ? @request.call_in.filename : nil,
                                     required: true}
                 end
-                row.action(href: request_step_path(:par_direction), visually_hidden_text: 'documents')
+                row.with_action(href: request_step_path(:par_direction), visually_hidden_text: 'documents')
             end
 
-            summary_list.row do |row|
-                row.key { 'Date of direction' }
-                row.value do 
+            summary_list.with_row do |row|
+                row.with_key { 'Date of direction' }
+                row.with_value do 
                     render partial:"summary_value", 
                            locals: { value: formatted_date(@request.direction_date),
                                     field: :direction_date}
                 end
-                row.action(href: request_step_path(:par_direction), visually_hidden_text: 'date of direction')
+                row.with_action(href: request_step_path(:par_direction), visually_hidden_text: 'date of direction')
             end
 
-            summary_list.row do |row|
-                row.key { 'Entered on BEIS database' }
-                row.value do 
+            summary_list.with_row do |row|
+                row.with_key { 'Entered on BEIS database' }
+                row.with_value do 
                   render partial:"summary_value", locals: {value: @request.par_on_td.present? ? t(@request.par_on_td&.to_sym, scope: [:helpers, :label, :request, :par_on_td_options]) : nil,
                   field: :par_on_td}
                 end
-                row.action(href: request_step_path(:par_transparency), visually_hidden_text: 'entered on BEIS database')
+                row.with_action(href: request_step_path(:par_transparency), visually_hidden_text: 'entered on BEIS database')
             end
 
             if @request.par_on_td == "y"
-              summary_list.row do |row|
-                  row.key { 'BEIS database reference number' }
-                  row.value do 
+              summary_list.with_row do |row|
+                  row.with_key { 'BEIS database reference number' }
+                  row.with_value do 
                     render partial:"summary_value", locals: {value: @request.par_td_ref_no, field: :par_td_ref_no}
                   end
-                  row.action(href: request_step_path(:par_transparency), visually_hidden_text: 'reference number')
+                  row.with_action(href: request_step_path(:par_transparency), visually_hidden_text: 'reference number')
               end
             end
          end %>
@@ -107,59 +107,59 @@
     <% if @request.scheme_subsidy == "scheme" %>
         <h2 class="govuk-heading-m">Subsidy scheme characteristics</h2>
         <%= govuk_summary_list do |summary_list|
-            summary_list.row do |row|
-                row.key { 'Subsidy scheme name' }
-                row.value do 
+            summary_list.with_row do |row|
+                row.with_key { 'Subsidy scheme name' }
+                row.with_value do 
                   render partial:"summary_value", locals: {value: @request.scheme_name, field: :scheme_name}
                 end
-                row.action(href: request_step_path(:scheme_info), visually_hidden_text: 'subsidy scheme name')
+                row.with_action(href: request_step_path(:scheme_info), visually_hidden_text: 'subsidy scheme name')
             end
 
-            summary_list.row do |row|
-                row.key { 'Public Authority name' }
-                row.value { @request.public_authority.pa_name}
+            summary_list.with_row do |row|
+                row.with_key { 'Public Authority name' }
+                row.with_value { @request.public_authority.pa_name}
             end
 
-            summary_list.row do |row|
-                row.key { 'Amount budgeted for scheme' }
-                row.value do 
+            summary_list.with_row do |row|
+                row.with_key { 'Amount budgeted for scheme' }
+                row.with_value do 
                     render partial:"summary_value", 
                            locals: {
                              value: @request.budget.present? ? "£#{format_numeric(@request, :budget)}" : nil, 
                              field: :budget
                             }
                 end
-                row.action(href: request_step_path(:scheme_info), visually_hidden_text: 'budget')
+                row.with_action(href: request_step_path(:scheme_info), visually_hidden_text: 'budget')
             end
 
-            summary_list.row do |row|
-                row.key { 'Maximum amount that can be given' }
-                row.value { @request.max_amt_s }
-                row.action(href: request_step_path(:scheme_info), visually_hidden_text: 'maximum amount')
+            summary_list.with_row do |row|
+                row.with_key { 'Maximum amount that can be given' }
+                row.with_value { @request.max_amt_s }
+                row.with_action(href: request_step_path(:scheme_info), visually_hidden_text: 'maximum amount')
             end
 
-            summary_list.row do |row|
-                row.key { 'Scheme in response to emergency' }
-                row.value do 
+            summary_list.with_row do |row|
+                row.with_key { 'Scheme in response to emergency' }
+                row.with_value do 
                   render partial:"summary_value", locals: {value: @request.is_emergency.present? ? t(@request.is_emergency, scope: "helpers.label.request.is_emergency_options") : nil,
                                                          field: :is_emergency}
                 end
-                row.action(href: request_step_path(:scheme_info), visually_hidden_text: 'for emergency')
+                row.with_action(href: request_step_path(:scheme_info), visually_hidden_text: 'for emergency')
             end
             
             if (@request.is_emergency == "y")
-              summary_list.row do |row|
-                  row.key { 'Emergency information' }
-                  row.value(classes:"app-pre-wrap") do
+              summary_list.with_row do |row|
+                  row.with_key { 'Emergency information' }
+                  row.with_value(classes:"app-pre-wrap") do
                     render partial:"summary_value", locals: {value: @request.emergency_desc, field: :emergency_desc}
                   end
-                  row.action(href: request_step_path(:scheme_info), visually_hidden_text: 'emergency description')
+                  row.with_action(href: request_step_path(:scheme_info), visually_hidden_text: 'emergency description')
               end
             end
            
-            summary_list.row do |row|
-                row.key { 'Subsidy forms' }
-                row.value do
+            summary_list.with_row do |row|
+                row.with_key { 'Subsidy forms' }
+                row.with_value do
                     values = translate_terms(@request.subsidy_forms, "subsidy_form_options")
                     if values.count > 0 
                        values.each do |v| %>
@@ -169,22 +169,22 @@
                        <p class="govuk-error-message">Required information missing</p>
                   <% end
                 end
-                row.action(href: request_step_path(:subsidy_forms), visually_hidden_text: 'subsidy forms')
+                row.with_action(href: request_step_path(:subsidy_forms), visually_hidden_text: 'subsidy forms')
             end
 
             if @request.subsidy_forms.present? && @request.subsidy_forms.include?("other")
-              summary_list.row do |row|
-                row.key { 'Other form' }
-                row.value do 
+              summary_list.with_row do |row|
+                row.with_key { 'Other form' }
+                row.with_value do 
                   render partial:"summary_value", locals: {value: @request.other_form, field: :other_form}
                 end
-                row.action(href: request_step_path(:subsidy_forms), visually_hidden_text: 'other form')
+                row.with_action(href: request_step_path(:subsidy_forms), visually_hidden_text: 'other form')
               end
             end
 
-            summary_list.row do |row|
-                row.key { 'Does scheme relate to goods or services' }
-                row.value do
+            summary_list.with_row do |row|
+                row.with_key { 'Does scheme relate to goods or services' }
+                row.with_value do
                     values = translate_terms(@request.ben_good_svr, "helpers.label.request.ben_good_svr_options")
                     if values.count > 0 
                        values.each do |v| %>
@@ -194,12 +194,12 @@
                        <p class="govuk-error-message">Required information missing</p>
                   <% end
                 end
-                row.action(href: request_step_path(:goods_services), visually_hidden_text: 'goods or services')
+                row.with_action(href: request_step_path(:goods_services), visually_hidden_text: 'goods or services')
             end
 
-            summary_list.row do |row|
-                row.key { 'Locations' }
-                row.value do
+            summary_list.with_row do |row|
+                row.with_key { 'Locations' }
+                row.with_value do
                     values = translate_terms(@request.location, "helpers.label.request.location_options")
                     if values.count > 0 
                        values.each do |v| %>
@@ -209,20 +209,20 @@
                        <p class="govuk-error-message">Required information missing</p>
                   <% end
                 end
-                row.action(href: request_step_path(:locations), visually_hidden_text: 'locations')
+                row.with_action(href: request_step_path(:locations), visually_hidden_text: 'locations')
             end
 
-            summary_list.row do |row|
-                row.key { 'Additional location information' }
-                row.value(classes:"app-pre-wrap") do 
+            summary_list.with_row do |row|
+                row.with_key { 'Additional location information' }
+                row.with_value(classes:"app-pre-wrap") do 
                    render partial:"summary_value", locals: {value: @request.other_loc, field: :other_loc}
                 end
-                row.action(href: request_step_path(:locations), visually_hidden_text: 'additional location information')
+                row.with_action(href: request_step_path(:locations), visually_hidden_text: 'additional location information')
            end
 
-            summary_list.row do |row|
-                row.key { 'Sectors' }
-                row.value do
+            summary_list.with_row do |row|
+                row.with_key { 'Sectors' }
+                row.with_value do
                     values = translate_terms(@request.sectors, "helpers.label.request.sectors_options")
                     if values.count > 0 
                        values.each do |v| %>
@@ -232,54 +232,62 @@
                        <p class="govuk-error-message">Required information missing</p>
                   <% end
                 end
-                row.action(href: request_step_path(:sectors), visually_hidden_text: 'sectors')
+                row.with_action(href: request_step_path(:sectors), visually_hidden_text: 'sectors')
             end
 
-            summary_list.row do |row|
-                row.key { 'Description' }
-                row.value(classes:"app-pre-wrap") do 
+            summary_list.with_row do |row|
+                row.with_key { 'Description' }
+                row.with_value(classes:"app-pre-wrap") do 
                   render partial:"summary_value", locals: {value: @request.description, field: :description}
                 end
-                row.action(href: request_step_path(:descriptions), visually_hidden_text: 'description')
+                row.with_action(href: request_step_path(:descriptions), visually_hidden_text: 'description')
             end
            
-            summary_list.row do |row|
-                row.key { 'Description is non-confidential' }
-                row.value(classes:"app-pre-wrap") do 
+            summary_list.with_row do |row|
+                row.with_key { 'Description is non-confidential' }
+                row.with_value(classes:"app-pre-wrap") do 
                 render partial:"summary_value", locals: {value: @request.is_nc.present? ? @request.is_nc.humanize : nil,
                                                          field: :is_nc}
                 end
-                row.action(href: request_step_path(:descriptions), visually_hidden_text: 'description')
+                row.with_action(href: request_step_path(:descriptions), visually_hidden_text: 'description')
             end
             
             if (@request.is_nc == "no")
-              summary_list.row do |row|
-                  row.key { 'Non-confidential description' }
-                  row.value(classes:"app-pre-wrap") do 
+              summary_list.with_row do |row|
+                  row.with_key { 'Non-confidential description' }
+                  row.with_value(classes:"app-pre-wrap") do 
                   render partial:"summary_value", locals: {value: @request.nc_description, field: :nc_description}
                   end
-                  row.action(href: request_step_path(:descriptions), visually_hidden_text: 'description')
+                  row.with_action(href: request_step_path(:descriptions), visually_hidden_text: 'description')
               end
             end
            
-            summary_list.row do |row|
-                row.key { 'Legal basis' }
-                row.value(classes:"app-pre-wrap") do 
-                   render partial:"summary_value", locals: {value: @request.legal, field: :legal}
+            summary_list.with_row do |row|
+                row.with_key { 'Contact email address' }
+                row.with_value do 
+                  render partial:"summary_value", locals: { value: @request.third_party_email,  field: :third_party_email }
                 end
-                row.action(href: request_step_path(:legal), visually_hidden_text: 'legal')
-            end
-            summary_list.row do |row|
-                row.key { 'Policy objective' }
-                row.value(classes:"app-pre-wrap") do 
-                   render partial:"summary_value", locals: {value: @request.policy, field: :policy}
-                end
-                row.action(href: request_step_path(:legal), visually_hidden_text: 'policy')
+                row.with_action(href: request_step_path(:descriptions), visually_hidden_text: 'contact email address')
             end
 
-            summary_list.row do |row|
-                row.key { 'Purposes' }
-                row.value do
+            summary_list.with_row do |row|
+                row.with_key { 'Legal basis' }
+                row.with_value(classes:"app-pre-wrap") do 
+                   render partial:"summary_value", locals: {value: @request.legal, field: :legal}
+                end
+                row.with_action(href: request_step_path(:legal), visually_hidden_text: 'legal')
+            end
+            summary_list.with_row do |row|
+                row.with_key { 'Policy objective' }
+                row.with_value(classes:"app-pre-wrap") do 
+                   render partial:"summary_value", locals: {value: @request.policy, field: :policy}
+                end
+                row.with_action(href: request_step_path(:legal), visually_hidden_text: 'policy')
+            end
+
+            summary_list.with_row do |row|
+                row.with_key { 'Purposes' }
+                row.with_value do
                     values = translate_terms(@request.purposes, "helpers.label.request.purposes_options")
                     if values.count > 0 
                        values.each do |v| %>
@@ -289,54 +297,54 @@
                        <p class="govuk-error-message">Required information missing</p>
                   <% end
                 end
-                row.action(href: request_step_path(:purposes), visually_hidden_text: 'purposes')
+                row.with_action(href: request_step_path(:purposes), visually_hidden_text: 'purposes')
             end
             if @request.purposes.present? && @request.purposes.include?("other")
-              summary_list.row do |row|
-                  row.key { 'Description of other purpose' }
-                  row.value do 
+              summary_list.with_row do |row|
+                  row.with_key { 'Description of other purpose' }
+                  row.with_value do 
                      render partial:"summary_value", locals: {value: @request.other_purpose, field: :other_purpose}
                   end
-                  row.action(href: request_step_path(:purposes), visually_hidden_text: 'other purpose')
+                  row.with_action(href: request_step_path(:purposes), visually_hidden_text: 'other purpose')
               end
             end
 
-            summary_list.row do |row|
-                row.key { 'Decision confirmation date' }
-                row.value do 
+            summary_list.with_row do |row|
+                row.with_key { 'Decision confirmation date' }
+                row.with_value do 
                     render partial:"summary_value", 
                            locals: { value: formatted_date(@request.confirm_date),
                                     field: :confirm_date}
                 end
-                row.action(href: request_step_path(:dates), visually_hidden_text: 'confirmation date')
+                row.with_action(href: request_step_path(:dates), visually_hidden_text: 'confirmation date')
             end
 
-            summary_list.row do |row|
-                row.key { 'Start date' }
-                row.value do 
+            summary_list.with_row do |row|
+                row.with_key { 'Start date' }
+                row.with_value do 
                     render partial:"summary_value", 
                            locals: { value: formatted_date(@request.start_date),
                                     field: :start_date}
                 end
-                row.action(href: request_step_path(:dates), visually_hidden_text: 'confirmation date')
+                row.with_action(href: request_step_path(:dates), visually_hidden_text: 'confirmation date')
             end
 
-            summary_list.row do |row|
-                row.key { 'End date' }
-                row.value do 
+            summary_list.with_row do |row|
+                row.with_key { 'End date' }
+                row.with_value do 
                     render partial:"summary_value", 
                            locals: { value: formatted_date(@request.end_date),
                                     field: :end_date}
                 end
-                row.action(href: request_step_path(:dates), visually_hidden_text: 'confirmation date')
+                row.with_action(href: request_step_path(:dates), visually_hidden_text: 'confirmation date')
             end
 
-            # summary_list.row do |row|
-            #     row.key { 'Location of further information' }
-            #     row.value(classes:"app-pre-wrap") do 
+            # summary_list.with_row do |row|
+            #     row.with_key { 'Location of further information' }
+            #     row.with_value(classes:"app-pre-wrap") do 
             #        render partial:"summary_value", locals: {value: @request.info_location, field: :info_location}
             #     end
-            #     row.action(href: request_step_path(:info_location), visually_hidden_text: 'policy')
+            #     row.with_action(href: request_step_path(:info_location), visually_hidden_text: 'policy')
             # end
        end %>
     <% end %>
@@ -344,122 +352,122 @@
     <% if @request.scheme_subsidy == "subsidy" %>
         <h2 class="govuk-heading-m">Subsidy characteristics</h2>
         <%= govuk_summary_list do |summary_list|
-            summary_list.row do |row|
-                row.key { 'Public Authority name' }
-                row.value { @request.public_authority.pa_name}
+            summary_list.with_row do |row|
+                row.with_key { 'Public Authority name' }
+                row.with_value { @request.public_authority.pa_name}
             end
 
-            summary_list.row do |row|
-                row.key { 'Subsidy form' }
-                row.value do 
+            summary_list.with_row do |row|
+                row.with_key { 'Subsidy form' }
+                row.with_value do 
                     render partial:"summary_value", 
                        locals: {value: @request.subsidy_form.present? ? t(@request.subsidy_form&.to_sym, scope: [:subsidy_form_options]) : nil,
                        field: :subsidy_form}
                 end
-                row.action(href: request_step_path(:subsidy_info), visually_hidden_text: 'subsidy form')
+                row.with_action(href: request_step_path(:subsidy_info), visually_hidden_text: 'subsidy form')
             end
 
             if @request.subsidy_form == "other"
-              summary_list.row do |row|
-                row.key { 'Other form' }
-                row.value do 
+              summary_list.with_row do |row|
+                row.with_key { 'Other form' }
+                row.with_value do 
                   render partial:"summary_value", locals: {value: @request.other_form, field: :other_form}
                 end
-                row.action(href: request_step_path(:subsidy_info), visually_hidden_text: 'tax range')
+                row.with_action(href: request_step_path(:subsidy_info), visually_hidden_text: 'tax range')
               end
             end
 
             if @request.subsidy_form != "tax"
-              summary_list.row do |row|
-                row.key { 'Award amount' }
-                row.value do 
+              summary_list.with_row do |row|
+                row.with_key { 'Award amount' }
+                row.with_value do 
                     render partial:"summary_value", locals: {value: @request.budget.present? ? "£#{format_numeric(@request, :budget)}" : nil, 
                                                            field: :budget}
                 end
-                row.action(text: "Change", href: request_step_path(:subsidy_info), visually_hidden_text: 'award amount')
+                row.with_action(text: "Change", href: request_step_path(:subsidy_info), visually_hidden_text: 'award amount')
               end
             else
-              summary_list.row do |row|
-                row.key { 'Tax award range' }
-                row.value do 
+              summary_list.with_row do |row|
+                row.with_key { 'Tax award range' }
+                row.with_value do 
                     render partial:"summary_value", 
                        locals: {value: @request.tax_amt.present? ? tax_amount_output(@request) : nil,
                        field: :tax_amt}
                 end
-                row.action(text: "Change", href: request_step_path(:subsidy_info), visually_hidden_text: 'tax amount')
+                row.with_action(text: "Change", href: request_step_path(:subsidy_info), visually_hidden_text: 'tax amount')
               end
             end
 
-            summary_list.row do |row|
-                row.key { 'Award confirmation date' }
-                row.value do 
+            summary_list.with_row do |row|
+                row.with_key { 'Award confirmation date' }
+                row.with_value do 
                     render partial:"summary_value", 
                            locals: { value: formatted_date(@request.confirm_date),
                                     field: :confirm_date}
                 end
-                row.action(href: request_step_path(:subsidy_info), visually_hidden_text: 'confirmation date')
+                row.with_action(href: request_step_path(:subsidy_info), visually_hidden_text: 'confirmation date')
             end
 
-            summary_list.row do |row|
-                row.key { 'Subsidy in response to emergency' }
-                row.value do 
+            summary_list.with_row do |row|
+                row.with_key { 'Subsidy in response to emergency' }
+                row.with_value do 
                   render partial:"summary_value", locals: {value: @request.is_emergency.present? ? t(@request.is_emergency, scope: "helpers.label.request.is_emergency_options") : nil,
                                                          field: :is_emergency}
                 end
-                row.action(href: request_step_path(:subsidy_info), visually_hidden_text: 'for emergency')
+                row.with_action(href: request_step_path(:subsidy_info), visually_hidden_text: 'for emergency')
             end
             
             if (@request.is_emergency == "y")
-              summary_list.row do |row|
-                  row.key { 'Emergency information' }
-                  row.value(classes:"app-pre-wrap") do
+              summary_list.with_row do |row|
+                  row.with_key { 'Emergency information' }
+                  row.with_value(classes:"app-pre-wrap") do
                     render partial:"summary_value", locals: {value: @request.emergency_desc, field: :emergency_desc}
                   end
-                  row.action(href: request_step_path(:subsidy_info), visually_hidden_text: 'emergency description')
+                  row.with_action(href: request_step_path(:subsidy_info), visually_hidden_text: 'emergency description')
               end
             end
            
-            summary_list.row do |row|
-                row.key { 'Beneficiary ID type' }
-                row.value do 
+            summary_list.with_row do |row|
+                row.with_key { 'Beneficiary ID type' }
+                row.with_value do 
                   render partial:"summary_value", 
                          locals: {
                            value: @request.ben_id_type.present? ? t(@request.ben_id_type&.to_sym, scope: "helpers.label.request.ben_id_type_options") : "", 
                            field: :ben_id_type }
                 end
-                row.action(href: request_step_path(:beneficiary), visually_hidden_text: 'beneficiary ID type')
+                row.with_action(href: request_step_path(:beneficiary), visually_hidden_text: 'beneficiary ID type')
             end
 
-            summary_list.row do |row|
-                row.key { 'Beneficiary ID' }
-                row.value do 
+            summary_list.with_row do |row|
+                row.with_key { 'Beneficiary ID' }
+                row.with_value do 
                   render partial:"summary_value", locals: { value: @request.ben_id,  field: :ben_id }
                 end
-                row.action(href: request_step_path(:beneficiary), visually_hidden_text: 'beneficiary ID')
+                row.with_action(href: request_step_path(:beneficiary), visually_hidden_text: 'beneficiary ID')
             end
 
-            summary_list.row do |row|
-                row.key { 'Beneficiary name' }
-                row.value do 
+            summary_list.with_row do |row|
+                row.with_key { 'Beneficiary name' }
+                row.with_value do 
                   render partial:"summary_value", locals: { value: @request.beneficiary,  field: :beneficiary }
                 end
-                row.action(href: request_step_path(:beneficiary), visually_hidden_text: 'beneficiary name')
+                row.with_action(href: request_step_path(:beneficiary), visually_hidden_text: 'beneficiary name')
             end
 
-            summary_list.row do |row|
-                row.key { 'Beneficiary size' }
-                row.value do 
+            summary_list.with_row do |row|
+                row.with_key { 'Beneficiary size' }
+                row.with_value do 
                   render partial:"summary_value", 
                          locals: {
                            value: @request.ben_size.present? ? t(@request.ben_size&.to_sym, scope: "helpers.label.request.ben_size_options") : "", 
                            field: :ben_size }
                 end
-                row.action(href: request_step_path(:beneficiary), visually_hidden_text: 'beneficiary ID type')
+                row.with_action(href: request_step_path(:beneficiary), visually_hidden_text: 'beneficiary ID type')
             end
 
-            summary_list.row do |row|
-                row.key { 'Does subsidy relate to goods or services' }
-                row.value do
+            summary_list.with_row do |row|
+                row.with_key { 'Does subsidy relate to goods or services' }
+                row.with_value do
                     values = translate_terms(@request.ben_good_svr, "helpers.label.request.ben_good_svr_options")
                     if values.count > 0 
                        values.each do |v| %>
@@ -469,12 +477,12 @@
                        <p class="govuk-error-message">Required information missing</p>
                   <% end
                 end
-                row.action(href: request_step_path(:goods_services), visually_hidden_text: 'goods or services')
+                row.with_action(href: request_step_path(:goods_services), visually_hidden_text: 'goods or services')
             end
 
-            summary_list.row do |row|
-                row.key { 'Location of spend' }
-                row.value do
+            summary_list.with_row do |row|
+                row.with_key { 'Location of spend' }
+                row.with_value do
                     values = translate_terms(@request.location, "helpers.label.request.location_options")
                     if values.count > 0 
                        values.each do |v| %>
@@ -484,20 +492,20 @@
                        <p class="govuk-error-message">Required information missing</p>
                   <% end
                 end
-                row.action(href: request_step_path(:location), visually_hidden_text: 'spend location')
+                row.with_action(href: request_step_path(:location), visually_hidden_text: 'spend location')
             end
 
-            summary_list.row do |row|
-                row.key { 'Additional location information' }
-                row.value(classes:"app-pre-wrap") do 
+            summary_list.with_row do |row|
+                row.with_key { 'Additional location information' }
+                row.with_value(classes:"app-pre-wrap") do 
                    render partial:"summary_value", locals: {value: @request.other_loc, field: :other_loc}
                 end
-                row.action(href: request_step_path(:location), visually_hidden_text: 'spend location')
+                row.with_action(href: request_step_path(:location), visually_hidden_text: 'spend location')
            end
 
-            summary_list.row do |row|
-                row.key { 'Sector' }
-                row.value do
+            summary_list.with_row do |row|
+                row.with_key { 'Sector' }
+                row.with_value do
                     values = translate_terms(@request.sectors, "helpers.label.request.sectors_options")
                     if values.count > 0 
                        values.each do |v| %>
@@ -507,55 +515,63 @@
                        <p class="govuk-error-message">Required information missing</p>
                   <% end
                 end
-                row.action(href: request_step_path(:sector), visually_hidden_text: 'sector')
+                row.with_action(href: request_step_path(:sector), visually_hidden_text: 'sector')
             end
 
-            summary_list.row do |row|
-                row.key { 'Description' }
-                row.value(classes:"app-pre-wrap") do 
+            summary_list.with_row do |row|
+                row.with_key { 'Description' }
+                row.with_value(classes:"app-pre-wrap") do 
                 render partial:"summary_value", locals: {value: @request.description, field: :description}
                 end
-                row.action(href: request_step_path(:descriptions), visually_hidden_text: 'description')
+                row.with_action(href: request_step_path(:descriptions), visually_hidden_text: 'description')
             end
            
-            summary_list.row do |row|
-                row.key { 'Description is non-confidential' }
-                row.value(classes:"app-pre-wrap") do 
+            summary_list.with_row do |row|
+                row.with_key { 'Description is non-confidential' }
+                row.with_value(classes:"app-pre-wrap") do 
                 render partial:"summary_value", locals: {value: @request.is_nc.present? ? @request.is_nc.humanize : nil,
                                                          field: :is_nc}
                 end
-                row.action(href: request_step_path(:descriptions), visually_hidden_text: 'description')
+                row.with_action(href: request_step_path(:descriptions), visually_hidden_text: 'description')
             end
             
             if (@request.is_nc == "no")
-              summary_list.row do |row|
-                  row.key { 'Non-confidential description' }
-                  row.value(classes:"app-pre-wrap") do 
+              summary_list.with_row do |row|
+                  row.with_key { 'Non-confidential description' }
+                  row.with_value(classes:"app-pre-wrap") do 
                   render partial:"summary_value", locals: {value: @request.nc_description, 
                                                            field: :nc_description}
                   end
-                  row.action(href: request_step_path(:descriptions), visually_hidden_text: 'description')
+                  row.with_action(href: request_step_path(:descriptions), visually_hidden_text: 'description')
               end
             end
-           
-            summary_list.row do |row|
-                row.key { 'Legal basis' }
-                row.value(classes:"app-pre-wrap") do 
-                   render partial:"summary_value", locals: {value: @request.legal, field: :legal}
+
+            summary_list.with_row do |row|
+                row.with_key { 'Contact email address' }
+                row.with_value do 
+                  render partial:"summary_value", locals: { value: @request.third_party_email,  field: :third_party_email }
                 end
-                row.action(href: request_step_path(:legal), visually_hidden_text: 'legal')
-            end
-            summary_list.row do |row|
-                row.key { 'Policy objective' }
-                row.value(classes:"app-pre-wrap") do 
-                   render partial:"summary_value", locals: {value: @request.policy, field: :policy}
-                end
-                row.action(href: request_step_path(:legal), visually_hidden_text: 'policy')
+                row.with_action(href: request_step_path(:descriptions), visually_hidden_text: 'contact email address')
             end
 
-            summary_list.row do |row|
-                row.key { 'Purpose' }
-                row.value do
+            summary_list.with_row do |row|
+                row.with_key { 'Legal basis' }
+                row.with_value(classes:"app-pre-wrap") do 
+                   render partial:"summary_value", locals: {value: @request.legal, field: :legal}
+                end
+                row.with_action(href: request_step_path(:legal), visually_hidden_text: 'legal')
+            end
+            summary_list.with_row do |row|
+                row.with_key { 'Policy objective' }
+                row.with_value(classes:"app-pre-wrap") do 
+                   render partial:"summary_value", locals: {value: @request.policy, field: :policy}
+                end
+                row.with_action(href: request_step_path(:legal), visually_hidden_text: 'policy')
+            end
+
+            summary_list.with_row do |row|
+                row.with_key { 'Purpose' }
+                row.with_value do
                     values = translate_terms(@request.purposes, "helpers.label.request.purposes_options")
                     if values.count > 0 
                        values.each do |v| %>
@@ -565,44 +581,44 @@
                        <p class="govuk-error-message">Required information missing</p>
                   <% end
                 end
-                row.action(href: request_step_path(:purpose), visually_hidden_text: 'purpose')
+                row.with_action(href: request_step_path(:purpose), visually_hidden_text: 'purpose')
             end
             if @request.purposes.present? && @request.purposes.include?("other")
-              summary_list.row do |row|
-                  row.key { 'Description of other purpose' }
-                  row.value do 
+              summary_list.with_row do |row|
+                  row.with_key { 'Description of other purpose' }
+                  row.with_value do 
                      render partial:"summary_value", locals: {value: @request.other_purpose, field: :other_purpose}
                   end
-                  row.action(href: request_step_path(:purpose), visually_hidden_text: 'other purpose')
+                  row.with_action(href: request_step_path(:purpose), visually_hidden_text: 'other purpose')
               end
             end
 
-            # summary_list.row do |row|
-            #     row.key { 'Start date' }
-            #     row.value do 
+            # summary_list.with_row do |row|
+            #     row.with_key { 'Start date' }
+            #     row.with_value do 
             #         render partial:"summary_value", 
             #                locals: { value: formatted_date(@request.start_date),
             #                         field: :start_date}
             #     end
-            #     row.action(href: request_step_path(:dates), visually_hidden_text: 'confirmation date')
+            #     row.with_action(href: request_step_path(:dates), visually_hidden_text: 'confirmation date')
             # end
 
-            # summary_list.row do |row|
-            #     row.key { 'End date' }
-            #     row.value do 
+            # summary_list.with_row do |row|
+            #     row.with_key { 'End date' }
+            #     row.with_value do 
             #         render partial:"summary_value", 
             #                locals: { value: formatted_date(@request.end_date),
             #                         field: :end_date}
             #     end
-            #     row.action(href: request_step_path(:dates), visually_hidden_text: 'confirmation date')
+            #     row.with_action(href: request_step_path(:dates), visually_hidden_text: 'confirmation date')
             # end
 
-            # summary_list.row do |row|
-            #     row.key { 'Location of further information' }
-            #     row.value(classes:"app-pre-wrap") do 
+            # summary_list.with_row do |row|
+            #     row.with_key { 'Location of further information' }
+            #     row.with_value(classes:"app-pre-wrap") do 
             #        render partial:"summary_value", locals: {value: @request.info_location, field: :info_location}
             #     end
-            #     row.action(href: request_step_path(:info_location), visually_hidden_text: 'policy')
+            #     row.with_action(href: request_step_path(:info_location), visually_hidden_text: 'policy')
             # end
        end %>
     <% end %>
@@ -610,22 +626,22 @@
     <% unless @request.referral_type == "par" || (@request.referral_type == "call" && @request.call_in_type == "other" ) %>
         <h2 class="govuk-heading-m">Why the <%= scheme_subsidy_name(@request).downcase %> meets the characteristics of a <%= referral_type_shortname(@request) %></h2>
         <%= govuk_summary_list do |summary_list|
-            summary_list.row do |row|
-                row.key { 'Description' }
-                row.value(classes:"app-pre-wrap") do 
+            summary_list.with_row do |row|
+                row.with_key { 'Description' }
+                row.with_value(classes:"app-pre-wrap") do 
                    render partial:"summary_value", locals: {value: @request.character_desc, field: :character_desc}
                 end
-                row.action(href: request_step_path(:character_desc), visually_hidden_text: 'characteristics description')
+                row.with_action(href: request_step_path(:character_desc), visually_hidden_text: 'characteristics description')
             end
 
-            summary_list.row do |row|
-                row.key { 'Supporting documents' }
-                row.value do 
+            summary_list.with_row do |row|
+                row.with_key { 'Supporting documents' }
+                row.with_value do 
                 @request.ordered_character_desc_docs.each do |d| %>
                     <%=d.filename %><br>
                 <% end 
                 end
-                row.action(href: request_step_path(:character_desc), visually_hidden_text: 'characteristic documents')
+                row.with_action(href: request_step_path(:character_desc), visually_hidden_text: 'characteristic documents')
             end
         end %>
     <% end %>
@@ -633,20 +649,20 @@
     <% if @request.referral_type == "par" %>
     <h2 class="govuk-heading-m">Post-award referral assessment of compliance</h2>
         <%= govuk_summary_list do |summary_list|
-            summary_list.row do |row|
-                row.key { 'Was assessment carried out' }
-                row.value do 
+            summary_list.with_row do |row|
+                row.with_key { 'Was assessment carried out' }
+                row.with_value do 
                     render partial:"summary_value", 
                            locals: { value: @request.par_assessed.present? ? t(@request.par_assessed&.to_sym, scope: [:helpers, :label, :request, :par_assessed_options]) : nil,
                                     field: :par_assessed}
                 end
-                row.action(href: request_step_path(:par_assessment), visually_hidden_text: 'assessment carried out')
+                row.with_action(href: request_step_path(:par_assessment), visually_hidden_text: 'assessment carried out')
             end
 
             if @request.par_assessed == "n"
-              summary_list.row do |row|
-                  row.key { 'Why was assessment not carried out' }
-                  row.value(classes:"app-pre-wrap") do 
+              summary_list.with_row do |row|
+                  row.with_key { 'Why was assessment not carried out' }
+                  row.with_value(classes:"app-pre-wrap") do 
                      render partial:"summary_value", locals: {value: @request.par_reason, field: :par_reason}
                   end
               end
@@ -658,57 +674,57 @@
     <h2 class="govuk-heading-m">Assessment of Compliance</h2>
     <%= govuk_summary_list do |summary_list|
 
-        summary_list.row do |row|
-            row.key { 'Energy and Environment assessment carried out' }
-            row.value do 
+        summary_list.with_row do |row|
+            row.with_key { 'Energy and Environment assessment carried out' }
+            row.with_value do 
                 render partial:"summary_value", 
                         locals: { value: @request.ee_assess_required.present? ? t(@request.ee_assess_required&.to_sym, scope: [:helpers, :label, :request, :ee_assess_required_options]) : nil,
                                 field: :ee_assess_required}
             end
-            row.action(href: request_step_path(:ee_required), visually_hidden_text: 'confirmation date')
+            row.with_action(href: request_step_path(:ee_required), visually_hidden_text: 'confirmation date')
         end
 
-        summary_list.row do |row|
-            row.key { 'Chapter 2 prohibitions and requirements' }
-            row.value(classes:"app-pre-wrap") do 
+        summary_list.with_row do |row|
+            row.with_key { 'Chapter 2 prohibitions and requirements' }
+            row.with_value(classes:"app-pre-wrap") do 
             render partial:"summary_value", locals: {value: @request.is_c2_relevant.present? ? t(@request.is_c2_relevant&.to_sym, scope: [:helpers, :label, :request, :is_c2_relevant_options]) : nil,
                                                         field: :is_c2_relevant}
             end
-            row.action(href: request_step_path(:chapter_two), visually_hidden_text: 'Chapter 2 relevance')
+            row.with_action(href: request_step_path(:chapter_two), visually_hidden_text: 'Chapter 2 relevance')
         end
 
         if (@request.is_c2_relevant == "y")
-            summary_list.row do |row|
-                row.key { 'Chapter 2 details' }
-                row.value(classes:"app-pre-wrap") do 
+            summary_list.with_row do |row|
+                row.with_key { 'Chapter 2 details' }
+                row.with_value(classes:"app-pre-wrap") do 
                 render partial:"summary_value", locals: {value: @request.c2_description, field: :c2_description}
                 end
-                row.action(href: request_step_path(:chapter_two), visually_hidden_text: 'Chapter 2 description')
+                row.with_action(href: request_step_path(:chapter_two), visually_hidden_text: 'Chapter 2 description')
             end
         end
 
-        summary_list.row do |row|
-            row.key { 'Part 3 exemptions' }
-            row.value(classes:"app-pre-wrap") do 
+        summary_list.with_row do |row|
+            row.with_key { 'Part 3 exemptions' }
+            row.with_value(classes:"app-pre-wrap") do 
             render partial:"summary_value", locals: {value: @request.is_p3_relevant.present? ? t(@request.is_p3_relevant&.to_sym, scope: [:helpers, :label, :request, :is_p3_relevant_options]) : nil,
                                                         field: :is_p3_relevant}
             end
-            row.action(href: request_step_path(:part_three), visually_hidden_text: 'Part 3 relevance')
+            row.with_action(href: request_step_path(:part_three), visually_hidden_text: 'Part 3 relevance')
         end
 
         if (@request.is_p3_relevant == "y")
-            summary_list.row do |row|
-                row.key { 'Part 3 details' }
-                row.value(classes:"app-pre-wrap") do 
+            summary_list.with_row do |row|
+                row.with_key { 'Part 3 details' }
+                row.with_value(classes:"app-pre-wrap") do 
                 render partial:"summary_value", locals: {value: @request.p3_description, field: :p3_description}
                 end
-                row.action(href: request_step_path(:part_three), visually_hidden_text: 'Part 3 description')
+                row.with_action(href: request_step_path(:part_three), visually_hidden_text: 'Part 3 description')
             end
         end
 
-        summary_list.row do |row|
-            row.key { 'Supporting evidence' }
-            row.value do 
+        summary_list.with_row do |row|
+            row.with_key { 'Supporting evidence' }
+            row.with_value do 
                 if @request.assessment_docs.attached?
                     @request.ordered_assessment_docs.each do |d| %>
                         <%= d.filename %><br>
@@ -717,56 +733,56 @@
                     <p class="govuk-error-message">Required information missing</p>
                 <% end
             end
-            row.action(href: request_step_path(:assessment), visually_hidden_text: 'assessment evidence')
+            row.with_action(href: request_step_path(:assessment), visually_hidden_text: 'assessment evidence')
         end
     end %>
 
     <h2 class="govuk-heading-m">Assessment of Compliance with the Subsidy Control Principles</h2>
       <%= govuk_summary_list do |summary_list|
-          summary_list.row do |row|
-            row.action(href: request_step_path(:assessment), visually_hidden_text: 'assessment')
+          summary_list.with_row do |row|
+            row.with_action(href: request_step_path(:assessment), visually_hidden_text: 'assessment')
           end
         end %>
     <%= govuk_summary_list(actions: false) do |summary_list|
-        summary_list.row do |row|
-            row.key { 'Principle A' }
-            row.value(classes:"app-pre-wrap") do 
+        summary_list.with_row do |row|
+            row.with_key { 'Principle A' }
+            row.with_value(classes:"app-pre-wrap") do 
                render partial:"summary_value", locals: {value: @request.assess_pa, field: :assess_pa}
             end
         end
-        summary_list.row do |row|
-            row.key { 'Principle B' }
-            row.value(classes:"app-pre-wrap") do 
+        summary_list.with_row do |row|
+            row.with_key { 'Principle B' }
+            row.with_value(classes:"app-pre-wrap") do 
                render partial:"summary_value", locals: {value: @request.assess_pb, field: :assess_pb}
             end
         end
-        summary_list.row do |row|
-            row.key { 'Principle C' }
-            row.value(classes:"app-pre-wrap") do 
+        summary_list.with_row do |row|
+            row.with_key { 'Principle C' }
+            row.with_value(classes:"app-pre-wrap") do 
                render partial:"summary_value", locals: {value: @request.assess_pc, field: :assess_pc}
             end
         end
-        summary_list.row do |row|
-            row.key { 'Principle D' }
-            row.value(classes:"app-pre-wrap") do 
+        summary_list.with_row do |row|
+            row.with_key { 'Principle D' }
+            row.with_value(classes:"app-pre-wrap") do 
                render partial:"summary_value", locals: {value: @request.assess_pd, field: :assess_pd}
             end
         end
-        summary_list.row do |row|
-            row.key { 'Principle E' }
-            row.value(classes:"app-pre-wrap") do 
+        summary_list.with_row do |row|
+            row.with_key { 'Principle E' }
+            row.with_value(classes:"app-pre-wrap") do 
                render partial:"summary_value", locals: {value: @request.assess_pe, field: :assess_pe}
             end
         end
-        summary_list.row do |row|
-            row.key { 'Principle F' }
-            row.value(classes:"app-pre-wrap") do 
+        summary_list.with_row do |row|
+            row.with_key { 'Principle F' }
+            row.with_value(classes:"app-pre-wrap") do 
                render partial:"summary_value", locals: {value: @request.assess_pf, field: :assess_pf}
             end
         end
-        summary_list.row do |row|
-            row.key { 'Principle G' }
-            row.value(classes:"app-pre-wrap") do 
+        summary_list.with_row do |row|
+            row.with_key { 'Principle G' }
+            row.with_value(classes:"app-pre-wrap") do 
                render partial:"summary_value", locals: {value: @request.assess_pg, field: :assess_pg}
             end
         end
@@ -775,62 +791,62 @@
     <% if @request.ee_assess_required == "y" %>
     <h2 class="govuk-heading-m">Assessment of Compliance with the Energy and Environment Principles</h2>
       <%= govuk_summary_list do |summary_list|
-          summary_list.row do |row|
-            row.action(href: request_step_path(:ee_assessment), visually_hidden_text: 'energy and environment assessment')
+          summary_list.with_row do |row|
+            row.with_action(href: request_step_path(:ee_assessment), visually_hidden_text: 'energy and environment assessment')
           end
         end %>
       <%= govuk_summary_list(actions: false) do |summary_list|
-          summary_list.row do |row|
-              row.key { 'Principle A' }
-              row.value(classes:"app-pre-wrap") do 
+          summary_list.with_row do |row|
+              row.with_key { 'Principle A' }
+              row.with_value(classes:"app-pre-wrap") do 
                  render partial:"summary_value", locals: {value: @request.assess_ee_pa, field: :assess_ee_pa}
               end
           end
-          summary_list.row do |row|
-              row.key { 'Principle B' }
-              row.value(classes:"app-pre-wrap") do 
+          summary_list.with_row do |row|
+              row.with_key { 'Principle B' }
+              row.with_value(classes:"app-pre-wrap") do 
                  render partial:"summary_value", locals: {value: @request.assess_ee_pb, field: :assess_ee_pb}
               end
           end
-          summary_list.row do |row|
-              row.key { 'Principle C' }
-              row.value(classes:"app-pre-wrap") do 
+          summary_list.with_row do |row|
+              row.with_key { 'Principle C' }
+              row.with_value(classes:"app-pre-wrap") do 
                  render partial:"summary_value", locals: {value: @request.assess_ee_pc, field: :assess_ee_pc}
               end
           end
-          summary_list.row do |row|
-              row.key { 'Principle D' }
-              row.value(classes:"app-pre-wrap") do 
+          summary_list.with_row do |row|
+              row.with_key { 'Principle D' }
+              row.with_value(classes:"app-pre-wrap") do 
                  render partial:"summary_value", locals: {value: @request.assess_ee_pd, field: :assess_ee_pd}
               end
           end
-          summary_list.row do |row|
-              row.key { 'Principle E' }
-              row.value(classes:"app-pre-wrap") do 
+          summary_list.with_row do |row|
+              row.with_key { 'Principle E' }
+              row.with_value(classes:"app-pre-wrap") do 
                  render partial:"summary_value", locals: {value: @request.assess_ee_pe, field: :assess_ee_pe}
               end
           end
-          summary_list.row do |row|
-              row.key { 'Principle F' }
-              row.value(classes:"app-pre-wrap") do 
+          summary_list.with_row do |row|
+              row.with_key { 'Principle F' }
+              row.with_value(classes:"app-pre-wrap") do 
                  render partial:"summary_value", locals: {value: @request.assess_ee_pf, field: :assess_ee_pf}
               end
           end
-          summary_list.row do |row|
-              row.key { 'Principle G' }
-              row.value(classes:"app-pre-wrap") do 
+          summary_list.with_row do |row|
+              row.with_key { 'Principle G' }
+              row.with_value(classes:"app-pre-wrap") do 
                  render partial:"summary_value", locals: {value: @request.assess_ee_pg, field: :assess_ee_pg}
               end
           end
-          summary_list.row do |row|
-              row.key { 'Principle H' }
-              row.value(classes:"app-pre-wrap") do 
+          summary_list.with_row do |row|
+              row.with_key { 'Principle H' }
+              row.with_value(classes:"app-pre-wrap") do 
                  render partial:"summary_value", locals: {value: @request.assess_ee_ph, field: :assess_ee_ph}
               end
           end
-          summary_list.row do |row|
-              row.key { 'Principle I' }
-              row.value(classes:"app-pre-wrap") do 
+          summary_list.with_row do |row|
+              row.with_key { 'Principle I' }
+              row.with_value(classes:"app-pre-wrap") do 
                  render partial:"summary_value", locals: {value: @request.assess_ee_pi, field: :assess_ee_pi}
               end
           end
@@ -844,5 +860,5 @@
         <%= f.govuk_check_box :confirm_answers, 1, 0, multiple: false, link_errors: true %>
     <% end %>
   <% end %>
-  <%= f.govuk_submit t("buttons.confirm"), disabled: !@request.submitable?, classes: "sau-submission-button"  %>
+  <%= f.govuk_submit t("buttons.confirm"), disabled: !@request.submitable?, class: "sau-submission-button"  %>
 <% end %>

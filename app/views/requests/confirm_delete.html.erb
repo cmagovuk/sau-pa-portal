@@ -8,43 +8,43 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
    <%= govuk_summary_list(actions:false) do |summary_list|
-        summary_list.row do |row|
-            row.key { 'Referral type' }
-            row.value { t(@request.referral_type&.to_sym, scope: [:helpers, :label, :request, :referral_type_options]) }
+        summary_list.with_row do |row|
+            row.with_key { 'Referral type' }
+            row.with_value { t(@request.referral_type&.to_sym, scope: [:helpers, :label, :request, :referral_type_options]) }
         end
         if @request.previous_refno
-          summary_list.row do |row|
-            row.key { 'Previously submitted as' }
-            row.value { "#{@request.previous_refno} (#{@request.previous_status})" }
+          summary_list.with_row do |row|
+            row.with_key { 'Previously submitted as' }
+            row.with_value { "#{@request.previous_refno} (#{@request.previous_status})" }
           end
         end
 
         if @request.scheme_subsidy == "scheme"
-            summary_list.row do |row|
-                row.key { 'Subsidy scheme name' }
-                row.value { @request.scheme_name }
+            summary_list.with_row do |row|
+                row.with_key { 'Subsidy scheme name' }
+                row.with_value { @request.scheme_name }
             end
         end
 
         if @request.scheme_subsidy == "subsidy"
-            summary_list.row do |row|
-                row.key { 'Beneficiary name' }
-                row.value { @request.beneficiary }
+            summary_list.with_row do |row|
+                row.with_key { 'Beneficiary name' }
+                row.with_value { @request.beneficiary }
             end
         end
 
-        summary_list.row do |row|
-          row.key { 'Created by' }
-          row.value { @request.user.user_name }
+        summary_list.with_row do |row|
+          row.with_key { 'Created by' }
+          row.with_value { @request.user.user_name }
         end
-        summary_list.row do |row|
-          row.key { 'Created at' }
-          row.value { @request.created_at.strftime("%d/%m/%y %H:%M") }
+        summary_list.with_row do |row|
+          row.with_key { 'Created at' }
+          row.with_value { @request.created_at.strftime("%d/%m/%y %H:%M") }
         end
-        summary_list.row do |row|
-          row.key { 
+        summary_list.with_row do |row|
+          row.with_key { 
             'Last updated at' }
-          row.value { @request.updated_at.strftime("%d/%m/%y %H:%M") }
+          row.with_value { @request.updated_at.strftime("%d/%m/%y %H:%M") }
         end
     end %>
   </div>

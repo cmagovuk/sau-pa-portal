@@ -10,7 +10,7 @@
           multiple: false,
           enctype: "multipart/form-data",
           class: "upload-input" %>
-  <%= f.govuk_submit t("buttons.upload_files"), secondary: true, classes: "upload-files-button" %>
+  <%= f.govuk_submit t("buttons.upload_files"), secondary: true, class: "upload-files-button" %>
   <% if @request.call_in.id.present? %>
     <table class="govuk-table">
       <thead class="govuk-table__head">
@@ -25,7 +25,7 @@
           <td class="govuk-table__cell"><%=@request.call_in.filename %></td>
           <td class="govuk-table__cell app-hide-col"><%= number_to_human_size(@request.call_in.byte_size) %></td>
           <td class="govuk-table__cell">
-            <%= link_to request_step_path(step) +"/remove?doc_id="+ @request.call_in.id, method: :patch, class: 'govuk-link' do %>
+            <%= link_to request_step_path(step) +"/remove?doc_id="+ @request.call_in.id, class: 'govuk-link' do %>
               Remove<span class="govuk-visually-hidden"> file <%= @request.call_in.filename %></span>
             <% end %>
           </td>
@@ -37,5 +37,5 @@
   <%= f.govuk_date_field :direction_date, maxlength_enabled: true, 
     legend: { size:'s', tag: 'p', class: "govuk-fieldset__legend govuk-fieldset__legend--s govuk-!-font-weight-regular" } %>
 
-  <%= f.govuk_submit t("buttons.submit"), classes: "upload-continue-button", name: "continue" %>
+  <%= f.govuk_submit t("buttons.submit"), class: "upload-continue-button", name: "continue" %>
 <% end %>

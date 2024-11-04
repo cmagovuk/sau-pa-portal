@@ -23,6 +23,9 @@ en:
         invalid: Enter an email address in the correct format, like name@example.com
         taken: Email address has already been added
         domain: Email domain must match your own organisation domain '@%{domain}'
+      third_party_email:
+        invalid: Enter an email address in the correct format, like name@example.com
+        too_long: Email address must be %{count} characters or fewer
       user_name:
         blank: Enter the users name
         too_long: Name must be %{count} characters or fewer
@@ -121,6 +124,22 @@ en:
         in_past: Report due date must be today or in the future
         in_future: Report due date cannot be this far in the future
         blank: Enter date report is due
+      other_issues_link:
+        format: Enter a link, starting 'https://'
+      final_report_url:
+        format: Enter a link, starting 'https://'
+        too_long: Final report link must be %{count} words or fewer
+      value:
+        less_than: Value must be less than %{count}
+        not_a_number: Value must be a number
+        greater_than: Value must be more than %{count}
+      referral_name:
+        too_long: Referral name must be %{count} words or fewer
+      principle_adviser:
+        too_long: Principal Subsidy Adviser name must be %{count} words or fewer
+      assist_director:
+        too_long: Assistant Director must be %{count} words or fewer
+
     upload:
       file_size_error_message: "%{filename} must be smaller than %{size_limit}"
       only_one_file_error_message: "You are limited to 1 document"
@@ -141,9 +160,16 @@ en:
     request_withdraw:
       blank_reason_and_document: Enter a reason or upload a document
 
+
   activemodel:
     errors:
       models:
+        sau_user_form:
+          attributes:
+            email_addr:
+              blank: Enter the users email address
+              too_long: Email address must be %{count} characters or fewer
+              invalid: Enter an email address in the correct format, like name@example.com
         set_decision_form:
           attributes: 
             decision:

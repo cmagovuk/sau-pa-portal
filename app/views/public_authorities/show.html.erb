@@ -15,7 +15,7 @@
     <div class="govuk-grid-column-one-third">
     <br>
       <div class="govuk-button-group">
-        <%= f.govuk_submit "Filter", secondary: true, classes: "sau-filter-btn" %>
+        <%= f.govuk_submit "Filter", secondary: true, class: "sau-filter-btn" %>
       </div>
     </div>
   </div>
@@ -24,22 +24,22 @@
   <div class="govuk-grid-column-full">
 
   <%= govuk_table do |table|
-    table.caption(size: 'm', text: 'Super users')
+    table.with_caption(size: 'm', text: 'Super users')
 
-    table.head do |head|
-      head.row do |row|
-        row.cell(header: true, text: 'Name')
-        row.cell(header: true, text: 'Email')
-        row.cell(header: true, text: 'Action')
+    table.with_head do |head|
+      head.with_row do |row|
+        row.with_cell(header: true, text: 'Name')
+        row.with_cell(header: true, text: 'Email')
+        row.with_cell(header: true, text: 'Action')
       end
     end
 
-    table.body do |body|
+    table.with_body do |body|
       @users.select { |u| u.role == 'su' }.each do |user| 
-        body.row do |row|
-          row.cell(text: user.user_name)
-          row.cell(text: user.email)
-          row.cell do |cell|
+        body.with_row do |row|
+          row.with_cell(text: user.user_name)
+          row.with_cell(text: user.email)
+          row.with_cell do |cell|
             render "layouts/user_actions", user: user, src: "pa"
           end
         end
@@ -48,22 +48,22 @@
   end
   %>
   <%= govuk_table do |table|
-    table.caption(size: 'm', text: 'Standard users')
+    table.with_caption(size: 'm', text: 'Standard users')
 
-    table.head do |head|
-      head.row do |row|
-        row.cell(header: true, text: 'Name')
-        row.cell(header: true, text: 'Email')
-        row.cell(header: true, text: 'Action')
+    table.with_head do |head|
+      head.with_row do |row|
+        row.with_cell(header: true, text: 'Name')
+        row.with_cell(header: true, text: 'Email')
+        row.with_cell(header: true, text: 'Action')
       end
     end
 
-    table.body do |body|
+    table.with_body do |body|
       @users.select { |u| u.role == 'u' }.each do |user| 
-        body.row do |row|
-          row.cell(text: user.user_name)
-          row.cell(text: user.email)
-          row.cell do |cell|
+        body.with_row do |row|
+          row.with_cell(text: user.user_name)
+          row.with_cell(text: user.email)
+          row.with_cell do |cell|
             render "layouts/user_actions", user: user, src: "pa"
           end
         end
@@ -72,22 +72,22 @@
   end
   %>
   <%= govuk_table do |table|
-    table.caption(size: 'm', text: 'Group admins')
+    table.with_caption(size: 'm', text: 'Group admins')
 
-    table.head do |head|
-      head.row do |row|
-        row.cell(header: true, text: 'Name')
-        row.cell(header: true, text: 'Email')
-        row.cell(header: true, text: 'Action')
+    table.with_head do |head|
+      head.with_row do |row|
+        row.with_cell(header: true, text: 'Name')
+        row.with_cell(header: true, text: 'Email')
+        row.with_cell(header: true, text: 'Action')
       end
     end
 
-    table.body do |body|
+    table.with_body do |body|
       @users.select { |u| u.role == 'ga' }.each do |user| 
-        body.row do |row|
-          row.cell(text: user.user_name)
-          row.cell(text: user.email)
-          row.cell do |cell|
+        body.with_row do |row|
+          row.with_cell(text: user.user_name)
+          row.with_cell(text: user.email)
+          row.with_cell do |cell|
             render "layouts/user_actions", user: user, src: "pa"
           end
         end

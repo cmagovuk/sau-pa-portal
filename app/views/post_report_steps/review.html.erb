@@ -1,0 +1,588 @@
+<% title(t('.page_title')) %>
+<%= render partial: 'back_link' %>
+<%= form_for @post_report, url: sau_request_post_report_step_path(params[:sau_request_id], params[:id]), :as => :post_report do |f| %>
+  <%= f.govuk_error_summary %>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <h1 class="govuk-heading-l"><%= t('.heading') -%></h1>
+    <h2 class="govuk-heading-m">Referral details</h2>
+    <%= govuk_summary_list do |summary_list|
+        summary_list.with_row do |row|
+            row.with_key { 'Public authorities' }
+            row.with_value do
+                compact_terms = @post_report.pa_names.select(&:present?)
+                if compact_terms.count > 0 
+                    compact_terms.each do |v| %>
+                    <%= v %><br>
+                <%   end
+                    else %> 
+                    <p class="govuk-error-message">Required information missing</p>
+                <% end
+            end
+            row.with_action(href: sau_request_post_report_step_path(params[:sau_request_id], :pa_names), visually_hidden_text: 'public authority names')
+        end
+        summary_list.with_row do |row|
+            row.with_key { 'Referral name' }
+            row.with_value do 
+                render partial:"summary_value", 
+                        locals: { value: @post_report.referral_name,
+                                field: :referral_name}
+            end
+            row.with_action(href: sau_request_post_report_step_path(params[:sau_request_id], :referral_details), visually_hidden_text: 'referral name')
+        end
+        if @post_report.request.status == "Completed"
+            summary_list.with_row do |row|
+                row.with_key { 'Were there any confi rep issues?' }
+                row.with_value do 
+                    render partial:"summary_value", 
+                            locals: { value: t(@post_report.confi_issues&.to_sym, scope: [:helpers, :label, :post_report, :confi_issues_options]),
+                                    field: :confi_issues}
+                end
+                row.with_action(href: sau_request_post_report_step_path(params[:sau_request_id], :referral_details), visually_hidden_text: 'special categories')
+            end
+            if @post_report.confi_issues == "y"
+                summary_list.with_row do |row|
+                    row.with_key { 'Confi rep issue details' }
+                    row.with_value(classes:"app-pre-wrap") do 
+                        render partial:"summary_value", 
+                                locals: { value: @post_report.confi_issues_text,
+                                        field: :confi_issues_text}
+                    end
+                    row.with_action(href: sau_request_post_report_step_path(params[:sau_request_id], :referral_details), visually_hidden_text: 'special categories text')
+                end
+            end
+            summary_list.with_row do |row|
+                row.with_key { 'Any special categories?' }
+                row.with_value do 
+                    render partial:"summary_value", 
+                            locals: { value: t(@post_report.special_cats&.to_sym, scope: [:helpers, :label, :post_report, :special_cats_options]),
+                                    field: :special_cats}
+                end
+                row.with_action(href: sau_request_post_report_step_path(params[:sau_request_id], :referral_details), visually_hidden_text: 'special categories')
+            end
+            if @post_report.special_cats == "y"
+                summary_list.with_row do |row|
+                    row.with_key { 'Special category details' }
+                    row.with_value do
+                        values = translate_terms(@post_report.special_cat_values, "helpers.label.post_report.special_cat_values_options")
+                        if values.count > 0 
+                        values.each do |v| %>
+                            <%= v %><br>
+                    <%   end
+                        else  %> 
+                        <p class="govuk-error-message">Required information missing</p>
+                    <% end
+                    end
+                    row.with_action(href: sau_request_post_report_step_path(params[:sau_request_id], :referral_details), visually_hidden_text: 'special categories text')
+                end
+            end
+            summary_list.with_row do |row|
+                row.with_key { 'Any relevant international obligations?' }
+                row.with_value do 
+                    render partial:"summary_value", 
+                            locals: { value: t(@post_report.intl_obligations&.to_sym, scope: [:helpers, :label, :post_report, :intl_obligations_options]),
+                                    field: :special_cats}
+                end
+                row.with_action(href: sau_request_post_report_step_path(params[:sau_request_id], :referral_details), visually_hidden_text: 'international obligations')
+            end
+            if @post_report.intl_obligations == "y"
+                summary_list.with_row do |row|
+                    row.with_key { 'Relevant international obligations' }
+                    row.with_value do
+                        values = translate_terms(@post_report.intl_obligation_values, "helpers.label.post_report.intl_obligation_values_options")
+                        if values.count > 0 
+                        values.each do |v| %>
+                            <%= v %><br>
+                    <%   end
+                        else  %> 
+                        <p class="govuk-error-message">Required information missing</p>
+                    <% end
+                    end
+                    row.with_action(href: sau_request_post_report_step_path(params[:sau_request_id], :referral_details), visually_hidden_text: 'special categories text')
+                end
+            end
+            summary_list.with_row do |row|
+                row.with_key { 'Did third parties make representations?' }
+                row.with_value do 
+                    render partial:"summary_value", 
+                            locals: { value: t(@post_report.third_party_reps&.to_sym, scope: [:helpers, :label, :post_report, :third_party_reps_options]),
+                                    field: :third_party_reps}
+                end
+                row.with_action(href: sau_request_post_report_step_path(params[:sau_request_id], :referral_details), visually_hidden_text: 'special categories')
+            end
+            if @post_report.third_party_reps == "y"
+                summary_list.with_row do |row|
+                    row.with_key { 'Third part representation details' }
+                    row.with_value(classes:"app-pre-wrap") do 
+                        render partial:"summary_value", 
+                                locals: { value: @post_report.third_party_reps_text,
+                                        field: :third_party_reps_text}
+                    end
+                    row.with_action(href: sau_request_post_report_step_path(params[:sau_request_id], :referral_details), visually_hidden_text: 'special categories text')
+                end
+            end
+            summary_list.with_row do |row|
+                row.with_key { 'Subsidy/scheme value' }
+                row.with_value do 
+                    render partial:"summary_value", 
+                            locals: { value: "£#{format_numeric(@post_report, :value)}",
+                                    field: :value}
+                end
+                row.with_action(href: sau_request_post_report_step_path(params[:sau_request_id], :referral_details), visually_hidden_text: 'value')
+            end
+
+            summary_list.with_row do |row|
+                row.with_key { 'Web link to the final report' }
+                row.with_value do 
+                    render partial:"summary_value", 
+                            locals: { value: @post_report.final_report_url,
+                                    field: :final_report_url}
+                end
+                row.with_action(href: sau_request_post_report_step_path(params[:sau_request_id], :referral_details), visually_hidden_text: 'value')
+            end
+            summary_list.with_row do |row|
+                row.with_key { 'Principal Subsidy Adviser' }
+                row.with_value do 
+                    render partial:"summary_value", 
+                            locals: { value: @post_report.principle_adviser,
+                                    field: :principle_adviser}
+                end
+                row.with_action(href: sau_request_post_report_step_path(params[:sau_request_id], :referral_details), visually_hidden_text: 'value')
+            end
+            summary_list.with_row do |row|
+                row.with_key { 'Assistant Director' }
+                row.with_value do 
+                    render partial:"summary_value", 
+                            locals: { value: @post_report.assist_director,
+                                    field: :assist_director}
+                end
+                row.with_action(href: sau_request_post_report_step_path(params[:sau_request_id], :referral_details), visually_hidden_text: 'value')
+            end
+        end
+        if @post_report.request.status == "Rejected"
+            summary_list.with_row do |row|
+                row.with_key { 'Why was the referral rejected?' }
+                row.with_value do 
+                    render partial:"summary_value", 
+                            locals: { value: @post_report.reject_reason,
+                                    field: :reject_reason}
+                end
+                row.with_action(href: sau_request_post_report_step_path(params[:sau_request_id], :referral_details), visually_hidden_text: 'rejected reason')
+            end
+        end
+
+        if @post_report.request.status == "Withdrawn"
+            summary_list.with_row do |row|
+                row.with_key { 'Why was the referral withdrawn?' }
+                row.with_value do 
+                    render partial:"summary_value", 
+                            locals: { value: @post_report.withdrawn_reason,
+                                    field: :withdrawn_reason}
+                end
+                row.with_action(href: sau_request_post_report_step_path(params[:sau_request_id], :referral_details), visually_hidden_text: 'withdrawn reason')
+            end
+        end
+    end %>
+
+    <% if %w[Withdrawn Completed].include?(@post_report.request.status) && @post_report.request.decision_letter.attached? %>
+    <h2 class="govuk-heading-m">Principle A</h2>
+    <%= govuk_summary_list do |summary_list|
+        summary_list.with_row do |row|
+            row.with_key { "Any issue relating to 'setting out and evidencing the specific policy objective(s)'?" }
+            row.with_value do 
+                render partial:"summary_value", 
+                        locals: { value: t(@post_report.pa_policy_evidence&.to_sym, scope: [:helpers, :label, :post_report, :pa_policy_evidence_options]),
+                                field: :pa_policy_evidence}
+            end
+            row.with_action(href: sau_request_post_report_step_path(params[:sau_request_id], :principle_a), visually_hidden_text: 'special categories')
+        end
+        if @post_report.pa_policy_evidence == "y"
+            summary_list.with_row do |row|
+                row.with_key { 'Relevant details' }
+                row.with_value(classes:"app-pre-wrap") do 
+                    render partial:"summary_value", 
+                            locals: { value: @post_report.pa_policy_evidence_text,
+                                    field: :pa_policy_evidence_text}
+                end
+                row.with_action(href: sau_request_post_report_step_path(params[:sau_request_id], :principle_a), visually_hidden_text: 'special categories text')
+            end
+        end
+        summary_list.with_row do |row|
+            row.with_key { "Any issue relating to 'remedy an identified market failure'?" }
+            row.with_value do 
+                render partial:"summary_value", 
+                        locals: { value: t(@post_report.pa_market_fail&.to_sym, scope: [:helpers, :label, :post_report, :pa_market_fail_options]),
+                                field: :pa_market_fail}
+            end
+            row.with_action(href: sau_request_post_report_step_path(params[:sau_request_id], :principle_a), visually_hidden_text: 'special categories')
+        end
+        if @post_report.pa_market_fail == "y"
+            summary_list.with_row do |row|
+                row.with_key { 'Relevant details' }
+                row.with_value(classes:"app-pre-wrap") do 
+                    render partial:"summary_value", 
+                            locals: { value: @post_report.pa_market_fail_text,
+                                    field: :pa_market_fail_text}
+                end
+                row.with_action(href: sau_request_post_report_step_path(params[:sau_request_id], :principle_a), visually_hidden_text: 'special categories text')
+            end
+        end
+        summary_list.with_row do |row|
+            row.with_key { "Any issue relating to 'address an equity rationale'?" }
+            row.with_value do 
+                render partial:"summary_value", 
+                        locals: { value: t(@post_report.pa_equity&.to_sym, scope: [:helpers, :label, :post_report, :pa_equity_options]),
+                                field: :pa_equity}
+            end
+            row.with_action(href: sau_request_post_report_step_path(params[:sau_request_id], :principle_a), visually_hidden_text: 'special categories')
+        end
+        if @post_report.pa_equity == "y"
+            summary_list.with_row do |row|
+                row.with_key { 'Relevant details' }
+                row.with_value(classes:"app-pre-wrap") do 
+                    render partial:"summary_value", 
+                            locals: { value: @post_report.pa_equity_text,
+                                    field: :pa_equity_text}
+                end
+                row.with_action(href: sau_request_post_report_step_path(params[:sau_request_id], :principle_a), visually_hidden_text: 'special categories text')
+            end
+        end
+    end %>
+
+    <h2 class="govuk-heading-m">Principle E</h2>
+    <%= govuk_summary_list do |summary_list|
+        summary_list.with_row do |row|
+            row.with_key { "Any issue relating to 'most appropriate instrument for addressing the policy objective'?" }
+            row.with_value do 
+                render partial:"summary_value", 
+                        locals: { value: t(@post_report.pe_policy&.to_sym, scope: [:helpers, :label, :post_report, :pe_policy_options]),
+                                field: :pe_policy}
+            end
+            row.with_action(href: sau_request_post_report_step_path(params[:sau_request_id], :principle_e), visually_hidden_text: 'special categories')
+        end
+        if @post_report.pe_policy == "y"
+            summary_list.with_row do |row|
+                row.with_key { 'Relevant details' }
+                row.with_value(classes:"app-pre-wrap") do 
+                    render partial:"summary_value", 
+                            locals: { value: @post_report.pe_policy_text,
+                                    field: :pe_policy_text}
+                end
+                row.with_action(href: sau_request_post_report_step_path(params[:sau_request_id], :principle_e), visually_hidden_text: 'special categories text')
+            end
+        end
+        summary_list.with_row do |row|
+            row.with_key { "Any issue relating to 'cannot be achieved through other, less distortive, means'?" }
+                row.with_value do 
+                    render partial:"summary_value", 
+                            locals: { value: t(@post_report.pe_other_means&.to_sym, scope: [:helpers, :label, :post_report, :pe_other_means_options]),
+                                    field: :pe_other_means}
+                end
+            row.with_action(href: sau_request_post_report_step_path(params[:sau_request_id], :principle_e), visually_hidden_text: 'special categories')
+        end
+        if @post_report.pe_other_means == "y"
+            summary_list.with_row do |row|
+                row.with_key { 'Relevant details' }
+                row.with_value(classes:"app-pre-wrap") do 
+                    render partial:"summary_value", 
+                            locals: { value: @post_report.pe_other_means_text,
+                                    field: :pe_other_means_text}
+                end
+                row.with_action(href: sau_request_post_report_step_path(params[:sau_request_id], :principle_e), visually_hidden_text: 'special categories text')
+            end
+        end
+    end %>
+
+    <h2 class="govuk-heading-m">Principle C</h2>
+    <%= govuk_summary_list do |summary_list|
+        summary_list.with_row do |row|
+            row.with_key { "Any issue relating to the counterfactual ('baseline for assessing change')?" }
+            row.with_value do 
+                render partial:"summary_value", 
+                        locals: { value: t(@post_report.pc_counterfactual&.to_sym, scope: [:helpers, :label, :post_report, :pc_counterfactual_options]),
+                                field: :pc_counterfactual}
+            end
+            row.with_action(href: sau_request_post_report_step_path(params[:sau_request_id], :principle_c), visually_hidden_text: 'special categories')
+        end
+        if @post_report.pc_counterfactual == "y"
+            summary_list.with_row do |row|
+                row.with_key { 'Relevant details' }
+                row.with_value(classes:"app-pre-wrap") do 
+                    render partial:"summary_value", 
+                            locals: { value: @post_report.pc_counterfactual_text,
+                                    field: :pc_counterfactual_text}
+                end
+                row.with_action(href: sau_request_post_report_step_path(params[:sau_request_id], :principle_c), visually_hidden_text: 'special categories text')
+            end
+        end
+        summary_list.with_row do |row|
+            row.with_key { "Any issue relating to 'changes in economic behaviour of the beneficiary'?" }
+            row.with_value do 
+                render partial:"summary_value", 
+                        locals: { value: t(@post_report.pc_eco_behaviour&.to_sym, scope: [:helpers, :label, :post_report, :pc_eco_behaviour_options]),
+                                field: :pc_eco_behaviour}
+            end
+            row.with_action(href: sau_request_post_report_step_path(params[:sau_request_id], :principle_c), visually_hidden_text: 'special categories')
+        end
+        if @post_report.pc_eco_behaviour == "y"
+            summary_list.with_row do |row|
+                row.with_key { 'Relevant details' }
+                row.with_value(classes:"app-pre-wrap") do 
+                    render partial:"summary_value", 
+                            locals: { value: @post_report.pc_eco_behaviour_text,
+                                    field: :pc_eco_behaviour_text}
+                end
+                row.with_action(href: sau_request_post_report_step_path(params[:sau_request_id], :principle_c), visually_hidden_text: 'special categories text')
+            end
+        end
+    end %>
+
+    <h2 class="govuk-heading-m">Principle D</h2>
+    <%= govuk_summary_list do |summary_list|
+        summary_list.with_row do |row|
+            row.with_key { "Any issue relating to additionality ('something that would not happen without the subsidy')?" }
+            row.with_value do 
+                render partial:"summary_value", 
+                        locals: { value: t(@post_report.pd_additionality&.to_sym, scope: [:helpers, :label, :post_report, :pd_additionality_options]),
+                                field: :pd_additionality}
+            end
+            row.with_action(href: sau_request_post_report_step_path(params[:sau_request_id], :principle_d), visually_hidden_text: 'special categories')
+        end
+        if @post_report.pd_additionality == "y"
+            summary_list.with_row do |row|
+                row.with_key { 'Relevant details' }
+                row.with_value(classes:"app-pre-wrap") do 
+                    render partial:"summary_value", 
+                            locals: { value: @post_report.pd_additionality_text,
+                                    field: :pd_additionality_text}
+                end
+                row.with_action(href: sau_request_post_report_step_path(params[:sau_request_id], :principle_d), visually_hidden_text: 'special categories text')
+            end
+        end
+        summary_list.with_row do |row|
+            row.with_key { "Any issue relating to 'costs that would be funded anyway'?" }
+            row.with_value do 
+                render partial:"summary_value", 
+                        locals: { value: t(@post_report.pd_costs&.to_sym, scope: [:helpers, :label, :post_report, :pd_costs_options]),
+                                field: :pd_costs}
+            end
+            row.with_action(href: sau_request_post_report_step_path(params[:sau_request_id], :principle_d), visually_hidden_text: 'special categories')
+        end
+        if @post_report.pd_costs == "y"
+            summary_list.with_row do |row|
+                row.with_key { 'Relevant details' }
+                row.with_value(classes:"app-pre-wrap") { @post_report.pd_costs_text }
+                row.with_value do 
+                    render partial:"summary_value", 
+                            locals: { value: @post_report.pd_costs_text,
+                                    field: :pd_costs_text}
+                end
+                row.with_action(href: sau_request_post_report_step_path(params[:sau_request_id], :principle_d), visually_hidden_text: 'special categories text')
+            end
+        end
+    end %>
+
+    <h2 class="govuk-heading-m">Principle B</h2>
+    <%= govuk_summary_list do |summary_list|
+        summary_list.with_row do |row|
+            row.with_key { "Any issue relating to proportionality and 'limited to what is necessary'?" }
+            row.with_value do 
+                render partial:"summary_value", 
+                        locals: { value: t(@post_report.pb_proportion&.to_sym, scope: [:helpers, :label, :post_report, :pb_proportion_options]),
+                                field: :pb_proportion}
+            end
+            row.with_action(href: sau_request_post_report_step_path(params[:sau_request_id], :principle_b), visually_hidden_text: 'special categories')
+        end
+        if @post_report.pb_proportion == "y"
+            summary_list.with_row do |row|
+                row.with_key { 'Relevant details' }
+                row.with_value(classes:"app-pre-wrap") do 
+                    render partial:"summary_value", 
+                            locals: { value: @post_report.pb_proportion_text,
+                                    field: :pb_proportion_text}
+                end
+                row.with_action(href: sau_request_post_report_step_path(params[:sau_request_id], :principle_b), visually_hidden_text: 'special categories text')
+            end
+        end
+    end %>
+
+    <h2 class="govuk-heading-m">Principle F</h2>
+    <%= govuk_summary_list do |summary_list|
+        summary_list.with_row do |row|
+            row.with_key { "Any issue relating to subsidy characteristics?" }
+            row.with_value do 
+                render partial:"summary_value", 
+                        locals: { value: t(@post_report.pf_subsidy_char&.to_sym, scope: [:helpers, :label, :post_report, :pf_subsidy_char_options]),
+                                field: :pf_subsidy_char}
+            end
+            row.with_action(href: sau_request_post_report_step_path(params[:sau_request_id], :principle_f), visually_hidden_text: 'special categories')
+        end
+        if @post_report.pf_subsidy_char == "y"
+            summary_list.with_row do |row|
+                row.with_key { 'Relevant details' }
+                row.with_value(classes:"app-pre-wrap") do 
+                    render partial:"summary_value", 
+                            locals: { value: @post_report.pf_subsidy_char_text,
+                                    field: :pf_subsidy_char_text}
+                end
+                row.with_action(href: sau_request_post_report_step_path(params[:sau_request_id], :principle_f), visually_hidden_text: 'special categories text')
+            end
+        end
+        summary_list.with_row do |row|
+            row.with_key { "Any issue relating to market characteristics?" }
+                row.with_value do 
+                    render partial:"summary_value", 
+                            locals: { value: t(@post_report.pf_market_char&.to_sym, scope: [:helpers, :label, :post_report, :pf_market_char_options]),
+                                    field: :pf_market_char}
+                end
+            row.with_action(href: sau_request_post_report_step_path(params[:sau_request_id], :principle_f), visually_hidden_text: 'special categories')
+        end
+        if @post_report.pf_market_char == "y"
+            summary_list.with_row do |row|
+                row.with_key { 'Relevant details' }
+                row.with_value(classes:"app-pre-wrap") do 
+                    render partial:"summary_value", 
+                            locals: { value: @post_report.pf_market_char_text,
+                                    field: :pf_market_char_text}
+                end
+                row.with_action(href: sau_request_post_report_step_path(params[:sau_request_id], :principle_f), visually_hidden_text: 'special categories text')
+            end
+        end
+    end %>
+
+    <h2 class="govuk-heading-m">Principle G</h2>
+    <%= govuk_summary_list do |summary_list|
+        summary_list.with_row do |row|
+            row.with_key { "Any issue relating to the balancing test and competition and investment in the UK?" }
+                row.with_value do 
+                    render partial:"summary_value", 
+                            locals: { value: t(@post_report.pg_balance_uk&.to_sym, scope: [:helpers, :label, :post_report, :pg_balance_uk_options]),
+                                    field: :pg_balance_uk}
+                end
+            row.with_action(href: sau_request_post_report_step_path(params[:sau_request_id], :principle_g), visually_hidden_text: 'special categories')
+        end
+        if @post_report.pg_balance_uk == "y"
+            summary_list.with_row do |row|
+                row.with_key { 'Relevant details' }
+                row.with_value(classes:"app-pre-wrap") do 
+                    render partial:"summary_value", 
+                            locals: { value: @post_report.pg_balance_uk_text,
+                                    field: :pg_balance_uk_text}
+                end
+                row.with_action(href: sau_request_post_report_step_path(params[:sau_request_id], :principle_g), visually_hidden_text: 'special categories text')
+            end
+        end
+        summary_list.with_row do |row|
+            row.with_key { "Any issue relating to balancing test and international trade or investment?" }
+                row.with_value do 
+                    render partial:"summary_value", 
+                            locals: { value: t(@post_report.pg_balance_intl&.to_sym, scope: [:helpers, :label, :post_report, :pg_balance_intl_options]),
+                                    field: :pg_balance_intl}
+                end
+            row.with_action(href: sau_request_post_report_step_path(params[:sau_request_id], :principle_g), visually_hidden_text: 'special categories')
+        end
+        if @post_report.pg_balance_intl == "y"
+            summary_list.with_row do |row|
+                row.with_key { 'Relevant details' }
+                row.with_value(classes:"app-pre-wrap") do 
+                    render partial:"summary_value", 
+                            locals: { value: @post_report.pg_balance_intl_text,
+                                    field: :pg_balance_intl_text}
+                end
+                row.with_action(href: sau_request_post_report_step_path(params[:sau_request_id], :principle_g), visually_hidden_text: 'special categories text')
+            end
+        end
+    end %>
+
+    <h2 class="govuk-heading-m">E&E Principles</h2>
+    <%= govuk_summary_list do |summary_list|
+        if @post_report.request.ee_assess_required != "y"
+            summary_list.with_row do |row|
+                row.with_key { "Should the E&E principles have been addressed?" }
+                row.with_value do 
+                    render partial:"summary_value", 
+                            locals: { value: t(@post_report.ee_required&.to_sym, scope: [:helpers, :label, :post_report, :ee_required_options]),
+                                    field: :ee_required}
+                end
+                row.with_action(href: sau_request_post_report_step_path(params[:sau_request_id], :ee_check), visually_hidden_text: 'special categories')
+            end
+        end
+        if @post_report.request.ee_assess_required == "y" || @post_report.ee_required == "y"
+            summary_list.with_row do |row|
+                row.with_key { "Which energy and environment principles were engaged in this referral?" }
+                row.with_value do
+                    values = translate_terms(@post_report.ee_principles, "helpers.label.post_report.ee_principles_options")
+                    if values.count > 0 
+                    values.each do |v| %>
+                        <%= v %><br>
+                <%   end
+                    else  %> 
+                    <p class="govuk-error-message">Required information missing</p>
+                <% end
+                end
+                row.with_action(href: sau_request_post_report_step_path(params[:sau_request_id], :ee_principles), visually_hidden_text: 'special categories')
+            end
+            summary_list.with_row do |row|
+                row.with_key { "Any issue relating to the energy and environment principles?" }
+                row.with_value do 
+                    render partial:"summary_value", 
+                            locals: { value: t(@post_report.ee_issues&.to_sym, scope: [:helpers, :label, :post_report, :ee_issues_options]),
+                                    field: :ee_issues}
+                end
+                row.with_action(href: sau_request_post_report_step_path(params[:sau_request_id], :ee_principles), visually_hidden_text: 'special categories')
+            end
+            if @post_report.ee_issues == "y"
+                summary_list.with_row do |row|
+                    row.with_key { 'Relevant details' }
+                    row.with_value(classes:"app-pre-wrap") do 
+                        render partial:"summary_value", 
+                                locals: { value: @post_report.ee_issues_text,
+                                        field: :ee_issues_text}
+                    end
+                    row.with_action(href: sau_request_post_report_step_path(params[:sau_request_id], :ee_principles), visually_hidden_text: 'special categories text')
+                end
+            end
+        end
+    end %>
+    <% end %>
+    <h2 class="govuk-heading-m">Other issues</h2>
+    <%= govuk_summary_list do |summary_list|
+        summary_list.with_row do |row|
+            row.with_key { "Any other issues or important features that were not covered in the other questions?" }
+            row.with_value do 
+                render partial:"summary_value", 
+                        locals: { value: t(@post_report.other_issues&.to_sym, scope: [:helpers, :label, :post_report, :other_issues_options]),
+                                field: :other_issues}
+            end
+            row.with_action(href: sau_request_post_report_step_path(params[:sau_request_id], :other_issues), visually_hidden_text: 'special categories')
+        end
+        if @post_report.other_issues == "y"
+
+            summary_list.with_row do |row|
+                row.with_key { 'Relevant details' }
+                if @post_report.other_issues_link.present? || @post_report.other_issues_text.present?
+                    row.with_value(classes:"app-pre-wrap", text: @post_report.other_issues_text)
+                else
+                    row.with_value do -%>
+                        <p class="govuk-error-message">Text or link required</p>
+                <% end
+                end
+                row.with_action(href: sau_request_post_report_step_path(params[:sau_request_id], :other_issues), visually_hidden_text: 'special categories text')
+            end
+            summary_list.with_row do |row|
+                row.with_key { 'Link to document' }
+                if @post_report.other_issues_link.present? || @post_report.other_issues_text.present?
+                    row.with_value(classes:"app-pre-wrap", text: @post_report.other_issues_link)
+                else
+                    row.with_value do -%>
+                        <p class="govuk-error-message">Text or link required</p>
+                <% end
+                end
+                row.with_action(href: sau_request_post_report_step_path(params[:sau_request_id], :other_issues), visually_hidden_text: 'special categories text')
+            end
+        end
+    end %>
+  </div>
+</div>
+  <%= f.govuk_submit "Submit", disabled: !@post_report.submitable?, classes: "sau-submission-button"  %>
+<% end %>

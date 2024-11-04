@@ -1,0 +1,17 @@
+<% title(t('.page_title')) %>
+<%= render partial: 'back_link' %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <%= form_for @post_report, url: sau_request_post_report_step_path(params[:sau_request_id], params[:id]), :as => :post_report do |f| %>
+      <%= f.govuk_error_summary %>
+      <%= f.govuk_fieldset legend: {text: t('.fieldset_legend'), size: 'l', tag: 'h1'} do %>
+        <%= render "relevant_question", choice_field: "pd_additionality", f: f %>
+        <%= render "relevant_question", choice_field: "pd_costs", f: f %>
+      <% end %>
+
+      <%= f.govuk_submit %>
+    <% end %>
+  </div>
+</div>

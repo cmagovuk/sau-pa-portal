@@ -1,0 +1,25 @@
+<% title(t('.page_title')) %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l"><%= t('.heading', team: t("sau_groups.#{params[:group]}")) %></h1>
+    <%= govuk_summary_list(actions: false) do |summary_list|
+        summary_list.with_row do |row|
+          row.with_key { 'User name' }
+          row.with_value(text: @user_data[0]["name"])
+        end
+
+        summary_list.with_row do |row|
+          row.with_key { 'Email address' }
+          row.with_value { @user_data[0]["email"] }
+        end
+      end %>
+
+    <div class="govuk-button-group">
+      <%= govuk_button_link_to t(".remove_button"), "#{remove_user_sau_user_path}?group=#{params[:group]}", method: :delete %>
+      <%= govuk_button_link_to t(".cancel_button"), 
+          "#{sau_users_path}##{t("sau_groups.#{params[:group]}").parameterize}", 
+          secondary: true %>
+    </div>
+  </div>
+</div>

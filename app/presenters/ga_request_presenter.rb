@@ -13,7 +13,7 @@ class GaRequestPresenter
     actions
   end
 
-  def info_actions
+  def info_actions(_auth_user)
     @info_actions ||= {
       "request-confirmed" => request_confirmed_action,
       "response-confirmed" => { link: nil, tag_text: "Completed", colour: nil },

@@ -54,6 +54,7 @@ prawn_document do |pdf|
       pdf_output_field(pdf, 'Non-confidential description', @request.nc_description)
     end
 
+    pdf_output_field(pdf, 'Contact email address', @request.third_party_email)
     pdf_output_field(pdf, 'Legal basis', @request.legal)
     pdf_output_field(pdf, 'Policy objective', @request.policy)
 
@@ -103,6 +104,7 @@ prawn_document do |pdf|
       pdf_output_field(pdf, 'Non-confidential description', @request.nc_description)
     end
 
+    pdf_output_field(pdf, 'Contact email address', @request.third_party_email)
     pdf_output_field(pdf, 'Legal basis', @request.legal)
     pdf_output_field(pdf, 'Policy objective', @request.policy)
 

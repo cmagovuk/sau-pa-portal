@@ -11,7 +11,7 @@ wb.styles do |style|
     header += ["Sectors", "Purposes", "Locations", "Beneficiary name", "Beneficiary ID type", "Beneficiary ID", "Beneficiary size"]
     header += ["Goods and services", "Start date", "End date", "Confirm date", "Submission date", "Decision date"]
     header += ["Report due date", "Completed date", "Call in date", "Call in type", "Direction date", "PAR on Transparency Db"]
-    header += ["Transparency Db ID", "Is PAR assessed", "Previous reference number", "Previous status"]
+    header += ["Transparency Db ID", "Is PAR assessed", "Previous reference number", "Previous status", "PA report level 1", "PA report level 2"]
 
     sheet.add_row header, style: heading
 
@@ -104,6 +104,10 @@ wb.styles do |style|
       export_data << r.previous_refno
       # Previous status
       export_data << r.previous_status
+      # PA report level 1
+      export_data << r.org_level_1
+      # PA report level 2
+      export_data << r.org_level_2
 
       sheet.add_row export_data
     end

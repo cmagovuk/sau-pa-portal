@@ -62,7 +62,7 @@ class WithdrawController < SauLeadershipController
   def restore
     @request = Request::Withdraw.find(params[:id])
     status = @request.internal_state.include?("Submitted") ? "Submitted" : "Accepted"
-    @request.update!(withdraw_reason: nil, status: status, internal_state: @request.new_internal_state("", status))
+    @request.update!(withdraw_reason: nil, status:, internal_state: @request.new_internal_state("", status))
     @request.withdraw_document.purge if @request.withdraw_document.attached?
     @request.sau_withdrawn_doc.purge if @request.sau_withdrawn_doc.attached?
     @request.audit_logs.create!(AuditLog.log(auth_user, :status_change, status: @request.status))

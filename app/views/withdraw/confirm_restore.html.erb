@@ -17,7 +17,7 @@ breadcrumbs = {
 
     <%= form_for @request, url: restore_withdraw_path, method: :post do |f| %>
       <%= f.govuk_error_summary %>
-      <%= f.govuk_submit t('.confirm_button'), classes: "sau-submission-button" do
+      <%= f.govuk_submit t('.confirm_button'), class: "sau-submission-button" do
           govuk_button_link_to t(".cancel_btn"), sau_request_path, secondary: true
       end %>
     <% end %>

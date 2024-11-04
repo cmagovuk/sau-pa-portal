@@ -1,0 +1,28 @@
+<% title(t('.page_title')) %>
+<%= render partial: 'back_link' %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <%= form_for @post_report, url: sau_request_post_report_step_path(params[:sau_request_id], params[:id]), :as => :post_report do |f| %>
+      <%= f.govuk_error_summary %>
+      <%= f.govuk_radio_buttons_fieldset :other_issues, 
+          legend: { size:'l' },
+          small:true do %>
+              <% PostReport::YES_NO_OPTIONS.each_with_index do |opt, idx| %>
+              <% if opt != "y" %>
+                  <%= f.govuk_radio_button :other_issues, opt, link_errors: idx == 0 %>
+              <% else %>
+                  <%= f.govuk_radio_button :other_issues, opt do %>
+                    <%= f.govuk_text_area :other_issues_text, max_chars: PostReport::MAX_CHAR_COUNT %>
+                    <p class="govuk-body govuk-!-font-weight-bold">OR</p>
+                    <%= f.govuk_text_field :other_issues_link %>
+                  <% end %>
+              <% end %>
+          <% end %>
+      <% end %>
+
+      <%= f.govuk_submit %>
+    <% end %>
+  </div>
+</div>

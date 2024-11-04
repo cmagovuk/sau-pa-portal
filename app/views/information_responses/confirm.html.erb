@@ -15,20 +15,20 @@ breadcrumbs = {
 
     <p class="govuk-body"><%= t('.summary') %></p>
     <%= govuk_summary_list do |summary_list|
-          summary_list.row do |row|
-            row.key { 'Response documents' }
-            row.value do 
+          summary_list.with_row do |row|
+            row.with_key { 'Response documents' }
+            row.with_value do 
               @information_request.ordered_response_doc.each do |d| %>
                 <%= d.filename %><br>
               <% end
             end
-            row.action(href: information_response_path, visually_hidden_text: 'response documents')
+            row.with_action(href: information_response_path, visually_hidden_text: 'response documents')
           end
       end %>
 
     <%= form_for @information_request, url: submit_information_response_path, method: :post do |f| %>
       <%= f.govuk_error_summary %>
-      <%= f.govuk_submit t('.confirm_button'), classes: "sau-submission-button" %>
+      <%= f.govuk_submit t('.confirm_button'), class: "sau-submission-button" %>
     <% end %>
   </div>
 </div>

@@ -4,16 +4,22 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby File.read(".ruby-version").chomp
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem "rails", "~> 6.1.4"
+gem "rails", "~> 7.0.8", ">= 7.0.8.1"
+
+# The modern asset pipeline for Rails [https://github.com/rails/propshaft]
+gem "propshaft"
 
 # Use postgresql as the database for Active Record
-gem "pg", ">= 0.18", "< 2.0"
+gem "pg", "= 1.5.6"
 
 # Use Puma as the app server
 gem "puma", "~> 5.3"
 
-# Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
-gem "webpacker"
+# Bundle and transpile JavaScript [https://github.com/rails/jsbundling-rails]
+gem "jsbundling-rails"
+
+# Bundle and process CSS [https://github.com/rails/cssbundling-rails]
+gem "cssbundling-rails"
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'

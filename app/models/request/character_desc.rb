@@ -34,7 +34,7 @@ class Request::CharacterDesc < Request
 
   def validate_documents?(docs)
     all_valid = true
-    docs.each_with_index do |doc, idx|
+    docs.compact_blank.each_with_index do |doc, idx|
       doc_valid = !too_many_files?(docs) && non_empty_file?(doc, idx) && valid_file_type?(doc, idx) && valid_file_extension?(doc, idx)
       all_valid &&= doc_valid
     end
@@ -79,7 +79,7 @@ private
   end
 
   def too_many_files?(docs)
-    return false unless (character_desc_docs.count + docs.count) > MAXIMUM_FILE_UPLOADS
+    return false unless (character_desc_docs.count + docs.compact_blank.count) > MAXIMUM_FILE_UPLOADS
 
     errors.add(:documents, I18n.t("errors.upload.too_many_files_error_message", file_uploads: MAXIMUM_FILE_UPLOADS))
     true

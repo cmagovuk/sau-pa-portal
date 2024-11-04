@@ -38,7 +38,7 @@ breadcrumbs = {
               <td class="govuk-table__cell"><%=@request.sau_withdrawn_doc.filename %></td>
               <td class="govuk-table__cell app-hide-col"><%= number_to_human_size(@request.sau_withdrawn_doc.byte_size) %></td>
               <td class="govuk-table__cell">
-                <%= link_to "#{remove_withdraw_path(@request)}?doc_id=#{@request.sau_withdrawn_doc.id}", method: :patch, class: 'govuk-link' do %>
+                <%= link_to "#{remove_withdraw_path(@request)}?doc_id=#{@request.sau_withdrawn_doc.id}", class: 'govuk-link' do %>
                   Remove<span class="govuk-visually-hidden"> file <%= @request.sau_withdrawn_doc.filename %></span>
                 <% end %>
               </td>
@@ -47,8 +47,8 @@ breadcrumbs = {
         </table>
       <% end %>
 
-      <%= f.govuk_submit t("buttons.upload_files"), secondary: true, classes: "upload-files-button" %>
-      <%= f.govuk_submit "Confirm withdraw", classes: "upload-continue-button", name: "continue" %>
+      <%= f.govuk_submit t("buttons.upload_files"), secondary: true, class: "upload-files-button" %>
+      <%= f.govuk_submit "Confirm withdraw", class: "upload-continue-button", name: "continue" %>
       <%= if  @request.status == "Pending withdrawal" 
         f.govuk_submit "Restore", secondary: true, name: "restore" 
        end %>

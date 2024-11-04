@@ -6,7 +6,9 @@ class InformationRequestsController < SauLeadershipController
   def create
     @information_request = Request.find(params[:id]).information_requests.new
 
-    if params[:information_request].present? && params[:information_request].key?(:documents)
+    if params[:information_request].present? &&
+        params[:information_request].key?(:documents) &&
+        params[:information_request][:documents].compact_blank.count.positive?
       if @information_request.valid_request_documents?(params[:information_request][:documents])
         @information_request.add_request_doc(params[:information_request][:documents])
         @information_request.update!(status: "request-unconfirmed")
@@ -26,6 +28,36 @@ class InformationRequestsController < SauLeadershipController
     information_request
   end
 
+  def amend
+    information_request
+  end
+
+  def amend_remove
+    information_request
+    if params.key?(:doc_id)
+      @information_request.remove_request_doc(params[:doc_id])
+      @information_request.request.audit_logs.create!(AuditLog.log(auth_user, :amend_remove, doc_set: "RFI"))
+      redirect_to amend_information_request_path(@information_request)
+    else
+      render :amend
+    end
+  end
+
+  def amend_update
+    information_request
+    if params[:information_request].present? && params[:information_request].key?(:request_doc)
+      if @information_request.valid_request_documents?(params[:information_request][:request_doc])
+        @information_request.add_request_doc(params[:information_request][:request_doc])
+        @information_request.request.audit_logs.create!(AuditLog.log(auth_user, :amend_added, doc_set: "RFI"))
+        redirect_to amend_information_request_path(@information_request)
+      else
+        render :amend
+      end
+    else
+      render :amend
+    end
+  end
+
   def remove
     information_request
     if params.key?(:doc_id)
@@ -43,7 +75,9 @@ class InformationRequestsController < SauLeadershipController
 
   def update
     information_request
-    if params[:information_request].present? && params[:information_request].key?(:request_doc)
+    if params[:information_request].present? &&
+        params[:information_request].key?(:request_doc) &&
+        params[:information_request][:request_doc].compact_blank.count.positive?
       if @information_request.valid_request_documents?(params[:information_request][:request_doc])
         @information_request.add_request_doc(params[:information_request][:request_doc])
         redirect_to edit_information_request_path(@information_request)

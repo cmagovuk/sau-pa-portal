@@ -1,0 +1,22 @@
+<% title(t('.page_title')) %>
+<%= render partial: 'back_link' %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-three-quarters">
+
+    <%= form_for @post_report, url: sau_request_post_report_step_path(params[:sau_request_id], params[:id]), :as => :post_report do |f| %>
+      <%= f.govuk_error_summary %>
+      <%= f.govuk_fieldset legend: {text: t('.fieldset_legend'), size: 'l', tag: 'h1'} do %>
+        <%= f.govuk_collection_check_boxes :ee_principles, 
+                                            PostReport::EE_PRINCIPLE_OPTIONS,
+                                            ->(option) {option}, ->(option) {option},
+                                            legend: {class: "govuk-fieldset__legend"}, small:true %>
+
+        <%= render "relevant_question", choice_field: "ee_issues", f: f %>
+
+      <% end %>
+
+      <%= f.govuk_submit %>
+    <% end %>
+  </div>
+</div>
